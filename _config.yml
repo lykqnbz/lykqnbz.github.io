@@ -1,37 +1,37 @@
-# Site settings
-title: Your Blog
-SEOTitle: 你的博客 | Your Blog
+# Site settings  
+title: 空的伸手摘星
+SEOTitle: 我的博客 | My Blog
 header-img: img/home-bg.jpg
-email: huxpro@gmail.com
+email: hongjianpiaoxiang@163.com
 description: ""
 keyword: ""
-url: "http://huangxuan.me"              # your host, for absolute URL
-baseurl: "/huxblog-boilerplate"         # for example, '/blog' if your blog hosted on 'host/blog'
+url: "http://wangxiang.men"              # host, for absolute URL
+baseurl: "/lykqnbz"         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 
-# SNS settings
+# SNS settings 社交关联username
 RSS: false
-weibo_username:     huxpro
-zhihu_username:     huxpro
-github_username:    huxpro
-#twitter_username:  huxpro
-facebook_username:  huxpro
+weibo_username:     空的伸手摘星
+zhihu_username:     王同志
+github_username:    AXiang
+facebook_username:  王翔
 
 
 
 # Build settings
-# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead. 
+# exclude:[  ]   -转换时排除某些文件、文件夹
 # highlighter: rouge
 permalink: pretty
-paginate: 10
+paginate: 10               #一页显示多少篇文章
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
-anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+anchorjs: true             # if you want to customize anchor. check out line:181 of `post.html` 自定义锚点修改_layouy/post.html 190行附近的anchorjs
+encoding:     "utf-8"
 
 
-
-# Gems
-# from PR#40, to support local preview for Jekyll 3.0
+# Gems  
+# from PR#40, to support local preview for Jekyll 3.0       jekyll3.0以上  使用必加参数
 gems: [jekyll-paginate]
 
 
@@ -49,27 +49,25 @@ kramdown:
 # Disqus settings
 #disqus_username: _your_disqus_short_name_
 
-# Duoshuo settings
-duoshuo_username: huxblog
-# Share component is depend on Comment so we can NOT use share only.
-duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+# Disqus settings（https://disqus.com/）   多说2017.6.1已经被被和谐，改用disqus
+disqus_username: lykqnbz
 
 
 
 
 # Analytics settings
 # Baidu Analytics
-ba_track_id: 4cc1f2d8f3067386cc5cdb626a202900
+ba_track_id: 405b99ad0dfebc7ee3049df100f49c92
 # Google Analytics
-ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
-ga_domain: huangxuan.me
+ga_track_id: 'UA-103680612-1'            # Format: UA-xxxxxx-xx
+ga_domain: auto
 
 
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "写写代码，做做设计，看看产品。世界那么大，多玩玩看看。"
-sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-about-description: "愿生命线满是星星。"
+sidebar-avatar: /img/xiang.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
@@ -82,21 +80,13 @@ featured-condition-size: 1              # A tag will be featured if the size of 
 # Friends
 friends: [
     {
-        title: "Hux Blog",
-        href: "http://huangxuan.me"
+        title: "AXiang Blog",
+        href: "http://wangxiang.men"
     },{
-        title: "Foo",
-        href: "#"
+        title: "NGA",
+        href: "http://bbs.nga.cn/"
     },{
-        title: "Bar",
-        href: "#"
-    },{
-        title: "Example Friends",
-        href: "#"
-    },{
-        title: "It helps SEO",
-        href: "#"
+        title: "ACFUN",
+        href: "http://www.acfun.tv/"
     }
 ]
-
-gems: [jekyll-paginate]
