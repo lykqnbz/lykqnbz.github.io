@@ -1,6 +1,6 @@
 # Site settings  
 title: 空的伸手摘星
-SEOTitle: 我的博客 | My Blog
+SEOTitle: 阿翔 | AXiang Blog
 header-img: img/home-bg.jpg
 email: hongjianpiaoxiang@163.com
 description: ""
@@ -13,7 +13,7 @@ baseurl: "/lykqnbz"         # for example, '/blog' if your blog hosted on 'host/
 # SNS settings 社交关联username
 RSS: false
 weibo_username:     空的伸手摘星
-zhihu_username:     王同志
+zhihu_username:     lykqnbz
 github_username:    AXiang
 facebook_username:  王翔
 
@@ -60,7 +60,7 @@ disqus_username: lykqnbz
 ba_track_id: 405b99ad0dfebc7ee3049df100f49c92
 # Google Analytics
 ga_track_id: 'UA-103680612-1'            # Format: UA-xxxxxx-xx
-ga_domain: auto
+ga_domain: wangxiang.men
 
 
 
