@@ -1,0 +1,75 @@
+---
+layout:     post
+title:      "初学常用git命令"
+subtitle:   "不适合人类阅读，非常水的自我笔记"
+date:       2017-08-01 09:32:15
+author:     "AXiang"
+header-img: "img/post-bg-git.jpg"
+tags:
+    - Git
+---
+> “更新到地老天荒 ----17.08.01”
+
+## 前言
+
+大三接触到Git和svn，是一种仰望和膜拜。可惜毕业后才开始慢慢学习去使用（估计山口山玩多了）。
+
+---
+
+## 正文
+
+大四实习了半年，学到的东西挺多，可惜忘得也不少。在毕业后就职前，正想着要找个能沉淀知识的方法，手写笔记是不可能适合
+我这种手癌懒猿的。于是乎便从网上照猫画虎的搞起了自己的github blog，写些自己的知识心得总结以及一些分享。
+
+第一篇正式的博文就写自己在搭建github blog时使用git牵涉到的一些常用命令，还有就是日常学习到新的git命令的分享。
+
+#### 参考资料
+
+- [Git官方网站](https://git-scm.com/)(国内访问和下载会比较慢，可以百度移步[git国内镜像](https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&srcqid=1179652933219750673&tn=12092018_17_hao_pg&wd=git%20%E9%95%9C%E5%83%8F&oq=git%2520%25E9%2595%259C%25E5%2583%258F&rsv_pq=fb5339a60000cf1e&rsv_t=2450cyhfIWeQRlgpPVt19ZIpKCC9czsYpDRlsiUeEFD43PoUHRL4tH4FwcWYLW1CpE0FSe%2FFUBEq&rqlang=cn&rsv_enter=0&inputT=29537&sug=git%25E4%25B8%258B%25E8%25BD%25BD&rsv_sug3=163&rsv_sug1=88&rsv_sug7=100&rsv_sug2=0&rsv_sug4=35257&rsv_sug=1))
+- [Git官方中文手册](https://git-scm.com/book/zh/v2)
+- [Git客户端图文详解安装配置](http://www.ihref.com/read-16377.html)
+- [廖雪峰的Git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
+- 待更新
+
+以上是我现阶段用到了一些参考文献。
+
+#### 安装命令
+
+虽然说window是较烂的开发平台，但是从小就上了微软的贼船，暂且先攻略Window环境下的Git使用。
+
+Window版的Git，可以直接从上述参考资料里直接下载.exe，可以按默认选项安装即可，其他什么都不用（相对于Linux和Mac，微软就是傻瓜型安装）。
+
+安装后，桌面右键有出现Git GUI Here 或是 Git Bash Here，则说明安装成功。
+
+安装成功后，可以设置一下自己的用户名和Email地址。
+
+```  
+
+<font class="git_dollar">$</font>git config --global user.name <font class="git_string">"Your Name"</font>  
+
+<font class="git_dollar">$</font>git config --global user.email <font class="git_string">"email@example.com"</font>
+
+```
+
+Git是分布式版本控制系统，所以每个人都应该有自己的标记，这个标记就是用户名和Email。  
+
+使用了`--global`这个参数后，表示这台机器所有的仓库都使用这个标记信息，当然之后也可以对取消或是对某个仓库指定不同的标记信息。
+
+#### 创建仓库
+
+首先要理解什么是仓库，仓库相当于一个项目文件夹，官方英文名：**repository**。Git的强大之处就是这个仓库的所有文件都会被Git管理起来，任何一个文件被修改、删除，Git都能跟踪到，也可以还原到过去的某个时刻。
+
+那我们来创建一个仓库，找一个适合的地方，新建一个空目录：
+
+```
+    $ mkdir myBlog
+    $ cd myBlog
+    $ pwd    
+    /Users/myBlog
+```  
+`mkdir` myBlog，表示创建一个名为myBlog的文件夹。你也可以直接右键新建文件夹，但是这种方式没有办法创建`.`开头的文件夹。  
+
+`touch` myFile，表示创建一个名为myFile的文件，直接右键新建的局限性同上，但是可以通过文件另存为将名字开头改成`.XXXX`。
+
+
+    
