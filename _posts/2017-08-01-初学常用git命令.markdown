@@ -43,11 +43,10 @@ Window版的Git，可以直接从上述参考资料里直接下载.exe，可以�
 
 安装成功后，可以设置一下自己的用户名和Email地址。
 
-```  
+```ruby  
 
-<font class="git_dollar">$</font>git config --global user.name <font class="git_string">"Your Name"</font>  
-
-<font class="git_dollar">$</font>git config --global user.email <font class="git_string">"email@example.com"</font>
+        `$` git config --global user.name "Your Name"
+        `$` git config --global user.email "email@example.com"
 
 ```
 
@@ -61,7 +60,7 @@ Git是分布式版本控制系统，所以每个人都应该有自己的标记�
 
 那我们来创建一个仓库，找一个适合的地方，新建一个空目录：
 
-```
+```ruby
     $ mkdir myBlog
     $ cd myBlog
     $ pwd    
@@ -70,6 +69,8 @@ Git是分布式版本控制系统，所以每个人都应该有自己的标记�
 `mkdir` myBlog，表示创建一个名为myBlog的文件夹。你也可以直接右键新建文件夹，但是这种方式没有办法创建`.`开头的文件夹。  
 
 `touch` myFile，表示创建一个名为myFile的文件，直接右键新建的局限性同上，但是可以通过文件另存为将名字开头改成`.XXXX`。
+
+
 
 
     
