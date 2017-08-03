@@ -12,7 +12,7 @@ tags:
 
 ## 前言
 
-大三接触到Git和svn，是一种仰望和膜拜。可惜毕业后才开始慢慢学习去使用（估计山口山玩多了）。
+大三接触到Git和svn，是仰望和膜拜。可惜毕业后才开始慢慢学习去使用（估计山口山玩多了）。
 
 ---
 
@@ -35,7 +35,7 @@ tags:
 
 #### 安装命令
 
-虽然说window是较烂的开发平台，但是从小就上了微软的贼船，暂且先攻略Window环境下的Git使用。
+虽说window是较烂的开发平台，但是从小就上了微软的贼船，暂且先攻略Window环境下的Git使用。
 
 Window版的Git，可以直接从上述参考资料里直接下载.exe，可以按默认选项安装即可，其他什么都不用（相对于Linux和Mac，微软就是傻瓜型安装）。
 
@@ -43,16 +43,20 @@ Window版的Git，可以直接从上述参考资料里直接下载.exe，可以�
 
 安装成功后，可以设置一下自己的用户名和Email地址。
 
-```ruby  
 
-        `$` git config --global user.name "Your Name"
-        `$` git config --global user.email "email@example.com"
+```ruby    
+
+    $ git config --global user.name "Your Name"  
+    $ git config --global user.email "email@example.com"    
+    $ git config --list
 
 ```
 
 Git是分布式版本控制系统，所以每个人都应该有自己的标记，这个标记就是用户名和Email。  
 
 使用了`--global`这个参数后，表示这台机器所有的仓库都使用这个标记信息，当然之后也可以对取消或是对某个仓库指定不同的标记信息。
+
+而`$ git config --list`则表示显示当前Git的配置。
 
 #### 创建仓库
 
@@ -61,15 +65,69 @@ Git是分布式版本控制系统，所以每个人都应该有自己的标记�
 那我们来创建一个仓库，找一个适合的地方，新建一个空目录：
 
 ```ruby
-    $ mkdir myBlog
-    $ cd myBlog
+
+    $ mkdir 文件夹名
+    $ cd 文件名
     $ pwd    
-    /Users/myBlog
+    /users/文件夹名
+
 ```  
-`mkdir` myBlog，表示创建一个名为myBlog的文件夹。你也可以直接右键新建文件夹，但是这种方式没有办法创建`.`开头的文件夹。  
+`mkdir 文件夹名`，表示创建一个文件夹。你也可以直接右键新建文件夹，但是这种方式没有办法创建`.`开头的文件夹。  
 
-`touch` myFile，表示创建一个名为myFile的文件，直接右键新建的局限性同上，但是可以通过文件另存为将名字开头改成`.XXXX`。
+`touch 文件名`，表示创建一个文件，直接右键新建的局限性同上，但是可以通过文件另存为将名字开头改成`.XXXX`。
 
+`vi 文件名`，表示新建一个文件并进入编辑状态（若文件存在则直接进入编辑状态）。
+
+Windows系统自带的CMD是使用Windows自己的命令，而Git Bash则使用的是Linux下的命令。
+
+vi其实是Linux下的一个文本编辑器，所以`vi 文件名`后，其实是进入了vi程序。vi存在两种模式，编辑模式和命令模式，有兴趣可以自行百度。
+
+`pwd`用于显示当前目录。Windows系统的通常惯例，最好确保目录名都不包含中文。
+
+`ls`用于显示当前目录所含文件。如果加上了 `ls -ah` 参数，则可以连隐藏文件一起显示。
+
+第二步，通过`git init`命令把这个目录变成Git可以管理的仓库：
+
+```ruby
+
+    $ git init
+    Initialized empty Git repository in /users/myBlog/.git/
+
+```
+
+打开目录，目录下多了一个.git文件夹，文件夹默认为隐藏模式，需要打开显示隐藏功能才能看到。这个目录是Git用来跟踪和管理仓库的，不需要我们改动。
+
+#### 增删改查
+
+![日常使用Git流程](/img/in-post/post-git/git-170802.png)
+
+日常使用Git只要记住上图6个命令，就可以了。但是熟练使用，恐怕要记住60～100个命令。
+
+下述是几个专有名词的译名。
+
+
+- Workspace：工作区
+- Index / Stage：暂存区
+- Repository：仓库区（或本地仓库）
+- Remote：远程仓库 
+
+##### 增加/删除文件
+
+```ruby
+
+    # 添加指定文件到暂存区
+    $ git add 文件名 
+
+    # 添加当前目录的所有文件到暂存区
+    $ git add .
+
+    # 删除工作区文件，并且将这次删除放入暂存区
+    $ git rm 文件名
+
+    # 改名文件（A改成B），并且将这个改名放入暂存区
+    $ git mv 文件名A 文件名B
+
+```
 
 
 
