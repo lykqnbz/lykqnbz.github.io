@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "初学常用git命令"
+title:      "初学Git命令笔记"
 subtitle:   "不适合人类阅读，非常水的自我笔记"
 date:       2017-08-01 09:32:15
 author:     "AXiang"
