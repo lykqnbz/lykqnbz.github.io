@@ -9,6 +9,8 @@ tags:
     - 笔记
 ---
 
+> “保存一些有用的网站，当做云端浏览器收藏夹 :D”
+
  - [Markdown 代码块语法高亮支持表](http://blog.csdn.net/u013553529/article/details/50629055)
 
 
