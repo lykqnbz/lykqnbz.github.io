@@ -2,7 +2,7 @@
 layout:     post
 title:      "初学Git命令笔记"
 subtitle:   "不适合人类阅读，非常水的自我笔记"
-date:       2017-08-01 09:32:15
+date:       2017-07-26 09:32:15
 author:     "AXiang"
 header-img: "img/post-bg-git.jpg"
 catalog:  true
