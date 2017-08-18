@@ -140,8 +140,40 @@ h1~h3内，其大小都设置为当前字号的65%，而在h4~h6内的字号都�
 对表格的行元素`<tr>`提供了五种表示不同意义颜色的类：
 ![5种<tr>提供的颜色类](/img/in-post/post-note/bootstrap-1708_3.jpg) 
 
+### 表单
+
+对应标签为`<form></form>`  
+**水平风格**：标签内添加`form-horizontal`  
+**内联表单**：标签内添加`form-inline`  
+
+##### 输入框input
+``` html
+
+<input type="email" class="form-control" placeholder="Enter email">
+
+```
+添加`.form-control`使其展示bootstrap风格，初始文字提示使用`placeholder`。
 
 
+##### 下拉选择框select
+``` html
 
+<form role="form">
+    <div class="form-group">
+        <select class="form-control">
+            <option>1</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <select multiple class="form-control">
+            <option>1</option>
+        </select>
+    </div>
+</form>
 
+```
+![添加multiple后的竖形效果](/img/in-post/post-note/bootstrap-1708_4.png) 
+
+##### 文本域textarea
+文本域和原始使用方法一样，设置`rows`可定义其高度，设置`cols`可以设置其宽度。但如果textarea元素中添加了类名`.form-control`类名，则无需设置`cols`属性。因为Bootstrap框架中的`.form-control`样式的表单控件宽度为100%或auto。
 
