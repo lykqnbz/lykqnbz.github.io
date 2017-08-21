@@ -76,25 +76,23 @@ h1~h3内，其大小都设置为当前字号的65%，而在h4~h6内的字号都�
 -  `.text-justify`：两端对齐
 
 ##### 列表 
-**无序列表**
 ``` html
+<!-- 无序列表 -->
     <ul>
         <li>…</li>
     </ul>
-```
-**无序列表**
-``` html
+    
+<!-- 有序列表 -->
     <ol>
         <li>…</li>
     </ol>
-```
-**定义列表**
-``` html
+<!-- 定义列表 -->
     <dl>
         <dt>…</dt>
         <dd>…</dd>
     </dl>
 ```
+
 -  `.list-unstyled`：去点列表
 -  `.list-inline`：内联列表
 -  `.dl-horizontal`：水平定义列表
@@ -146,6 +144,30 @@ h1~h3内，其大小都设置为当前字号的65%，而在h4~h6内的字号都�
 **水平风格**：标签内添加`form-horizontal`  
 **内联表单**：标签内添加`form-inline`  
 
+##### 表单控件大小
+
+一般看到的表单控件都正常的大小，可以自定义大小，也可以是用Bootstrap提供的两个不同的类名：`.input-sm`,`.input-lg`，主要适用于`input`，`textarea`，`select`。
+
+##### 表单控件的状态
+
+- 焦点状态： :focus
+- 禁用状态:  disabled
+- 验证状态： .has-warning:警告状态（黄色）
+-           .has-error：错误状态（红色）
+-           .has-success：成功状态（绿色）
+- 提醒状态： .help-block
+
+焦点状态通过伪类`：focus`来实现，而禁用状态则是在表单控件上添加属性`disabled`。在制作表单时，不免要做表单验证。同样也需要提供验证状态样式，Bootstrap提供了以上3种效果。使用的时候需要在form-group容器上对应添加状态类名。而提醒状态这是在表单验证时，提供不同的提示信息。
+
+##### icon图标
+``` html
+
+<span class="glyphiconglyphicon-warning-sign"></span>
+
+```
+所有icon都是以”glyphicon-”前缀的类名开始，然后后缀表示图标的名称。   
+[Bootstrap 提供的字体图标](http://v3.bootcss.com/components/)
+
 ##### 输入框input
 ``` html
 
@@ -176,4 +198,51 @@ h1~h3内，其大小都设置为当前字号的65%，而在h4~h6内的字号都�
 
 ##### 文本域textarea
 文本域和原始使用方法一样，设置`rows`可定义其高度，设置`cols`可以设置其宽度。但如果textarea元素中添加了类名`.form-control`类名，则无需设置`cols`属性。因为Bootstrap框架中的`.form-control`样式的表单控件宽度为100%或auto。
+
+##### 复选框checkbox和单选择按钮radio
+``` html
+
+  <div class="radio">
+    <label class="checkbox-inline">
+      <input type="radio" name="optionsRadios" id="optionsRadios1" value="love" checked>
+      喜欢
+    </label>
+  </div>
+  <div class="radio">
+    <label class="checkbox-inline">
+      <input type="radio" name="optionsRadios" id="optionsRadios2" value="hate">
+      不喜欢
+    </label>
+  </div>
+
+``` 
+不管是`checkbox`还是`radio`都使用`label`包起来了，`checkbox`连同`label`标签放置在一个名为`.radio`的容器内，在Bootstrap框架中，主要借助`.checkbox`和`.radio`样式，来处理复选框、单选按钮与标签的对齐方式，如果需要水平排列，只需要在`label`标签上添加类名`.checkbox-inline`。
+
+##### 按钮
+
+- input[type=“submit”]
+- input[type=“button”]
+- input[type=“reset”]
+- `<button>`  
+html里实现按钮主要有以上4种方式，在Bootstrap框架中的按钮都是建议采用`<button>`来实现，虽然基本是所有标签都可以是用类名`.btn`来变成一个按钮，但个人并不建议这样使用，为了避免浏览器兼容性问题，个人强烈建议使用button或a标签来制作按钮。
+![按钮风格](/img/in-post/post-note/bootstrap-1708_5.jpg) 
+![按钮风格](/img/in-post/post-note/bootstrap-1708_6.jpg) 
+
+同样的按钮也可以使用类名`.btn-lg`，`.btn-sm`，`.btn-xs`来设置的大小。
+
+##### 图像
+图像在网页制作中也是常要用到的元素，在Bootstrap框架中对于图像的样式风格提供以下几种风格：
+
+- .img-responsive：响应式图片，主要针对于响应式设计
+- .img-rounded：圆角图片
+- .img-circle：圆形图片
+- .img-thumbnail：缩略图片
+![图像样式风格](/img/in-post/post-note/bootstrap-1708_7.png) 
+
+
+
+
+
+
+
 
