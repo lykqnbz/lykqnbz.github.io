@@ -273,8 +273,106 @@ Bootstrap框架中的栅格系统就是将容器平分成12份。数据行`.row`
 
 Bootstrap框架的栅格系统还支持列的嵌套。具体代码如上第三段所示，你可以在一个列中添加一个或者多个行`.row`容器中。
 
-###  菜单、按钮及导航
+###  菜单、按钮及简单导航
 
+##### 下拉菜单
+```html
+
+<div class="dropdown">
+    <!-- 父级菜单按钮 -->
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    下拉菜单
+    <!-- 三角形icon -->
+    <span class="caret"></span>
+    </button>
+    <!-- 子级列表 -->
+    <ul class="dropdown-menu"  aria-labelledby="dropdownMenu1">
+        <li class="dropdown-header">第一部分菜单头部</li>
+        <li><a href="#">下拉菜单项</a></li>
+        <li class="divider"></li>
+        <li><a href="#">下拉菜单项</a></li>
+    </ul>
+</div>
+
+```
+
+使用下拉菜单主要是看结构运用的正确与否，使用一个`.dropdown`的容器包裹整个下拉菜单元素，然后使用一个`button`按钮作为父级菜单
+，并且定名类名为`.dropdown-toggle`，再加上自定义`data-toggle`属性，且值为`dropdown`，此示例为：:**data-toggle="dropdown"**， 最后就是下拉列表，使用的是ul列表，定义类名`.dropdown-menu`，以及li标签了。
+
+这里有一些特别的拓展分享一下：
+- 使用`<li class="divider">  </li>`可以形成一条下拉分割线
+- 使用`<li class="dropdown-header">`可以让下拉菜单呈现一个菜单头部标题
+- 使用`<li class="active">`可以设置成该li标签为当前选中状态
+- 使用`<li class="disabled">`可以设置成该li标签为禁止选中状态
+- 对父级菜单按钮追加一个`.dropup`类名，可以变成上拉菜单
+- 对ul标签追加一个`.pull-right`类名，可以让下拉菜单相对于父级容器右对齐
+
+下图是上述代码的实现展示：
+![代码实现呈现](/img/in-post/post-note/bootstrap-1708_9.png) 
+
+##### 按钮组
+```html
+
+<div class="btn-toolbar">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-fast-forward"></span></button>
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-step-forward"></span></button>
+    </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-fast-backward"></span></button>
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></button>
+    </div>
+</div>
+
+```
+多个按钮组成按钮组，一些编辑器里我们常用到按钮组。实现一个按钮组只需要使用一个类名为`.btn-group`的容器，把多个按钮放到这个容器中。联动之前谈论过的图标，可以做成一个十分好看的控件。下图为一个简单的按钮组+icon组成的音乐播放器按钮组。
+![音乐播放器按钮组](/img/in-post/post-note/bootstrap-1708_10.png) 
+
+以下是按钮组的拓展：
+- 组成一个由多个按钮组构成的按钮工具栏，只需将按钮组`.btn-group`按组放在一个大的容器`.btn-toolbar`中
+- 按钮组默认是水平分组的，如果需要垂直分组可以把`.btn-group`替换成`.btn-group-vertical`
+- 将按钮组设置为自适应分组按钮，只需要在按钮组`.btn-group`上追加一个`.btn-group-justified`类名
+
+##### 简单导航
+Bootstrap实现导航十分简单，也原生写导航一样，使用ul+li实现导航，只需在ul添加`.nav`类名即可。
+
+简单导航的拓展：
+- 对ul追加`.nav-tabs`可变成标签型导航
+- 对ul追加`.nav-pills`可变成胶囊型导航
+- 对ul追加`.nav-stacked`可变成垂直导航
+- 对ul追加`.nav-justified`可变成自适应导航，自适应导航在视口宽度大于768px时是水平风格，下于时是垂直风格
+- 使用`<li class="active">`可以设置成该li标签为当前选中状态
+- 使用`<li class="disabled">`可以设置成该li标签为禁止选中状态
+
+制作二级导航或是多级导航，只需要将li当作父容器，使用类名`.dropdown`，同时在li中嵌套另一个列表ul，使用前面介绍下拉菜单的方法就可以，而面包屑导航将ul的类名替换成`.breadcrumb`。以下是代码实现。
+```html 
+
+<ul class="nav nav-pills">
+  <li class="active"><a href="##">首页</a></li>
+    <li class="dropdown">
+        <a href="##" class="dropdown-toggle" data-toggle="dropdown">
+            教程
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="##">CSS3</a></li>
+            <li><a href="##">Sass</a></li>
+            <li><a href="##">jQuery</a></li>
+            <li><a href="##">Responsive</a></li>
+        </ul>
+    </li>
+    <li><a href="##">关于我们</a></li>
+</ul>
+
+<!-- 面包屑导航 -->
+<ul class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">我的书</a></li>
+    <li class="active">解CSS3</li>
+</ul> 
+
+```
+![简单导航各类实现](/img/in-post/post-note/bootstrap-1708_11.png) 
 
 
 
