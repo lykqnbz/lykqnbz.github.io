@@ -374,7 +374,65 @@ Bootstrap实现导航十分简单，也原生写导航一样，使用ul+li实现
 ```
 ![简单导航各类实现](/img/in-post/post-note/bootstrap-1708_11.png) 
 
+### 导航条、分页导航
+##### 导航条
+导航条(navbar)）和上面介绍的导航(nav)，其实在Bootstrap中还是明显的区别。在导航条中有一个背景色、而且可以是纯链接，也可以有表单一起结合等多种形式。
 
+同样的，一个导航条的构成是由使用类名`.navbar`和`.navbar-default`的容器，包含一个ul列表`<ul class=”nav”>`基础上添加类名`.navbar-nav`。
+
+导航条的拓展：
+- 给导航条容器追加`.navbar-fixed-top`或`.navbar-fixed-bottom`类名，可设置导航条绝对定位在视口顶部或者底部
+- 设置一个与列表`ul`同级类名为`.navbar-header`的容器，该容器内设置一个类名为`."navbar-bran`的a标签，可形成导航条标题
+- 设置一个与列表`ul`同级类名为`.navbar-form`的表单容器，该容器内可以添加表单控件
+- 将导航条容器的`.navbar-deafult`替换成`.navbar-inverse`可形成反色导航条
+- 多级导航也和上述见过的方式一样
+
+对于我们常用的响应式导航条，在宽屏情况下和正常导航条无差别，但在窄屏情况下列表会折叠起来，通过点击图标来形成下拉导航，具体代码如下所示，图标样式的固定写法：
+```html
+
+<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".类名/#id名">
+    <span class="sr-only">Toggle Navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</button>
+
+```
+
+而折叠列表代码必须包裹在带一个div内，并且为这个div加入`.collapse`、`.navbar-collapse`两个类名。最后为这个div添加一个自定义的class类名或者id名。
+```html
+
+<div class="navbar navbar-default" >
+  <div class="navbar-header">
+     　<!-- .navbar-toggle样式用于toggle收缩的内容，即nav-collapse collapse样式所在元素 -->
+       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".w666">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+       </button>
+       <!-- 确保无论是宽屏还是窄屏，导航条标题都显示 -->
+       <a href="##" class="navbar-brand">Warcraft</a>
+  </div>
+  <!-- 屏幕宽度小于768px时，div.navbar-responsive-collapse容器里的内容都会隐藏，显示icon图标，当点击icon图标时，再展开。屏幕大于768px时，默认显示。 -->
+  <div class="collapse navbar-collapse w666">
+    	<ul class="nav navbar-nav">
+      		<li class="active"><a href="##">网站首页</a></li>
+      		<li><a href="##">测试标题</a></li>
+      		<li><a href="##">测试标题</a></li>
+      		<li><a href="##">测试标题</a></li>
+      		<li><a href="##">测试标题</a></li>
+	 	</ul>
+         <form action="##" class="navbar-form navbar-left" rol="search">
+            <div class="form-group">
+                  <input type="text" class="form-control" placeholder="请输入关键词" />
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+     </form>
+  </div>
+</div>
+
+```
+![响应式导航条](/img/in-post/post-note/bootstrap-1708_12.png) 
 
 
 
