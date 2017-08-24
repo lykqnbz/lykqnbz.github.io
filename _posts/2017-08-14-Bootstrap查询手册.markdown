@@ -376,7 +376,7 @@ Bootstrap实现导航十分简单，也原生写导航一样，使用ul+li实现
 
 ### 导航条、分页导航
 ##### 导航条
-导航条(navbar)）和上面介绍的导航(nav)，其实在Bootstrap中还是明显的区别。在导航条中有一个背景色、而且可以是纯链接，也可以有表单一起结合等多种形式。
+导航条(navbar)和上面介绍的导航(nav)，其实在Bootstrap中还是明显的区别。在导航条中有一个背景色、而且可以是纯链接，也可以有表单一起结合等多种形式。
 
 同样的，一个导航条的构成是由使用类名`.navbar`和`.navbar-default`的容器，包含一个ul列表`<ul class=”nav”>`基础上添加类名`.navbar-nav`。
 
@@ -434,5 +434,48 @@ Bootstrap实现导航十分简单，也原生写导航一样，使用ul+li实现
 ```
 ![响应式导航条](/img/in-post/post-note/bootstrap-1708_12.png) 
 
+##### 分页导航
+
+分页导航几乎在哪个网站都可见。好的分页导航能给用户带来更好的用户体验。在Bootstrap中提供了两种分页导航：**带页码的分页导航**和**带翻页的分页导航**。两者都是有ul列表和li标签组成。
+
+首先是**带页码的分页导航**在ul标签上加入`.pagination`类名即可，而**带翻页的分页导航**则是加上`.pager`。两种分页导航通常和当前活动状态`.active`和禁止状态`.disabled`一起组合使用。
+```html
+
+    <!--页码分页-->
+    <ul class="pagination ">
+        <li><a href="#">&laquo;第一页</a></li>
+        <li><a href="#">12</a></li>
+        <li class="active"><a href="#">13</a></li>
+        <li><a href="#">14</a></li>
+        <li class="disabled"><a href="#">最后一页&raquo;</a></li>
+    </ul>   
+    <!--翻页分页-->
+    <ul class="pager">
+        <li><a href="#">&laquo;上一页</a></li>
+        <li><a href="#">下一页&raquo;</a></li>
+    </ul> 
+    <!--左右对齐-->
+    <ul class="pager">
+        <li class="previous"><a href="#">&laquo;上一页</a></li>
+        <li class="next"><a href="#">下一页&raquo;</a></li>
+    </ul> 
+
+```
+![两种分页导航](/img/in-post/post-note/bootstrap-1708_13.png) 
+
+##### 徽章效果
+![徽章效果实例](/img/in-post/post-note/bootstrap-1708_14.jpg) 
+在一些Web页面中常常会添加一个类似徽章的标签用来告诉用户一些额外的信息。
+```html
+
+<!-- 矩形徽章 -->
+<span class="label label-success">矩形徽章标签</span>
+<!-- 带圆角矩形徽章 -->
+<span class="badge">带圆角矩形徽章</span>
+
+```
+给两种徽章样式额外添加`style="vertical-align:super; font-size:10px;`的样式可以控制字体大小和位置。
+
+### 其它内置组件
 
 
