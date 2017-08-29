@@ -18,7 +18,7 @@ tags:
 
 本文只讨论预编译的Bootstrap。下图是官方下载zip解压后的文件目录结构图：
 
-![已编译的版本的文件/目录结构](/img/in-post/post-note/Bootstrap-1708_1.jpg) 
+![已编译的版本的文件/目录结构](/img/in-post/post-note/bootstrap-1708_1.jpg) 
 
 可以直接本地`LINK`方式引入`css`，`JQuery`和`JS`，也可以直接使用国内的CDN，具体如下：
 
@@ -101,7 +101,7 @@ Bootstrap基于`JQuery`开发，引入`JS`前必须先引入`JQuery`。由于低
 - `<pre></pre>`来显示多行块代码
 - `<kbd></kbd>`来显示用户输入代码
 
-![三种不同代码风格样式](/img/in-post/post-note/Bootstrap-1708_2.png) 
+![三种不同代码风格样式](/img/in-post/post-note/bootstrap-1708_2.png) 
 
 对于`<pre></pre>`风格的代码，如果代码块内内容过多，可添加`.pre-scrollable`类名使其在高度超过`340px`时出现Y轴滚动条。
 
@@ -135,7 +135,7 @@ Bootstrap基于`JQuery`开发，引入`JS`前必须先引入`JQuery`。由于低
 
 对于响应式表格，当浏览器可视区域小于`768px`时，表格底部会出现水平滚动条。当浏览器可视区域大于`768px`时，表格底部水平滚动条就会消失。    
 对表格的行元素`<tr>`提供了五种表示不同意义颜色的类：
-![5种<tr>提供的颜色类](/img/in-post/post-note/Bootstrap-1708_3.jpg) 
+![5种<tr>提供的颜色类](/img/in-post/post-note/bootstrap-1708_3.jpg) 
 
 ### 表单
 
@@ -193,7 +193,7 @@ Bootstrap基于`JQuery`开发，引入`JS`前必须先引入`JQuery`。由于低
 </form>
 
 ```
-![添加multiple后的竖形效果](/img/in-post/post-note/Bootstrap-1708_4.png) 
+![添加multiple后的竖形效果](/img/in-post/post-note/bootstrap-1708_4.png) 
 
 ##### 文本域textarea
 Bootstrap中的文本域和原生的文本域使用方法一样，设置`rows`可定义其高度，设置`cols`可以设置其宽度。但如果`textarea`元素中添加了类名`.form-control`类名，则无需设置`cols`属性。因为Bootstrap框架中的`.form-control`样式的表单控件宽度为100%或auto。
@@ -224,8 +224,8 @@ Bootstrap中的文本域和原生的文本域使用方法一样，设置`rows`�
 - `input[type="reset"]`
 - `<button>`  
 html里实现按钮主要有以上4种方式，在Bootstrap框架中的按钮都是建议采用`<button>`来实现，虽然基本是所有标签都可以是用类名`.btn`来变成一个按钮，但个人并不建议这样使用，为了避免浏览器兼容性问题，个人强烈建议使用`<button>`或`<a>`标签来制作按钮。
-![按钮风格](/img/in-post/post-note/Bootstrap-1708_5.jpg) 
-![按钮风格](/img/in-post/post-note/Bootstrap-1708_6.jpg) 
+![按钮风格](/img/in-post/post-note/bootstrap-1708_5.jpg) 
+![按钮风格](/img/in-post/post-note/bootstrap-1708_6.jpg) 
 
 同样的按钮也可以使用类名`.btn-lg`，`.btn-sm`，`.btn-xs`来设置的大小。
 
@@ -235,7 +235,7 @@ html里实现按钮主要有以上4种方式，在Bootstrap框架中的按钮都
 - `.img-rounded`：圆角图片
 - `.img-circle`：圆形图片
 - `.img-thumbnail`：缩略图片
-![图像样式风格](/img/in-post/post-note/Bootstrap-1708_7.png) 
+![图像样式风格](/img/in-post/post-note/bootstrap-1708_7.png) 
 
 ### 栅格系统
 
@@ -272,7 +272,7 @@ Bootstrap框架中的栅格系统十分强大，对响应式排版友好性十�
 在行`.row`中可以添加列`.col-num`，但列数之和不能超过平分的总列数**12列**。栅格系统具有响应性，对于最外边框，针对浏览器大中小屏具有不同的**断点**（像素分界点：768px、992px、1220px）。而第二边框，就是容器`.container`，针对不同浏览器分辨率，其宽度也不一样，有这几个分界点：**自动**，**750px**，**970px**，**1170px**。
 
 栅格系统用来布局基本就是列的组合，Bootstrap提供了4种基本用法，主要是针对不同屏幕尺寸使用不同的网络样式：`.col-xs-1`，`.col-sm-1`，`.col-md-1`，`.col-lg-1`。下图是这四种样式的区别所在。
-![按钮风格](/img/in-post/post-note/Bootstrap-1708_8.png) 
+![按钮风格](/img/in-post/post-note/bootstrap-1708_8.png) 
 
 但我们不希望相邻的两个列紧靠在一起时，可以使用**列偏移**，具体代码如上第二段所示，只需要在需要隔开的列元素上添加类名`.col-md-offset-4`，该列就会向右移动4个列的宽度。
 
@@ -314,7 +314,7 @@ Bootstrap框架的栅格系统还支持列的嵌套。具体代码如上第三�
 - 对`ul`标签追加一个`.pull-right`类名，可以让下拉菜单相对于父级容器右对齐
 
 下图是上述代码的实现展示：
-![代码实现呈现](/img/in-post/post-note/Bootstrap-1708_9.png) 
+![代码实现呈现](/img/in-post/post-note/bootstrap-1708_9.png) 
 
 ##### 按钮组
 ```html
@@ -333,7 +333,7 @@ Bootstrap框架的栅格系统还支持列的嵌套。具体代码如上第三�
 
 ```
 多个按钮一起组成按钮组，在一些编辑器里我们常用到按钮组。实现一个按钮组只需要使用一个类名为`.btn-group`的容器，把多个按钮放到这个容器中。联动之前谈论过的图标，可以做成一个十分好看的控件。下图为两个按钮组+icon组成的编辑按钮组。
-![编辑按钮组](/img/in-post/post-note/Bootstrap-1708_10.png) 
+![编辑按钮组](/img/in-post/post-note/bootstrap-1708_10.png) 
 
 以下是按钮组的拓展：
 - 组成一个由多个按钮组构成的按钮工具栏，只需将按钮组`.btn-group`按组放在一个大的容器`.btn-toolbar`中
@@ -378,7 +378,7 @@ Bootstrap实现导航十分简单，和原生写导航的方式一样，使用`u
 </ul> 
 
 ```
-![简单导航各类实现](/img/in-post/post-note/Bootstrap-1708_11.png) 
+![简单导航各类实现](/img/in-post/post-note/bootstrap-1708_11.png) 
 
 ### 导航条、分页导航
 ##### 导航条
@@ -436,7 +436,7 @@ Bootstrap实现导航十分简单，和原生写导航的方式一样，使用`u
 </div>
 
 ```
-![响应式导航条](/img/in-post/post-note/Bootstrap-1708_12.png) 
+![响应式导航条](/img/in-post/post-note/bootstrap-1708_12.png) 
 
 ##### 分页导航
 
@@ -465,10 +465,10 @@ Bootstrap实现导航十分简单，和原生写导航的方式一样，使用`u
     </ul> 
 
 ```
-![两种分页导航](/img/in-post/post-note/Bootstrap-1708_13.png) 
+![两种分页导航](/img/in-post/post-note/bootstrap-1708_13.png) 
 
 ##### 徽章效果
-![徽章效果实例](/img/in-post/post-note/Bootstrap-1708_14.jpg) 
+![徽章效果实例](/img/in-post/post-note/bootstrap-1708_14.jpg) 
 在一些Web页面中常常会添加一个类似徽章的标签用来告诉用户一些额外的信息。
 ```html
 
@@ -515,7 +515,7 @@ Bootstrap实现导航十分简单，和原生写导航的方式一样，使用`u
 ```
 这里的栅格系统表示的`.col-num`是在大屏幕的时候一行4个(3+3+3+3=12)，小屏幕的时候一行2个(6+6=2)，在单位栅格内把图片用带有`.thumbnail`类名的`a`标签包裹起来，可变成带边框的略缩图样式图片，把标题、文本描述和按钮等内容放在一个名为`.caption`的`div`容器内，这个容器和`a`标签同级。
 
-![缩略图栏目](/img/in-post/post-note/Bootstrap-1708_15.png) 
+![缩略图栏目](/img/in-post/post-note/bootstrap-1708_15.png) 
 
 ##### 警告框
 同样是经典的4色样式：
@@ -533,7 +533,7 @@ Bootstrap实现导航十分简单，和原生写导航的方式一样，使用`u
 </div>
 
 ```
-![警告框](/img/in-post/post-note/Bootstrap-1708_16.png) 
+![警告框](/img/in-post/post-note/bootstrap-1708_16.png) 
 
 如果不需要右侧的关闭按钮，可以将`button`和`.alert-dismissable`删除即可。
 
@@ -575,7 +575,7 @@ Bootstrap实现导航十分简单，和原生写导航的方式一样，使用`u
 </div> 
 
 ```
-![各类进度条](/img/in-post/post-note/Bootstrap-1708_17.png) 
+![各类进度条](/img/in-post/post-note/bootstrap-1708_17.png) 
 
 ##### 列表组
 列表组是Bootstrap新增的一个组件，可以用来制作列表清单、垂直导航等效果，也可以配合其他的组件制作出更漂亮的组件。主要包含以下两个部分：     
@@ -653,7 +653,7 @@ Bootstrap框架中的模态弹出框，分别运用了`.modal`、`.modal-dialog`
 </div>
 
 ```
-![模态弹出窗](/img/in-post/post-note/Bootstrap-1708_18.png) 
+![模态弹出窗](/img/in-post/post-note/bootstrap-1708_18.png) 
 
 ### 结束语
 断断续续写了两周，主要方便自己日后查询以及复习一遍（忘得差不多了），虽然Bootstrap很好用，但是不能太过依赖，应该多去了解Bootstrap里的各类样式的逻辑和设计理念，融合进自己的代码风格里才是王道。
