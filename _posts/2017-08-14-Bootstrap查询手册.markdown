@@ -657,3 +657,4 @@ Bootstrap框架中的模态弹出框，分别运用了`.modal`、`.modal-dialog`
 
 ### 结束语
 断断续续写了两周，主要方便自己日后查询以及复习一遍（忘得差不多了），虽然Bootstrap很好用，但是不能太过依赖，应该多去了解Bootstrap里的各类样式的逻辑和设计理念，融合进自己的代码风格里才是王道。
+ - [自己练习仿了一个网站](http://wangxiang.men/practice-bootstrap/)
