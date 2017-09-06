@@ -14,6 +14,7 @@ tags:
  - [Markdown 代码块语法高亮支持表](http://blog.csdn.net/u013553529/article/details/50629055)
  - [Bootstrap提供的字体图标](http://v3.bootcss.com/components/)
  - [html字符转义查询表](http://blog.csdn.net/wusuopubupt/article/details/8817826)
+ - [Sass中的混合宏、继承和占位符区别](http://www.cnblogs.com/alice-shan/p/4956302.html)
 
 
 
