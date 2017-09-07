@@ -335,8 +335,8 @@ $type-width: 20px;
 
     @each $var in <list>
 
-````
-<list>就像一个数组，%var从头开始遍历这个数组，每遍历一个数，就执行一次样式块，实例如下：
+```
+``<list>``就像一个数组，%var从头开始遍历这个数组，每遍历一个数，就执行一次样式块，实例如下：
 ```sass
 
     $list: 1 2 3;
@@ -362,6 +362,6 @@ $type-width: 20px;
     .nav .photo-3 {
          background: url("/images/avatars/3.png"); 
     }
-    
+
 ```
 
