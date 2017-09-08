@@ -655,7 +655,8 @@ Bootstrap框架中的模态弹出框，分别运用了`.modal`、`.modal-dialog`
 ```
 ![模态弹出窗](/img/in-post/post-note/bootstrap-1708_18.png) 
 
-### 实例
+### 实例     
+
 - [仿了一个网站](http://wangxiang.vip/practice-bootstrap/)
 
 ### 结束语
