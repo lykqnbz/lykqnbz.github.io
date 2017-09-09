@@ -11,10 +11,10 @@ tags:
 
 > “保存一些有用的网站，当做云端浏览器收藏夹 :D”
 
- - [Markdown 代码块语法高亮支持表](http://blog.csdn.net/u013553529/article/details/50629055)
+ - [Markdown代码块语法高亮支持表](http://blog.csdn.net/u013553529/article/details/50629055)
  - [Bootstrap提供的字体图标](http://v3.bootcss.com/components/)
- - [html字符转义查询表](http://blog.csdn.net/wusuopubupt/article/details/8817826)
+ - [Html字符转义查询表](http://blog.csdn.net/wusuopubupt/article/details/8817826)
  - [Sass中的混合宏、继承和占位符区别](http://www.cnblogs.com/alice-shan/p/4956302.html)
-
+ - [JavaScript中判断两个对象相等](https://juejin.im/post/598a701b6fb9a03c5b04bb14?utm_source=gold_browser_extension)
 
 
