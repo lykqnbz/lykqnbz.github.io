@@ -156,7 +156,7 @@ tags:
         @include border-radius(10px);
     }
 ```
-**继承**在Sass中类同于css的继承，通过关键词``@extend``来继承已存在的类样式块，从而实现代码的继承。
+**继承**在Sass中类同于css的继承，通过关键词`@extend`来继承已存在的类样式块，从而实现代码的继承。
 ```sass
     .btn {
     border: 1px solid #ccc;
