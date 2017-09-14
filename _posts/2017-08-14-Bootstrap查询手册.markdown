@@ -224,7 +224,7 @@ h1~h3内，其大小都设置为当前字号的65%，而在h4~h6内的字号都�
 - input[type=“button”]
 - input[type=“reset”]
 - `<button>`  
-html里实现按钮主要有以上4种方式，在Bootstrap框架中的按钮都是建议采用`<button>`来实现，虽然基本是所有标签都可以是用类名`.btn`来变成一个按钮，但个人并不建议这样使用，为了避免浏览器兼容性问题，个人强烈建议使用button或a标签来制作按钮。
+`html`里实现按钮主要有以上4种方式，在Bootstrap框架中的按钮都是建议采用`<button>`来实现，虽然基本是所有标签都可以是用类名`.btn`来变成一个按钮，但个人并不建议这样使用，为了避免浏览器兼容性问题，个人强烈建议使用button或a标签来制作按钮。
 ![按钮风格](/img/in-post/post-note/bootstrap-1708_5.jpg) 
 ![按钮风格](/img/in-post/post-note/bootstrap-1708_6.jpg) 
 
