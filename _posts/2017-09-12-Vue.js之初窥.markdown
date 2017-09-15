@@ -1,0 +1,13 @@
+---
+layout:     post
+title:      "Vue.js之初窥"
+subtitle:   ""
+date:       2017-09-12 16:51:25
+author:     "AXiang"
+header-img: "img/post-bg-vue.jpg"
+catalog:  true
+tags:
+    - 前端
+    - JavaScript
+    - Vue.js
+---
