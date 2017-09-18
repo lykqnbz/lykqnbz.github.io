@@ -2,7 +2,7 @@
 layout:     post
 title:      "Vue.js之初窥"
 subtitle:   "轻量级前端MVVM框架"
-date:       2017-09-12 16:51:24
+date:       2017-09-12 16:51:21
 author:     "AXiang"
 header-img: "img/post-bg-vue.jpg"
 catalog:  true
