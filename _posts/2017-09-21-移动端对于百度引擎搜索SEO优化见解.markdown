@@ -1,0 +1,32 @@
+---
+layout:     post
+title:      "移动端针对百度搜索引擎SEO优化见解"
+subtitle:   " "
+date:       2017-09-21 15:29:21
+author:     "AXiang"
+header-img: "img/post-bg-seo.jpg"
+catalog:  true
+tags:
+    - 前端
+    - SEO
+---
+
+> “个人见解”
+为了使百度能够知道当您的页面发生变化时，同时需要用其他的ua重新抓取一遍，请您添加Vary HTTP标头。Vary HTTP 标头具有以下两个非常重要且实用的作用：
+a) 它会向 ISP 和其他位置使用的缓存服务器表明：在决定是否通过缓存来提供网页时它们应考虑用户代理。如果您没有使用 Vary HTTP 标头，缓存可能会错误地向移动设备用户提供pc版 HTML 网页的缓存（反之亦然）。
+b) 它有助于 百度spdier 更快速地发现针对移动设备进行优化的内容，这是因为我们在抓取针对移动内容进行过优化的网址时，会将有效的 Vary HTTP 标头作为抓取信号之一，我们会提高用其他ua抓取此网页的优先级。
+
+百度可以通过基本html特征来判断是否适合无线端浏览，在此还是建议有PC和手机站的站长进行适配。站长如需独立进行标识PC站和手机站可加入下代码：
+PC站:<meta name="applicable-device" content="pc">
+手机站：<meta name="applicable-device" content="mobile" />
+
+屏蔽百度自动转码
+
+百度有一个将网页自动转码功能，告诉百度不要转码的头部代码：
+<meta http-equiv="Cache-Control" content="no-transform">
+
+view-source:http://www.mahaixiang.cn/ydseo/751.html
+http://www.chinaz.com/web/2015/0609/412811.shtml
+http://zhanzhang.baidu.com/college/index
+https://www.seozac.com/mobile-seo/baidu-mobile/
+
