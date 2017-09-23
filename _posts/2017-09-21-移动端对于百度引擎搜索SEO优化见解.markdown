@@ -11,12 +11,32 @@ tags:
     - SEO
 ---
 
-> “个人见解”
+> “针对2017年9月时期百度引擎的个人见解”
+
+抛出大观点：**移动站点的收录排名是参考PC站点的数据，所以移动站优化前提得有个比较健康收录的PC站，而且得做好适配。**
+
+目前我司网站在移动搜索中的表现为：移动搜索出现均为PC站网址，没有移动站网址出现，点击后代码跳转移动站，意思为移动站网址没有排行。
+
+对于百度搜索而言，PC端搜索会优先呈现PC站点，而移动搜索会优先移动站。如搜索关键词**宝鸡车网**：
+
+![高频关键词：宝鸡车网在PC端和移动端的搜索区别](/img/in-post/post-seo/seo-1709_1.png) 
+
+宝鸡车网，这种高频词，竞争比较大的词在PC端和移动端的所展现的网站都是各不相同的，并且移动端展现的网址都是专门的移动网址**www.m.xxx.com**、**www.wap.xxx.com**、**www.3g.xxx.com**，说明这个词的移动端竞争十分大。但是如果是一些低竞争词，如搜索关键词**夏黑葡萄苗**：
+![低频关键词：夏黑葡萄苗在PC端和移动端的搜索区别](/img/in-post/post-seo/seo-1709_2.png) 
+
+要进行排行优化的前提是被收录，如果百度搜索都没有收录，那一些都是泡影。百度通过Baiduspider（官方爬虫，抓取网站上的信息），
+
 为了使百度能够知道当您的页面发生变化时，同时需要用其他的ua重新抓取一遍，请您添加Vary HTTP标头。Vary HTTP 标头具有以下两个非常重要且实用的作用：
 a) 它会向 ISP 和其他位置使用的缓存服务器表明：在决定是否通过缓存来提供网页时它们应考虑用户代理。如果您没有使用 Vary HTTP 标头，缓存可能会错误地向移动设备用户提供pc版 HTML 网页的缓存（反之亦然）。
 b) 它有助于 百度spdier 更快速地发现针对移动设备进行优化的内容，这是因为我们在抓取针对移动内容进行过优化的网址时，会将有效的 Vary HTTP 标头作为抓取信号之一，我们会提高用其他ua抓取此网页的优先级。
 
+二、applicable-device标注
+
+1.意义
+        用来向百度蜘蛛说明此url页面适合在PC端还是M端展现。说白了，就是帮助百度提交校验识别结果的正确性，减少百度蜘蛛把PC站当成M站，或者把M站当成PC站进行抓取
+
 百度可以通过基本html特征来判断是否适合无线端浏览，在此还是建议有PC和手机站的站长进行适配。站长如需独立进行标识PC站和手机站可加入下代码：
+ 代码放在<head></head>中间，规则和对应关系见下：
 PC站:<meta name="applicable-device" content="pc">
 手机站：<meta name="applicable-device" content="mobile" />
 
@@ -25,8 +45,19 @@ PC站:<meta name="applicable-device" content="pc">
 百度有一个将网页自动转码功能，告诉百度不要转码的头部代码：
 <meta http-equiv="Cache-Control" content="no-transform">
 
+
+
+<link rel='canonical' href='pc端url' />
+
+
 view-source:http://www.mahaixiang.cn/ydseo/751.html
+http://www.mahaixiang.cn/ydseo/751.html
+
 http://www.chinaz.com/web/2015/0609/412811.shtml
-http://zhanzhang.baidu.com/college/index
 https://www.seozac.com/mobile-seo/baidu-mobile/
+
+http://www.stourweb.com/peixun/fangfa-349/
+http://zhanzhang.baidu.com/college/documentlist
+
+https://www.zhihu.com/question/31202218
 
