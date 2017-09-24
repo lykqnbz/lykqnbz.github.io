@@ -14,8 +14,4 @@ tags:
 
 > "Vue.js是拥抱经典的Web技术"
 
-<<<<<<< HEAD:_posts/2017-09-12-Vue.js之初窥.markdown
-LX
-=======
 >111
->>>>>>> 220067034757ccb222721637344bb62e7b9f5585:_posts/2017-09-12-Vue.js-Frist.markdown
