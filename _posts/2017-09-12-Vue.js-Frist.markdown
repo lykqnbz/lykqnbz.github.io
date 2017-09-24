@@ -2,7 +2,7 @@
 layout:     post
 title:      "Vue.js之初窥"
 subtitle:   "轻量级前端MVVM框架"
-date:       2017-09-12 16:51:25
+date:       2017-09-12 16:51:20
 author:     "AXiang"
 header-img: "img/post-bg-vue.jpg"
 catalog:  true
@@ -14,4 +14,8 @@ tags:
 
 > "Vue.js是拥抱经典的Web技术"
 
+<<<<<<< HEAD:_posts/2017-09-12-Vue.js之初窥.markdown
 LX
+=======
+>111
+>>>>>>> 220067034757ccb222721637344bb62e7b9f5585:_posts/2017-09-12-Vue.js-Frist.markdown
