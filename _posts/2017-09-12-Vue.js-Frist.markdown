@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Vue.js之初窥"
+title:      "Vue.js使用体验"
 subtitle:   "轻量级前端MVVM框架"
 date:       2017-09-12 16:51:20
 author:     "AXiang"
@@ -10,8 +10,82 @@ tags:
     - 前端
     - JavaScript
     - Vue.js
+    - 笔记
 ---
 
 > "Vue.js是拥抱经典的Web技术"
 
->还在酝酿
+## 特点
+Vue.js 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件，其主要有三个大特点：      
+**易用，轻便**：模型视图的框架相对于JQuery不用一个个去获取DOM元素，直接使用双大括号进行字段渲染    
+**零活，渐进**：
+![渐进式过程](/img/in-post/post-note/vue-1709_1.png) 
+- 声明式渲染： 默认的声明页面上的字段进行渲染
+- 组件系统：做页面的过程中，有可能需要把公共的头部，底部抽出来做成组件，这里就需要使用到一些组件系统
+- 客户端路由：做单页面的过程中，往往需要页面路由，这个时候就可以使用VueJs提供的一些插件（Vue-router等），来配置页面路由的功
+- 大规模状态管理：如果项目业务足够复杂，大量的使用组件，而且难以去管理这些组件的状态，这个时候也能引进VueJs提供的插件（Vues等），这些插件可以集中管理组件状态。
+- 构建工具：在项目做完以后，可能还需要通过构建工具来Build我们的系统，整体提升项目效率，之后就形成一个完整的项目。   
+这就是一个渐进式的过程，从简单到复杂，随着业务度的提升，可以不断的加入引用各种插件，缺什么补什么。    
+
+**高效**：16K大小，虚拟DOM，从Vue1.0到Vue2.0的性能优化 
+
+## Vue指令(我用过的- -，才疏学浅)
+- v-text：用于渲染DOM，更新元素的textContent，和在元素中写双大括号一个意思 
+- v-html：用于渲染DOM，更新元素的innerHTML，相较于v-text可以直接识别html标签
+- v-if：条件渲染指令，根据其后表达式的bool值进行判断是否渲染该元素
+- v-show：与v-if类似，只是会渲染其身后表达式为false的元素，而且会给这样的元素添加css代码：style="display:none"
+- v-else-if/v-else：必须跟在v-if/v-show指令之后，不然不起作用
+- v-for：类似JS的遍历，用法为v-for="item in items"，items是数组，item为数组中的数组元素
+- v-class：有一个可选参数，无参数是绑定值到所在元素的classlist当中，并且一旦检测绑定值有改动，便随之改变classlist里对应的class，有参数时参数的true和false将决定对应class是否起作用 eg: `<span v-class="red : true, bold : false"></span>`  
+- v-model：表单控件元素上创建双向数据绑定，适用于input，textarea
+- v-bind：缩写为**:**，这个指令主要作用于绑定属性，比如class或元素的style样式
+- v-on：click.stop ="clickMe" ，缩写为**@**，用于监听指定元素的DOM事件，比如点击事件，可以是一个函数或者函数语句，还可以传入$event修饰符表示触发处理函数的DOM事件，然后就可以操作事件对象，比如e.stop=" "，可以调用e.stopPropagation()来阻止时间冒泡
+
+## Vue实例和生命周期(同样的才疏学浅)
+- el：加载数据到哪里，可以是css选择器，也可以是html元素实例，一般默认为``#app``
+- data：它是Vue绑定数据到HTML标签的数据源泉，Vue框架会自动监视data里面的数据变化，自动更新数据到HTML标签上去     
+**type为 json或者function，组件必须是function**
+- computed：Vue的计算属性（computed)的**属性**会自动混入Vue的实例中，再计算属性中定义的函数里面可以直接使用指向了vue实例的this     
+**type为 { 键：函数 }**
+- methods：可以直接通过new一个实例访问这些**方法**，或者在指令表达式中使用，方法中的 this 自动绑定为 Vue 实例     
+**type为 { [key: string]: Function }**
+- watch：一个对象，键是需要观察的表达式，值是对应回调函数。值也可以是方法名，或者包含选项的对象。Vue 实例将会在实例化时调用 $watch()，遍历 			watch 对象的每一个属性     
+**type为 { [key: string]: string | Function | Object }**    
+
+```js
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            a:1,
+            b:1
+        },
+        computed:{
+            aDouble: function () {
+                return this.a * 2
+            }
+        },
+        methods:{
+            bDouble: function () {
+                return this.b * 2
+            }
+        },
+        watch:{
+            //监控a变量变化的时候，自动执行此函数
+            a: function(val,oldVal){
+                console.log(val, oldVal)
+            },
+            //深度watcher
+            b: {
+                handler: function (val, oldVal) { 
+                    /* ... */ 
+                },
+                deep: true
+            }
+        }
+    })
+
+```
+
+  
+
