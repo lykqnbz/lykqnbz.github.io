@@ -16,5 +16,6 @@ tags:
  - [Html字符转义查询表](http://blog.csdn.net/wusuopubupt/article/details/8817826)
  - [Sass中的混合宏、继承和占位符区别](http://www.cnblogs.com/alice-shan/p/4956302.html)
  - [JavaScript中判断两个对象相等](https://juejin.im/post/598a701b6fb9a03c5b04bb14?utm_source=gold_browser_extension)
+ - [能在Github概述插入的Emoji](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
 
 
