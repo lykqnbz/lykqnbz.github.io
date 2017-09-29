@@ -87,7 +87,8 @@ Vue.js 的目标是通过尽可能简单的 API 实现响应的数据绑定和�
 
 ```
 
-## 还在酝酿
+## 购物车典例练习
+- [购物车典例](http://wangxiang.vip/practice-vuejs/)
 
   
 
