@@ -128,7 +128,7 @@ Bootstrap基于`JQuery`开发，引入`JS`前必须先引入`JQuery`。由于低
 ```
 - `.table`：基础表格
 - `.table-striped`：斑马线表格
-- `.table-bordered`：带边框的表格
+- `.table-bordered`：带边框表格
 - `.table-hover`：鼠标悬停高亮的表格
 - `.table-condensed`：紧凑型表格
 - `.table-responsive`：响应式表格 
