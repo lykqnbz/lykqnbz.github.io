@@ -361,9 +361,9 @@ Bootstrap实现导航十分简单，和原生写导航的方式一样，使用`u
             教程
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="##">css3</a></li>
+            <li><a href="##">Css3</a></li>
             <li><a href="##">Sass</a></li>
-            <li><a href="##">jQuery</a></li>
+            <li><a href="##">JQuery</a></li>
             <li><a href="##">Responsive</a></li>
         </ul>
     </li>
