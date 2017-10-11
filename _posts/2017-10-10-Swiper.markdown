@@ -1,0 +1,15 @@
+---
+layout:     post
+title:      "超级好用的滑动轮播-Swiper3"
+subtitle:   "开源、稳定、使用简单、功能强大"
+date:       2017-10-10 22:20:05
+author:     "AXiang"
+header-img: "img/post-bg-js-module.jpg"
+catalog:  true
+tags:
+    - 前端
+    - 插件
+    - 笔记
+---
+
+正在写...
