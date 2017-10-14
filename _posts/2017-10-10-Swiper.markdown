@@ -12,4 +12,13 @@ tags:
     - 笔记
 ---
 
-正在写...
+> [Swiper中文官网](http://www.swiper.com.cn/)
+
+最近朋友推荐的一款轮播插件，真心好用，效果华丽中带有简朴，操作简单上手，扩展性高，占用也不大。
+
+#### 使用前
+和通常的插件一样，可以使用本地加载也能使用CDN加载，需要的只有一个CSS文件和一个JS文件。Swiper不需要在JQuery环境中加载，独立性强，如果环境中加载了JQuery也可以使用更加轻便的JQuery版。
+
+###### 本地加载
+[本地加载文件下载地址](http://www.swiper.com.cn/download/index.html)
+通常使用`swiper-3.X.X.css`，如需压缩版可以使用`swiper-3.X.X.min.css`，而JS则通常使用`swiper-3.X.X.js`和`swiper-3.X.X.min.js`，如果加载了JQuery可以使用`swiper-3.X.X.jquery.js`和`swiper-3.X.X.jquery.min.js`
