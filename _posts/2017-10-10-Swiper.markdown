@@ -14,9 +14,9 @@ tags:
 
 > [Swiper中文官网](http://www.swiper.com.cn/)
 
-最近朋友推荐的一款轮播插件，真心好用，效果华丽中带有简朴，操作简单上手，扩展性高，占用也不大。
+最近朋友推荐的一款轮播插件，优雅易用，效果华丽中带简朴，操作简单上手，扩展性高，占用也不大。
 
-#### 使用前
+### 使用前
 和通常的插件一样，可以使用本地加载也能使用CDN加载，需要的只有一个CSS文件和一个JS文件。Swiper不需要在JQuery环境中加载，独立性强，如果环境中加载了JQuery也可以使用更加轻便的JQuery版。
 
 ###### 本地加载
@@ -37,7 +37,7 @@ tags:
 
 ```
 
-#### 使用中
+### 使用中
 
 ###### 初始化    
 
@@ -108,6 +108,7 @@ tags:
 
 如果想要给Swiper定义一个固定大小（当然不要也行）：
 ```css
+
     .swiper-container {
         width: 600px;
         height: 300px;
@@ -154,15 +155,46 @@ min-width: 100%;
 }
 </style>
 
-#### 官方Demo展示
+### 官方常用Demo展示
 
 <div class="demo">
 	<font>默认设置</font>
 	<div class="demo-iframe">
-		<iframe frameborder="0" scrolling="no" src="../demos/Swiper/01-default.html" style="height:340px"></iframe>
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/01-default.html" style="height:340px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>自适应 / 全屏 + 分页</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/02-responsive.html" style="height:340px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>分组显示</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/05-slides-per-view.html" style="height:340px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>多行Slides 分布</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/10-slides-per-column.html" style="height:430px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>视差效果</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/28-parallax.html" style="height:340px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>渐变效果</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/16-effect-fade.html" style="height:340px"></iframe>
     </div>
 </div>
 
-#### 使用后
 
-Swiper是一个好用又方便的轮播插件，但也正是因为它已经被封装好了，有些个性化的需求、设计不是那么容易人为干预，所以在使用的时候可能会碰到不少头疼的问题。
+### 使用后
+
+Swiper是一个好用又方便的轮播插件，但也正是因为它已经被封装好了，在有些个性化的需求时，不是那么容易人为干预，所以在使用的时候可能会碰到不少头疼的问题，但这一点也不影响它成为一款优雅的插件，**打Call**。
