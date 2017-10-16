@@ -20,5 +20,149 @@ tags:
 和通常的插件一样，可以使用本地加载也能使用CDN加载，需要的只有一个CSS文件和一个JS文件。Swiper不需要在JQuery环境中加载，独立性强，如果环境中加载了JQuery也可以使用更加轻便的JQuery版。
 
 ###### 本地加载
-[本地加载文件下载地址](http://www.swiper.com.cn/download/index.html)
+[本地加载文件下载地址](http://www.swiper.com.cn/download/index.html)     
 通常使用`swiper-3.X.X.css`，如需压缩版可以使用`swiper-3.X.X.min.css`，而JS则通常使用`swiper-3.X.X.js`和`swiper-3.X.X.min.js`，如果加载了JQuery可以使用`swiper-3.X.X.jquery.js`和`swiper-3.X.X.jquery.min.js`
+
+###### CDN加载
+如果不想将Swiper文件放在你的项目中，可以使用Swiper的CDN服务。以下是各版本的Swiper CDN地址，要将3.X.X改成相应的版本，如3.4.2。
+```html
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/css/swiper.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/css/swiper.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.jquery.min.js"></script>
+
+```
+
+#### 使用中
+
+###### 初始化    
+
+官方建议写在HTML内容的底部，紧靠`</body>`标签：
+```html
+
+    …………
+    <script>        
+    var mySwiper = new Swiper ('.swiper-container', {
+        // 滑动方向
+        direction: 'vertical',
+        // 是否有回路
+        loop: true,
+        
+        // 如果需要分页器
+        pagination: '.swiper-pagination',
+        
+        // 如果需要前进后退按钮
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        
+        // 如果需要滚动条
+        scrollbar: '.swiper-scrollbar',
+    })        
+    </script>
+</body>
+
+```
+
+如果不能写在HTML内容的后面，则需要在页面加载完成后再初始化：
+```html
+
+    <script type="text/javascript">
+        window.onload = function() {
+        ...
+        }
+    </script>
+
+````
+或者这样（Jquery支持版本）
+```html
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+        ...
+        })
+    </script>
+
+```
+
+常用的初始化参数例举:
+
+| 参数 | 类型 | 默认值 | 例子 | 说明 |
+|:----:|:---:||:---:||:---:||:---:|
+|direction|string|horizontal|vertical|滑动方向，可设置水平(horizontal)或垂直(vertical)|
+|loop|boolean|false|true|是否开启回路模式，意为滑到最后一张图片时是否可以继续滑到第一张，形成循环|
+|nextButton|string|null|.swiper-button-next|是否生成前进按钮|
+|prevButton|string|null|.swiper-button-prev|是否生成后退按钮|
+|pagination|string|null|.swiper-pagination|是否启用圆点分页，前提HTML内有该元素|
+|speed|number|300|1000|滑块动画之间的持续时间（单位ms）|      
+|autoplay|number|0|1000|几秒后开始自动轮播，不写为手动轮播|      
+|speed|number|300|1000|滑块动画之间的持续时间（单位ms）|      
+|spaceBetween|number|0|20|每个滑块之间的距离（单位px）|      
+
+更多复杂的常数组合请查阅[官方文档](http://www.swiper.com.cn/api/index.html)，右上角可以直接搜索参数：
+
+###### 设定大小
+
+如果想要给Swiper定义一个固定大小（当然不要也行）：
+```css
+    .swiper-container {
+        width: 600px;
+        height: 300px;
+    }  
+
+```
+<style>
+.demo {
+margin-bottom: 40px;
+}
+
+.demo font,.demo-title {
+color: #1e70cd;
+margin: 60px 0 5px;
+text-align: center;
+font-size: 20px;
+font-weight: 300;
+line-height: 35px;
+display: block;
+}
+.demo .demo-iframe {
+margin: 1em auto;
+box-shadow: 0px 0px 1px 0px #aaa;
+background: #eee;
+position: relative;
+}
+.demo .demo-links{
+	text-align:right;
+}
+.demo .demo-links a {
+position: relative;
+text-decoration: none;
+color: #b72f20;
+}
+.demo iframe {
+display: block;
+width: 100%;
+border: none;
+margin: 0;
+box-sizing: border-box;
+height: 400px;
+width: 1px;
+min-width: 100%;
+}
+</style>
+
+#### 官方Demo展示
+
+<div class="demo">
+	<font>默认设置</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="../demos/Swiper/01-default.html" style="height:340px"></iframe>
+    </div>
+</div>
+
+#### 使用后
+
+Swiper是一个好用又方便的轮播插件，但也正是因为它已经被封装好了，有些个性化的需求、设计不是那么容易人为干预，所以在使用的时候可能会碰到不少头疼的问题。
