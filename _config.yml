@@ -3,9 +3,9 @@ title: 空的伸手摘星
 SEOTitle: 阿翔 | AXiang Blog
 header-img: img/home-bg.jpg
 email: hongjianpiaoxiang@163.com
-description: ""
-keyword: ""
-url: "http://wangxiang.men"              # host, for absolute URL
+description: "关于一个菜鸡的个人博客"
+keyword: "王翔, 王翔的博客"
+url: "http://wangxiang.vip"              # host, for absolute URL
 baseurl: ""         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
@@ -81,7 +81,7 @@ featured-condition-size: 0              # A tag will be featured if the size of 
 friends: [
     {
         title: "AXiang Blog",
-        href: "http://wangxiang.men"
+        href: "http://wangxiang.vip"
     },{
         title: "NGA",
         href: "http://bbs.nga.cn/"
