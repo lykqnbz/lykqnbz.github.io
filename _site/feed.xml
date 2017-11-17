@@ -5,13 +5,33 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 13 Nov 2017 09:48:15 +0800</pubDate>
-    <lastBuildDate>Mon, 13 Nov 2017 09:48:15 +0800</lastBuildDate>
+    <pubDate>Fri, 17 Nov 2017 12:26:10 +0800</pubDate>
+    <lastBuildDate>Fri, 17 Nov 2017 12:26:10 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
+        <title>流离在过去的Css样式</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;记一下老忘记但是炒鸡好用的单个Css样式&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Thu, 16 Nov 2017 16:50:15 +0800</pubDate>
+        <link>http://localhost:5001/2017/11/16/AmazingCss/</link>
+        <guid isPermaLink="true">http://localhost:5001/2017/11/16/AmazingCss/</guid>
+        
+        <category>前端</category>
+        
+        <category>Css</category>
+        
+        
+      </item>
+    
+      <item>
         <title>微信小程序</title>
-        <description>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;酝酿中&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
         <pubDate>Sat, 11 Nov 2017 19:10:25 +0800</pubDate>
         <link>http://localhost:5001/2017/11/11/AboutMiniProgram/</link>
@@ -1128,6 +1148,8 @@ min-width: 100%;
         
         <category>笔记</category>
         
+        <category>Css</category>
+        
         <category>Sass</category>
         
         <category>前端</category>
@@ -1180,7 +1202,7 @@ min-width: 100%;
 对应的标签是：&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;强调内容&quot;&gt;强调内容&lt;/h5&gt;
-&lt;p&gt;让文字突出显示，为其增大字号，并且在大于&lt;code class=&quot;highlighter-rouge&quot;&gt;768px&lt;/code&gt;像素情况下字体会更大一下。
+&lt;p&gt;让文字突出显示，为其增大字号，并且在大于&lt;code class=&quot;highlighter-rouge&quot;&gt;768px&lt;/code&gt;像素情况下字体会更大。
 对应的类名是：&lt;code class=&quot;highlighter-rouge&quot;&gt;.lead&lt;/code&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;文字状态和语义状态&quot;&gt;文字状态和语义状态&lt;/h5&gt;
@@ -1812,6 +1834,8 @@ html里实现按钮主要有以上4种方式，在Bootstrap框架中的按钮都
         
         <category>前端</category>
         
+        <category>Css</category>
+        
         <category>Bootstrap</category>
         
         <category>笔记</category>
@@ -2003,247 +2027,13 @@ html里实现按钮主要有以上4种方式，在Bootstrap框架中的按钮都
   &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/alice-shan/p/4956302.html&quot;&gt;Sass中的混合宏、继承和占位符区别&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://juejin.im/post/598a701b6fb9a03c5b04bb14?utm_source=gold_browser_extension&quot;&gt;JavaScript中判断两个对象相等&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.webpagefx.com/tools/emoji-cheat-sheet/&quot;&gt;能在Github概述中插入的Emoji&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.w3school.com.cn/tags/html_ref_entities.html&quot;&gt;Html字符实体表集&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </description>
         <pubDate>Tue, 01 Aug 2017 20:21:20 +0800</pubDate>
         <link>http://localhost:5001/2017/08/01/favorite/</link>
         <guid isPermaLink="true">http://localhost:5001/2017/08/01/favorite/</guid>
-        
-        <category>笔记</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>初学Git命令笔记</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;“更新到地老天荒 —-17.08.04”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-
-&lt;p&gt;大三接触到Git和svn，是仰望和膜拜。可惜毕业后才开始慢慢学习去使用(估计山口山玩多了)。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;正文&quot;&gt;正文&lt;/h2&gt;
-
-&lt;p&gt;大四实习了半年，学到的东西挺多，可惜忘得也不少。在毕业后就职前，正想着要找个能沉淀知识的方法，手写笔记是不可能适合我这种手癌懒猿的。于是乎便从网上照猫画虎的搞起了自己的github blog，写些自己的知识心得总结以及一些分享。&lt;/p&gt;
-
-&lt;p&gt;第一篇正式的博文就写自己在搭建github blog时使用git牵涉到的一些常用命令，还有就是日后学习到新的git命令的分享与理解。&lt;/p&gt;
-
-&lt;h4 id=&quot;参考资料&quot;&gt;参考资料&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://git-scm.com/&quot;&gt;Git官方网站&lt;/a&gt;(国内访问和下载会比较慢，可以百度移步&lt;a href=&quot;https://www.baidu.com/s?ie=utf-8&amp;amp;f=8&amp;amp;rsv_bp=1&amp;amp;srcqid=1179652933219750673&amp;amp;tn=12092018_17_hao_pg&amp;amp;wd=git%20%E9%95%9C%E5%83%8F&amp;amp;oq=git%2520%25E9%2595%259C%25E5%2583%258F&amp;amp;rsv_pq=fb5339a60000cf1e&amp;amp;rsv_t=2450cyhfIWeQRlgpPVt19ZIpKCC9czsYpDRlsiUeEFD43PoUHRL4tH4FwcWYLW1CpE0FSe%2FFUBEq&amp;amp;rqlang=cn&amp;amp;rsv_enter=0&amp;amp;inputT=29537&amp;amp;sug=git%25E4%25B8%258B%25E8%25BD%25BD&amp;amp;rsv_sug3=163&amp;amp;rsv_sug1=88&amp;amp;rsv_sug7=100&amp;amp;rsv_sug2=0&amp;amp;rsv_sug4=35257&amp;amp;rsv_sug=1&quot;&gt;git国内镜像&lt;/a&gt;)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://git-scm.com/book/zh/v2&quot;&gt;Git官方中文手册&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.ihref.com/read-16377.html&quot;&gt;Git客户端图文详解安装配置&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;廖雪峰的Git教程&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;待更新&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;以上是我现阶段用到了的参考文献。&lt;/p&gt;
-
-&lt;h4 id=&quot;安装命令&quot;&gt;安装命令&lt;/h4&gt;
-
-&lt;p&gt;虽说Window是较烂的开发平台，无奈从小就上了微软的贼船，暂且先攻略Window环境下的Git使用。&lt;/p&gt;
-
-&lt;p&gt;Window版的Git可以直接从上述&lt;a href=&quot;https://git-scm.com/&quot;&gt;参考资料&lt;/a&gt;里直接下载&lt;code class=&quot;highlighter-rouge&quot;&gt;.exe&lt;/code&gt;，可以按默认选项安装即可，其他什么都不用（相对于Linux和Mac，微软就是傻瓜型安装）。&lt;/p&gt;
-
-&lt;p&gt;安装后，桌面右键有Git GUI Here 或是 Git Bash Here的选项。成功后，可以设置一下自己的用户名和Email地址。&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 设置所有仓库默认使用的用户名&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Your Name&quot;&lt;/span&gt;  
-
-    &lt;span class=&quot;c1&quot;&gt;# 设置所有仓库默认使用的Email&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;email@example.com&quot;&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 显示当前Git的配置 &lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Git是分布式版本控制系统，所以每个人都应该有自己的标记，这个标记就是用户名和Email。&lt;/p&gt;
-
-&lt;p&gt;使用了&lt;code class=&quot;highlighter-rouge&quot;&gt;--global&lt;/code&gt;这个参数后，表明这台机器所有的仓库都使用这个标记信息，之后也可以对取消或是对某个仓库指定不同的标记信息。&lt;/p&gt;
-
-&lt;h4 id=&quot;拥有一个仓库&quot;&gt;拥有一个仓库&lt;/h4&gt;
-
-&lt;p&gt;仓库相当于一个项目文件夹，官方译名：&lt;strong&gt;repository&lt;/strong&gt;。Git可以管理这个仓库下的所有文件，任何一个文件被修改、删除，Git都能跟踪到，也可以还原到过去的某个时刻。&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 创建一个文件夹。也可以直接右键桌面新建文件夹，但是这种方式没有办法创建 . 开头的文件夹&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件夹名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 创建一个文件，直接右键新建的局限性同上，但是可以通过文件另存为将名字开头改成`.XXXX`&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 新建一个文件并进入编辑状态（若文件已经存在则直接进入编辑状态）&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vi&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件名&lt;/span&gt;
-    
-    &lt;span class=&quot;c1&quot;&gt;# 显示当前目录&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pwd&lt;/span&gt;    
-
-    &lt;span class=&quot;c1&quot;&gt;# 显示当前目录所含文件，加上-ah参数表示连同隐藏文件一起显示&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ah&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 初始化仓库&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 下载一个项目和它的整个代码历史&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;clone&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;项目地址&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Windows系统自带的CMD是使用Windows自己的命令，而Git Bash则使用的是Linux下的命令。&lt;/p&gt;
-
-&lt;p&gt;vi其实是Linux下的一个文本编辑器，所以&lt;code class=&quot;highlighter-rouge&quot;&gt;vi 文件名&lt;/code&gt;后，其实是进入了vi程序。vi存在两种模式，编辑模式和命令模式，键盘输入字母&lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;Insert&lt;/code&gt;键进入编辑模式，按下&lt;code class=&quot;highlighter-rouge&quot;&gt;ESC&lt;/code&gt;键，切换到命令模式。放弃所有文件修改：在命令模式下，键入 &lt;code class=&quot;highlighter-rouge&quot;&gt;:q!&lt;/code&gt; 回车后放弃修改并退出vi。&lt;/p&gt;
-
-&lt;p&gt;初始化仓库后，目录下多了一个隐藏状态的.git文件夹。这个目录是Git用来跟踪和管理仓库的，不需要我们改动。&lt;/p&gt;
-
-&lt;h4 id=&quot;增删改查&quot;&gt;增删改查&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-git/git-1708_1.png&quot; alt=&quot;日常使用Git流程&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;日常使用Git只要记住上图6个命令，就可以了。但是熟练使用，恐怕要记住60～100个命令。&lt;/p&gt;
-
-&lt;p&gt;下述是几个专有名词的译名：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Workspace：工作区&lt;/li&gt;
-  &lt;li&gt;Index / Stage：暂存区&lt;/li&gt;
-  &lt;li&gt;Repository：仓库区（或本地仓库）&lt;/li&gt;
-  &lt;li&gt;Remote：远程仓库&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;文件的操作&quot;&gt;文件的操作&lt;/h5&gt;
-
-&lt;p&gt;当在本地撰写代码的时候，我们是处于工作区（Workspace）。使用&lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;命令将文件提交到暂存区（Index/Stage），然后使用&lt;code class=&quot;highlighter-rouge&quot;&gt;commit&lt;/code&gt;命令将处于暂存区所有的文件提交到本地仓库（Repository）。&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 添加指定文件到暂存区&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件名&lt;/span&gt; 
-
-    &lt;span class=&quot;c1&quot;&gt;# 添加当前目录的所有文件到暂存区&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 提交暂存区到仓库区&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;备注信息&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 删除工作区文件，并且将这次删除放入暂存区&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 改名文件（A改成B），并且将这个改名放入暂存区&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mv&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件名&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件名&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;B&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;分支的操作&quot;&gt;分支的操作&lt;/h5&gt;
-
-&lt;p&gt;所谓分支就是与主线的平行的世界，互不干扰。在小队项目里创建里一个属于自己的分支，别人看不到，还继续在原来的主线上正常工作，而你在自己的分支上干活，想提交就提交，直到开发完毕后，再一次性合并到原来的主线上，这样，既安全，又不影响别人工作。&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 列出所有本地分支&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; 
-
-    &lt;span class=&quot;c1&quot;&gt;# 列出所有远程分支&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 新建一个分支，但依然停留在当前分支&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;分支名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 新建一个分支，并切换到该分支&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;分支名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 切换到指定分支，并更新工作区&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkout&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;分支名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 删除本地分支，-D表示强制删除&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;分支名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 删除远程分支&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;分支名&lt;/span&gt;
-    
-    &lt;span class=&quot;c1&quot;&gt;# 推送一个空分支到远程分支，相当于删除远程分支&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;分支名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 合并指定分支到当前分支&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;分支名&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;标签的操作&quot;&gt;标签的操作&lt;/h5&gt;
-
-&lt;p&gt;当提交&lt;code class=&quot;highlighter-rouge&quot;&gt;git commit -u &quot;xxxxx&quot;&lt;/code&gt;时，编写的commit号往往不够生动形象，所以git引入了标签概念。发布一个版本时可以打上一个标签，将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 列出所有本地标签&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt; 
-
-    &lt;span class=&quot;c1&quot;&gt;# 查看tag信息&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;标签名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 删除本地tag，-D表示强制删除&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;标签名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 删除远程标签&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tag&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;标签名&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;查看信息&quot;&gt;查看信息&lt;/h5&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 显示有变更的文件&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 显示当前分支的版本历史&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 显示暂存区和工作区的差异&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;同步到远程仓库&quot;&gt;同步到远程仓库&lt;/h5&gt;
-
-&lt;p&gt;在不同机器都可以从服务器里上克隆项目到机器下，也能推送到服务器上，推荐使用Github进行代码托管。&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 取回远程仓库的变化，并与本地分支合并&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pull&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 上传本地指定分支到远程仓库，加--force参数表示强制推送到远程仓库，即使有冲突&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;branch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;后悔操作&quot;&gt;后悔操作&lt;/h5&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 丢弃工作区的修改&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 把暂存区的修改撤销掉，重新放回工作区&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;HEAD&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;文件名&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 恢复到指定版本，暂存区编号通过git reflog命令查询&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reflog&lt;/span&gt; 
-    &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hard&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;暂存区编号&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;结尾&quot;&gt;结尾&lt;/h2&gt;
-
-&lt;p&gt;日后慢慢学习，慢慢记录。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 26 Jul 2017 17:32:15 +0800</pubDate>
-        <link>http://localhost:5001/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/</link>
-        <guid isPermaLink="true">http://localhost:5001/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/</guid>
-        
-        <category>Git</category>
         
         <category>笔记</category>
         
