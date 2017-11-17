@@ -1,9 +1,9 @@
 {
-    "name": "axiang",
+    "name": "AXiang",
     "title": "空的伸手摘星",
     "version": "1.0.0",
     "homepage": "http://lykqnbz.github.io",
-    "author": "Hux",
+    "author": "AXiang",
     "devDependencies": {
         "grunt": "~0.4.5",
         "grunt-contrib-less": "~0.11.4",
