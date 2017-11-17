@@ -13,46 +13,42 @@ tags:
 
 > 记一下老忘记但是炒鸡好用的单个Css样式
 
+#### 333
+<style>
+.demo {
+    margin-bottom: 40px;
+}
+.demo font,.demo-title {
+    color: #1e70cd;
+    margin: 60px 0 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 35px;
+    display: block;
+}
+.demo .demo-iframe {
+    margin: 1em auto;
+    box-shadow: 0px 0px 1px 0px #aaa;
+    background: #eee;
+    position: relative;
+}
+.demo iframe {
+    display: block;
+    width: 100%;
+    border: none;
+    margin: 0;
+    box-sizing: border-box;
+    height: 400px;
+    width: 1px;
+    min-width: 100%;
+}
+</style>
+<div class="demo">
+	<font>简易视差Demo</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="yes" src="http://wangxiang.vip/practiced-parallax_image/" style="height:340px"></iframe>
+    </div>
+</div>
 
 
-
-<!-- <!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>滚动视觉差示例</title>
-        <style>
-            *{ padding:0;margin:0}
-            body{text-align:center;background-attachment:fixed;}
-            #main{width: 100%;margin:auto}
-            .bg-attachment1{background:url(1.jpg) center center no-repeat; background-attachment:fixed;}
-            .bg-attachment2{background:url(2.jpg) center center no-repeat; background-attachment:fixed;}
-            .shadow{width:100%;height:400px;overflow:hidden;margin:auto;background-color: #000000;opacity: 0.6;}
-            .space{width: 100%;height: 150px;}
-
-        </style>
-    </head>
-    <body>
-        <div id="main">
-            <div class="space"></div>
-            <div class="space"></div>
-            
-            <div class="bg-attachment1">
-                <div class="shadow"></div>
-            </div>
-            
-            <div class="space"></div>
-            <div class="space"></div>
-            <div class="space"></div>
-
-            <div class="bg-attachment2">
-                <div class="shadow"></div>
-            </div>
-
-            <div class="space"></div>
-            <div class="space"></div>
-            <div class="space"></div>
-
-        </div>
-    </body>
-</html> -->
