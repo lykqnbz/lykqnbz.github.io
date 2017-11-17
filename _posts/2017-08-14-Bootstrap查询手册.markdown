@@ -8,9 +8,9 @@ header-img: "img/post-bg-note.jpg"
 catalog:  true
 tags:
     - 前端
+    - Css
     - Bootstrap
     - 笔记
-    - Css
 ---
 
 > “预编译Bootstrap(v3.3.7)的风格设计查询手册”
