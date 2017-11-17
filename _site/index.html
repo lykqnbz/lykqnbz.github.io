@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="关于一个菜鸡的个人博客">
+    <meta name="keyword"  content="王翔, 王翔的博客">
+    <!-- 百度认证 -->
+    <meta name="baidu-site-verification" content="Wicj7SXyl6" />
+    <!-- 禁止百度转码 -->
+    <meta http-equiv="Cache-Control" content="no-transform " /> 
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>阿翔 | AXiang Blog</title>
+
+    <link rel="canonical" href="http://localhost:5001/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS #1 -->
+    <link rel="stylesheet" href="/css/hux-blog.css">
+
+    <!-- Custom CSS #2 -->
+    <link rel="stylesheet" href="/css/axiang.css">
+    
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">空的伸手摘星</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>空的伸手摘星</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">愿生命线满是星星</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2017/11/11/AboutMiniProgram/">
+        <h2 class="post-title">
+            微信小程序
+        </h2>
+        
+        <h3 class="post-subtitle">
+            触手可及的梦想
+        </h3>
+        
+        <div class="post-content-preview">
+            
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on November 11, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/10/10/Swiper/">
+        <h2 class="post-title">
+            超级好用的滑动轮播-Swiper3
+        </h2>
+        
+        <h3 class="post-subtitle">
+            开源、稳定、使用简单、功能强大
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  Swiper中文官网
+
+
+最近朋友推荐的一款轮播插件，优雅易用，效果华丽中带简朴，操作简单上手，扩展性高，占用也不大。
+
+使用前
+和通常的插件一样，可以使用本地加载也能使用CDN加载，需要的只有一个CSS文件和一个JS文件。Swiper不需要在JQuery环境中加载，独立性强，如果环境中加载了JQuery也可以使用更加轻便的JQuery版。
+
+本地加载
+本地加载文件下载地址   
+通常...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on October 10, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/09/22/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E4%BA%8E%E7%99%BE%E5%BA%A6%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2SEO%E4%BC%98%E5%8C%96%E8%A7%81%E8%A7%A3/">
+        <h2 class="post-title">
+            移动端针对百度搜索引擎SEO优化见解
+        </h2>
+        
+        <h3 class="post-subtitle">
+             
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  “针对2017年9月时期百度引擎的个人见解”
+
+
+前言
+抛出大观点：移动站点的收录排名是参考PC站点的数据，所以移动站优化前提是得有个收录比较健康的PC站，而且得做好适配。
+
+现状以及有关移动站点收录
+目前我司网站在移动搜索中的表现为：移动搜索出现均为PC站网址，没有移动站网址出现，点击PC站后代码跳转移动站，可以理解为移动站没有收录且没有排行。
+
+对于百度搜索而言，PC端搜索会优先呈...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on September 22, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/09/12/Vue.js-Frist/">
+        <h2 class="post-title">
+            Vue.js-2.0使用体验
+        </h2>
+        
+        <h3 class="post-subtitle">
+            轻量级前端MVVM框架
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  “Vue.js是拥抱经典的Web技术”
+
+
+特点
+Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和组合的视图组件，其主要有三个大特点：    
+易用，轻便：模型视图的框架相对于JQuery不用一个个去获取DOM元素，可以直接使用双大括号进行字段渲染  
+零活，渐进：
+
+
+  声明式渲染： 默认的声明方式对页面上的字段进行渲染
+  组件系统：制作页面的过程中，可能需要...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on September 12, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/09/08/JsAboutEqual/">
+        <h2 class="post-title">
+            JavaScript中对象相等问题粗鉴
+        </h2>
+        
+        <h3 class="post-subtitle">
+            　
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  “如何判断两个对象相等”
+
+
+在JavaScript中，等于操作符由两个等于号组成==，等于操作符会为了两个数的比较而对其进行强制类型转换。
+
+    ""           ==   "0"           // false  
+    0            ==   ""            // true  
+    0            ==   "0"    ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on September 8, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/08/30/Sass-Frist/">
+        <h2 class="post-title">
+            Sass初体验
+        </h2>
+        
+        <h3 class="post-subtitle">
+            　
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  “Sass 是一门高于 CSS 的元语言，它能用来清晰地、结构化地描述文件样式，有着比普通 CSS 更加强大的功能。Sass 能够提供更简洁、更优雅的语法，同时提供多种功能来创建可维护和管理的样式表。”
+
+
+关于安装
+在Ruby Command环境下：
+
+  安装 Sass：gem install sass
+  查看 Sass：sass -v
+  更新 Sass：gem update ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on August 30, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
+        <h2 class="post-title">
+            Bootstrap查询手册
+        </h2>
+        
+        <h3 class="post-subtitle">
+            　
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  “预编译Bootstrap(v3.3.7)的风格设计查询手册”
+
+
+基础引入方式
+
+本文只讨论预编译的Bootstrap。下图是官方下载zip解压后的文件目录结构图：
+
+
+
+可以直接本地LINK方式引入css，JQuery和JS，也可以直接使用国内的CDN，具体如下：
+
+
+&lt;link href="https://maxcdn.Bootstrapcdn.com/Bootstrap/...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on August 14, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title">
+            响应式设计的基础知识
+        </h2>
+        
+        <h3 class="post-subtitle">
+            做一个魔王扎克
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  “可能是要成为海贼王的网页”
+
+
+前言
+
+在2014年，手机网民规模超越传统PC网民规模，手机成为访问互联网最常见的终端。要在不同大小设备上呈现网页不是一件容易的事，如今做一个单纯的页面仔也不容易。
+
+
+
+正文
+
+响应式设计，理念是设计和开发应根据屏幕的大小、平台的用户的行为和环境基础上自动调整；它应该有一个灵活的网格和布局，图像和CSS能够智能的组合使用。比如说用户从电脑切换到ipa...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on August 8, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/08/01/favorite/">
+        <h2 class="post-title">
+            懒猿收藏夹
+        </h2>
+        
+        <h3 class="post-subtitle">
+            　
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  “保存一些有用的网站，当做云端浏览器收藏夹 :D”
+
+
+
+  Markdown代码块语法高亮支持表
+  Bootstrap提供的字体图标
+  Html字符转义查询表
+  Sass中的混合宏、继承和占位符区别
+  JavaScript中判断两个对象相等
+  能在Github概述中插入的Emoji
+
+
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on August 1, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/">
+        <h2 class="post-title">
+            初学Git命令笔记
+        </h2>
+        
+        <h3 class="post-subtitle">
+            不适合人类阅读，非常水的自我笔记
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  “更新到地老天荒 —-17.08.04”
+
+
+前言
+
+大三接触到Git和svn，是仰望和膜拜。可惜毕业后才开始慢慢学习去使用(估计山口山玩多了)。
+
+
+
+正文
+
+大四实习了半年，学到的东西挺多，可惜忘得也不少。在毕业后就职前，正想着要找个能沉淀知识的方法，手写笔记是不可能适合我这种手癌懒猿的。于是乎便从网上照猫画虎的搞起了自己的github blog，写些自己的知识心得总结以及一些分享...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on July 26, 2017
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+    <ul class="pager">
+        
+        
+        <li class="next">
+            <a href="/page2">Older Posts &rarr;</a>
+        </li>
+        
+    </ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container">
+                <!-- Featured Tags -->
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#生活" title="生活" rel="1">
+                                    生活
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Git" title="Git" rel="1">
+                                    Git
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#笔记" title="笔记" rel="6">
+                                    笔记
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#前端" title="前端" rel="8">
+                                    前端
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#响应式设计" title="响应式设计" rel="1">
+                                    响应式设计
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Bootstrap" title="Bootstrap" rel="1">
+                                    Bootstrap
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Sass" title="Sass" rel="1">
+                                    Sass
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#JavaScript" title="JavaScript" rel="2">
+                                    JavaScript
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Vue.js" title="Vue.js" rel="1">
+                                    Vue.js
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SEO" title="SEO" rel="1">
+                                    SEO
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#插件" title="插件" rel="1">
+                                    插件
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#小程序" title="小程序" rel="1">
+                                    小程序
+                                </a>
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <img src="/img/xiang.png" />
+                        
+                        
+                            <p>愿生命线满是星星。</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                             
+                            <li>
+                                <a href="/feed.xml">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                             
+                            <!--  -->
+                            <!-- 
+                            <li>
+                                <a target="_blank" href="https://www.zhihu.com/people/lykqnbz">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                    </span>
+                                </a>
+                            </li>
+                             -->
+                            <!-- 
+                            <li>
+                                <a target="_blank" href="http://weibo.com/空的伸手摘星">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                             -->
+                            <!-- 
+                            <li>
+                                <a target="_blank" href="https://www.facebook.com/王翔">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                             -->
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/lykqnbz">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
+                    
+                        <li><a href="http://bbs.nga.cn/">NGA</a></li>
+                    
+                        <li><a href="http://www.acfun.tv/">ACFUN</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <!-- 
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                     -->
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by xiang -->
+                    <!-- 
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/lykqnbz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/空的伸手摘星">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                     
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/王翔">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    -->
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/lykqnbz">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 空的伸手摘星 2017
+                    <br>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=lykqnbz&repo=lykqnbz.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.js "></script>
+
+<!-- Service Worker -->
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-103680612-1';
+    var _gaDomain = 'wangxiang.men';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '405b99ad0dfebc7ee3049df100f49c92';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
