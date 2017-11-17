@@ -1,0 +1,7 @@
+_site
+node_modules
+_demo
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
+*.sh
