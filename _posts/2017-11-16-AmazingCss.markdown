@@ -11,16 +11,18 @@ tags:
     - Css
 ---
 
-> 记一下老忘记但是炒鸡好用的单个Css样式
+> 老忘记但是炒鸡好用的单个Css样式
 
-#### 333
+##### 视差效果：background-attachment: fixed;
+视差滚动能让多层背景以不同的速度移动，形成立体的运动效果，带来非常出色的视觉体验。在CSS中定义背景滚动方式的属性是[backgroud-attacthment](http://www.w3school.com.cn/cssref/pr_background-attachment.asp)，下面简单的写了一个Demo。
+
 <style>
 .demo {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 .demo font,.demo-title {
     color: #1e70cd;
-    margin: 60px 0 5px;
+    margin: 40px 0 5px;
     text-align: center;
     font-size: 20px;
     font-weight: 300;
@@ -50,5 +52,22 @@ tags:
 		<iframe frameborder="0" scrolling="yes" src="http://wangxiang.vip/practiced-parallax_image/" style="height:340px"></iframe>
     </div>
 </div>
+
+##### 弹性盒子模型 display:flex
+
+CSS3的弹性盒提供了一种当页面需要适应不同的屏幕大小以及设备类型时确保元素拥有恰当的行为的布局方式，不需要在设置左右浮动，margin，padding来调整位置。
+强烈推荐阮一峰大牛的教程：[Flex 布局教程](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)，举例几个常用的参数：
+
+以下5个属性设置在容器上（第一个属性值均为默认值）：
+- flex-direction （主轴的方向：row（横向从左到右） column（纵向从上到下））
+- justify-content （主轴的对齐方式：flex-start（左对齐） flex-end（右对齐） center（居中） space-between（两端对齐，间隔相等） space-around（两端对齐，边距较大））      
+- align-items （纵向交叉轴对齐方式：stretch（占满） flex-start（起点对齐） flex-end（终点对齐） center（居中））
+- align-content （多个轴线的对齐方式：stretch（轴线占满）flex-start（左对齐） flex-end（右对齐） center（居中） space-between（两端对齐，间隔相等） space-around（两端对齐，边距较大））
+- flex-wrap （是否换行：nowrap（不换） wrap（换））
+
+以下2个属性设置在子类上（常用）：
+- align-self （允许子类与其他不同的对齐方式，可覆盖align-items属性:与`align-items`属性完全一致）
+- flex-grow （定义项目的放大比例，默认为0，如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话））
+
 
 
