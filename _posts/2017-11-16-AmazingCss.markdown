@@ -11,7 +11,7 @@ tags:
     - Css
 ---
 
-> 老忘记但是炒鸡好用的单个Css样式
+> 老忘记但是炒鸡好用的Css样式
 
 ##### 视差效果：background-attachment: fixed;
 视差滚动能让多层背景以不同的速度移动，形成立体的运动效果，带来非常出色的视觉体验。在CSS中定义背景滚动方式的属性是[backgroud-attacthment](http://www.w3school.com.cn/cssref/pr_background-attachment.asp)，下面简单的写了一个Demo。
@@ -69,5 +69,35 @@ CSS3的弹性盒提供了一种当页面需要适应不同的屏幕大小以及�
 - align-self （允许子类与其他不同的对齐方式，可覆盖align-items属性:与`align-items`属性完全一致）
 - flex-grow （定义项目的放大比例，默认为0，如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话））
 
+##### 单行省略
 
+```html
 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+```
+让一个自身有宽度或是容器有宽度的元素实现单行溢出省略（省略号表示）
+
+##### 页内滚动
+
+```html
+
+    overflow: auto;
+    -webkit-overflow-scrolling:touch;
+
+```
+
+效果类似下图![效果图](/img/in-post/post-css/css_1711_3.png)
+
+##### 移动端图像禁止拷贝
+
+在移动端的webkit内核浏览器的下，可以防止用户长按图片跳出系统默认菜单（菜单有下载图片之类的功能），使用如下代码：
+```css
+
+    img{
+        -webkit-touch-callout:none;
+    }
+
+```
