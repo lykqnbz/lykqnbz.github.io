@@ -14,6 +14,12 @@ tags:
 ---
 
 > "Vue.js是拥抱经典的Web技术"
+<style>
+    *{
+        -webkit-user-select:none;
+        -webkit-touch-callout:none;
+    }
+</style>
 
 ## 特点
 Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和组合的视图组件，其主要有三个大特点：      
