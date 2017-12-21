@@ -104,5 +104,34 @@ Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和�
 - [购物车典例](http://wangxiang.vip/practice-vuejs/)
 
 后续继续学习……
-  
+
+> 好的，我来后续继续学习了　　　2017-12-09
+
+##### vue里获取修改真实DOM元素的属性
+
+在vue中可以通过给标签加ref属性，就可以在js中利用ref去引用它，从而修改该dom元素(VUE不建议操作DOM~)
+
+```html
+
+    <div id="demo" ref="demo_1">  
+        DEMO  
+    </div>  
+
+```
+
+```js
+
+    //2秒后渐变颜色Demo
+    mounted () {  
+      var self = this;  
+        this.$refs.demo_1.style.color = 'red';  
+        setTimeout(() => {  
+        self.$refs.demo_1.style.color = 'blue';  
+        },2000)  
+    },
+
+```
+
+
+
 
