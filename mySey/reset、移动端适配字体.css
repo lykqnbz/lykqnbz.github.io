@@ -1,0 +1,12 @@
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,button,input,textarea,th,td {margin:0;padding:0;}
+a {text-decoration:none;}
+a:hover {text-decoration:underline;}
+ul,ol {list-style:none;}
+.hidden {display:none !important;}
+@media screen and (min-width:1024px){html{font-size:20px;}}/* PC */
+@media screen and (max-width:800px){html{font-size:18px;}} /* 普通平板 */
+@media screen and (max-width:414px){html{font-size:17px;}} /* 苹果6P7P8P */
+@media screen and (max-width:375px){html{font-size:15px;}} /* 苹果678 */
+@media screen and (max-width:360px){html{font-size:14px;}} /* 三星S5 */
+@media screen and (max-width:320px){html{font-size:12px;}} /* 苹果5 */
+/* <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"> */
