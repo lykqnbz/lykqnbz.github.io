@@ -5,8 +5,8 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 21 Dec 2017 20:46:12 +0800</pubDate>
-    <lastBuildDate>Thu, 21 Dec 2017 20:46:12 +0800</lastBuildDate>
+    <pubDate>Wed, 03 Jan 2018 10:18:25 +0800</pubDate>
+    <lastBuildDate>Wed, 03 Jan 2018 10:18:25 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
