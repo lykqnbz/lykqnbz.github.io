@@ -147,26 +147,42 @@ var aldR = {
     //大家可以根据需要扩展
     checkType: function (str, type) {
     switch (type) {
+        //邮箱
         case 'email':
             return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
+        //手机
         case 'phone':
-            return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
+            return /^1[3|4|5|7|8|9][0-9]{9}$/.test(str);
+        //联系电话
         case 'tel':
             return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
+        //正整数
         case 'number':
             return /^[0-9]$/.test(str);
+        //英文
         case 'english':
             return /^[a-zA-Z]+$/.test(str);
+        //文本
         case 'text':
             return /^\w+$/.test(str);
+        //中文
         case 'chinese':
             return /^[\u4E00-\u9FA5]+$/.test(str);
+        //小写英文
         case 'lower':
             return /^[a-z]+$/.test(str);
+        //大写英文
         case 'upper':
             return /^[A-Z]+$/.test(str);
+        //QQ号码
         case 'QQ':
             return /^[1-9][0-9]{4,9}$/gim.test(str);
+        //邮政编码
+        case 'postcode':
+            return /^[1-9]\d{5}$/g.test(str);;
+        //身份证
+        case 'idcard':
+            return /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(str);
         default:
             return true;
         }
@@ -207,4 +223,114 @@ var aldR = {
 ```
 
 ## 数组操作
+
+###### 3-1 数组去重
+###### 3-2 数组最大值最小值
+###### 3-3 数组求和，平均值
+###### 3-4 返回数组（字符串）一个元素出现的次数
+###### 3-5 返回数组（字符串）出现最多的几次元素和出现次数
+
+```js
+
+var aldR = {
+    
+    // 3-1 数组去重
+    //aldR.removeRepeatArray([1,1,2,3,4,5,6]))
+    //return:[1,2,3,4,5,6]
+    removeRepeatArray: function (arr) {
+        return arr.filter(function (item, index, self) {
+        return self.indexOf(item) === index;
+        });
+    },
+
+    // 3-2 数组最大值
+    //aldR.maxArr([1,1,2,3,4,5,6]))
+    //return:6
+    maxArr: function (arr) {
+        return Math.max.apply(null, arr);
+    },
+    // 3-2 数组最小值
+    //aldR.minArr([1,1,2,3,4,5,6]))
+    //return:1
+    minArr: function (arr) {
+        return Math.min.apply(null, arr);
+    },
+
+    // 3-3 求和
+    //主要是针对数字类型的数组
+    //aldR.sumArr([1,1,2,3,4,5,6]))
+    //return:22
+    sumArr: function (arr) {
+        return arr.reduce(function (pre, cur) {
+            return pre + cur
+        })
+    },
+    // 3-3 数组平均值
+    //小数点可能会有很多位，这里不做处理
+    //aldR.covArr([1,1,2,3,4,5,6]))
+    //return:3.1428545612399814
+    covArr: function (arr) {
+        return this.sumArr(arr) / arr.length;
+    },
+
+    // 3-4 返回数组（字符串）一个元素出现的次数
+    //aldR.getEleCount('asd56+asdasdwqe','a')
+    //result：3
+    //aldR.getEleCount([1,2,3,4,5,66,77,22,55,22],22)
+    //result：2
+    getEleCount: function (obj, ele) {
+        var num = 0;
+        for (var i = 0, len = obj.length; i < len; i++) {
+            if (ele === obj[i]) {
+                num++;
+            }
+        }
+        return num;
+    },
+    
+    // 3-5 返回数组（字符串）出现最多的几次元素和出现次数
+    //arr, rank->长度，默认为数组长度，ranktype，排序方式，默认降序
+    //返回值：el->元素，count->次数
+    //aldR.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2])
+    //默认情况，返回所有元素出现的次数
+    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
+    //aldR.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3)
+    //传参（rank=3），只返回出现次数排序前三的
+    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2}]
+    //aldR.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],null,1)
+    //传参（ranktype=1,rank=null），升序返回所有元素出现次数
+    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1},{"el":"3","count":2},{"el":"1","count":4},{"el":"2","count":6}]
+    //aldR.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3,1)
+    //传参（rank=3，ranktype=1），只返回出现次数排序（升序）前三的
+    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1}]
+    getCount: function (arr, rank, ranktype) {
+        var obj = {},
+            k, arr1 = []
+        //记录每一元素出现的次数
+        for (var i = 0, len = arr.length; i < len; i++) {
+            k = arr[i];
+            if (obj[k]) {
+                obj[k]++;
+            } else {
+                obj[k] = 1;
+            }
+        }
+        //保存结果{el-'元素'，count-出现次数}
+        for (var o in obj) {
+            arr1.push({el: o, count: obj[o]});
+        }
+        //排序（降序）
+        arr1.sort(function (n1, n2) {
+            return n2.count - n1.count
+        });
+        //如果ranktype为1，则为升序，反转数组
+        if (ranktype === 1) {
+            arr1 = arr1.reverse();
+        }
+        var rank1 = rank || arr1.length;
+        return arr1.slice(0, rank1);
+    }
+}
+
+```
 

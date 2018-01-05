@@ -1,4 +1,7 @@
 var aldR = {
+
+    // 2 字符操作
+
     // 2-1 去除字符串空格
     //type 1-所有空格  2-前后空格  3-前空格 4-后空格
     //aldR.trim('  DDSS5asd',1)
@@ -174,5 +177,95 @@ var aldR = {
     //result：6
     countStr: function (str, strSplit) {
         return str.split(strSplit).length - 1
+    },
+
+    // 3 数组操作
+
+    // 3-1 数组去重
+    removeRepeatArray: function (arr) {
+        return arr.filter(function (item, index, self) {
+        return self.indexOf(item) === index;
+        });
+    },
+
+    // 3-2 数组最大值
+    maxArr: function (arr) {
+        return Math.max.apply(null, arr);
+    },
+    // 3-2 数组最小值
+    minArr: function (arr) {
+        return Math.min.apply(null, arr);
+    },
+
+    // 3-3 求和
+    //主要是针对数字类型的数组
+    sumArr: function (arr) {
+        return arr.reduce(function (pre, cur) {
+            return pre + cur
+        })
+    },
+    // 3-3 数组平均值
+    //小数点可能会有很多位，这里不做处理，
+    covArr: function (arr) {
+        return this.sumArr(arr) / arr.length;
+    },
+
+    // 3-4 返回数组（字符串）一个元素出现的次数
+    //ecDo.getEleCount('asd56+asdasdwqe','a')
+    //result：3
+    //ecDo.getEleCount([1,2,3,4,5,66,77,22,55,22],22)
+    //result：2
+    getEleCount: function (obj, ele) {
+        var num = 0;
+        for (var i = 0, len = obj.length; i < len; i++) {
+            if (ele === obj[i]) {
+                num++;
+            }
+        }
+        return num;
+    },
+    
+    // 3-5 返回数组（字符串）出现最多的几次元素和出现次数
+    //arr, rank->长度，默认为数组长度，ranktype，排序方式，默认降序
+    //返回值：el->元素，count->次数
+    //ecDo.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2])
+    //默认情况，返回所有元素出现的次数
+    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]
+    //ecDo.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3)
+    //传参（rank=3），只返回出现次数排序前三的
+    //result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2}]
+    //ecDo.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],null,1)
+    //传参（ranktype=1,rank=null），升序返回所有元素出现次数
+    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1},{"el":"3","count":2},{"el":"1","count":4},{"el":"2","count":6}]
+    //ecDo.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3,1)
+    //传参（rank=3，ranktype=1），只返回出现次数排序（升序）前三的
+    //result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1}]
+    getCount: function (arr, rank, ranktype) {
+        var obj = {},
+            k, arr1 = []
+        //记录每一元素出现的次数
+        for (var i = 0, len = arr.length; i < len; i++) {
+            k = arr[i];
+            if (obj[k]) {
+                obj[k]++;
+            } else {
+                obj[k] = 1;
+            }
+        }
+        //保存结果{el-'元素'，count-出现次数}
+        for (var o in obj) {
+            arr1.push({el: o, count: obj[o]});
+        }
+        //排序（降序）
+        arr1.sort(function (n1, n2) {
+            return n2.count - n1.count
+        });
+        //如果ranktype为1，则为升序，反转数组
+        if (ranktype === 1) {
+            arr1 = arr1.reverse();
+        }
+        var rank1 = rank || arr1.length;
+        return arr1.slice(0, rank1);
     }
+
 }
