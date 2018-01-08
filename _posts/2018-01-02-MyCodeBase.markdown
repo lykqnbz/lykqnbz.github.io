@@ -317,7 +317,7 @@ var aldR = {
         }
         //保存结果{el-'元素'，count-出现次数}
         for (var o in obj) {
-            arr1.push({el: o, count: obj[o]});
+            arr1.push(['el:'+o, 'count:'+ obj[o]]);
         }
         //排序（降序）
         arr1.sort(function (n1, n2) {
@@ -334,3 +334,133 @@ var aldR = {
 
 ```
 
+## 其他操作
+
+###### 4-1 cookie
+###### 4-2 Window.localStorage
+###### 4-3 现金额大写转换函数
+###### 4-4 日期到期时间计算
+###### 4-5 手机类型判断
+
+```js
+
+var aldR = {
+
+    // 4-1 cookie
+    //设置cookie
+    setCookie: function (name, value, iDay) {
+        var oDate = new Date();
+        oDate.setDate(oDate.getDate() + iDay);
+        document.cookie = name + '=' + value + ';expires=' + oDate;
+    },
+    //获取cookie
+    getCookie: function (name) {
+        var arr = document.cookie.split('; ');
+        for (var i = 0; i < arr.length; i++) {
+            var arr2 = arr[i].split('=');
+            if (arr2[0] == name) {
+                return arr2[1];
+            }
+        }
+        return '';
+    },
+    //删除cookie
+    removeCookie: function (name) {
+        this.setCookie(name, 1, -1);
+    },
+    
+    // 4-2 Window.localStorage
+    //设置localStorage   DEMO功能:每日首次提醒
+    setLocalStorage:function(value){
+        var date=new Date();
+        window.localStorage.setItem(date.toLocaleDateString(), value);
+    },
+
+    //获取localStorage   
+    getLocalStorage:function(value){
+        var date=new Date();
+       return window.localStorage.getItem(date.toLocaleDateString()!= value);
+    },
+
+    //删除localStorage
+    removeLocalStorage:function(){
+        var date=new Date();
+        localStorage.removeItem(date.toLocaleDateString());
+    },
+
+    // 4-3 现金额大写转换函数
+    //ecDo.upDigit(168752632)
+    //result："人民币壹亿陆仟捌佰柒拾伍万贰仟陆佰叁拾贰元整"
+    //ecDo.upDigit(1682)
+    //result："人民币壹仟陆佰捌拾贰元整"
+    //ecDo.upDigit(-1693)
+    //result："欠人民币壹仟陆佰玖拾叁元整"
+    upDigit: function (n) {
+        var fraction = ['角', '分', '厘'];
+        var digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+        var unit = [
+            ['元', '万', '亿'],
+            ['', '拾', '佰', '仟']
+        ];
+        var head = n < 0 ? '欠人民币' : '人民币';
+        n = Math.abs(n);
+        var s = '';
+        for (var i = 0; i < fraction.length; i++) {
+            s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
+        }
+        s = s || '整';
+        n = Math.floor(n);
+        for (var i = 0; i < unit[0].length && n > 0; i++) {
+            var p = '';
+            for (var j = 0; j < unit[1].length && n > 0; j++) {
+                p = digit[n % 10] + unit[1][j] + p;
+                n = Math.floor(n / 10);
+            }
+            s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
+        }
+        return head + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整');
+    } ,
+
+    
+    // 4-4 日期到期时间计算
+    //ecDo.getEndTime('2017/7/22 16:0:0')
+    //result："剩余时间6天 2小时 28 分钟20 秒"
+    getEndTime: function (endTime) {
+        var startDate = new Date(); //开始时间，当前时间
+        var endDate = new Date(endTime); //结束时间，需传入时间参数
+        var t = endDate.getTime() - startDate.getTime(); //时间差的毫秒数
+        var d = 0,
+            h = 0,
+            m = 0,
+            s = 0;
+        if (t >= 0) {
+            d = Math.floor(t / 1000 / 3600 / 24);
+            h = Math.floor(t / 1000 / 60 / 60 % 24);
+            m = Math.floor(t / 1000 / 60 % 60);
+            s = Math.floor(t / 1000 % 60);
+        }
+        return "剩余时间" + d + "天 " + h + "小时 " + m + " 分钟" + s + " 秒";
+    },
+    
+    
+    // 4-5 手机类型判断
+    browserInfo: function (type) {
+        switch (type) {
+            case 'android':
+                return navigator.userAgent.toLowerCase().indexOf('android') !== -1
+            case 'iphone':
+                return navigator.userAgent.toLowerCase().indexOf('iphone') !== -1
+            case 'ipad':
+                return navigator.userAgent.toLowerCase().indexOf('ipad') !== -1
+            case 'weixin':
+                return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1
+            default:
+                return navigator.userAgent.toLowerCase()
+        }
+    }
+
+}
+
+```
+
+肯定会一直更新的啦~
