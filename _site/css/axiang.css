@@ -4,3 +4,38 @@
 .git_string{
     color: #d14;
 }
+#face{
+    background-image: url(../img/in-post/home/face.png);
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+}
+
+#eyeLeft{
+    background-image: url(../img/in-post/home/eye.png);
+    background-size: cover;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 20px;
+    left: 20.3px;
+}
+
+#eyeRight{
+    background-image: url(../img/in-post/home/eye.png);
+    background-size: cover;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 20px;
+    left: 41.3px;
+}
+
+#glass{
+    background-image: url(../img/in-post/home/glass.png);
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+}
