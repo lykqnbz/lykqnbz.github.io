@@ -5,9 +5,191 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 09 Jan 2018 18:29:24 +0800</pubDate>
-    <lastBuildDate>Tue, 09 Jan 2018 18:29:24 +0800</lastBuildDate>
+    <pubDate>Thu, 12 Apr 2018 16:55:16 +0800</pubDate>
+    <lastBuildDate>Thu, 12 Apr 2018 16:55:16 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>细数微信小程序的前端坑</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;酝酿了半年，个人理解&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;wxml&quot;&gt;WXML&lt;/h3&gt;
+
+&lt;h5 id=&quot;小程序的标签&quot;&gt;小程序的标签&lt;/h5&gt;
+
+&lt;p&gt;小程序里的标签远没有H5里的标签多，这主要归于H5许多标签也仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用&lt;code class=&quot;highlighter-rouge&quot;&gt;view&lt;/code&gt;代替&lt;code class=&quot;highlighter-rouge&quot;&gt;div&lt;/code&gt;作为小程序最常见的容器，推荐使用的&lt;a href=&quot;https://developers.weixin.qq.com/miniprogram/dev/component/&quot;&gt;API官方组件&lt;/a&gt;里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，而且编译时小概率出现错误。
+虽然标签简化了，但是普通容器一般都用view的情况下，样式都需要打类名或ID，总觉得十分繁琐(个人习惯是在父级类名下使用标签选择器)。在小程序里个人常用的容器标签有:&lt;em&gt;view&lt;/em&gt;,&lt;em&gt;label&lt;/em&gt;,&lt;em&gt;text&lt;/em&gt;。&lt;/p&gt;
+
+&lt;h5 id=&quot;scroll-view&quot;&gt;scroll-view&lt;/h5&gt;
+&lt;p&gt;scroll-view算是进阶版的view，提供的是一个可滚动视图区域，类似于&lt;strong&gt;overflow:auto&lt;/strong&gt;的功能，只是&lt;strong&gt;overflow:auto&lt;/strong&gt;在小程序很难用的原因，所以在特别的时候可以用上这个组件，例如在一个固定高度的&lt;strong&gt;swiper&lt;/strong&gt;组件里定义一个可滚动视图区域，可以使用scroll-view。
+&lt;img src=&quot;/img/in-post/post-xcx/exm_1.gif&quot; alt=&quot;滑动例子&quot; /&gt; 
+scroll-view支持横纵滚动，滚动条事件等。&lt;/p&gt;
+
+&lt;h5 id=&quot;swiper&quot;&gt;swiper&lt;/h5&gt;
+&lt;p&gt;小程序的swiper就是&lt;a href=&quot;http://www.swiper.com.cn/&quot;&gt;h5中swiper&lt;/a&gt;的阉割版，但是这个阉割版我是很喜欢的，保存了90%的功能，但内容清爽了许多，依旧是丝滑般的感觉。指示点，自动切换，环形轮播，纵横方向之类的都是支持。目前有一个还未解决问题：没有办法舒服的控制&lt;strong&gt;swiper-item&lt;/strong&gt;之间间距，因为小程序的swiper封装得太好了，再加上没有办法获取dom元素，官方渲染的时候也不用类名id控制样式，所以想要控制到元素很麻烦，原先在H5用swiper做的一个效果图如下&lt;img src=&quot;/img/in-post/post-xcx/exm_2.gif&quot; alt=&quot;轮播例子&quot; /&gt;在可以控制到dom的情况下轻松修改到原生样式；以下为小程序的swiper做的类似页面&lt;img src=&quot;/img/in-post/post-xcx/exm_3.gif&quot; alt=&quot;轮播例子&quot; /&gt;但是在大多情况下使用swiper当做轮播滚动，信息滚动都十分好用。&lt;/p&gt;
+
+&lt;h5 id=&quot;text&quot;&gt;text&lt;/h5&gt;
+&lt;p&gt;小程序的text组件是一个用于文本的内联元素，比较特殊的是它支持解码&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;nbsp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;lt&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;gt&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;amp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;apos&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;ensp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;emsp&lt;/code&gt;以及换行&lt;code class=&quot;highlighter-rouge&quot;&gt;\n&lt;/code&gt;和空格&lt;code class=&quot;highlighter-rouge&quot;&gt;\t&lt;/code&gt;，这边要注意的是，小程序里是不识别&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;br/&amp;gt;&lt;/code&gt;换行的，而且text标签里只能嵌套text标签。&lt;/p&gt;
+
+&lt;h5 id=&quot;button&quot;&gt;button&lt;/h5&gt;
+&lt;p&gt;小程序的button主要功能是使用微信开发的能力(open-type属性：分享，打开客服之类)以及提供formId的表单提交，通常我们设计的一个按钮在button组件上得不到很好的样式体现，因为小程序在wxss里是不支持导入本地连接的图片的，只能使用网络地址，导致在button上不能显示本地的背景图片，所以一般都是把一张图片和一个button放在一个容器里，图片为按钮背景图，button则设置定位重叠在图片上方，并且设置透明无色。&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    
+    &lt;span class=&quot;nc&quot;&gt;.con&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;       
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.ccon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:after&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;很坑的一点是，小程序中button的默认样式很多，特别是button的border属性，不是写在button内，而是写在button:after里。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;button open-type=&quot;&quot;&amp;gt;&amp;lt;/button&amp;gt;&lt;/code&gt;这边例举常用的open-type的有效值&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;share: 触发用户转发，和js里的onShareAppMessage相对应&lt;/li&gt;
+  &lt;li&gt;contact: 打开客服会话&lt;/li&gt;
+  &lt;li&gt;getUserInfo:获取用户信息，可以从bindgetuserinfo回调中获取到用户信息&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;canvas&quot;&gt;canvas&lt;/h5&gt;
+&lt;p&gt;h5的canvas真的是太牛逼了，导致我对小程序里的canvas也有很大的期望，结果发现小程序的canvas是真的难用。小程序的canvas阉割了太多的功能。通过唯一的canvas-id进行识别。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题1ctxdrawimage真机无法显示&quot;&gt;　问题1:ctx.drawImage真机无法显示&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：用ctx.drawImage画线上图片在真机上显示不出来，模拟器上却可以显示（需要说明的是：ctx.drawImage画图片是需要获取到图片后才能开始画，并且获取的线上图片地址需要是https。）但是在真机上还是无法显示，也试过下载到本地后画也没有用。&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：首先，用canvas绘制线上图片时，必须先下载到本地，而且线上图片的地址必须是在配置的安全域名下，遇到绘制不出的原因在于：没有等待图片完全下载好就绘制了，所以这里要考虑绘图顺序，可以用wx.downloadFile返回的对象的成功回调后绘制图片。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题2实现圆形裁剪&quot;&gt;　问题2：实现圆形裁剪&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：小程序的canvas没有裁剪的api，如何用canvas将图片画成圆形？&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：我是通过制作一张和头像图片一样大的中间有个圆形镂空（中间透明，外切圆）的正方形图片绘制在头像上，在视觉上给头像做出圆形的效果。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题3文字定位&quot;&gt;　问题3：文字定位&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：canvas生成一张用于裂变的分享图常常需要写入许多文字，而且文字并非一段而是拆分成很多段，如下图：&lt;img src=&quot;/img/in-post/post-xcx/exm_4.png&quot; alt=&quot;canvas例子&quot; /&gt;中间那段红蓝相间的文字就是用多段ctx.fillText定位的，但是ctx.fillText(输出文本,x轴距离,y轴距离)是只支持从左上角开始定位的，而且只能使用&lt;strong&gt;px&lt;/strong&gt;单位，导致在不同机型上显示的效果都不一样，而且文字换行也是个大问题。&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：通过手动计算rpx的比值进行等比例转换px再配合ctx.setTextAlign设置文字对其方式可以较完美的解决文字定位问题，文字换行同理。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题4字体设置&quot;&gt;　问题4：字体设置&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：canvas不能设置字体，只能使用宋体。&lt;/p&gt;
+
+&lt;p&gt;　&lt;del&gt;&lt;strong&gt;未解决&lt;/strong&gt;：确实只能显示宋体&lt;/del&gt;。  &lt;br /&gt;
+　&lt;strong&gt;半解决&lt;/strong&gt;：基础库1.9.90开始支持ctx.font，支持设置字体粗细，形态，大小以及字体，还没有用过，有机会试一下。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题5canvas隐藏问题&quot;&gt;　问题5：canvas隐藏问题&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：为了让canvas不在页面显示，将canvas用view标签包起来后，给view设置了overflow=hidden和opacity=0的属性，是可以成功将canvas隐藏，但是在真机上测试时，一旦在这个隐藏的canvas上绘制图片，canvas又显示在屏幕上了。模拟器上是不会显示的。&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：由于canvas是客户端创建的原生组件，它的层级是最高的，并且不能通过 z-index 控制层级，所以在真机上canvas一旦被绘制就一定会显示，而且如果用wx:if来隐藏会把canvas销毁掉，使其不工作，我个人的解决方式是将canvas设置定位绝对定位或固定定位,left设置-10000px,使其脱离屏幕，如果需要时再把left动态设置回来，这样达到一个隐藏的效果。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题6canvas的层级问题&quot;&gt;　问题6：canvas的层级问题&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：写的所有东西都被canvas盖住了，在模拟器上是显示的，但是在真机上都是被canvas盖住的。&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：上面说到canvas是客户端创建的原生组件（类似的还有map、video、camera、live-player、live-pusher），它们的层级是最高的，并且不能通过 z-index 控制层级，所以大部分组件是不能位于canvas之上的，但是微信提供了cover-view和cover-image这两个组件。一个用于普通容器，一个用于图片显示。它们和view、image用法一样，但是很多样式不支持，例如单边的border、background、shadow等，cover-view和cover-image只支持嵌套cover-view和cover-image，并且只能写在canvas内，如下：&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;canvas&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;canvas-id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'myCanvas'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+           &lt;span class=&quot;nt&quot;&gt;&amp;lt;cover-view&amp;gt;&lt;/span&gt;
+               6666
+           &lt;span class=&quot;nt&quot;&gt;&amp;lt;/cover-view&amp;gt;&lt;/span&gt;
+           &lt;span class=&quot;nt&quot;&gt;&amp;lt;cover-image&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nice.png&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/canvas&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h6 id=&quot;问题7drawimage绘制的画布使用ctxclearrect清除不了&quot;&gt;　问题7：drawImage绘制的画布，使用ctx.clearRect清除不了&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：ctx.drawImage绘制的画布，使用ctx.clearRect清除不了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;未解决&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;h5 id=&quot;web-view&quot;&gt;web-view&lt;/h5&gt;
+&lt;p&gt;web-view是一个可以用来承载网页的容器，会自动铺满整个小程序页面，有点类似h5的iframe，如果有现成的h5网页，并且不需要支付接口（不支持）可以考虑直接使用这个组件来开发，使用bindmessage来接受网页向小程序postMessage时的消息e.detail = { data }。&lt;a href=&quot;http://www.swiper.com.cn/&quot;&gt;主要支持的接口&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;wjs&quot;&gt;WJS&lt;/h3&gt;
+&lt;p&gt;每个人写法都不一样，推荐使用ES6写法，这边不多赘述。&lt;/p&gt;
+
+&lt;h5 id=&quot;thissetdata&quot;&gt;this.setData({})&lt;/h5&gt;
+&lt;p&gt;一般setData方法多用于改变页面信息或者刷新后与后台交互获取最新的信息。这是我们最常用的接口，要注意的是小程序是基于双线程模型的，在这个模型中，小程序的逻辑层与渲染层分开在不同的线程运行，大部分代码都是异步的。以下是错误写法:&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;onLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;奎尔萨拉斯&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;因为代码是异步加载，无法100%保证text能在输出前成功赋值(虽然大部分情况下可以，但是如果赋值数据大，则会出现这样的问题)。正确写法:&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;onLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;奎尔萨拉斯&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;ES6的箭头函数能完美解决这个问题。&lt;/p&gt;
+
+&lt;h5 id=&quot;settimeout&quot;&gt;setTimeout&lt;/h5&gt;
+&lt;p&gt;自我感觉小程序对setTimeout的支持很差，多次循环调用setTimeout会严重影响页面渲染效果，而且不同机型差异很大，不推荐使用，同理的还有CSS3动画。&lt;/p&gt;
+
+&lt;h3 id=&quot;wxss&quot;&gt;WXSS&lt;/h3&gt;
+
+&lt;h5 id=&quot;小程序的样式表&quot;&gt;小程序的样式表&lt;/h5&gt;
+&lt;p&gt;小程序的WXSS就是H5的CSS，它具有CSS大部分的特性，并且对小程序有一定的拓展和修改。主要的拓展就是尺寸单位rpx的确定。rpx可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在iPhone6上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。&lt;img src=&quot;/img/in-post/post-xcx/exm_5.png&quot; alt=&quot;5,6,6p&quot; /&gt;关于这个rpx，就像h5里的&lt;strong&gt;rem&lt;/strong&gt;单位一样，我是十分喜欢的，就像秦始皇统一六国，统一了货币一样，当然你也可以使用&lt;strong&gt;px&lt;/strong&gt;、&lt;strong&gt;%&lt;/strong&gt;、&lt;strong&gt;vh&lt;/strong&gt;、&lt;strong&gt;em&lt;/strong&gt;,这些在小程序都是支持的，不存在兼容问题。&lt;/p&gt;
+
+&lt;h5 id=&quot;calc&quot;&gt;calc()&lt;/h5&gt;
+&lt;p&gt;一直觉得calc()在css3中是一个亮点，碍于在移动端浏览器兼容性表现不佳，一直不敢常用（和2年前的弹性盒子一样）。但是在小程序里是可以完美兼容的，小程序使用rpx单位使布局方便，calc()更加灵活的运算使得锦上添花。要注意点是calc()中的运算符需要左右空格间距和h5是一样的。&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nc&quot;&gt;.con_view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rpx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;上述得到的width为700rpx。calc()在有paddding时计算宽度会比&lt;strong&gt;box-sizing: border-box;&lt;/strong&gt;方便一些。&lt;/p&gt;
+
+&lt;h5 id=&quot;filter&quot;&gt;filter&lt;/h5&gt;
+&lt;p&gt;同样和calc()一样出彩的css3新样式，在小程序也是完美兼容，以下是我比较常用的几种，&lt;a href=&quot;http://www.runoob.com/cssref/css3-pr-filter.html&quot;&gt;filter&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;blur(px):高斯模糊度&lt;/li&gt;
+  &lt;li&gt;grayscale(%):灰度值&lt;/li&gt;
+  &lt;li&gt;opacity(%):透明度，和opacity效果类似，不同之处在于通过filter，一些浏览器为了提升性能会提供硬件加速，但在小程序里不存在这种情况。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;css3动画animation&quot;&gt;CSS3动画animation&lt;/h5&gt;
+&lt;p&gt;小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，效果很差，常常因为渲染闪屏，所以不推荐使用css3的动画。&lt;/p&gt;
+
+&lt;h3 id=&quot;other&quot;&gt;OTHER&lt;/h3&gt;
+
+&lt;h5 id=&quot;阻止页面下拉和滚动&quot;&gt;阻止页面下拉和滚动&lt;/h5&gt;
+&lt;p&gt;在对应的页面的.json里配置&lt;strong&gt;“disableScroll”: true&lt;/strong&gt;可以阻止页面上下拉，如果是在canvas里进行绘画操作时，&lt;strong&gt;“disableScroll”: true&lt;/strong&gt;会失效，手指在画板上绘画会导致屏幕滑动。可以在元素标签里绑定&lt;strong&gt;disable-scroll=”true”&lt;/strong&gt;，可解决滑动问题。&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;canvas&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;canvas-id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'myCanvas'&lt;/span&gt;  &lt;span class=&quot;na&quot;&gt;disable-scroll=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bindtouchstart=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;touchStart&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bindtouchmove=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;touchMove&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/canvas&amp;gt;&lt;/span&gt;
+ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;关闭小程序&quot;&gt;关闭小程序&lt;/h5&gt;
+&lt;p&gt;官方没有特别说明这个方法，可以使用这个:&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nx&quot;&gt;wx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;navigateBack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+       &lt;span class=&quot;na&quot;&gt;delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h5 id=&quot;关于路由跳转&quot;&gt;关于路由跳转&lt;/h5&gt;
+&lt;p&gt;之前路由是一直使用wx.navigateTo或者wx.redirectTo，但是wx.navigateTo和wx.redirectTo不允许跳转到tabbar页面(底部导航)，只能用 wx.switchTab 跳转到 tabbar页面。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;会一直更新的&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Tue, 10 Apr 2018 19:10:25 +0800</pubDate>
+        <link>http://localhost:5001/2018/04/10/AboutMiniProgram/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/04/10/AboutMiniProgram/</guid>
+        
+        <category>前端</category>
+        
+        <category>小程序</category>
+        
+        
+      </item>
     
       <item>
         <title>代码库</title>
@@ -652,6 +834,28 @@
   p:last-child 选择器：选择父级下的最后一个为&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt;元素;   &lt;br /&gt;
   p:nth-child(2) 选择器：选择父级下的第2个为&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt;元素;&lt;/p&gt;
 
+&lt;h5 id=&quot;calc四则运算动态计算长宽高&quot;&gt;calc()四则运算动态计算长宽高&lt;/h5&gt;
+
+&lt;p&gt;用于动态计算长度值。
+  需要注意的是，运算符前后都需要保留一个空格，例如：width: calc(100% - 10px)；
+  任何长度值都可以使用calc()函数进行计算；
+  calc()函数支持 &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt; 运算；
+  calc()函数使用标准的数学运算优先级规则；
+  兼容到IE9IE9+、FF4.0+、Chrome19+、Safari6+,需要加上识别符，小程序完美支持。&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;c&quot;&gt;/* 宽度为1000px,下列表达式则为 950px */&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.elm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100%-50px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;transform和position-fixed&quot;&gt;transform和position: fixed&lt;/h5&gt;
+
+&lt;p&gt;如果在父级有设置&lt;code class=&quot;highlighter-rouge&quot;&gt;transform&lt;/code&gt;属性时，容器内设有position: fixed属性将会失效，变成仅仅只是 position: absolute 的效果;
+  Google给的解释是&lt;strong&gt;position: fixed” still do not cope with transform value&lt;/strong&gt;&lt;/p&gt;
+
 </description>
         <pubDate>Thu, 16 Nov 2017 16:50:15 +0800</pubDate>
         <link>http://localhost:5001/2017/11/16/AmazingCss/</link>
@@ -660,23 +864,6 @@
         <category>前端</category>
         
         <category>Css</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>微信小程序</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;酝酿中，学习中&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Sat, 11 Nov 2017 19:10:25 +0800</pubDate>
-        <link>http://localhost:5001/2017/11/11/AboutMiniProgram/</link>
-        <guid isPermaLink="true">http://localhost:5001/2017/11/11/AboutMiniProgram/</guid>
-        
-        <category>前端</category>
-        
-        <category>小程序</category>
         
         
       </item>

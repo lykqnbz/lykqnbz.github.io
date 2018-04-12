@@ -105,9 +105,33 @@ CSS3的弹性盒提供了一种当页面需要适应不同的屏幕大小以及�
 
 ##### 常用选择器
 
-  p:first-child 选择器：选择父级下的首个元素为``<p>``元素;    
-  p:last-child 选择器：选择父级下的最后一个为``<p>``元素;     
-  p:nth-child(2) 选择器：选择父级下的第2个为``<p>``元素;     
+  p:first-child 选择器：选择父级下的首个元素为`<p>`元素;    
+  p:last-child 选择器：选择父级下的最后一个为`<p>`元素;     
+  p:nth-child(2) 选择器：选择父级下的第2个为`<p>`元素;     
+
+
+##### calc()四则运算动态计算长宽高
+
+  用于动态计算长度值。
+  需要注意的是，运算符前后都需要保留一个空格，例如：width: calc(100% - 10px)；
+  任何长度值都可以使用calc()函数进行计算；
+  calc()函数支持 `+`, `-`, `*`, `/` 运算；
+  calc()函数使用标准的数学运算优先级规则；
+  兼容到IE9IE9+、FF4.0+、Chrome19+、Safari6+,需要加上识别符，小程序完美支持。
+
+  ```css
+
+    /* 宽度为1000px,下列表达式则为 950px */
+    .elm{
+      width: calc(100%-50px);
+    }
+
+  ```
+
+##### transform和position: fixed
+
+  如果在父级有设置`transform`属性时，容器内设有position: fixed属性将会失效，变成仅仅只是 position: absolute 的效果;
+  Google给的解释是**position: fixed" still do not cope with transform value**
 
 
 

@@ -66,7 +66,7 @@ ga_domain: wangxiang.men
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "愿生命线满是星星。"
+sidebar-about-description: "生命中最美的星星，她会独自在黑暗中发亮"
 sidebar-avatar: /img/xiang.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
