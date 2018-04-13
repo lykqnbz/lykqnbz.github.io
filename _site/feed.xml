@@ -5,8 +5,8 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 12 Apr 2018 16:55:16 +0800</pubDate>
-    <lastBuildDate>Thu, 12 Apr 2018 16:55:16 +0800</lastBuildDate>
+    <pubDate>Fri, 13 Apr 2018 14:56:21 +0800</pubDate>
+    <lastBuildDate>Fri, 13 Apr 2018 14:56:21 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -19,7 +19,7 @@
 
 &lt;h5 id=&quot;小程序的标签&quot;&gt;小程序的标签&lt;/h5&gt;
 
-&lt;p&gt;小程序里的标签远没有H5里的标签多，这主要归于H5许多标签也仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用&lt;code class=&quot;highlighter-rouge&quot;&gt;view&lt;/code&gt;代替&lt;code class=&quot;highlighter-rouge&quot;&gt;div&lt;/code&gt;作为小程序最常见的容器，推荐使用的&lt;a href=&quot;https://developers.weixin.qq.com/miniprogram/dev/component/&quot;&gt;API官方组件&lt;/a&gt;里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，而且编译时小概率出现错误。
+&lt;p&gt;小程序里的标签远没有H5里的标签多，这主要归于H5许多标签仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用&lt;code class=&quot;highlighter-rouge&quot;&gt;view&lt;/code&gt;代替&lt;code class=&quot;highlighter-rouge&quot;&gt;div&lt;/code&gt;作为小程序最常见的容器，推荐使用的&lt;a href=&quot;https://developers.weixin.qq.com/miniprogram/dev/component/&quot;&gt;API官方组件&lt;/a&gt;里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，而且编译时小概率出现错误。
 虽然标签简化了，但是普通容器一般都用view的情况下，样式都需要打类名或ID，总觉得十分繁琐(个人习惯是在父级类名下使用标签选择器)。在小程序里个人常用的容器标签有:&lt;em&gt;view&lt;/em&gt;,&lt;em&gt;label&lt;/em&gt;,&lt;em&gt;text&lt;/em&gt;。&lt;/p&gt;
 
 &lt;h5 id=&quot;scroll-view&quot;&gt;scroll-view&lt;/h5&gt;
@@ -127,8 +127,24 @@ scroll-view支持横纵滚动，滚动条事件等。&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;ES6的箭头函数能完美解决这个问题。&lt;/p&gt;
 
-&lt;h5 id=&quot;settimeout&quot;&gt;setTimeout&lt;/h5&gt;
-&lt;p&gt;自我感觉小程序对setTimeout的支持很差，多次循环调用setTimeout会严重影响页面渲染效果，而且不同机型差异很大，不推荐使用，同理的还有CSS3动画。&lt;/p&gt;
+&lt;h5 id=&quot;settimeout和setinterval&quot;&gt;setTimeout和setInterval&lt;/h5&gt;
+&lt;p&gt;&lt;del&gt;自我感觉小程序对setTimeout以及setInterval的支持很差，多次循环调用setTimeout会严重影响页面渲染效果，而且不同机型差异很大，不推荐使用，同理的还有CSS3动画。&lt;/del&gt; &lt;br /&gt;
+确实小程序的setInterval、setTimeout很不精确，主要是因为套了几层、或者用setTimeout以递归形式变相实现setInterval的会超过实际设定时间(间隔1000ms时误差：pc 2ms以内, 中等性能安卓机 10ms左右), 会造成较大的累积差。思路是:每次补了上次的误差。超出误差范围会掉回来，从而无累计。通过更小的Interval实现无累计差的、相对精确的Interval。但是还是需要在频率(影响性能,本人一般30-50ms)和误差范围之前做权衡。特别注意的是每个计时器(setTimeout和setInterval)应该在页面结束时Stop，否则在hide后重新show页面改变，计时器没停止，可能导致重大问题。以下为优化消除累计差的方法：&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;now: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;lastTime: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;wxif和动画加载&quot;&gt;wx:if和动画加载&lt;/h5&gt;
+&lt;p&gt;wx:if包含的物体(包括自身)加动画有bug，播放一次动画-&amp;gt;隐藏-&amp;gt;显示-&amp;gt;物体卡在动画第一个step结束后，之后再播动画怎么setData都不起作用(因为动画是差值播放。永远停在第一步结束, 即重新播放的第一步永远不会再执行)。解决方法: 每次重新显示后先清掉之前的动画，并在非本帧(setTimeout 50ms以上)重新setData动画数据。&lt;/p&gt;
 
 &lt;h3 id=&quot;wxss&quot;&gt;WXSS&lt;/h3&gt;
 

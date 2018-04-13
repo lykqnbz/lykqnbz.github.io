@@ -17,7 +17,7 @@ tags:
 
 ##### 小程序的标签
 
-小程序里的标签远没有H5里的标签多，这主要归于H5许多标签也仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用`view`代替`div`作为小程序最常见的容器，推荐使用的[API官方组件](https://developers.weixin.qq.com/miniprogram/dev/component/)里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，而且编译时小概率出现错误。
+小程序里的标签远没有H5里的标签多，这主要归于H5许多标签仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用`view`代替`div`作为小程序最常见的容器，推荐使用的[API官方组件](https://developers.weixin.qq.com/miniprogram/dev/component/)里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，而且编译时小概率出现错误。
 虽然标签简化了，但是普通容器一般都用view的情况下，样式都需要打类名或ID，总觉得十分繁琐(个人习惯是在父级类名下使用标签选择器)。在小程序里个人常用的容器标签有:*view*,*label*,*text*。
 
 ##### scroll-view
@@ -127,8 +127,26 @@ web-view是一个可以用来承载网页的容器，会自动铺满整个小程
 ```
 ES6的箭头函数能完美解决这个问题。
 
-#####  setTimeout
-自我感觉小程序对setTimeout的支持很差，多次循环调用setTimeout会严重影响页面渲染效果，而且不同机型差异很大，不推荐使用，同理的还有CSS3动画。
+#####  setTimeout和setInterval
+~~自我感觉小程序对setTimeout以及setInterval的支持很差，多次循环调用setTimeout会严重影响页面渲染效果，而且不同机型差异很大，不推荐使用，同理的还有CSS3动画。~~   
+确实小程序的setInterval、setTimeout很不精确，主要是因为套了几层、或者用setTimeout以递归形式变相实现setInterval的会超过实际设定时间(间隔1000ms时误差：pc 2ms以内, 中等性能安卓机 10ms左右), 会造成较大的累积差。思路是:每次补了上次的误差。超出误差范围会掉回来，从而无累计。通过更小的Interval实现无累计差的、相对精确的Interval。但是还是需要在频率(影响性能,本人一般30-50ms)和误差范围之前做权衡。特别注意的是每个计时器(setTimeout和setInterval)应该在页面结束时Stop，否则在hide后重新show页面改变，计时器没停止，可能导致重大问题。以下为优化消除累计差的方法：
+
+```js
+
+    var lastTime = (new Date()).valueOf();
+    setInterval(function () {
+    var now = (new Date()).valueOf();
+    if (now - lastTime >= 1000){
+        lastTime = lastTime + 1000;
+        console.log("now: " + now, "lastTime: " + lastTime);
+    }
+    }, 30);
+
+```
+
+##### wx:if和动画加载
+wx:if包含的物体(包括自身)加动画有bug，播放一次动画->隐藏->显示->物体卡在动画第一个step结束后，之后再播动画怎么setData都不起作用(因为动画是差值播放。永远停在第一步结束, 即重新播放的第一步永远不会再执行)。解决方法: 每次重新显示后先清掉之前的动画，并在非本帧(setTimeout 50ms以上)重新setData动画数据。
+
 
 ### WXSS
 
