@@ -195,5 +195,12 @@ wx:if包含的物体(包括自身)加动画有bug，播放一次动画->隐藏->
 ##### 关于路由跳转
 之前路由是一直使用wx.navigateTo或者wx.redirectTo，但是wx.navigateTo和wx.redirectTo不允许跳转到tabbar页面(底部导航)，只能用 wx.switchTab 跳转到 tabbar页面。
 
+##### 多目运算
+当需要判断两个特定情况渲染页面时，true和false往往不够用，可以把两个或者多个三目运算组合起来使用，例如:
+```html
+    <!-- 当type=1时使用btn1，type=2时使用btn2 -->
+    <view class="{{type==1?'btn1':type==2?'btn2':''}}"></view>
+
+```
 
 >会一直更新的
