@@ -5,8 +5,8 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Apr 2018 10:25:14 +0800</pubDate>
-    <lastBuildDate>Mon, 23 Apr 2018 10:25:14 +0800</lastBuildDate>
+    <pubDate>Wed, 02 May 2018 15:12:06 +0800</pubDate>
+    <lastBuildDate>Wed, 02 May 2018 15:12:06 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -25,7 +25,17 @@
 &lt;h5 id=&quot;scroll-view&quot;&gt;scroll-view&lt;/h5&gt;
 &lt;p&gt;scroll-view算是进阶版的view，提供的是一个可滚动视图区域，类似于&lt;strong&gt;overflow:auto&lt;/strong&gt;的功能，只是&lt;strong&gt;overflow:auto&lt;/strong&gt;在小程序很难用的原因，所以在特别的时候可以用上这个组件，例如在一个固定高度的&lt;strong&gt;swiper&lt;/strong&gt;组件里定义一个可滚动视图区域，可以使用scroll-view。
 &lt;img src=&quot;/img/in-post/post-xcx/exm_1.gif&quot; alt=&quot;滑动例子&quot; /&gt; 
-scroll-view支持横纵滚动，滚动条事件等。&lt;/p&gt;
+scroll-view支持横纵滚动，滚动条事件等。但是目前好像在官方API暂时还没有发现有滚动条结束监控，我们可以在&lt;code class=&quot;highlighter-rouge&quot;&gt;bindscroll&lt;/code&gt;绑定一个一个延时函数来达到滚动条结束的监听：&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+  &lt;span class=&quot;nx&quot;&gt;bindScrollOver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;clearTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//   滚动结束时的事件&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;swiper&quot;&gt;swiper&lt;/h5&gt;
 &lt;p&gt;小程序的swiper就是&lt;a href=&quot;http://www.swiper.com.cn/&quot;&gt;h5中swiper&lt;/a&gt;的阉割版，但是这个阉割版我是很喜欢的，保存了90%的功能，但内容清爽了许多，依旧是丝滑般的感觉。指示点，自动切换，环形轮播，纵横方向之类的都是支持。目前有一个还未解决问题：没有办法舒服的控制&lt;strong&gt;swiper-item&lt;/strong&gt;之间间距，因为小程序的swiper封装得太好了，再加上没有办法获取dom元素，官方渲染的时候也不用类名id控制样式，所以想要控制到元素很麻烦，原先在H5用swiper做的一个效果图如下&lt;img src=&quot;/img/in-post/post-xcx/exm_2.gif&quot; alt=&quot;轮播例子&quot; /&gt;在可以控制到dom的情况下轻松修改到原生样式；以下为小程序的swiper做的类似页面&lt;img src=&quot;/img/in-post/post-xcx/exm_3.gif&quot; alt=&quot;轮播例子&quot; /&gt;但是在大多情况下使用swiper当做轮播滚动，信息滚动都十分好用。&lt;/p&gt;
@@ -69,13 +79,14 @@ scroll-view支持横纵滚动，滚动条事件等。&lt;/p&gt;
 &lt;h6 id=&quot;问题3文字定位&quot;&gt;　问题3：文字定位&lt;/h6&gt;
 &lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：canvas生成一张用于裂变的分享图常常需要写入许多文字，而且文字并非一段而是拆分成很多段，如下图：&lt;img src=&quot;/img/in-post/post-xcx/exm_4.png&quot; alt=&quot;canvas例子&quot; /&gt;中间那段红蓝相间的文字就是用多段ctx.fillText定位的，但是ctx.fillText(输出文本,x轴距离,y轴距离)是只支持从左上角开始定位的，而且只能使用&lt;strong&gt;px&lt;/strong&gt;单位，导致在不同机型上显示的效果都不一样，而且文字换行也是个大问题。&lt;/p&gt;
 
-&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：通过手动计算rpx的比值进行等比例转换px再配合ctx.setTextAlign设置文字对其方式可以较完美的解决文字定位问题，文字换行同理。&lt;/p&gt;
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：通过手动计算rpx的比值进行等比例转换px再配合ctx.setTextAlign设置文字对其方式可以较完美的解决文字定位问题，文字换行同理。在基础库1.9.90里还更新了ctx.measureText方法，能测量文本尺寸信息，返回文本宽度，同步接口，便于我们文字进行定位。&lt;/p&gt;
 
 &lt;h6 id=&quot;问题4字体设置&quot;&gt;　问题4：字体设置&lt;/h6&gt;
 &lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：canvas不能设置字体，只能使用宋体。&lt;/p&gt;
 
 &lt;p&gt;　&lt;del&gt;&lt;strong&gt;未解决&lt;/strong&gt;：确实只能显示宋体&lt;/del&gt;。  &lt;br /&gt;
-　&lt;strong&gt;半解决&lt;/strong&gt;：基础库1.9.90开始支持ctx.font，支持设置字体粗细，形态，大小以及字体，还没有用过，有机会试一下。&lt;/p&gt;
+　&lt;del&gt;&lt;strong&gt;半解决&lt;/strong&gt;：基础库1.9.90开始支持ctx.font，支持设置字体粗细，形态，大小以及字体，还没有用过，有机会试一下&lt;/del&gt;。&lt;br /&gt;
+　&lt;strong&gt;已解决&lt;/strong&gt;：在基础库为1.9.90确实可以通过font来设置字体形态，但是它不像setFillStyle，setFontSize这些只向下有效，font对没有设置过字态的fillText都会进行设置，向上也有效，所以如果使用了font，要对所有的fillText都进行设置，目前自测支持的字体有:宋体，黑体，楷体。。。&lt;/p&gt;
 
 &lt;h6 id=&quot;问题5canvas隐藏问题&quot;&gt;　问题5：canvas隐藏问题&lt;/h6&gt;
 &lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：为了让canvas不在页面显示，将canvas用view标签包起来后，给view设置了overflow=hidden和opacity=0的属性，是可以成功将canvas隐藏，但是在真机上测试时，一旦在这个隐藏的canvas上绘制图片，canvas又显示在屏幕上了。模拟器上是不会显示的。&lt;/p&gt;
@@ -146,6 +157,25 @@ scroll-view支持横纵滚动，滚动条事件等。&lt;/p&gt;
 &lt;h5 id=&quot;wxif和动画加载&quot;&gt;wx:if和动画加载&lt;/h5&gt;
 &lt;p&gt;wx:if包含的物体(包括自身)加动画有bug，播放一次动画-&amp;gt;隐藏-&amp;gt;显示-&amp;gt;物体卡在动画第一个step结束后，之后再播动画怎么setData都不起作用(因为动画是差值播放。永远停在第一步结束, 即重新播放的第一步永远不会再执行)。解决方法: 每次重新显示后先清掉之前的动画，并在非本帧(setTimeout 50ms以上)重新setData动画数据。&lt;/p&gt;
 
+&lt;h5 id=&quot;服务端下发很多文字自然段客户端渲染问题&quot;&gt;服务端下发很多文字自然段，客户端渲染问题&lt;/h5&gt;
+&lt;p&gt;一些长文需要服务器可配，如何在一个字段内完成客户端可换行的渲染。 &lt;br /&gt;
+方法1：小程序不支持&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;br/&amp;gt;&lt;/code&gt;换行标签，只有在&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;text&amp;gt;&lt;/code&gt;标签内使用&lt;strong&gt;\t&lt;/strong&gt;来完成换行，所以可以让服务端下发带有\t字段的标识符，客户端使用&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;text&amp;gt;&lt;/code&gt;来进行渲染。 &lt;br /&gt;
+方法2：让服务器在需要换行的位置插入独特标识符，例如&lt;strong&gt;|&lt;/strong&gt;,&lt;strong&gt;&amp;amp;&lt;/strong&gt;之类的，使用split在客户端对字段进行分割后循环渲染出来，例如：&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nx&quot;&gt;httpGet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;about&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'about'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;|&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;block&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;wx:for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;wx:for-item=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;item&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text-indent:2em;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/block&amp;gt;&lt;/span&gt; 
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;h3 id=&quot;wxss&quot;&gt;WXSS&lt;/h3&gt;
 
 &lt;h5 id=&quot;小程序的样式表&quot;&gt;小程序的样式表&lt;/h5&gt;
@@ -170,7 +200,7 @@ scroll-view支持横纵滚动，滚动条事件等。&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;h5 id=&quot;css3动画animation&quot;&gt;CSS3动画animation&lt;/h5&gt;
-&lt;p&gt;小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，效果很差，常常因为渲染闪屏，所以不推荐使用css3的动画。&lt;/p&gt;
+&lt;p&gt;小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，因为过度渲染导致效果很差，常常闪屏，所以不推荐大面积使用css3的动画。&lt;/p&gt;
 
 &lt;h3 id=&quot;other&quot;&gt;OTHER&lt;/h3&gt;
 
@@ -198,6 +228,38 @@ scroll-view支持横纵滚动，滚动条事件等。&lt;/p&gt;
     &lt;span class=&quot;nt&quot;&gt;&amp;lt;view&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/view&amp;gt;&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;适配iphonex&quot;&gt;适配iphonex&lt;/h5&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;// 在app.js中判断是否是哪种设备 &lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+  &lt;span class=&quot;nl&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+  &lt;span class=&quot;nx&quot;&gt;userInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;  
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;  
+&lt;span class=&quot;nx&quot;&gt;onShow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;  
+  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;that&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
+  &lt;span class=&quot;nx&quot;&gt;wx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getSystemInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;  
+    &lt;span class=&quot;na&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+      &lt;span class=&quot;c1&quot;&gt;// console.log('手机信息res'+res.model)  &lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;modelmes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;modelmes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'iPhone X'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+        &lt;span class=&quot;nx&quot;&gt;that&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;  
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;  
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; 
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在需要引用的页面js文件中onload方法里获取全局变量&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+       &lt;span class=&quot;na&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在 wxml文件中 进行css的逻辑判断&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;view class=&quot;{isIphoneX?&quot;linkCon&quot;:&quot;&quot;} flex &quot;&amp;gt; &amp;lt;/wiew&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;会一直更新的&lt;/p&gt;

@@ -23,7 +23,18 @@ tags:
 ##### scroll-view
 scroll-view算是进阶版的view，提供的是一个可滚动视图区域，类似于**overflow:auto**的功能，只是**overflow:auto**在小程序很难用的原因，所以在特别的时候可以用上这个组件，例如在一个固定高度的**swiper**组件里定义一个可滚动视图区域，可以使用scroll-view。
 ![滑动例子](/img/in-post/post-xcx/exm_1.gif) 
-scroll-view支持横纵滚动，滚动条事件等。
+scroll-view支持横纵滚动，滚动条事件等。但是目前好像在官方API暂时还没有发现有滚动条结束监控，我们可以在``bindscroll``绑定一个一个延时函数来达到滚动条结束的监听：
+```js
+
+  bindScrollOver: function () {
+    clearTimeout(this.timeoutId);
+    this.timeoutId = setTimeout(function () {
+    //   滚动结束时的事件
+      delete this.timeoutId;
+    }.bind(this), 500);
+  }
+
+```
 
 ##### swiper
 小程序的swiper就是[h5中swiper](http://www.swiper.com.cn/)的阉割版，但是这个阉割版我是很喜欢的，保存了90%的功能，但内容清爽了许多，依旧是丝滑般的感觉。指示点，自动切换，环形轮播，纵横方向之类的都是支持。目前有一个还未解决问题：没有办法舒服的控制**swiper-item**之间间距，因为小程序的swiper封装得太好了，再加上没有办法获取dom元素，官方渲染的时候也不用类名id控制样式，所以想要控制到元素很麻烦，原先在H5用swiper做的一个效果图如下![轮播例子](/img/in-post/post-xcx/exm_2.gif)在可以控制到dom的情况下轻松修改到原生样式；以下为小程序的swiper做的类似页面![轮播例子](/img/in-post/post-xcx/exm_3.gif)但是在大多情况下使用swiper当做轮播滚动，信息滚动都十分好用。
@@ -66,13 +77,14 @@ h5的canvas真的是太牛逼了，导致我对小程序里的canvas也有很大
 ###### 　问题3：文字定位
 　**问**：canvas生成一张用于裂变的分享图常常需要写入许多文字，而且文字并非一段而是拆分成很多段，如下图：![canvas例子](/img/in-post/post-xcx/exm_4.png)中间那段红蓝相间的文字就是用多段ctx.fillText定位的，但是ctx.fillText(输出文本,x轴距离,y轴距离)是只支持从左上角开始定位的，而且只能使用**px**单位，导致在不同机型上显示的效果都不一样，而且文字换行也是个大问题。
 
-　**已解决**：通过手动计算rpx的比值进行等比例转换px再配合ctx.setTextAlign设置文字对其方式可以较完美的解决文字定位问题，文字换行同理。
+　**已解决**：通过手动计算rpx的比值进行等比例转换px再配合ctx.setTextAlign设置文字对其方式可以较完美的解决文字定位问题，文字换行同理。在基础库1.9.90里还更新了ctx.measureText方法，能测量文本尺寸信息，返回文本宽度，同步接口，便于我们文字进行定位。
 
 ###### 　问题4：字体设置
 　**问**：canvas不能设置字体，只能使用宋体。
 
 　~~**未解决**：确实只能显示宋体~~。    
-　**半解决**：基础库1.9.90开始支持ctx.font，支持设置字体粗细，形态，大小以及字体，还没有用过，有机会试一下。  
+　~~**半解决**：基础库1.9.90开始支持ctx.font，支持设置字体粗细，形态，大小以及字体，还没有用过，有机会试一下~~。  
+　**已解决**：在基础库为1.9.90确实可以通过font来设置字体形态，但是它不像setFillStyle，setFontSize这些只向下有效，font对没有设置过字态的fillText都会进行设置，向上也有效，所以如果使用了font，要对所有的fillText都进行设置，目前自测支持的字体有:宋体，黑体，楷体。。。
 
 ###### 　问题5：canvas隐藏问题
 　**问**：为了让canvas不在页面显示，将canvas用view标签包起来后，给view设置了overflow=hidden和opacity=0的属性，是可以成功将canvas隐藏，但是在真机上测试时，一旦在这个隐藏的canvas上绘制图片，canvas又显示在屏幕上了。模拟器上是不会显示的。
@@ -191,7 +203,7 @@ wx:if包含的物体(包括自身)加动画有bug，播放一次动画->隐藏->
 - opacity(%):透明度，和opacity效果类似，不同之处在于通过filter，一些浏览器为了提升性能会提供硬件加速，但在小程序里不存在这种情况。
 
 ##### CSS3动画animation
-小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，效果很差，常常因为渲染闪屏，所以不推荐使用css3的动画。
+小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，因为过度渲染导致效果很差，常常闪屏，所以不推荐大面积使用css3的动画。
 
 ### OTHER
 
@@ -222,5 +234,41 @@ wx:if包含的物体(包括自身)加动画有bug，播放一次动画->隐藏->
     <view class="{{type==1?'btn1':type==2?'btn2':''}}"></view>
 
 ```
+
+##### 适配iphonex
+```js
+
+// 在app.js中判断是否是哪种设备 
+globalData: {  
+  isIphoneX: false,  
+  userInfo: null  
+},  
+onShow:function(){  
+  let that = this;  
+  wx.getSystemInfo({  
+    success:  res=>{  
+      // console.log('手机信息res'+res.model)  
+      let modelmes = res.model;  
+      if (modelmes.search('iPhone X') != -1) {  
+        that.globalData.isIphoneX = true  
+      }  
+    }  
+  })  
+}, 
+
+
+```    
+在需要引用的页面js文件中onload方法里获取全局变量
+```js
+   
+    let isIphoneX = app.globalData.isIphoneX;
+    this.setData({
+       isIphoneX: isIphoneX
+    })
+   
+```     
+在 wxml文件中 进行css的逻辑判断`<view class="{isIphoneX?"linkCon":""} flex "> </wiew>`
+
+
 
 >会一直更新的
