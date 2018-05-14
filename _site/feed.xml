@@ -5,8 +5,8 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 02 May 2018 15:12:06 +0800</pubDate>
-    <lastBuildDate>Wed, 02 May 2018 15:12:06 +0800</lastBuildDate>
+    <pubDate>Mon, 14 May 2018 16:46:41 +0800</pubDate>
+    <lastBuildDate>Mon, 14 May 2018 16:46:41 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -198,6 +198,19 @@ scroll-view支持横纵滚动，滚动条事件等。但是目前好像在官方
   &lt;li&gt;grayscale(%):灰度值&lt;/li&gt;
   &lt;li&gt;opacity(%):透明度，和opacity效果类似，不同之处在于通过filter，一些浏览器为了提升性能会提供硬件加速，但在小程序里不存在这种情况。&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h5 id=&quot;多行省略&quot;&gt;多行省略&lt;/h5&gt;
+&lt;p&gt;在CSS中简单解决多行省略逻辑&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nc&quot;&gt;.hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-webkit-box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;word-break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break-all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;text-overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ellipsis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;-webkit-box-orient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vertical&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;-webkit-line-clamp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h5 id=&quot;css3动画animation&quot;&gt;CSS3动画animation&lt;/h5&gt;
 &lt;p&gt;小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，因为过度渲染导致效果很差，常常闪屏，所以不推荐大面积使用css3的动画。&lt;/p&gt;

@@ -202,6 +202,20 @@ wx:if包含的物体(包括自身)加动画有bug，播放一次动画->隐藏->
 - grayscale(%):灰度值
 - opacity(%):透明度，和opacity效果类似，不同之处在于通过filter，一些浏览器为了提升性能会提供硬件加速，但在小程序里不存在这种情况。
 
+##### 多行省略
+在CSS中简单解决多行省略逻辑
+```css
+    .hidden{
+        display: -webkit-box;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+    }
+
+```
+
 ##### CSS3动画animation
 小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，因为过度渲染导致效果很差，常常闪屏，所以不推荐大面积使用css3的动画。
 
