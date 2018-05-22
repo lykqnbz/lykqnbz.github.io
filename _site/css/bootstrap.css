@@ -102,8 +102,7 @@ hr {
 pre {
   overflow: auto;
 }
-code,
-kbd,
+code,kbd,
 pre,
 samp {
   font-family: monospace, monospace;
