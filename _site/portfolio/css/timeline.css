@@ -284,10 +284,10 @@ header img{
     transition: all 0.3s ease;
 }
 .skill>img{
-    display: block;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
 	margin-right: 8px;
+	margin-top: 3px;
 	border: none;
 }
 .cbp_tmlabel ul li a:hover{
