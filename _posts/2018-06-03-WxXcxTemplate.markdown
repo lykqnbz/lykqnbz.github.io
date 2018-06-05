@@ -2,14 +2,14 @@
 layout:     post
 title:      "小程序·模板Template相关"
 subtitle:   " "
-date:       2018-06-04 17:25:21
+date:       2018-06-03 17:25:21
 author:     "AXiang"
 header-img: "img/post-bg-webchat.jpg"
 catalog:  true
 tags:
     - 前端
     - 小程序
-    - Js
+    - JavaScript
 ---
 
 > “Template相关”
