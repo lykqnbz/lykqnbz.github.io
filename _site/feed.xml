@@ -5,9 +5,63 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 04 Jun 2018 18:22:10 +0800</pubDate>
-    <lastBuildDate>Mon, 04 Jun 2018 18:22:10 +0800</lastBuildDate>
+    <pubDate>Tue, 05 Jun 2018 12:22:24 +0800</pubDate>
+    <lastBuildDate>Tue, 05 Jun 2018 12:22:24 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>小程序·模板Template相关</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;“Template相关”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
+&lt;p&gt;虽然小程序名为小程序，不乏有开发者将其做得相当庞大(比如我目前在做的。。。31个单页。。)。那模板的使用肯定少不了。但是对于H5的模板Template，&lt;a href=&quot;https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/template.html&quot;&gt;官方API&lt;/a&gt;少之甚少,网上的资料也是千篇一律，所以自个儿研究了下，方便日后使用。&lt;/p&gt;
+
+&lt;h3 id=&quot;布局和样式&quot;&gt;布局和样式&lt;/h3&gt;
+
+&lt;p&gt;通常我们使用模板只是对wxml和wxss进行复刻，主要的逻辑都是写在应用界面，这也是网上大部分资料的研究方向。主要步骤：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;1、新建一个template文件夹用来管理项目中所有的模板；&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;2、新建一个tem.wxml和tem.wxss进行模板和样式的定义； 
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_1.png&quot; alt=&quot;新建实例&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3、使用name属性，作为模板的名字。然后在&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;template/&amp;gt;&lt;/code&gt;内定义代码片段。一个.wxml文件中可以定义多个模板，只需要通过name来区分； 
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_2.png&quot; alt=&quot;wxml模板引用&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;4、设置wxss样式，和普通的页面的wxss没有区别；&lt;/li&gt;
+  &lt;li&gt;5、在需要使用的页面使用import导入wxml和wxss，注意路径位置
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_3.png&quot; alt=&quot;导入wxml&quot; /&gt;
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_4.png&quot; alt=&quot;导入wxss&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;6、在页面上使用该模板，通过is判断使用哪个模板,如果模板是用于列表循环展示data值应设为item。下图事例：
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_5.jpg&quot; alt=&quot;列表循环模板&quot; /&gt;
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_6.png&quot; alt=&quot;列表循环模板&quot; /&gt;
+这里我们使用name为filter模板，为一个查询用户选择信息类型的独立组件；若将data使用ES6的展开运算符&lt;code class=&quot;highlighter-rouge&quot;&gt;‘...’&lt;/code&gt;，则模板里面绑定数据就不需要在前面加入item了，多个数据对象可以用逗号隔开；
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_7.png&quot; alt=&quot;独立模板&quot; /&gt;
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_8.png&quot; alt=&quot;独立模板&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;作用域&quot;&gt;作用域&lt;/h3&gt;
+&lt;p&gt;如果我们的所需要的模板只是用于列表循环展示这类，一些运算逻辑都在应用页的话，上述的方法已经足矣。但是如果我们需要把逻辑写在模板页在模板js里进行逻辑运算，应用页只接受运算结果这样，则我们也需要将js进行模块化。但是在小程序模板的数据作用域只能作用域应用页，所以我们把逻辑写在模板js，通过传递this对象来完成对数据的传输。以下为模板js代码，利用ES6的export default导出js，并且将传入的数据进行构造初始化，下图为完整模板js代码和应用层调用代码。
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_9.png&quot; alt=&quot;JS模板&quot; /&gt;
+&lt;img src=&quot;/img/in-post/post-xcx/xcx_1806_10.png&quot; alt=&quot;应用层调用&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;结束语&quot;&gt;结束语&lt;/h3&gt;
+&lt;p&gt;总的来说小程序对template支持还算可以，只是官方的api和网上的资料真的太少，需要自个儿研究。&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 05 Jun 2018 01:25:21 +0800</pubDate>
+        <link>http://localhost:5001/2018/06/04/WxXcxTemplate/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/06/04/WxXcxTemplate/</guid>
+        
+        <category>前端</category>
+        
+        <category>小程序</category>
+        
+        <category>Js</category>
+        
+        
+      </item>
     
       <item>
         <title>CSS3 Gradient细解</title>
@@ -1797,132 +1851,6 @@ min-width: 100%;
         <category>Vue.js</category>
         
         <category>笔记</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>JavaScript中对象相等问题粗鉴</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;“如何判断两个对象相等”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;中，等于操作符由两个等于号组成&lt;strong&gt;==&lt;/strong&gt;，等于操作符会为了两个数的比较而对其进行强制类型转换。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;0&quot;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// false  &lt;/span&gt;
-    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;// true  &lt;/span&gt;
-    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;0&quot;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// true  &lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;false&quot;&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// false  &lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;0&quot;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// true  &lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;   &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// false  &lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;   &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;          &lt;span class=&quot;c1&quot;&gt;// false  &lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;   &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// true  &lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;等于操作符会为了比较而自行将操作数进行转换，这往往不是我们想要的结果，所以在日常中，一般推荐使用恒等于操作符，恒等于操作符由三个等于号组成&lt;strong&gt;===&lt;/strong&gt;。它不像普通的等于操作符，不会进行强制类型转换，只有两边绝对的相同才会认定等式成立。这样的话上述的结果就不太相同了：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;0&quot;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;0&quot;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;false&quot;&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;   &lt;span class=&quot;s2&quot;&gt;&quot;0&quot;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;   &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;   &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;          &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt;   &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;hr /&gt;
-
-&lt;p&gt;这里对&lt;strong&gt;null&lt;/strong&gt;与&lt;strong&gt;undefined&lt;/strong&gt;再做分析，这两种类型都是&lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;中存在的原始类型。这常常会使我们产生疑问，在什么时候为null，什么时候为undefined。      &lt;br /&gt;
-&lt;strong&gt;Undefined类型&lt;/strong&gt;只有一个值，即&lt;strong&gt;undefined&lt;/strong&gt;。当声明的变量还未被初始化时，变量的默认值为undefined。      &lt;br /&gt;
-&lt;strong&gt;Null类型&lt;/strong&gt;也只有一个值，即&lt;strong&gt;null&lt;/strong&gt;。null用来表示尚未存在的对象，常用来表示函数企图返回一个不存在的对象。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;   
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;                                &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'abc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;代码上部分显示为true,代表a的值即为undefined，因为我们没有初始化它。当页面上不存在id为abc的DOM节点时，下部分代码显示也为true，因为我们尝试获取一个不存在的对象。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;// object&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;第一行代码很容易理解，undefined的类型为Undefined；第二行代码就不那么明白了，为什么null的类型又是Object了，网上提供的资料显示这是&lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;最初实现的一个错误，后来被ECMAScript沿用下来。在今天我们可以解释为，null即是一个不存在的对象的占位符，但是在实际编码时还是要注意这一特性。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;// true &lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;// false &lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-
-    &lt;span class=&quot;o&quot;&gt;--------------------------------------------------------------------&lt;/span&gt;
-    
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'abc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'abc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'abc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementById&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'abc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;ECMAScript认为undefined是从null派生出来的，所以把它们通过转换后定义为相等。日常我们需要区分的时候，可以在恒等于符号情况下进行区别，null与undefined的类型是不一样的，所以输出false。  &lt;br /&gt;
-下半部分代码也很好的说明了这个问题，当使用&lt;strong&gt;==&lt;/strong&gt;时，null和undefined都为true，因为undefined被强制转换了，当使用&lt;strong&gt;===&lt;/strong&gt;时，undefined就不行了，说明其本质为null。&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;关于&lt;strong&gt;==&lt;/strong&gt;和&lt;strong&gt;===&lt;/strong&gt;也有一些小bug。
-如果a===b为true，那么a就和b相等了吗？绝大部分情况下是这样的，但是有一个特殊的例子：就是+0和-0。&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c1&quot;&gt;// case_1&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// case_2&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// '0'&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// '0'&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// case_3&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// case_4&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;              &lt;span class=&quot;c1&quot;&gt;// Infinity&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;              &lt;span class=&quot;c1&quot;&gt;// -Infinity&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// case_5&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;那么为什么会有这样麻烦的特例呢，因为&lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;采用了&lt;strong&gt;IEEE_754 浮点数表示法&lt;/strong&gt;(几乎所有现代编程语言所采用)，这是一种二进制表示法，按照这个标准，最高位是符号位(0代表正，1代表负)，剩下的用于表示大小。而对于零这个边界值1000(-0)和 0000(0)都是表示0，这才有了正负零的区别。 &lt;br /&gt;
-那么我们又该如何在 === 结果为 true 的时候，区别0和-0得出正确的结果呢？我们可以这样写个比较函数：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;comPare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;comPare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;comPare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;hr /&gt;
-&lt;p&gt;虽然&lt;strong&gt;==&lt;/strong&gt;和&lt;strong&gt;===&lt;/strong&gt;操作符都是等于操作符，但是当其中有一个操作数为对象时，结果就不同了。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;          &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// false&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;这里等于操作符比较的不仅仅是值数是否相等，而是是否属于同一个身份对象。也就是说，只有对象的同一个实例才被认为是相等的。&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;p&gt;总结：&lt;strong&gt;==&lt;/strong&gt;先转换类型再进行比较，而&lt;strong&gt;===&lt;/strong&gt;则先判断类型，如果不是同一类型直接为false，否则再比较的两边数值要绝对的相同才会判定为相等。前提都为比较操作数不是对象和正负零的情况下 :D。&lt;/p&gt;
-</description>
-        <pubDate>Fri, 08 Sep 2017 18:07:12 +0800</pubDate>
-        <link>http://localhost:5001/2017/09/08/JsAboutEqual/</link>
-        <guid isPermaLink="true">http://localhost:5001/2017/09/08/JsAboutEqual/</guid>
-        
-        <category>前端</category>
-        
-        <category>JavaScript</category>
         
         
       </item>
