@@ -66,7 +66,7 @@ ga_domain: wangxiang.vip
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "生命中最美的星星，她会独自在黑暗中发亮"
+sidebar-about-description: "愿"
 sidebar-avatar: /img/xiang.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
@@ -84,9 +84,9 @@ friends: [
         href: "http://wangxiang.vip"
     },{
         title: "NGA",
-        href: "http://bbs.nga.cn/"
+        href: "http://bbs.nga.cc/"
     },{
         title: "ACFUN",
-        href: "http://www.acfun.tv/"
+        href: "http://www.acfun.cn/"
     }
 ]
