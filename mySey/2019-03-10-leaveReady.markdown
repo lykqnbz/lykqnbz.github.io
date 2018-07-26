@@ -1,14 +1,4 @@
----
-layout:     post
-title:      "JavaScript"
-subtitle:   " "
-date:       2019-12-14 00:00:00
-author:     "Dc"
-header-img: "img/post-bg-Mjs.jpg"
-catalog:  true
-tags:
-    - 前端
----
+
 - javaScript的Event Loop机制：[博文笔记]](http://wangxiang.vip/2018/07/14/AboutJsEventLoop/) 2018-07-26
 
 js原型链
