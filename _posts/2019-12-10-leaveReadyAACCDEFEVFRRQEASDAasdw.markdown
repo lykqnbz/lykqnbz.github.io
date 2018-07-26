@@ -2,8 +2,8 @@
 layout:     post
 title:      "JavaScript"
 subtitle:   " "
-date:       2019-13-14 00:00:00
-author:     "AXiang"
+date:       2019-12-14 00:00:00
+author:     "Dc"
 header-img: "img/post-bg-Mjs.jpg"
 catalog:  true
 tags:
