@@ -5,8 +5,8 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 26 Jul 2018 16:39:20 +0800</pubDate>
-    <lastBuildDate>Thu, 26 Jul 2018 16:39:20 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Jul 2018 17:12:35 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Jul 2018 17:12:35 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -26,9 +26,8 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;javascript的运行机制&quot;&gt;Javascript的运行机制&lt;/h2&gt;
-&lt;p&gt;JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。&lt;/p&gt;
-
-&lt;p&gt;JavaScript的&lt;code class=&quot;highlighter-rouge&quot;&gt;单线程&lt;/code&gt;，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？&lt;/p&gt;
+&lt;p&gt;JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。 &lt;br /&gt;
+JavaScript的&lt;code class=&quot;highlighter-rouge&quot;&gt;单线程&lt;/code&gt;，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？&lt;/p&gt;
 
 &lt;p&gt;所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。&lt;/p&gt;
 
@@ -45,23 +44,21 @@
 
 &lt;p&gt;具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。
-（2）主线程之外，还存在一个&quot;任务队列&quot;（task queue）。只要异步任务有了运行结果，就在&quot;任务队列&quot;之中放置一个事件。
-（3）一旦&quot;执行栈&quot;中的所有同步任务执行完毕，系统就会读取&quot;任务队列&quot;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
-（4）主线程不断重复上面的第三步。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;1、所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。&lt;/li&gt;
+  &lt;li&gt;2、主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。&lt;/li&gt;
+  &lt;li&gt;3、一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。&lt;/li&gt;
+  &lt;li&gt;4、主线程不断重复上面的第三步。&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h6 id=&quot;主线程的执行栈&quot;&gt;主线程的执行栈&lt;/h6&gt;
 &lt;p&gt;如下图（截取自&lt;code class=&quot;highlighter-rouge&quot;&gt;Help, I’m stuck in an event-loop&lt;/code&gt;演讲视频的讲解）
 &lt;img src=&quot;/img/in-post/post-js/js_1807_1.png&quot; alt=&quot;执行栈&quot; /&gt;
 执行栈，先入后出。第一个进入的是要执行的函数(图中就是printSquare函数)，然后就是依次调用的函数入栈，运行完就依次出栈，直到执行栈为空。&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;“概念部分转自阮一峰博客-&lt;a href=&quot;http://www.ruanyifeng.com/blog/2014/10/event-loop.html&quot;&gt;JavaScript 运行机制详解：再谈Event Loop&lt;/a&gt;”&lt;/p&gt;
-&lt;/blockquote&gt;
-
 &lt;h2 id=&quot;event-loop&quot;&gt;Event Loop&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;主线程从&quot;任务队列&quot;中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;主线程从&quot;任务队列&quot;中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。&lt;/code&gt;
+&lt;img src=&quot;/img/in-post/post-js/js_1807_2.png&quot; alt=&quot;执行栈&quot; /&gt;&lt;/p&gt;
 &lt;h6 id=&quot;用我自己的话来讲一下event-loop&quot;&gt;用我自己的话来讲一下event loop&lt;/h6&gt;
 &lt;ul&gt;
   &lt;li&gt;
@@ -75,6 +72,15 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h2 id=&quot;宏任务和微任务&quot;&gt;宏任务和微任务&lt;/h2&gt;
+&lt;p&gt;除了广义的同步任务和异步任务，我们对任务有更精细的定义：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;macro-task(宏任务)：包括整体代码script，setTimeout，setInterval&lt;/li&gt;
+  &lt;li&gt;micro-task(微任务)：Promise，process.nextTick&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;不同类型的任务会进入对应的事件队列，比如setTimeout和setInterval会进入相同的事件队列。 &lt;br /&gt;
+事件循环的顺序，决定js代码的执行顺序。进入整体代码(宏任务)后，开始第一次循环。接着执行所有的微任务。然后再次从宏任务开始，找到其中一个任务队列执行完毕，再执行所有的微任务。&lt;/p&gt;
 &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -86,7 +92,26 @@
     &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;那开头讲到的那道输出题正确答案其实就是&lt;code class=&quot;highlighter-rouge&quot;&gt;13542&lt;/code&gt;，重点就是这个setTimeout，setTimeout(fn,0)的含义是，&lt;code class=&quot;highlighter-rouge&quot;&gt;指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在&quot;任务队列&quot;的尾部添加一个事件，因此要等到同步任务和&quot;任务队列&quot;现有的事件都处理完，才会得到执行&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;这段代码作为宏任务，进入主线程。&lt;/li&gt;
+  &lt;li&gt;先遇到setTimeout，那么将其回调函数注册后分发到宏任务Event Queue。(注册过程与上同，下文不再描述)&lt;/li&gt;
+  &lt;li&gt;接下来遇到了Promise，new Promise立即执行，then函数分发到微任务Event Queue。&lt;/li&gt;
+  &lt;li&gt;遇到console.log()，立即执行。&lt;/li&gt;
+  &lt;li&gt;好啦，整体代码script作为第一个宏任务执行结束，看看有哪些微任务？我们发现了then在微任务Event Queue里面，执行。&lt;/li&gt;
+  &lt;li&gt;ok，第一轮事件循环结束了，我们开始第二轮循环，当然要从宏任务Event Queue开始。我们发现了宏任务Event Queue中setTimeout对应的回调函数，立即执行。&lt;/li&gt;
+  &lt;li&gt;结束。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;事件循环，宏任务，微任务的关系如图所示：
+&lt;img src=&quot;/img/in-post/post-js/js_1807_3.png&quot; alt=&quot;关系&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;而&lt;code class=&quot;highlighter-rouge&quot;&gt;宏任务&lt;/code&gt;一般是：包括整体代码script，setTimeout，setInterval。 &lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;微任务&lt;/code&gt;：Promise，process.nextTick。  &lt;br /&gt;
+记住就行了。
+然后回到开头的代码。因为settimeout是宏任务，虽然先执行的他，但是他被放到了宏任务的事件队列里面，然后代码继续往下检查看有没有微任务，检测到Promise的then函数把他放入了微任务序列。等到主线进程的所有代码执行结束后。先从微任务队列里拿回掉函数，然后微任务地队列空了后再从宏任务的队列拿函数。
+所以正确的执行结果当然是：&lt;code class=&quot;highlighter-rouge&quot;&gt;1,3,5,4,2&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;这边重点说一下这个setTimeout，setTimeout(fn,0)的含义是，&lt;code class=&quot;highlighter-rouge&quot;&gt;指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在&quot;任务队列&quot;的尾部添加一个事件，因此要等到同步任务和&quot;任务队列&quot;现有的事件都处理完，才会得到执行&lt;/code&gt;。&lt;/p&gt;
 
 &lt;p&gt;HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔），不得低于4毫秒，如果低于这个值，就会自动增加。在此之前，老版本的浏览器都将最短间隔设为10毫秒。另外，对于那些DOM的变动（尤其是涉及页面重新渲染的部分），通常不会立即执行，而是每16毫秒执行一次。这时使用requestAnimationFrame()的效果要好于setTimeout()。&lt;/p&gt;
 
@@ -108,6 +133,10 @@
 &lt;h2 id=&quot;finally&quot;&gt;Finally&lt;/h2&gt;
 
 &lt;p&gt;简言之就是JS只有一个主线程，主线程执行完执行栈的任务后去检查异步的任务队列，如果异步事件触发，则将其加到主线程的执行栈。over~&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“概念部分转自阮一峰博客-&lt;a href=&quot;http://www.ruanyifeng.com/blog/2014/10/event-loop.html&quot;&gt;JavaScript 运行机制详解：再谈Event Loop&lt;/a&gt;”&lt;/p&gt;
+&lt;/blockquote&gt;
 
 </description>
         <pubDate>Sat, 14 Jul 2018 10:11:13 +0800</pubDate>
