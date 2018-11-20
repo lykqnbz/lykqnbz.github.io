@@ -5,9 +5,79 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 23 Oct 2018 16:30:40 +0800</pubDate>
-    <lastBuildDate>Tue, 23 Oct 2018 16:30:40 +0800</lastBuildDate>
+    <pubDate>Tue, 20 Nov 2018 18:02:39 +0800</pubDate>
+    <lastBuildDate>Tue, 20 Nov 2018 18:02:39 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>前端骨架屏方案小结</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;“学习大咖的细节”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;骨架屏&quot;&gt;骨架屏&lt;/h2&gt;
+
+&lt;p&gt;最近在项目不时有用到骨架屏的需求.在这里按照个人的理解做了一个汇总和分类笔记.&lt;/p&gt;
+
+&lt;h2 id=&quot;关于骨架屏简介&quot;&gt;关于骨架屏(简介)&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;骨架屏就是在页面数据尚未加载前先给用户展示出页面的大致结构，直到请求数据返回后再渲染页面，补充进需要显示的数据内容。常用于文章列表、动态列表页等相对比较规则的列表页面。
+很多项目中都有应用:ex:饿了么h5版本,知乎,facebook等网站中都有应用。
+借个图举例如下:
+&lt;img src=&quot;/img/in-post/post-responsive/responsive-1808_1.png&quot; alt=&quot;骨架例子&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;两类用途&quot;&gt;两类用途&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;简介中作了关于用途的说明,但是仍然可以继续细分:&lt;/p&gt;
+
+&lt;p&gt;1.作为spa中路由切换的loading,结合组件的生命周期和ajax请求返回的时机来使用.
+2.作为首屏渲染的优化.&lt;/p&gt;
+
+&lt;h4 id=&quot;第一类用途&quot;&gt;第一类用途&lt;/h4&gt;
+
+&lt;p&gt;第一类用途需要自己编写骨架屏,推荐两个成熟方便定制的svg组件定制为骨架屏的方案&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fdanilowoz%2Freact-content-loader&quot;&gt;react-content-loader&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/egoist/vue-content-loader&quot;&gt;vue-content-loader&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;作为首屏渲染自动化方案&quot;&gt;作为首屏渲染(自动化方案)&lt;/h4&gt;
+
+&lt;p&gt;该方案是饿了么在骨架屏的实践中总结出的一套方案:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;骨架屏的dom结构和css通过离线生成后构建的时候注入模板中的节点下面.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;！！重点标记！！&lt;/strong&gt;原理&lt;a href=&quot;https://github.com/Jocs/jocs.github.io/issues/22&quot;&gt;相关eleme骨架屏插件实现原理&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;方案的项目地址:&lt;a href=&quot;https://github.com/ElemeFE/page-skeleton-webpack-plugin&quot;&gt;page-skeleton-webpack-plugin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;使用时候的注意点: &lt;br /&gt;
+1.cssUnit的配置: 需要使用自适应的单位,按照文档给出的选择范围选,直接用 px 生成的比例会不合适. &lt;br /&gt;
+2.puppeteer有大概80M, 安装的时候有可能不能一次下载成功.&lt;/li&gt;
+  &lt;li&gt;原理:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;通过 puppeteer 在服务端操控 headless Chrome 打开开发中的需要生成骨架屏的页面，在等待页面加载渲染完成之后，在保留页面布局样式的前提下，通过对页面中元素进行删减或增添，对已有元素通过层叠样式进行覆盖，这样达到在不改变页面布局下，隐藏图片和文字，通过样式覆盖，使得其展示为灰色块。然后将修改后的 HTML 和 CSS 样式提取出来，这样就是骨架屏了.&lt;/em&gt;
+&lt;img src=&quot;/img/in-post/post-responsive/responsive-1808_2.png&quot; alt=&quot;puppeteer例子2&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;其他方案&quot;&gt;其他方案&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;结合ssr render/prerender来使用:  &lt;br /&gt;
+1.事先编写好骨架屏组件通过ssr render 解析注入html文件中(除了需要自己编写外其实过程类似于上面的自动化方案)&lt;a href=&quot;https://segmentfault.com/a/1190000014832185n&quot;&gt;参考文章&lt;/a&gt;  &lt;br /&gt;
+2.1中事先编写好的骨架屏组件可以用图片代替 (svg) ;或者设计师设计好.&lt;/p&gt;
+
+&lt;h2 id=&quot;小程序的骨架屏&quot;&gt;小程序的骨架屏&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;结合目前大火的小程序，也可以预设骨架屏，小程序不存在预渲染的概念,但是还是可以通过自己预先编写骨架屏组件放在页面中,等到异步请求的数据回来后更新页面.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 29 Aug 2018 05:11:14 +0800</pubDate>
+        <link>http://localhost:5001/2018/08/28/SkeletonScreen/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/08/28/SkeletonScreen/</guid>
+        
+        <category>前端</category>
+        
+        <category>响应式设计</category>
+        
+        
+      </item>
     
       <item>
         <title>JavaScript的Event Loop机制</title>
@@ -1724,261 +1794,6 @@ content属性还支持url方法嵌入图片：&lt;/p&gt;
         <category>前端</category>
         
         <category>Css</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>超级好用的滑动轮播-Swiper3</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;http://www.swiper.com.cn/&quot;&gt;Swiper中文官网&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;最近朋友推荐的一款轮播插件，优雅易用，效果华丽中带简朴，操作简单上手，扩展性高，占用也不大。&lt;/p&gt;
-
-&lt;h3 id=&quot;使用前&quot;&gt;使用前&lt;/h3&gt;
-&lt;p&gt;和通常的插件一样，可以使用本地加载也能使用CDN加载，需要的只有一个CSS文件和一个JS文件。Swiper不需要在JQuery环境中加载，独立性强，如果环境中加载了JQuery也可以使用更加轻便的JQuery版。&lt;/p&gt;
-
-&lt;h6 id=&quot;本地加载&quot;&gt;本地加载&lt;/h6&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.swiper.com.cn/download/index.html&quot;&gt;本地加载文件下载地址&lt;/a&gt;   &lt;br /&gt;
-通常使用&lt;code class=&quot;highlighter-rouge&quot;&gt;swiper-3.X.X.css&lt;/code&gt;，如需压缩版可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;swiper-3.X.X.min.css&lt;/code&gt;，而JS则通常使用&lt;code class=&quot;highlighter-rouge&quot;&gt;swiper-3.X.X.js&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;swiper-3.X.X.min.js&lt;/code&gt;，如果加载了JQuery可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;swiper-3.X.X.jquery.js&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;swiper-3.X.X.jquery.min.js&lt;/code&gt;&lt;/p&gt;
-
-&lt;h6 id=&quot;cdn加载&quot;&gt;CDN加载&lt;/h6&gt;
-&lt;p&gt;如果不想将Swiper文件放在你的项目中，可以使用Swiper的CDN服务。以下是各版本的Swiper CDN地址，要将3.X.X改成相应的版本，如3.4.2。&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/css/swiper.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/css/swiper.min.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.min.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.jquery.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.jquery.min.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;使用中&quot;&gt;使用中&lt;/h3&gt;
-
-&lt;h6 id=&quot;初始化&quot;&gt;初始化&lt;/h6&gt;
-
-&lt;p&gt;官方建议写在HTML内容的底部，紧靠&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;/body&amp;gt;&lt;/code&gt;标签：&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    …………
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;        
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mySwiper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Swiper&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.swiper-container'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 滑动方向&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;direction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'vertical'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 是否有回路&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        
-        &lt;span class=&quot;c1&quot;&gt;// 如果需要分页器&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;pagination&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'.swiper-pagination'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        
-        &lt;span class=&quot;c1&quot;&gt;// 如果需要前进后退按钮&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;nextButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'.swiper-button-next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;prevButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'.swiper-button-prev'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        
-        &lt;span class=&quot;c1&quot;&gt;// 如果需要滚动条&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;scrollbar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'.swiper-scrollbar'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;        
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;如果不能写在HTML内容的后面，则需要在页面加载完成后再初始化：&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;或者这样（Jquery支持版本）&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ready&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;常用的初始化参数例举:&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;参数&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;类型&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;默认值&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;例子&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;说明&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;direction&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;string&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;horizontal&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;vertical&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;滑动方向，可设置水平(horizontal)或垂直(vertical)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;loop&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;boolean&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;false&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;true&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;是否开启回路模式，意为滑到最后一张图片时是否可以继续滑到第一张，形成循环&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;nextButton&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;string&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;null&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;.swiper-button-next&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;是否生成前进按钮&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;prevButton&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;string&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;null&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;.swiper-button-prev&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;是否生成后退按钮&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;pagination&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;string&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;null&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;.swiper-pagination&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;是否启用圆点分页，前提HTML内有该元素&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;speed&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;number&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;300&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1000&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;滑块动画之间的持续时间（单位ms）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;autoplay&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;number&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1000&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;几秒后开始自动轮播，不写为手动轮播&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;speed&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;number&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;300&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1000&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;滑块动画之间的持续时间（单位ms）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;spaceBetween&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;number&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;20&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;每个滑块之间的距离（单位px）&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;更多复杂的常数组合请查阅&lt;a href=&quot;http://www.swiper.com.cn/api/index.html&quot;&gt;官方文档&lt;/a&gt;，右上角可以直接搜索参数：&lt;/p&gt;
-
-&lt;h6 id=&quot;设定大小&quot;&gt;设定大小&lt;/h6&gt;
-
-&lt;p&gt;如果想要给Swiper定义一个固定大小（当然不要也行）：&lt;/p&gt;
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nc&quot;&gt;.swiper-container&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;600px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;300px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;style&gt;
-.demo {
-margin-bottom: 40px;
-}
-
-.demo font,.demo-title {
-color: #1e70cd;
-margin: 60px 0 5px;
-text-align: center;
-font-size: 20px;
-font-weight: 300;
-line-height: 35px;
-display: block;
-}
-.demo .demo-iframe {
-margin: 1em auto;
-box-shadow: 0px 0px 1px 0px #aaa;
-background: #eee;
-position: relative;
-}
-.demo iframe {
-display: block;
-width: 100%;
-border: none;
-margin: 0;
-box-sizing: border-box;
-height: 400px;
-width: 1px;
-min-width: 100%;
-}
-&lt;/style&gt;
-
-&lt;h3 id=&quot;官方常用demo展示&quot;&gt;官方常用Demo展示&lt;/h3&gt;
-
-&lt;div class=&quot;demo&quot;&gt;
-	&lt;font&gt;默认设置&lt;/font&gt;
-	&lt;div class=&quot;demo-iframe&quot;&gt;
-		&lt;iframe frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;http://www.swiper.com.cn/demo/01-default.html&quot; style=&quot;height:340px&quot;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;demo&quot;&gt;
-	&lt;font&gt;自适应 / 全屏 + 分页&lt;/font&gt;
-	&lt;div class=&quot;demo-iframe&quot;&gt;
-		&lt;iframe frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;http://www.swiper.com.cn/demo/02-responsive.html&quot; style=&quot;height:340px&quot;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;demo&quot;&gt;
-	&lt;font&gt;分组显示&lt;/font&gt;
-	&lt;div class=&quot;demo-iframe&quot;&gt;
-		&lt;iframe frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;http://www.swiper.com.cn/demo/05-slides-per-view.html&quot; style=&quot;height:340px&quot;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;demo&quot;&gt;
-	&lt;font&gt;多行Slides 分布&lt;/font&gt;
-	&lt;div class=&quot;demo-iframe&quot;&gt;
-		&lt;iframe frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;http://www.swiper.com.cn/demo/10-slides-per-column.html&quot; style=&quot;height:430px&quot;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;demo&quot;&gt;
-	&lt;font&gt;视差效果&lt;/font&gt;
-	&lt;div class=&quot;demo-iframe&quot;&gt;
-		&lt;iframe frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;http://www.swiper.com.cn/demo/28-parallax.html&quot; style=&quot;height:340px&quot;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;demo&quot;&gt;
-	&lt;font&gt;渐变效果&lt;/font&gt;
-	&lt;div class=&quot;demo-iframe&quot;&gt;
-		&lt;iframe frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;http://www.swiper.com.cn/demo/16-effect-fade.html&quot; style=&quot;height:340px&quot;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;使用后&quot;&gt;使用后&lt;/h3&gt;
-
-&lt;p&gt;Swiper是一个好用又方便的轮播插件，但正是因为它已经被封装好了，在有些个性化的需求时，不是那么容易人为干预，所以在使用的时候可能会碰到不少头疼的问题，但这一点也不影响它成为一款优雅的插件，&lt;strong&gt;打Call&lt;/strong&gt;。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 11 Oct 2017 06:20:05 +0800</pubDate>
-        <link>http://localhost:5001/2017/10/10/Swiper/</link>
-        <guid isPermaLink="true">http://localhost:5001/2017/10/10/Swiper/</guid>
-        
-        <category>前端</category>
-        
-        <category>插件</category>
-        
-        <category>笔记</category>
         
         
       </item>
