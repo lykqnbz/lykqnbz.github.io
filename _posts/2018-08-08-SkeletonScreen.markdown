@@ -35,6 +35,7 @@ tags:
 第一类用途需要自己编写骨架屏,推荐两个成熟方便定制的svg组件定制为骨架屏的方案
 - [react-content-loader](https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fdanilowoz%2Freact-content-loader)
 - [vue-content-loader](https://github.com/egoist/vue-content-loader)
+- img替换使用的1x1像素gif替换地址:data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7
 
 #### 作为首屏渲染(自动化方案)
 
@@ -59,4 +60,29 @@ tags:
 
 ## 小程序的骨架屏
 ---
-结合目前大火的小程序，也可以预设骨架屏，小程序不存在预渲染的概念,但是还是可以通过自己预先编写骨架屏组件放在页面中,等到异步请求的数据回来后更新页面.
+结合目前大火的小程序，也可以预设骨架屏，因为小程序不存在预渲染的概念,但是还是可以通过自己预先编写骨架屏组件放在页面中,等到异步请求的数据回来后更新页面.
+
+## 建议配合其他加载技术一起使用
+---
+用户的网络环境是复杂的，如果加载持续时间很久，单凭**骨架屏**起不到流畅过渡的效果，建议配合懒加载（先文字后图片）、逐条加载、预加载等技术，以达到更出色的体验。   
+以下是传统转菊花和骨架屏配合懒加载等技术的对比。
+![puppeteer例子3](/img/in-post/post-responsive/responsive-1808_3.gif)
+```css
+    <!-- 常用骨架屏动效 -->
+    .skeleton .skeleton-content {
+        background: #f1f1f1;
+        background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.25) 25%, transparent 25%);
+        background-size: 20rem 20rem;
+        animation: skeleton-stripes 1s linear infinite;
+        border-radius: 5px;
+    }
+    @keyframes skeleton-stripes {
+        from {
+            background-position: 0 0;
+        }
+        to {
+            background-position: 20rem 0;
+        }
+    }
+
+```
