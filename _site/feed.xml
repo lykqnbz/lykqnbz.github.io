@@ -5,9 +5,50 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 25 Nov 2018 21:48:25 +0800</pubDate>
-    <lastBuildDate>Sun, 25 Nov 2018 21:48:25 +0800</lastBuildDate>
+    <pubDate>Wed, 30 Jan 2019 15:21:52 +0800</pubDate>
+    <lastBuildDate>Wed, 30 Jan 2019 15:21:52 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>在浏览器中使用javascript module</title>
+        <description>&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+&lt;p&gt;现在，所有主流浏览器都已经支持JS module（Chrome、Edge、Safari、Firefox）。modules，就是JS的模块，我的理解就是，当有大量同类型或者有关联的数据和函数，方法需要当作一个整体展示的时候，可以单独定义成一个module也就是模块。module意义就使得代码模块化，使你的代码分成一个个逻辑上独立的子集，每个子集处理特定的功能，然后被单独调用。博文会讲解(肤浅的)如何在浏览器中使用JS module，如何管理它们。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/js_18_12_1.png&quot; alt=&quot;module兼容性&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;截止2018.12.02关于js module在国内环境下的兼容性概况。&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 25 Jan 2019 01:21:04 +0800</pubDate>
+        <link>http://localhost:5001/2019/01/24/AboutJsModules/</link>
+        <guid isPermaLink="true">http://localhost:5001/2019/01/24/AboutJsModules/</guid>
+        
+        <category>前端</category>
+        
+        <category>JavaScript</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>浅入JS的原型链</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;prototype chain&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;原型链&quot;&gt;原型链&lt;/h2&gt;
+
+</description>
+        <pubDate>Wed, 19 Sep 2018 19:01:04 +0800</pubDate>
+        <link>http://localhost:5001/2018/09/19/PrototypeChain/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/09/19/PrototypeChain/</guid>
+        
+        <category>前端</category>
+        
+        <category>JavaScript</category>
+        
+        
+      </item>
     
       <item>
         <title>前端骨架屏方案小结</title>
@@ -1610,215 +1651,6 @@ content属性还支持url方法嵌入图片：&lt;/p&gt;
         <category>前端</category>
         
         <category>JavaScript</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>对ios8（iphone6）兼容flex布局的解决</title>
-        <description>&lt;p&gt;开发过程使用flex简直不要太6，但是如果只是写新版本的语法形式，是肯定存在兼容性问题的（安卓机基本没啥问题，主要是IOS）&lt;/p&gt;
-
-&lt;h3 id=&quot;一须知&quot;&gt;一、须知&lt;/h3&gt;
-&lt;p&gt;flex布局分为三个版本:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;旧版本&lt;strong&gt;dispaly: box&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;过渡版本&lt;strong&gt;dispaly: flex box&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;现在的标准版本&lt;strong&gt;display: flex&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Android:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;2.3 开始就支持旧版本&lt;strong&gt;display:-webkit-box&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;4.4 开始支持标准版本&lt;strong&gt;display: flex&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;IOS:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;6.1 开始支持旧版本&lt;strong&gt;display:-webkit-box&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;7.1 开始支持标准版本&lt;strong&gt;display: flex&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;PC:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;IE10开始支持，但是IE10的是&lt;strong&gt;-ms&lt;/strong&gt;形式的&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;二解决&quot;&gt;二、解决&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;特别特别注意：把旧语法写在底下（ps：css向下兼容），否则无效&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;盒子写法:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;display:-webkit-box;　　　　/* 老版本语法: Safari, iOS, Android browser,older WebKit */&lt;/li&gt;
-  &lt;li&gt;display:-moz-box;　　　　　/* 老版本语法: Firefox (buggy) */&lt;/li&gt;
-  &lt;li&gt;display:-ms-flexbox;　　　　/* 混合版本语法: IE 10 */&lt;/li&gt;
-  &lt;li&gt;display:-webkit-flex;　　　　/* 新版本语法: Chrome 21+ */&lt;/li&gt;
-  &lt;li&gt;display:flex;　　　　　 　　/* 新版本语法: Opera 12.1, Firefox 22+ */&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;子元素写法:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;-webkit-flex:1;　　　　　　/* Chrome */&lt;/li&gt;
-  &lt;li&gt;-ms-flex:1;　　　　　　　 /* IE 10 */&lt;/li&gt;
-  &lt;li&gt;-webkit-box-flex:1;　　　　/* OLD - iOS 6-, Safari 3.1-6 */&lt;/li&gt;
-  &lt;li&gt;-moz-box-flex:1;　 　　 　 /* OLD - Firefox 19- */&lt;/li&gt;
-  &lt;li&gt;flex:1;　　　　　　　　　/* NEW, Spec - Opera 12.1, Firefox 20+ */&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;例子（兼容iphone 6）
-&lt;img src=&quot;/img/in-post/post-css/css_1712_1.png&quot; alt=&quot;兼容iphone6的举例&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 21 Dec 2017 02:36:15 +0800</pubDate>
-        <link>http://localhost:5001/2017/12/20/CompatibleToIOS8AboutFlex/</link>
-        <guid isPermaLink="true">http://localhost:5001/2017/12/20/CompatibleToIOS8AboutFlex/</guid>
-        
-        <category>前端</category>
-        
-        <category>Css</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>流离在过去的Css样式</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;老忘记但是炒鸡好用的Css样式&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h5 id=&quot;视差效果background-attachment-fixed&quot;&gt;视差效果：background-attachment: fixed;&lt;/h5&gt;
-&lt;p&gt;视差滚动能让多层背景以不同的速度移动，形成立体的运动效果，带来非常出色的视觉体验。在CSS中定义背景滚动方式的属性是&lt;a href=&quot;http://www.w3school.com.cn/cssref/pr_background-attachment.asp&quot;&gt;backgroud-attacthment&lt;/a&gt;，下面简单的写了一个Demo。&lt;/p&gt;
-
-&lt;style&gt;
-.demo {
-    margin-bottom: 30px;
-}
-.demo font,.demo-title {
-    color: #1e70cd;
-    margin: 40px 0 5px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 35px;
-    display: block;
-}
-.demo .demo-iframe {
-    margin: 1em auto;
-    box-shadow: 0px 0px 1px 0px #aaa;
-    background: #eee;
-    position: relative;
-}
-.demo iframe {
-    display: block;
-    width: 100%;
-    border: none;
-    margin: 0;
-    box-sizing: border-box;
-    height: 400px;
-    width: 1px;
-    min-width: 100%;
-}
-&lt;/style&gt;
-
-&lt;div class=&quot;demo&quot;&gt;
-	&lt;font&gt;简易视差Demo&lt;/font&gt;
-	&lt;div class=&quot;demo-iframe&quot;&gt;
-		&lt;iframe frameborder=&quot;0&quot; scrolling=&quot;yes&quot; src=&quot;http://wangxiang.vip/practiced-parallax_image/&quot; style=&quot;height:340px&quot;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;h5 id=&quot;弹性盒子模型-displayflex&quot;&gt;弹性盒子模型 display:flex&lt;/h5&gt;
-
-&lt;p&gt;CSS3的弹性盒提供了一种当页面需要适应不同的屏幕大小以及设备类型时确保元素拥有恰当的行为的布局方式，不需要在设置左右浮动，margin，padding来调整位置。
-强烈推荐阮一峰大牛的教程：&lt;a href=&quot;http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html&quot;&gt;Flex 布局教程&lt;/a&gt;，举例几个常用的参数：&lt;/p&gt;
-
-&lt;p&gt;以下5个属性设置在容器上（第一个属性值均为默认值）：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;flex-direction （主轴的方向：row（横向从左到右） column（纵向从上到下））&lt;/li&gt;
-  &lt;li&gt;justify-content （主轴的对齐方式：flex-start（左对齐） flex-end（右对齐） center（居中） space-between（两端对齐，间隔相等） space-around（两端对齐，边距较大））&lt;/li&gt;
-  &lt;li&gt;align-items （纵向交叉轴对齐方式：stretch（占满） flex-start（起点对齐） flex-end（终点对齐） center（居中））&lt;/li&gt;
-  &lt;li&gt;align-content （多个轴线的对齐方式：stretch（轴线占满）flex-start（左对齐） flex-end（右对齐） center（居中） space-between（两端对齐，间隔相等） space-around（两端对齐，边距较大））&lt;/li&gt;
-  &lt;li&gt;flex-wrap （是否换行：nowrap（不换） wrap（换））&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;以下2个属性设置在子类上（常用）：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;align-self （允许子类与其他不同的对齐方式，可覆盖align-items属性:与&lt;code class=&quot;highlighter-rouge&quot;&gt;align-items&lt;/code&gt;属性完全一致）&lt;/li&gt;
-  &lt;li&gt;flex-grow （定义项目的放大比例，默认为0，如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话））&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;单行省略&quot;&gt;单行省略&lt;/h5&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;让一个自身有宽度或是容器有宽度的元素实现单行溢出省略（省略号表示）&lt;/p&gt;
-
-&lt;h5 id=&quot;页内滚动&quot;&gt;页内滚动&lt;/h5&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    overflow: auto;
-    //使IOS下的滑轮和原生一致，丝滑般顺畅
-    -webkit-overflow-scrolling:touch;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;效果类似下图&lt;img src=&quot;/img/in-post/post-css/css_1711_3.png&quot; alt=&quot;效果图&quot; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;移动端图像禁止拷贝&quot;&gt;移动端图像禁止拷贝&lt;/h5&gt;
-
-&lt;p&gt;在移动端的webkit内核浏览器的下，可以防止用户长按图片跳出系统默认菜单（菜单有下载图片之类的功能），使用如下代码：&lt;/p&gt;
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nt&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;-webkit-touch-callout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;常用选择器&quot;&gt;常用选择器&lt;/h5&gt;
-
-&lt;p&gt;p:first-child 选择器：选择父级下的首个元素为&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt;元素;  &lt;br /&gt;
-  p:last-child 选择器：选择父级下的最后一个为&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt;元素;   &lt;br /&gt;
-  p:nth-child(2) 选择器：选择父级下的第2个为&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt;元素;&lt;/p&gt;
-
-&lt;h5 id=&quot;calc四则运算动态计算长宽高&quot;&gt;calc()四则运算动态计算长宽高&lt;/h5&gt;
-
-&lt;p&gt;用于动态计算长度值。
-  需要注意的是，运算符前后都需要保留一个空格，例如：width: calc(100% - 10px)；
-  任何长度值都可以使用calc()函数进行计算；
-  calc()函数支持 &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt; 运算；
-  calc()函数使用标准的数学运算优先级规则；
-  兼容到IE9IE9+、FF4.0+、Chrome19+、Safari6+,需要加上识别符，小程序完美支持。&lt;/p&gt;
-
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;c&quot;&gt;/* 宽度为1000px,下列表达式则为 950px */&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;.elm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100%-50px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;transform和position-fixed&quot;&gt;transform和position: fixed&lt;/h5&gt;
-
-&lt;p&gt;如果在父级有设置&lt;code class=&quot;highlighter-rouge&quot;&gt;transform&lt;/code&gt;属性时，容器内设有position: fixed属性将会失效，变成仅仅只是 position: absolute 的效果;
-  Google给的解释是&lt;strong&gt;position: fixed” still do not cope with transform value&lt;/strong&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 16 Nov 2017 16:50:15 +0800</pubDate>
-        <link>http://localhost:5001/2017/11/16/AmazingCss/</link>
-        <guid isPermaLink="true">http://localhost:5001/2017/11/16/AmazingCss/</guid>
-        
-        <category>前端</category>
-        
-        <category>Css</category>
         
         
       </item>
