@@ -166,9 +166,9 @@
             ">
     			
 <div class="post-preview">
-    <a href="/2019/01/24/AboutJsModules/">
+    <a href="/2018/10/24/AboutJsModules/">
         <h2 class="post-title">
-            在浏览器中使用javascript module
+            js模块化-javascript module相关
         </h2>
         
         <h3 class="post-subtitle">
@@ -179,11 +179,15 @@
         
         <div class="post-content-preview">
             简介
-现在，所有主流浏览器都已经支持JS module（Chrome、Edge、Safari、Firefox）。modules，就是JS的模块，我的理解就是，当有大量同类型或者有关联的数据和函数，方法需要当作一个整体展示的时候，可以单独定义成一个module也就是模块。module意义就使得代码模块化，使你的代码分成一个个逻辑上独立的子集，每个子集处理特定的功能，然后被单独调用。博文会讲解(...
+现在，所有主流浏览器都已经支持JS module（Chrome、Edge、Safari、Firefox）。modules，就是JS的模块，我的理解就是，当有大量同类型或者有关联的数据和函数，方法需要当作一个整体展示的时候，可以单独定义成一个module也就是模块。module意义就使得代码模块化，使你的代码分成一个个逻辑上独立的子集，每个子集处理特定的功能，然后被单独调用。。
+
+
+
+截...
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on January 24, 2019
+        Posted by AXiang on October 24, 2018
     </p>
 </div>
 <hr>
@@ -195,7 +199,7 @@
         </h2>
         
         <h3 class="post-subtitle">
-            明白了原型和原型链会让我们在后面不管是学习还是工作都会更加高效
+            
         </h3>
 
         
@@ -205,9 +209,13 @@
   prototype chain
 
 
-原型链
+原型
+首先要说一下为什么会有原型这个东西，那是因为在 JavaScript 中并没有 “类” 的概念，它是靠原型和原型链实现对象属性的继承，即便在 ES6 中新出了class的语法，但那也只是一个语法糖，它的底层依然是原型。
 
+要理解原型（原型链），最重要的是理解两个属性以及它们之间的关系，附上一张经典关系图：
 
+  __ proto __
+  pr...
         </div>
     </a>
     <p class="post-meta">

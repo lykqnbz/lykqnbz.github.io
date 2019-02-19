@@ -5,6 +5,7 @@ subtitle:   "Skeleton Screen"
 date:       2018-08-28 21:11:14
 author:     "AXiang"
 header-img: "img/post-bg-2015.jpg"
+catalog:  true
 tags:
     - 前端
     - 响应式设计
