@@ -2,7 +2,7 @@
 layout:     post
 title:      "generator·ES6中的新贵"
 subtitle:   " "
-date:       2018-06-04 11:13:53
+date:       2019-01-04 11:13:53
 author:     "AXiang"
 header-img: "img/post-bg-js.jpg"
 catalog:  true

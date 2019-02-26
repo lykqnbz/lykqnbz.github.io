@@ -166,6 +166,89 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2019/01/26/AboutCSSGradient/">
+        <h2 class="post-title">
+            CSS3 Gradient细解
+        </h2>
+        
+        <h3 class="post-subtitle">
+             
+        </h3>
+
+        
+        
+        <div class="post-content-preview">
+            
+  “没有引言，一个人很无趣。”
+
+
+前言
+现在设计师同学越来越高大上了，纯色背景已经不能满足人民群众日益增长的物质文化需要了，必须各类渐变背景。。要怎么还原呢（虽然UI给的Sketch切图工具自带实现代码，嘻嘻），所以深入研究了一下这个CSS3的渐变Gradient。
+
+兼容性
+从Can I use上看，除了极具中国社会主义的IE789不支持外，现代浏览器支持程度都良好，尤其移动端，对于...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on January 26, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/01/04/ES6AboutGenerator/">
+        <h2 class="post-title">
+            generator·ES6中的新贵
+        </h2>
+        
+        <h3 class="post-subtitle">
+             
+        </h3>
+
+        
+        
+        <div class="post-content-preview">
+            概念及all
+generator（生成器）是ES6标准引入的新的数据类型。一个generator看上去像一个函数，但可以返回多次。
+ES6定义generator标准的哥们借鉴了Python的generator的概念和语法，如果你对Python的generator很熟悉，那么ES6的generator就是小菜一碟了。
+我们先复习函数的概念。一个函数是一段完整的代码，调用一个函数就是传入参数，然...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on January 4, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/12/13/AboutJsOfHeapAndStack/">
+        <h2 class="post-title">
+            JS中的栈内存、堆内存
+        </h2>
+        
+        <h3 class="post-subtitle">
+            heap and stack
+        </h3>
+
+        
+        
+        <div class="post-content-preview">
+            引言
+
+说说JS中的堆栈
+我们都熟知并且常用JS变量的声明以及初始化（赋值），比如一行极其简单的代码var str = '我是字符串'，那么这行代码执行的时候发生了什么呢？再比如var obj = {name: 'reslicma'}又发生了什么？他们一样吗？请看正文。
+
+JS中变量的类型
+我们先行讨论JS中变量的类型，因为JS中变量的具体存储方式是取决于这个变量的类型的。JS中的变量共有两...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on December 13, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2018/10/24/AboutJsModules/">
         <h2 class="post-title">
             js模块化-javascript module相关
@@ -284,31 +367,6 @@
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/06/04/ES6AboutGenerator/">
-        <h2 class="post-title">
-            generator·ES6中的新贵
-        </h2>
-        
-        <h3 class="post-subtitle">
-             
-        </h3>
-
-        
-        
-        <div class="post-content-preview">
-            概念及all
-generator（生成器）是ES6标准引入的新的数据类型。一个generator看上去像一个函数，但可以返回多次。
-ES6定义generator标准的哥们借鉴了Python的generator的概念和语法，如果你对Python的generator很熟悉，那么ES6的generator就是小菜一碟了。
-我们先复习函数的概念。一个函数是一段完整的代码，调用一个函数就是传入参数，然...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by AXiang on June 4, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2018/06/03/WxXcxTemplate/">
         <h2 class="post-title">
             小程序·模板Template相关
@@ -340,31 +398,33 @@ ES6定义generator标准的哥们借鉴了Python的generator的概念和语法�
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/05/26/AboutCSSGradient/">
+    <a href="/2018/05/12/DifferentFromVarLetConst/">
         <h2 class="post-title">
-            CSS3 Gradient细解
+            var和let/const的区别-细节版
         </h2>
         
         <h3 class="post-subtitle">
-             
+            
         </h3>
 
         
         
         <div class="post-content-preview">
             
-  “没有引言，一个人很无趣。”
+  let和const是 ES6 新增的命令，用于声明变量，这两个命令跟 ES5 的var有许多不同，并且let和const也有一些细微的不同，再认真阅读了阮一峰老师的文档后，发现还是有一些不知道的细节…
 
 
-前言
-现在设计师同学越来越高大上了，纯色背景已经不能满足人民群众日益增长的物质文化需要了，必须各类渐变背景。。要怎么还原呢（虽然UI给的Sketch切图工具自带实现代码，嘻嘻），所以深入研究了一下这个CSS3的渐变Gradient。
+var和let/const的区别
 
-兼容性
-从Can I use上看，除了极具中国社会主义的IE789不支持外，现代浏览器支持程度都良好，尤其移动端，对于...
+  1、块级作用域
+  2、不存在变量提升
+  3、暂时性死区
+  4、不可重复声明
+  5、let、const声明的全局变量不会挂在顶层对象下面...
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on May 26, 2018
+        Posted by AXiang on May 12, 2018
     </p>
 </div>
 <hr>
@@ -395,77 +455,6 @@ WXML
     </a>
     <p class="post-meta">
         Posted by AXiang on April 10, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/03/03/ApplicationOfPseudoElementForContent/">
-        <h2 class="post-title">
-            伪元素content的应用
-        </h2>
-        
-        <h3 class="post-subtitle">
-             
-        </h3>
-
-        
-        
-        <div class="post-content-preview">
-            
-  “没有引言”
-
-
-Go
-日常开发中,一般会用到一些伪类如:before，:after来实现一些效果，比如:用于尾部追加边距和前部插入icon
-   
-通常我们使用contend只是追加一些字符串，事实上，content属性不仅仅支持字符串，也支持一些内置的css方法。 
-使用content: attr(XXXX)可以实现HTML与CSS的“通讯”，使得伪元素能读取当前元素的属性。看以下...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by AXiang on March 3, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/01/02/MyCodeBase/">
-        <h2 class="post-title">
-            代码库
-        </h2>
-        
-        <h3 class="post-subtitle">
-            JavaScript常用实例的实现与封装
-        </h3>
-
-        
-        
-        <div class="post-content-preview">
-            前言
-
-
-  
-    开发的时候，有很多常见的实例操作，一直重复写的话，就是代码沉余。所以把一些常见的操作封装成函数，方便调用。一直待续……
-  
-
-
-字符串操作
-
-2-1 去除字符串空格
-2-2 字母大小写切换
-2-3 字符串循环复制
-2-4 字符替换
-2-5 正哲检测字符串
-2-6 检测密码强度
-2-7 查找字符串中某字符出现的次数
-
-var aldR = {
-    // 2-1 去...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by AXiang on January 2, 2018
     </p>
 </div>
 <hr>
@@ -518,7 +507,7 @@ var aldR = {
                             
                         
                             
-                                <a href="/tags/#前端" title="前端" rel="19">
+                                <a href="/tags/#前端" title="前端" rel="21">
                                     前端
                                 </a>
                             
@@ -548,7 +537,7 @@ var aldR = {
                             
                         
                             
-                                <a href="/tags/#JavaScript" title="JavaScript" rel="8">
+                                <a href="/tags/#JavaScript" title="JavaScript" rel="10">
                                     JavaScript
                                 </a>
                             
@@ -578,7 +567,7 @@ var aldR = {
                             
                         
                             
-                                <a href="/tags/#ES6" title="ES6" rel="1">
+                                <a href="/tags/#ES6" title="ES6" rel="2">
                                     ES6
                                 </a>
                             
