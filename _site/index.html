@@ -166,6 +166,39 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2019/02/21/AboutRedrawAndReflow/">
+        <h2 class="post-title">
+            掌握浏览器重绘重排原理
+        </h2>
+        
+        <h3 class="post-subtitle">
+            About redraw and reflow
+        </h3>
+
+        
+        
+        <div class="post-content-preview">
+            
+  都知道要尽量减少浏览器的重排和重绘，那到底要怎么做呢
+
+
+网页生成过程
+
+  1、HTML被HTML解析器解析成DOM树
+  2、css则被css解析器解析成CSSOM树
+  3、结合DOM树和CSSOM树，生成一棵渲染树(Render Tree)
+  4、生成布局（flow），即将所有渲染树的所有节点进行平面合成
+  5、将布局绘制（paint）在屏幕上 
+第四步和第五步是最耗时的部...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on February 21, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/01/26/AboutCSSGradient/">
         <h2 class="post-title">
             CSS3 Gradient细解
@@ -429,36 +462,6 @@ var和let/const的区别
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2018/04/10/AboutMiniProgram/">
-        <h2 class="post-title">
-            细数微信小程序的前端坑
-        </h2>
-        
-        <h3 class="post-subtitle">
-            细数了半年
-        </h3>
-
-        
-        
-        <div class="post-content-preview">
-            
-  酝酿了半年，个人理解
-
-
-WXML
-
-小程序的标签
-
-小程序里的标签远没有H5里的标签多，这主要归于H5许多标签仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用view代替div作为小程序最常见的容器，推荐使用的API官方组件里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by AXiang on April 10, 2018
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -507,7 +510,7 @@ WXML
                             
                         
                             
-                                <a href="/tags/#前端" title="前端" rel="21">
+                                <a href="/tags/#前端" title="前端" rel="22">
                                     前端
                                 </a>
                             
@@ -537,7 +540,7 @@ WXML
                             
                         
                             
-                                <a href="/tags/#JavaScript" title="JavaScript" rel="10">
+                                <a href="/tags/#JavaScript" title="JavaScript" rel="11">
                                     JavaScript
                                 </a>
                             
@@ -569,6 +572,12 @@ WXML
                             
                                 <a href="/tags/#ES6" title="ES6" rel="2">
                                     ES6
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Html" title="Html" rel="1">
+                                    Html
                                 </a>
                             
                         

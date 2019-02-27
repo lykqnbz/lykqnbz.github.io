@@ -5,9 +5,228 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 26 Feb 2019 17:02:37 +0800</pubDate>
-    <lastBuildDate>Tue, 26 Feb 2019 17:02:37 +0800</lastBuildDate>
+    <pubDate>Wed, 27 Feb 2019 11:56:31 +0800</pubDate>
+    <lastBuildDate>Wed, 27 Feb 2019 11:56:31 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>掌握浏览器重绘重排原理</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;都知道要尽量减少浏览器的重排和重绘，那到底要怎么做呢&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;网页生成过程&quot;&gt;网页生成过程&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;1、HTML被HTML解析器解析成DOM树&lt;/li&gt;
+  &lt;li&gt;2、css则被css解析器解析成CSSOM树&lt;/li&gt;
+  &lt;li&gt;3、结合DOM树和CSSOM树，生成一棵渲染树(Render Tree)&lt;/li&gt;
+  &lt;li&gt;4、生成布局（flow），即将所有渲染树的所有节点进行平面合成&lt;/li&gt;
+  &lt;li&gt;5、将布局绘制（paint）在屏幕上 &lt;br /&gt;
+第四步和第五步是最耗时的部分，这两步合起来，就是我们通常所说的&lt;strong&gt;渲染&lt;/strong&gt;。
+网上找了一张图片，我加了注释会更直观一些： &lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-html/html_1902_1.png&quot; alt=&quot;渲染过程&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;渲染&quot;&gt;渲染&lt;/h4&gt;
+&lt;p&gt;网页生成的时候，至少会渲染一次。在用户访问的过程中，还会不断重新渲染。重新渲染需要重复之前的第四步(重新生成布局)+第五步(重新绘制)或者只有第五个步(重新绘制)。&lt;/p&gt;
+
+&lt;h4 id=&quot;重排比重绘大&quot;&gt;重排比重绘大&lt;/h4&gt;
+&lt;p&gt;大，在这个语境里的意思是：谁能影响谁？&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;重绘：某些元素的外观被改变，例如：元素的填充颜色&lt;/li&gt;
+  &lt;li&gt;重排：重新生成布局，重新排列元素 &lt;br /&gt;
+就如上面的概念一样，单单改变元素的外观，肯定不会引起网页重新生成布局，但当浏览器完成重排之后，将会重新绘制受到此次重排影响的部分。比如改变元素高度，这个元素乃至周边dom都需要重新绘制。也就是说：“重绘”不一定会出现”重排”，”重排”必然会出现”重绘”。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;重排reflow&quot;&gt;重排(reflow)&lt;/h3&gt;
+&lt;h5 id=&quot;概念&quot;&gt;概念&lt;/h5&gt;
+&lt;p&gt;当DOM的变化影响了元素的几何信息(DOM对象的位置和尺寸大小)，浏览器需要重新计算元素的几何属性，将其安放在界面中的正确位置，这个过程叫做重排。重排也叫回流,重排的过程以下面这种理解方式更清晰一些：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;回流就好比向河里(文档流)扔了一块石头(dom变化)，激起涟漪，然后引起周边水流受到波及，所以叫做回流&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;常见引起重排的情况&quot;&gt;常见引起重排的情况&lt;/h5&gt;
+&lt;p&gt;任何会改变元素几何信息(元素的位置和尺寸大小)的操作，都会触发重排，下面列一些栗子：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;添加或者删除可见的DOM元素；&lt;/li&gt;
+  &lt;li&gt;元素尺寸改变——边距、填充、边框、宽度和高度&lt;/li&gt;
+  &lt;li&gt;内容变化，比如用户在input框中输入文字&lt;/li&gt;
+  &lt;li&gt;浏览器窗口尺寸改变——resize事件发生时&lt;/li&gt;
+  &lt;li&gt;计算 offsetWidth 和 offsetHeight 属性&lt;/li&gt;
+  &lt;li&gt;设置 style 属性的值&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;常见引起重排的属性和方法&quot;&gt;常见引起重排的属性和方法&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-html/html_1902_2.png&quot; alt=&quot;常见引起重排属性和方法&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;重排影响的范围&quot;&gt;重排影响的范围&lt;/h5&gt;
+&lt;p&gt;由于浏览器渲染界面是基于流失布局模型的，所以触发重排时会对周围DOM重新排列，影响的范围有两种：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;全局范围：从根节点html开始对整个渲染树进行重新布局&lt;/li&gt;
+  &lt;li&gt;局部范围：对渲染树的某部分或某一个渲染对象进行重新布局&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;全局范围重排&quot;&gt;全局范围重排&lt;/h5&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;h4&amp;gt;&lt;/span&gt;hello&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h4&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;&lt;/span&gt;Name:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/strong&amp;gt;&lt;/span&gt;BDing&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;h5&amp;gt;&lt;/span&gt;male&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h5&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;ol&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&lt;/span&gt;coding&lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&lt;/span&gt;loving&lt;span class=&quot;nt&quot;&gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ol&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;当p节点上发生reflow时，hello和body也会重新渲染，甚至h5和ol都会收到影响。&lt;/p&gt;
+&lt;h5 id=&quot;局部范围重排&quot;&gt;局部范围重排&lt;/h5&gt;
+&lt;p&gt;用局部布局来解释这种现象：把一个dom的宽高之类的几何信息定死，然后在dom内部触发重排，就只会重新渲染该dom内部的元素，而不会影响到外界&lt;/p&gt;
+
+&lt;h5 id=&quot;尽可能的减少重排的次数重排范围&quot;&gt;尽可能的减少重排的次数、重排范围&lt;/h5&gt;
+&lt;p&gt;重排需要更新渲染树，性能花销非常大，它们的代价是高昂的，会破坏用户体验，并且让UI展示非常迟缓，我们需要尽可能的减少触发重排的次数。重排的性能花销跟渲染树有多少节点需要重新构建有关系，所以我们应该尽量以局部布局的形式组织html结构，尽可能小的影响重排的范围。而不是像全局范围的示例代码一样一溜的堆砌标签，随便一个元素触发重排都会导致全局范围的重排。&lt;/p&gt;
+
+&lt;h3 id=&quot;重绘repaints&quot;&gt;重绘(Repaints)&lt;/h3&gt;
+&lt;h5 id=&quot;概念-1&quot;&gt;概念&lt;/h5&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;当一个元素的外观发生改变，但没有改变布局,重新把元素外观绘制出来的过程，叫做重绘&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;常见的引起重绘的属性&quot;&gt;常见的引起重绘的属性&lt;/h5&gt;
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-html/html_1902_3.png&quot; alt=&quot;常见的引起重绘的属性&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;浏览器的渲染队列&quot;&gt;浏览器的渲染队列&lt;/h3&gt;
+&lt;p&gt;思考以下代码将会触发几次渲染？&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'10px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'10px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;根据我们上文的定义，这段代码理论上会触发4次重排+重绘，因为每一次都改变了元素的几何属性，实际上最后只触发了一次重排，这都得益于浏览器的渲染队列机制：当我们修改了元素的几何属性，导致浏览器触发重排或重绘时。它会把该操作放进渲染队列，等到队列中的操作到了一定的数量或者到了一定的时间间隔时，浏览器就会批量执行这些操作。&lt;/p&gt;
+
+&lt;h5 id=&quot;强制刷新队列&quot;&gt;强制刷新队列&lt;/h5&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'10px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetLeft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'10px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetTop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetHeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;这段代码会触发4次重排+重绘，因为在console中你请求的这几个样式信息，无论何时浏览器都会立即执行渲染队列的任务，即使该值与你操作中修改的值没关联。
+因为队列中，可能会有影响到这些值的操作，为了给我们最精确的值，浏览器会立即重排+重绘。&lt;/p&gt;
+
+&lt;p&gt;强制刷新队列的style样式请求:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;offsetTop, offsetLeft, offsetWidth, offsetHeight&lt;/li&gt;
+  &lt;li&gt;scrollTop, scrollLeft, scrollWidth, scrollHeight&lt;/li&gt;
+  &lt;li&gt;clientTop, clientLeft, clientWidth, clientHeight&lt;/li&gt;
+  &lt;li&gt;getComputedStyle(), 或者 IE的 currentStyle &lt;br /&gt;
+我们在开发中，应该谨慎的使用这些style请求，注意上下文关系,避免一行代码一个重排，这对性能是个巨大的消耗。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;重排优化建议&quot;&gt;重排优化建议&lt;/h3&gt;
+&lt;p&gt;就像上文提到的我们要尽可能的减少重排次数、重排范围，这样说很泛，下面是一些行之有效的建议，大家可以参考一下。&lt;/p&gt;
+&lt;h6 id=&quot;1分离读写操作&quot;&gt;1.分离读写操作&lt;/h6&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'10px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'10px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetLeft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetTop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetHeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;还是上面触发4次重排+重绘的代码，这次只触发了一次重排。在第一个console的时候，浏览器把之前上面四个写操作的渲染队列都给清空了。剩下的console，因为渲染队列本来就是空的，所以并没有触发重排，仅仅拿值而已。&lt;/p&gt;
+
+&lt;h6 id=&quot;2样式集中改变&quot;&gt;2.样式集中改变&lt;/h6&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'10px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'10px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;虽然现在大部分浏览器有渲染队列优化，不排除有些浏览器以及老版本的浏览器效率仍然低下，建议通过改变class或者csstext属性集中改变样式。&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;// bad&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;px&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;px&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// good &lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;className&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot; theclassname&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// good&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cssText&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;; left: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;px; top: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;px;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h6 id=&quot;3缓存布局信息&quot;&gt;3.缓存布局信息&lt;/h6&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;// bad 强制刷新 触发两次重排&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetTop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// good 缓存布局信息 相当于读写分离&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;curLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetLeft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;curTop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetTop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;curLeft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;curTop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h6 id=&quot;4离线改变dom&quot;&gt;4.离线改变DOM&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;隐藏要操作的dom
+在要操作dom之前，通过display隐藏dom，当操作完成之后，才将元素的display属性为可见，因为不可见的元素不会触发重排和重绘。
+    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nx&quot;&gt;dom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'none'&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// 修改dom样式&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;dom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'block'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;通过使用&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment&quot;&gt;DocumentFragment&lt;/a&gt;创建一个dom碎片,在它上面批量操作dom，操作完成之后，再添加到文档中，这样只会触发一次重排.&lt;/li&gt;
+  &lt;li&gt;复制节点，在副本上工作，然后替换它！&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h6 id=&quot;5position属性为absolute或fixed&quot;&gt;5.position属性为absolute或fixed&lt;/h6&gt;
+&lt;p&gt;position属性为absolute或fixed的元素，重排开销比较小，不用考虑它对其他元素的影响&lt;/p&gt;
+
+&lt;h6 id=&quot;6优化动画&quot;&gt;6.优化动画&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;可以把动画效果应用到position属性为absolute或fixed的元素上，这样对其他元素影响较小动画效果还应牺牲一些平滑，来换取速度，这中间的度自己衡量：比如实现一个动画，以1个像素为单位移动这样最平滑，但是reflow就会过于频繁，大量消耗CPU资源，如果以3个像素为单位移动则会好很多。&lt;/li&gt;
+  &lt;li&gt;启用GPPU加速，此部分来自&lt;a href=&quot;http://caibaojian.com/css-reflow-repaint.html&quot;&gt;优化CSS重排重绘与浏览器性能&lt;/a&gt;。&lt;strong&gt;GPU(图像加速器)：&lt;/strong&gt;：GPU 硬件加速是指应用 GPU 的图形性能对浏览器中的一些图形操作交给 GPU 来完成，因为 GPU 是专门为处理图形而设计，所以它在速度和能耗上更有效率。GPU 加速通常包括以下几个部分：Canvas2D，布局合成, CSS3转换（transitions），CSS3 3D变换（transforms），WebGL和视频(video)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c&quot;&gt;/*
+    * 根据上面的结论
+    * 将 2d transform 换成 3d
+    * 就可以强制开启 GPU 加速
+    * 提高动画性能
+    */&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;translate3d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;结语&quot;&gt;结语&lt;/h3&gt;
+&lt;p&gt;重排也是导致DOM脚本执行效率低的关键因素之一，重排与重绘作为大厂经常出现的面试题，并且涉及的性能优化。&lt;/p&gt;
+
+&lt;p&gt;重排会不断触发这是不可避免的，但我们在开发时，应尽量按照文中的建议来组织代码，这种优化，希望日后自己重视。&lt;/p&gt;
+
+&lt;h3 id=&quot;参考文章&quot;&gt;参考文章&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/API&quot;&gt;MDN web docs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://caibaojian.com/css-reflow-repaint.html&quot;&gt;优化CSS重排重绘与浏览器性能&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Thu, 21 Feb 2019 19:11:52 +0800</pubDate>
+        <link>http://localhost:5001/2019/02/21/AboutRedrawAndReflow/</link>
+        <guid isPermaLink="true">http://localhost:5001/2019/02/21/AboutRedrawAndReflow/</guid>
+        
+        <category>前端</category>
+        
+        <category>Html</category>
+        
+        <category>JavaScript</category>
+        
+        
+      </item>
     
       <item>
         <title>CSS3 Gradient细解</title>
@@ -1308,285 +1527,6 @@ let、const不允许在相同作用域内，重复声明同一个变量
         <category>JavaScript</category>
         
         <category>ES6</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>细数微信小程序的前端坑</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;酝酿了半年，个人理解&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;wxml&quot;&gt;WXML&lt;/h3&gt;
-
-&lt;h5 id=&quot;小程序的标签&quot;&gt;小程序的标签&lt;/h5&gt;
-
-&lt;p&gt;小程序里的标签远没有H5里的标签多，这主要归于H5许多标签仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用&lt;code class=&quot;highlighter-rouge&quot;&gt;view&lt;/code&gt;代替&lt;code class=&quot;highlighter-rouge&quot;&gt;div&lt;/code&gt;作为小程序最常见的容器，推荐使用的&lt;a href=&quot;https://developers.weixin.qq.com/miniprogram/dev/component/&quot;&gt;API官方组件&lt;/a&gt;里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，而且编译时小概率出现错误。
-虽然标签简化了，但是普通容器一般都用view的情况下，样式都需要打类名或ID，总觉得十分繁琐(个人习惯是在父级类名下使用标签选择器)。在小程序里个人常用的容器标签有:&lt;em&gt;view&lt;/em&gt;,&lt;em&gt;label&lt;/em&gt;,&lt;em&gt;text&lt;/em&gt;。&lt;/p&gt;
-
-&lt;h5 id=&quot;scroll-view&quot;&gt;scroll-view&lt;/h5&gt;
-&lt;p&gt;scroll-view算是进阶版的view，提供的是一个可滚动视图区域，类似于&lt;strong&gt;overflow:auto&lt;/strong&gt;的功能，只是&lt;strong&gt;overflow:auto&lt;/strong&gt;在小程序很难用的原因，所以在特别的时候可以用上这个组件，例如在一个固定高度的&lt;strong&gt;swiper&lt;/strong&gt;组件里定义一个可滚动视图区域，可以使用scroll-view。
-&lt;img src=&quot;/img/in-post/post-xcx/exm_1.gif&quot; alt=&quot;滑动例子&quot; /&gt; 
-scroll-view支持横纵滚动，滚动条事件等。但是目前好像在官方API暂时还没有发现有滚动条结束监控，我们可以在&lt;code class=&quot;highlighter-rouge&quot;&gt;bindscroll&lt;/code&gt;绑定一个一个延时函数来达到滚动条结束的监听：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-  &lt;span class=&quot;nx&quot;&gt;bindScrollOver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;clearTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//   滚动结束时的事件&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;swiper&quot;&gt;swiper&lt;/h5&gt;
-&lt;p&gt;小程序的swiper就是&lt;a href=&quot;http://www.swiper.com.cn/&quot;&gt;h5中swiper&lt;/a&gt;的阉割版，但是这个阉割版我是很喜欢的，保存了90%的功能，但内容清爽了许多，依旧是丝滑般的感觉。指示点，自动切换，环形轮播，纵横方向之类的都是支持。目前有一个还未解决问题：没有办法舒服的控制&lt;strong&gt;swiper-item&lt;/strong&gt;之间间距，因为小程序的swiper封装得太好了，再加上没有办法获取dom元素，官方渲染的时候也不用类名id控制样式，所以想要控制到元素很麻烦，原先在H5用swiper做的一个效果图如下&lt;img src=&quot;/img/in-post/post-xcx/exm_2.gif&quot; alt=&quot;轮播例子&quot; /&gt;在可以控制到dom的情况下轻松修改到原生样式；以下为小程序的swiper做的类似页面&lt;img src=&quot;/img/in-post/post-xcx/exm_3.gif&quot; alt=&quot;轮播例子&quot; /&gt;但是在大多情况下使用swiper当做轮播滚动，信息滚动都十分好用。&lt;/p&gt;
-
-&lt;h5 id=&quot;text&quot;&gt;text&lt;/h5&gt;
-&lt;p&gt;小程序的text组件是一个用于文本的内联元素，比较特殊的是它支持解码&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;nbsp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;lt&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;gt&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;amp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;apos&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;ensp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;emsp&lt;/code&gt;以及换行&lt;code class=&quot;highlighter-rouge&quot;&gt;\n&lt;/code&gt;和空格&lt;code class=&quot;highlighter-rouge&quot;&gt;\t&lt;/code&gt;，这边要注意的是，小程序里是不识别&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;br/&amp;gt;&lt;/code&gt;换行的，而且text标签里只能嵌套text标签。&lt;/p&gt;
-
-&lt;h5 id=&quot;button&quot;&gt;button&lt;/h5&gt;
-&lt;p&gt;小程序的button主要功能是使用微信开发的能力(open-type属性：分享，打开客服之类)以及提供formId的表单提交，通常我们设计的一个按钮在button组件上得不到很好的样式体现，因为小程序在wxss里是不支持导入本地连接的图片的，只能使用网络地址，导致在button上不能显示本地的背景图片，所以一般都是把一张图片和一个button放在一个容器里，图片为按钮背景图，button则设置定位重叠在图片上方，并且设置透明无色。&lt;/p&gt;
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    
-    &lt;span class=&quot;nc&quot;&gt;.con&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;       
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;.ccon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:after&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;很坑的一点是，小程序中button的默认样式很多，特别是button的border属性，不是写在button内，而是写在button:after里。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;button open-type=&quot;&quot;&amp;gt;&amp;lt;/button&amp;gt;&lt;/code&gt;这边例举常用的open-type的有效值&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;share: 触发用户转发，和js里的onShareAppMessage相对应&lt;/li&gt;
-  &lt;li&gt;contact: 打开客服会话&lt;/li&gt;
-  &lt;li&gt;getUserInfo:获取用户信息，可以从bindgetuserinfo回调中获取到用户信息&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;canvas&quot;&gt;canvas&lt;/h5&gt;
-&lt;p&gt;h5的canvas真的是太牛逼了，导致我对小程序里的canvas也有很大的期望，结果发现小程序的canvas是真的难用。小程序的canvas阉割了太多的功能。通过唯一的canvas-id进行识别。&lt;/p&gt;
-
-&lt;h6 id=&quot;问题1ctxdrawimage真机无法显示&quot;&gt;　问题1:ctx.drawImage真机无法显示&lt;/h6&gt;
-&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：用ctx.drawImage画线上图片在真机上显示不出来，模拟器上却可以显示（需要说明的是：ctx.drawImage画图片是需要获取到图片后才能开始画，并且获取的线上图片地址需要是https。）但是在真机上还是无法显示，也试过下载到本地后画也没有用。&lt;/p&gt;
-
-&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：首先，用canvas绘制线上图片时，必须先下载到本地，而且线上图片的地址必须是在配置的安全域名下，遇到绘制不出的原因在于：没有等待图片完全下载好就绘制了，所以这里要考虑绘图顺序，可以用wx.downloadFile返回的对象的成功回调后绘制图片。&lt;/p&gt;
-
-&lt;h6 id=&quot;问题2实现圆形裁剪&quot;&gt;　问题2：实现圆形裁剪&lt;/h6&gt;
-&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：小程序的canvas没有裁剪的api，如何用canvas将图片画成圆形？&lt;/p&gt;
-
-&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：我是通过制作一张和头像图片一样大的中间有个圆形镂空（中间透明，外切圆）的正方形图片绘制在头像上，在视觉上给头像做出圆形的效果。&lt;/p&gt;
-
-&lt;h6 id=&quot;问题3文字定位&quot;&gt;　问题3：文字定位&lt;/h6&gt;
-&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：canvas生成一张用于裂变的分享图常常需要写入许多文字，而且文字并非一段而是拆分成很多段，如下图：&lt;img src=&quot;/img/in-post/post-xcx/exm_4.png&quot; alt=&quot;canvas例子&quot; /&gt;中间那段红蓝相间的文字就是用多段ctx.fillText定位的，但是ctx.fillText(输出文本,x轴距离,y轴距离)是只支持从左上角开始定位的，而且只能使用&lt;strong&gt;px&lt;/strong&gt;单位，导致在不同机型上显示的效果都不一样，而且文字换行也是个大问题。&lt;/p&gt;
-
-&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：通过手动计算rpx的比值进行等比例转换px再配合ctx.setTextAlign设置文字对其方式可以较完美的解决文字定位问题，文字换行同理。在基础库1.9.90里还更新了ctx.measureText方法，能测量文本尺寸信息，返回文本宽度，同步接口，便于我们文字进行定位。&lt;/p&gt;
-
-&lt;h6 id=&quot;问题4字体设置&quot;&gt;　问题4：字体设置&lt;/h6&gt;
-&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：canvas不能设置字体，只能使用宋体。&lt;/p&gt;
-
-&lt;p&gt;　&lt;del&gt;&lt;strong&gt;未解决&lt;/strong&gt;：确实只能显示宋体&lt;/del&gt;。  &lt;br /&gt;
-　&lt;del&gt;&lt;strong&gt;半解决&lt;/strong&gt;：基础库1.9.90开始支持ctx.font，支持设置字体粗细，形态，大小以及字体，还没有用过，有机会试一下&lt;/del&gt;。&lt;br /&gt;
-　&lt;strong&gt;已解决&lt;/strong&gt;：在基础库为1.9.90确实可以通过font来设置字体形态，但是它不像setFillStyle，setFontSize这些只向下有效，font对没有设置过字态的fillText都会进行设置，向上也有效，所以如果使用了font，要对所有的fillText都进行设置，目前自测支持的字体有:宋体，黑体，楷体。。。&lt;/p&gt;
-
-&lt;h6 id=&quot;问题5canvas隐藏问题&quot;&gt;　问题5：canvas隐藏问题&lt;/h6&gt;
-&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：为了让canvas不在页面显示，将canvas用view标签包起来后，给view设置了overflow=hidden和opacity=0的属性，是可以成功将canvas隐藏，但是在真机上测试时，一旦在这个隐藏的canvas上绘制图片，canvas又显示在屏幕上了。模拟器上是不会显示的。&lt;/p&gt;
-
-&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：由于canvas是客户端创建的原生组件，它的层级是最高的，并且不能通过 z-index 控制层级，所以在真机上canvas一旦被绘制就一定会显示，而且如果用wx:if来隐藏会把canvas销毁掉，使其不工作，我个人的解决方式是将canvas设置定位绝对定位或固定定位,left设置-10000px,使其脱离屏幕，如果需要时再把left动态设置回来，这样达到一个隐藏的效果。&lt;/p&gt;
-
-&lt;h6 id=&quot;问题6canvas的层级问题&quot;&gt;　问题6：canvas的层级问题&lt;/h6&gt;
-&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：写的所有东西都被canvas盖住了，在模拟器上是显示的，但是在真机上都是被canvas盖住的。&lt;/p&gt;
-
-&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：上面说到canvas是客户端创建的原生组件（类似的还有map、video、camera、live-player、live-pusher），它们的层级是最高的，并且不能通过 z-index 控制层级，所以大部分组件是不能位于canvas之上的，但是微信提供了cover-view和cover-image这两个组件。一个用于普通容器，一个用于图片显示。它们和view、image用法一样，但是很多样式不支持，例如单边的border、background、shadow等，cover-view和cover-image只支持嵌套cover-view和cover-image，并且只能写在canvas内，如下：&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;canvas&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;canvas-id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'myCanvas'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-           &lt;span class=&quot;nt&quot;&gt;&amp;lt;cover-view&amp;gt;&lt;/span&gt;
-               6666
-           &lt;span class=&quot;nt&quot;&gt;&amp;lt;/cover-view&amp;gt;&lt;/span&gt;
-           &lt;span class=&quot;nt&quot;&gt;&amp;lt;cover-image&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nice.png&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/canvas&amp;gt;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h6 id=&quot;问题7drawimage绘制的画布使用ctxclearrect清除不了&quot;&gt;　问题7：drawImage绘制的画布，使用ctx.clearRect清除不了&lt;/h6&gt;
-&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：ctx.drawImage绘制的画布，使用ctx.clearRect清除不了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;未解决&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;h5 id=&quot;web-view&quot;&gt;web-view&lt;/h5&gt;
-&lt;p&gt;web-view是一个可以用来承载网页的容器，会自动铺满整个小程序页面，有点类似h5的iframe，如果有现成的h5网页，并且不需要支付接口（不支持）可以考虑直接使用这个组件来开发，使用bindmessage来接受网页向小程序postMessage时的消息e.detail = { data }。&lt;a href=&quot;http://www.swiper.com.cn/&quot;&gt;主要支持的接口&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;wjs&quot;&gt;WJS&lt;/h3&gt;
-&lt;p&gt;每个人写法都不一样，推荐使用ES6写法，这边不多赘述。&lt;/p&gt;
-
-&lt;h5 id=&quot;thissetdata&quot;&gt;this.setData({})&lt;/h5&gt;
-&lt;p&gt;一般setData方法多用于改变页面信息或者刷新后与后台交互获取最新的信息。这是我们最常用的接口，要注意的是小程序是基于双线程模型的，在这个模型中，小程序的逻辑层与渲染层分开在不同的线程运行，大部分代码都是异步的。以下是错误写法:&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;onLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;奎尔萨拉斯&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;因为代码是异步加载，无法100%保证text能在输出前成功赋值(虽然大部分情况下可以，但是如果赋值数据大，则会出现这样的问题)。正确写法:&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;onLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;奎尔萨拉斯&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;},()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;ES6的箭头函数能完美解决这个问题。&lt;/p&gt;
-
-&lt;h5 id=&quot;settimeout和setinterval&quot;&gt;setTimeout和setInterval&lt;/h5&gt;
-&lt;p&gt;&lt;del&gt;自我感觉小程序对setTimeout以及setInterval的支持很差，多次循环调用setTimeout会严重影响页面渲染效果，而且不同机型差异很大，不推荐使用，同理的还有CSS3动画。&lt;/del&gt; &lt;br /&gt;
-确实小程序的setInterval、setTimeout很不精确，主要是因为套了几层、或者用setTimeout以递归形式变相实现setInterval的会超过实际设定时间(间隔1000ms时误差：pc 2ms以内, 中等性能安卓机 10ms左右), 会造成较大的累积差。思路是:每次补了上次的误差。超出误差范围会掉回来，从而无累计。通过更小的Interval实现无累计差的、相对精确的Interval。但是还是需要在频率(影响性能,本人一般30-50ms)和误差范围之前做权衡。特别注意的是每个计时器(setTimeout和setInterval)应该在页面结束时Stop，否则在hide后重新show页面改变，计时器没停止，可能导致重大问题。以下为优化消除累计差的方法：&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;now: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;lastTime: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;wxif和动画加载&quot;&gt;wx:if和动画加载&lt;/h5&gt;
-&lt;p&gt;wx:if包含的物体(包括自身)加动画有bug，播放一次动画-&amp;gt;隐藏-&amp;gt;显示-&amp;gt;物体卡在动画第一个step结束后，之后再播动画怎么setData都不起作用(因为动画是差值播放。永远停在第一步结束, 即重新播放的第一步永远不会再执行)。解决方法: 每次重新显示后先清掉之前的动画，并在非本帧(setTimeout 50ms以上)重新setData动画数据。&lt;/p&gt;
-
-&lt;h5 id=&quot;服务端下发很多文字自然段客户端渲染问题&quot;&gt;服务端下发很多文字自然段，客户端渲染问题&lt;/h5&gt;
-&lt;p&gt;一些长文需要服务器可配，如何在一个字段内完成客户端可换行的渲染。 &lt;br /&gt;
-方法1：小程序不支持&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;br/&amp;gt;&lt;/code&gt;换行标签，只有在&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;text&amp;gt;&lt;/code&gt;标签内使用&lt;strong&gt;\t&lt;/strong&gt;来完成换行，所以可以让服务端下发带有\t字段的标识符，客户端使用&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;text&amp;gt;&lt;/code&gt;来进行渲染。 &lt;br /&gt;
-方法2：让服务器在需要换行的位置插入独特标识符，例如&lt;strong&gt;|&lt;/strong&gt;,&lt;strong&gt;&amp;amp;&lt;/strong&gt;之类的，使用split在客户端对字段进行分割后循环渲染出来，例如：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nx&quot;&gt;httpGet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;about&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'about'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;|&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;block&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;wx:for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;wx:for-item=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;item&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text-indent:2em;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/block&amp;gt;&lt;/span&gt; 
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;wxss&quot;&gt;WXSS&lt;/h3&gt;
-
-&lt;h5 id=&quot;小程序的样式表&quot;&gt;小程序的样式表&lt;/h5&gt;
-&lt;p&gt;小程序的WXSS就是H5的CSS，它具有CSS大部分的特性，并且对小程序有一定的拓展和修改。主要的拓展就是尺寸单位rpx的确定。rpx可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在iPhone6上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。&lt;img src=&quot;/img/in-post/post-xcx/exm_5.png&quot; alt=&quot;5,6,6p&quot; /&gt;关于这个rpx，就像h5里的&lt;strong&gt;rem&lt;/strong&gt;单位一样，我是十分喜欢的，就像秦始皇统一六国，统一了货币一样，当然你也可以使用&lt;strong&gt;px&lt;/strong&gt;、&lt;strong&gt;%&lt;/strong&gt;、&lt;strong&gt;vh&lt;/strong&gt;、&lt;strong&gt;em&lt;/strong&gt;,这些在小程序都是支持的，不存在兼容问题。&lt;/p&gt;
-
-&lt;h5 id=&quot;calc&quot;&gt;calc()&lt;/h5&gt;
-&lt;p&gt;一直觉得calc()在css3中是一个亮点，碍于在移动端浏览器兼容性表现不佳，一直不敢常用（和2年前的弹性盒子一样）。但是在小程序里是可以完美兼容的，小程序使用rpx单位使布局方便，calc()更加灵活的运算使得锦上添花。要注意点是calc()中的运算符需要左右空格间距和h5是一样的。&lt;/p&gt;
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nc&quot;&gt;.con_view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rpx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;上述得到的width为700rpx。calc()在有paddding时计算宽度会比&lt;strong&gt;box-sizing: border-box;&lt;/strong&gt;方便一些。&lt;/p&gt;
-
-&lt;h5 id=&quot;filter&quot;&gt;filter&lt;/h5&gt;
-&lt;p&gt;同样和calc()一样出彩的css3新样式，在小程序也是完美兼容，以下是我比较常用的几种，&lt;a href=&quot;http://www.runoob.com/cssref/css3-pr-filter.html&quot;&gt;filter&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;blur(px):高斯模糊度&lt;/li&gt;
-  &lt;li&gt;grayscale(%):灰度值&lt;/li&gt;
-  &lt;li&gt;opacity(%):透明度，和opacity效果类似，不同之处在于通过filter，一些浏览器为了提升性能会提供硬件加速，但在小程序里不存在这种情况。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;多行省略&quot;&gt;多行省略&lt;/h5&gt;
-&lt;p&gt;在CSS中简单解决多行省略逻辑&lt;/p&gt;
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nc&quot;&gt;.hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-webkit-box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;word-break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break-all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;text-overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ellipsis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;-webkit-box-orient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vertical&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;-webkit-line-clamp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;css3动画animation&quot;&gt;CSS3动画animation&lt;/h5&gt;
-&lt;p&gt;小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，因为过度渲染导致效果很差，常常闪屏，所以不推荐大面积使用css3的动画。&lt;/p&gt;
-
-&lt;h3 id=&quot;other&quot;&gt;OTHER&lt;/h3&gt;
-
-&lt;h5 id=&quot;阻止页面下拉和滚动&quot;&gt;阻止页面下拉和滚动&lt;/h5&gt;
-&lt;p&gt;在对应的页面的.json里配置&lt;strong&gt;“disableScroll”: true&lt;/strong&gt;可以阻止页面上下拉，如果是在canvas里进行绘画操作时，&lt;strong&gt;“disableScroll”: true&lt;/strong&gt;会失效，手指在画板上绘画会导致屏幕滑动。可以在元素标签里绑定&lt;strong&gt;disable-scroll=”true”&lt;/strong&gt;，可解决滑动问题。&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;canvas&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;canvas-id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'myCanvas'&lt;/span&gt;  &lt;span class=&quot;na&quot;&gt;disable-scroll=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bindtouchstart=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;touchStart&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bindtouchmove=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;touchMove&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/canvas&amp;gt;&lt;/span&gt;
- 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;关闭小程序&quot;&gt;关闭小程序&lt;/h5&gt;
-&lt;p&gt;官方没有特别说明这个方法，可以使用这个:&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nx&quot;&gt;wx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;navigateBack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-       &lt;span class=&quot;na&quot;&gt;delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
- 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h5 id=&quot;关于路由跳转&quot;&gt;关于路由跳转&lt;/h5&gt;
-&lt;p&gt;之前路由是一直使用wx.navigateTo或者wx.redirectTo，但是wx.navigateTo和wx.redirectTo不允许跳转到tabbar页面(底部导航)，只能用 wx.switchTab 跳转到 tabbar页面。&lt;/p&gt;
-
-&lt;h5 id=&quot;多目运算&quot;&gt;多目运算&lt;/h5&gt;
-&lt;p&gt;当需要判断两个特定情况渲染页面时，true和false往往不够用，可以把两个或者多个三目运算组合起来使用，例如:&lt;/p&gt;
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 当type=1时使用btn1，type=2时使用btn2 --&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- &amp;lt;view class=&quot;&quot;&amp;gt;&amp;lt;/view&amp;gt; --&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;适配iphonex&quot;&gt;适配iphonex&lt;/h5&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;c1&quot;&gt;// 在app.js中判断是否是哪种设备 &lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
-  &lt;span class=&quot;nl&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
-  &lt;span class=&quot;nx&quot;&gt;userInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;  
-&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;  
-&lt;span class=&quot;nx&quot;&gt;onShow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;  
-  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;that&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
-  &lt;span class=&quot;nx&quot;&gt;wx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getSystemInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;  
-    &lt;span class=&quot;na&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
-      &lt;span class=&quot;c1&quot;&gt;// console.log('手机信息res'+res.model)  &lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;modelmes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;modelmes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'iPhone X'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
-        &lt;span class=&quot;nx&quot;&gt;that&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;  
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  
-  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;  
-&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; 
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;在需要引用的页面js文件中onload方法里获取全局变量&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   
-    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-       &lt;span class=&quot;na&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-   
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;在 wxml文件中 进行css的逻辑判断&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;view class=&quot;{isIphoneX?&quot;linkCon&quot;:&quot;&quot;} flex &quot;&amp;gt; &amp;lt;/wiew&amp;gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;会一直更新的&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Tue, 10 Apr 2018 19:10:25 +0800</pubDate>
-        <link>http://localhost:5001/2018/04/10/AboutMiniProgram/</link>
-        <guid isPermaLink="true">http://localhost:5001/2018/04/10/AboutMiniProgram/</guid>
-        
-        <category>前端</category>
-        
-        <category>小程序</category>
         
         
       </item>
