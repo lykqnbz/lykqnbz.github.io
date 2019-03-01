@@ -1,3 +1,70 @@
+自审面试：
+一、HTML基础
+    概念
+    <link rel="stylesheet" herf="XXXX.css">
+    <script src="xxxx.js"></script>
+    <style scoped></style>
+    <!-- <base>标签为页面上的所有链接规定默认地址或默认目标 -->
+    <base href="http://www.w3school.com.cn/i/" />  
+    <base target="_blank" /> 
+    <!-- 相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确
+    地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 -->
+    <meta http-equiv="refresh" content="test">  
+    <meta name="keywords" content="搜索引擎关键字" >
+    <meta charset="utf-8">
+    <!-- device-width表示设备宽度 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <form>[target,method,enctype]
+    <!-- target:表单提交到哪儿  method:发送表单数据的方法  enctype:指定编码，如果上传文件指定要用form-data -->
+    <input>[type]
+    <!-- type:text button checkbox password radio file image reset submit-->
+    <button>[type]
+    <!-- type:button reset 重置 submit 默认,提交 -->
+    <select><option>[value]
+    面试问答
+    1、doctype的意义是什么？
+    1-让浏览器以W3C标准模式渲染
+
+    2、html、xhtml、html5的关系
+    2-html:超文本标记语言  xhtml:可扩展超文本标记语言，是html进行XML标准严格化的结果  html5:现在最新一代的超文本标记语言
+
+    3、property(特性)和attribute(属性)的区别
+    3-attributes是属于property的一个子集
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - javaScript的Event Loop机制：[博文笔记]](http://wangxiang.vip/2018/07/14/AboutJsEventLoop/) 2018-07-26
 - 骨架屏 [博文笔记]](http://wangxiang.vip/2018/08/28/SkeletonScreen/) 2018-11-24
