@@ -1,37 +1,107 @@
 自审面试：
-一、HTML基础
-    概念
-    <link rel="stylesheet" herf="XXXX.css">
-    <script src="xxxx.js"></script>
-    <style scoped></style>
-    <!-- <base>标签为页面上的所有链接规定默认地址或默认目标 -->
-    <base href="http://www.w3school.com.cn/i/" />  
-    <base target="_blank" /> 
-    <!-- 相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确
-    地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 -->
-    <meta http-equiv="refresh" content="test">  
-    <meta name="keywords" content="搜索引擎关键字" >
-    <meta charset="utf-8">
-    <!-- device-width表示设备宽度 -->
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <form>[target,method,enctype]
-    <!-- target:表单提交到哪儿  method:发送表单数据的方法  enctype:指定编码，如果上传文件指定要用form-data -->
-    <input>[type]
-    <!-- type:text button checkbox password radio file image reset submit-->
-    <button>[type]
-    <!-- type:button reset 重置 submit 默认,提交 -->
-    <select><option>[value]
-    面试问答
-    1、doctype的意义是什么？
-    1-让浏览器以W3C标准模式渲染
+一·HTML+CSS
+  一、HTML基础
+      概念
+      <link rel="stylesheet" herf="XXXX.css">
+      <script src="xxxx.js"></script>
+      <style scoped></style>
+      <!-- <base>标签为页面上的所有链接规定默认地址或默认目标 -->
+      <base href="http://www.w3school.com.cn/i/" />  
+      <base target="_blank" /> 
+      <!-- 相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确
+      地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 -->
+      <meta http-equiv="refresh" content="test">  
+      <meta name="keywords" content="搜索引擎关键字" >
+      <meta charset="utf-8">
+      <!-- device-width表示设备宽度 -->
+      <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+      <form>[target,method,enctype]
+      <!-- target:表单提交到哪儿  method:发送表单数据的方法  enctype:指定编码，如果上传文件指定要用form-data -->
+      <input>[type]
+      <!-- type:text button checkbox password radio file image reset submit-->
+      <button>[type]
+      <!-- type:button reset 重置 submit 默认,提交 -->
+      <select><option>[value]
+      面试问答
+      1、doctype的意义是什么？
+      1-让浏览器以W3C标准模式渲染
 
-    2、html、xhtml、html5的关系
-    2-html:超文本标记语言  xhtml:可扩展超文本标记语言，是html进行XML标准严格化的结果  html5:现在最新一代的超文本标记语言
+      2、html、xhtml、html5的关系
+      2-html:超文本标记语言  xhtml:可扩展超文本标记语言，是html进行XML标准严格化的结果  html5:现在最新一代的超文本标记语言
 
-    3、property(特性)和attribute(属性)的区别
-    3-attributes是属于property的一个子集
+      3、property(特性)和attribute(属性)的区别
+      3-attributes是属于property的一个子集
 
-    
+      4、H5有什么变化
+      4-新的语义化标签，表单增强(新元素，验证)，新的API(canvas,websocket,offline,SVG之类)
+
+  二、CSS基础
+      概念
+      属性选择器：[type=radio]{}
+      组合选择器：[type=checkbox] + label{}
+      否定选择器： :not(.link){}
+      渐变色背景：linear-gradient(135deg, red 0, green 50%, blue 100%)  默认180deg 从上至下渲染
+
+      面试问答
+      1、BFC是什么？
+      1-块级格式化上下文 (Block Fromatting Context)：页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。简单的理解为BFC是一个封闭的大箱子，箱子内部的元素无论如何翻江倒海，都不会影响到外部
+        只要元素满足下面任一条件即可触发 BFC 特性：
+          body 根元素
+          浮动元素：float 除 none 以外的值
+          绝对定位元素：position (absolute、fixed)
+          display 为 flexin、line-block、table-cells
+          overflow 除了 visible 以外的值 (hidden、auto、scroll)
+
+      2、transform和margin的区别
+      2-margin的改动会影响CssTree的结构导致页面重绘,浏览器渲染应该避免过多的重排，transform则不会，且transform会利用GPU性能更优
+
+      3、CSS中动画怎么写，transation和animation和keyframs怎么写
+      3-CSS中动画分两种，transition和animation，transition靠伪类和JS触发，animation需要与@keyframes结合使用
+      #box1{ height: 100px;width: 100px; } 
+      #box1:hover{ transform: rotate(180deg) scale(.5, .5);
+                  background: red;
+                  transition: background 2s ease, transform 2s ease-in 1s; }
+      #box2{ height: 100px;width: 100px;  animation: changebox 10s ease-in-out  3 infinite(无限循环);}
+      @keyframes changebox { 0% {  background:red;  }
+                          100% {  width:180px;  height:180px; }}
+      
+      4、flex布局相关： align-self,justify-content,flex-direction,flex-wrap
+      5、单行省略: width:5em;text-overflow: ellipsis; overflow: hidden; white-space: nowrap;
+      6、多行省略：  display: -webkit-box;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    word-break: break-all;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 4;
+
+  三、预处理器 sass 和 less
+      面试问答
+      1、sass和less的区别
+        less基于node，用js编写不需要预先编译，sass基于ruby，也有node的移植版本。
+        关于变量sass用$，less用@，less 加上 &：并不是父子关系而是同级
+        less的打包指令:lessc a.less > a.css
+        sass的打包指令:node-sass a.scss > a.css --output-style expanded 
+        less的理念：尽量的接近css的语法
+        sass的理念：尽量避免产生混淆
+
+      2、mixin相关(复用)
+      less：  .block(@fontSize){ font-size: @fontSize; }       .block(14px);
+      sass:   @mixin block($fontSize) {font-size: $fontSize;}  @include block(14px);
+
+      3、extend相关(继承)
+      less: 引用-.a{ &:extend(.b); font-size: 12px;} .b{font-weight: bold;}
+      sass: 引用-a{ @:extend .b; font-size: 12px;} .b{font-weight: bold;}
+            输出-.a { font-size: 12px;}  .b,.a {font-weight: bold;}
+
+      4、预处理器框架
+      EST，SASS-Compass
+
+二·JavaScript
+
+
+
+
+          
     
 
 
