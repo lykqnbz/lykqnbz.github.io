@@ -24,16 +24,16 @@
       <select><option>[value]
       面试问答
       1、doctype的意义是什么？
-      1-让浏览器以W3C标准模式渲染
+      1- 让浏览器以W3C标准模式渲染
 
       2、html、xhtml、html5的关系
-      2-html:超文本标记语言  xhtml:可扩展超文本标记语言，是html进行XML标准严格化的结果  html5:现在最新一代的超文本标记语言
+      2- html:超文本标记语言  xhtml:可扩展超文本标记语言，是html进行XML标准严格化的结果  html5:现在最新一代的超文本标记语言
 
       3、property(特性)和attribute(属性)的区别
-      3-attributes是属于property的一个子集
+      3- attributes是属于property的一个子集
 
       4、H5有什么变化
-      4-新的语义化标签，表单增强(新元素，验证)，新的API(canvas,websocket,offline,SVG之类)
+      4- 新的语义化标签，表单增强(新元素，验证)，新的API(canvas,websocket,offline,SVG之类)
 
   二、CSS基础
       概念
@@ -44,7 +44,7 @@
 
       面试问答
       1、BFC是什么？
-      1-块级格式化上下文 (Block Fromatting Context)：页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。简单的理解为BFC是一个封闭的大箱子，箱子内部的元素无论如何翻江倒海，都不会影响到外部
+      1- 块级格式化上下文 (Block Fromatting Context)：页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。简单的理解为BFC是一个封闭的大箱子，箱子内部的元素无论如何翻江倒海，都不会影响到外部
         只要元素满足下面任一条件即可触发 BFC 特性：
           body 根元素
           浮动元素：float 除 none 以外的值
@@ -53,10 +53,10 @@
           overflow 除了 visible 以外的值 (hidden、auto、scroll)
 
       2、transform和margin的区别
-      2-margin的改动会影响CssTree的结构导致页面重绘,浏览器渲染应该避免过多的重排，transform则不会，且transform会利用GPU性能更优
+      2- margin的改动会影响CssTree的结构导致页面重绘,浏览器渲染应该避免过多的重排，transform则不会，且transform会利用GPU性能更优
 
       3、CSS中动画怎么写，transation和animation和keyframs怎么写
-      3-CSS中动画分两种，transition和animation，transition靠伪类和JS触发，animation需要与@keyframes结合使用
+      3- CSS中动画分两种，transition和animation，transition靠伪类和JS触发，animation需要与@keyframes结合使用
       #box1{ height: 100px;width: 100px; } 
       #box1:hover{ transform: rotate(180deg) scale(.5, .5);
                   background: red;
@@ -97,20 +97,67 @@
       EST，SASS-Compass
 
 二·JavaScript
+  一、变量类型和计算
+      概念
+      基本数据类型string，number，Boolean，undefined，null和symbol
+      引用型：Array，Function，Object
 
 
+      面试问答
+      1、什么时候发生强制类型转换？
+      1- 字符串拼接和== 运算符情况下
+      2、如何理解JSON
+      2- JSON是一个JS对象，常用两个方法解析JSON.stringify({a:10,b:20})[对象中解析出字符串]  和 JSON.parse('{"a":10,"b":20}')[字符串中解析出json对象],JSON.parse()不兼容  可以使用eval来转化
+  
+  二、原型和原型链
+      概念
 
+      面试问答
+      1、instanceof和typeof的区别
+      1- instanceof：用于判断引用类型属于哪个构造函数的方法，typeof只能区分值类型，对引用类型无能为力，只能区分函数function
 
-          
-    
+      2、如何准确判断一个变量是否是数组类型
+      2- var arr = [];     arr instanceOf Array  // true        typeof arr   //Object
+       
+      
+      3、描述创建一个对象的过程
+      3- 新生成了一个对象，链接到原型，绑定 this，返回新对象
 
+      4、谈谈原型和原型链
+      4- Js中没有 “类” 的概念，所以靠原型和原型链实现对象属性的继承。除了null和undefined以外所有的对象都有__proto__属性，而且指向创造这个对象的函数对象的prototype属性。
 
+  三、作用域和闭包
+      概念
 
+      面试问答
+      1、说一下对变量提升的理解
+      1- Js中，函数及变量的声明都将被提升到函数的最顶部。所以变量可以先使用再声明。但是只有声明的变量会提升，初始化的不会
 
+      2、说几种this的使用场景
+      2- 作为函数调用：函数的最通常用法，属于全局性调用，因此this就代表全局对象Global。
+          function makeNoSense(x) { 
+                       this.x = x; 
+                      } 
+         作为对象方法调用：函数可以作为某个对象的方法调用，这时this指代对象内部属性被调用。
+          var test = {  a:0,
+                        b:0
+                        get:function(){
+                            return this.a;
+                      }}
+         作为构造函数调用：通过构造函数生成一个新的object对象。这时，this就指这个新对象.
+          function Point(x, y){ 
+                this.x = x; 
+                this.y = y; 
+          }
+         在call或者apply，bind中调用:在call或者apply方法中切换this绑定的对象
 
-
-
-
+      3、说说call或者apply，bind
+      3- call和apply都是为了改变某个函数运行时的上下文，即改变this绑定的对象。当一个对象没有某个方法，但是其他对象的有，可以借助call或apply用其它     对象的方法来操作。两者作用完全一样，仅仅是接受的参数不太一样。call 需要把参数按顺序传递进去，而 apply 则是把参数放在数组里
+          arr=[1,2,3]
+          func.call(this, 1 , 2 , 3 );
+          func.apply(this, arr);
+  
+https://www.cnblogs.com/moqiutao/p/7371988.html
 
 
 
