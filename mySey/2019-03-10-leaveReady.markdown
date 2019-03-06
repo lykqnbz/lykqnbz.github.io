@@ -131,7 +131,7 @@
 
       面试问答
       1、说一下对变量提升的理解
-      1- Js中，函数及变量的声明都将被提升到函数的最顶部。所以变量可以先使用再声明。但是只有声明的变量会提升，初始化的不会
+      1- 在某一作用域中，声明变量的语句会默认解析为在该作用域的最开始就已经声明了。所以变量可以先使用再声明。但是只有声明的变量会提升，初始化的不会
 
       2、说几种this的使用场景
       2- 作为函数调用：函数的最通常用法，属于全局性调用，因此this就代表全局对象Global。
@@ -153,13 +153,67 @@
 
       3、说说call或者apply，bind
       3- call和apply都是为了改变某个函数运行时的上下文，即改变this绑定的对象。当一个对象没有某个方法，但是其他对象的有，可以借助call或apply用其它     对象的方法来操作。两者作用完全一样，仅仅是接受的参数不太一样。call 需要把参数按顺序传递进去，而 apply 则是把参数放在数组里
-          arr=[1,2,3]
-          func.call(this, 1 , 2 , 3 );
-          func.apply(this, arr);
-  
-https://www.cnblogs.com/moqiutao/p/7371988.html
+            arr=[1,2,3]
+            func.call(this, 1 , 2 , 3 );
+            func.apply(this, arr);
 
+         bind() 方法与 apply 和 call 很相似，也是可以改变函数体内 this 的指向。
+            var bar = function(){console.log(this.x); }
+            var foo = {x:3}
+            bar(); // undefined
+            var func = bar.bind(foo);
+            func(); // 3
+            这里我们创建了一个新的函数 func，当使用 bind() 创建一个绑定函数之后，它被执行的时候，它的 this 会被设置成 foo ， 而不是像我们调用 bar() 时的全局作用域。
 
+      4、创建10个<a>标签，点击的时候弹出对应的序号
+      4- for(var i=0;i<10;i++){
+              (function(i){
+                  var a=document.createElement('a');
+                  a.innerHTML=i+"<br/><hr/>"
+                  a.addEventListener("click",function(e){
+                      e.preventDefault;
+                      alert(i)
+                  })
+                  document.body.appendChild(a);
+              })(i)
+          }
+        
+      5、如何理解作用域
+      5- 代码在一个环境中执行时，会创建变量对象的一个作用范围。作用范围是保证对执行环境有权访问的所有变量和函数的有序访问，没有块级作用域只有函数作用域和全局作用域
+
+      6、说一个闭包在实际开发中的应用
+      6- 闭包就是函数中的函数，就是说一个函数要访问另外一个目标函数内部的变量，就要在目标函数中再定义一个函数，并将这个定义的函数return出来，供外部使用。在实际开发中，闭包主要是用来封装变量，收敛权限。
+
+四、异步和单线程
+    概念
+    面试题目
+    1、同步和异步的区别是什么？
+    1- 同步会阻塞代码执行，而异步不会。
+
+    2、JS运行机制
+    2- 单线程，任务队列，event loop事件循环
+
+五、常见对象
+    概念
+    面试题目
+    1、获取2017-06-10格式的日期
+    1-function formatDate(dt){ 
+        if(!dt){ dt=new Date(); }
+        var year=dt.getFullYear();
+        var month=dt.getMonth()+1;
+        var day=dt.getDate();
+        if(month<10){ month='0'+month;}
+        if(day<10){ day='0'+day;}
+        return year+'-'+month+'-'+day;
+      }
+      var dt=new Date() //获取当前时间
+      console.log(formatDate(dt));
+
+    2、获取随机数，要求是长度一直的字符串格式
+    2- var random = Math.random()+'';
+           random = random.slice(0,5);
+
+    3、https://juejin.im/post/5c62b92de51d457fd77b22ce
 
 
 
