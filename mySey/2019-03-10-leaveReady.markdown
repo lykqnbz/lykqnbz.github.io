@@ -184,7 +184,7 @@
       6、说一个闭包在实际开发中的应用
       6- 闭包就是函数中的函数，就是说一个函数要访问另外一个目标函数内部的变量，就要在目标函数中再定义一个函数，并将这个定义的函数return出来，供外部使用。在实际开发中，闭包主要是用来封装变量，收敛权限。
 
-四、异步和单线程
+  四、异步和单线程
     概念
     面试题目
     1、同步和异步的区别是什么？
@@ -193,7 +193,7 @@
     2、JS运行机制
     2- 单线程，任务队列，event loop事件循环
 
-五、常见对象
+  五、常见对象
     概念
     面试题目
     1、获取2017-06-10格式的日期
@@ -213,7 +213,130 @@
     2- var random = Math.random()+'';
            random = random.slice(0,5);
 
-    3、https://juejin.im/post/5c62b92de51d457fd77b22ce
+  六、JS-Web-API
+    概念
+    DOM的本质:Document、Object、Model浏览器把拿到的html代码，结构化一个浏览器能够识别并且js可操作的一个模型
+    DOM的节点操作:attribute和property，property是一个JS对象的属性的修改,attribute是对html标签属性的修改
+
+    面试题目
+    1、如何检测浏览器的类型
+    1- navigator & screen
+
+    2、谈谈缓存
+    2 - cookie、sessionStorage、localStorage。cookie保存在浏览器端，具有周期时效性，限制小4K，向服务器请求时表现在url里，Storage保存在服务器端，
+    session只在页面会话期有效，local一直有效除非被清除，大小限制5MB
+
+  七、事件
+    概念
+    取消冒泡：e.stopPropatation() 
+
+    面试问题
+    1、代理
+    <div id="div1">
+      <a href = "#">a1</a>
+      <a href = "#">a2</a>
+      会随时新增更多 a 标签
+    </div>
+    1-  var div1 = document.getElementById('div1')
+          div1.addEventListener('click',function(e){
+              var target = e.target
+              if(target.nodeName === 'A'){
+                  alert(target.innerHTMl)
+              }
+        })
+
+  八、Ajax
+    概念
+    跨域：浏览器有同源策略，不允许ajax访问其他域的接口，协议、域名、端口，有一个不同就算跨域
+    可以跨域的三个标签：img,script,link
+    跨域有什么限制：cookid,localStorage无法访问，DOM和Js无法获取对象，AJax请求不能发送
+    jsonp:通过script标签实现跨域请求，然后再服务端输出JSON数据并执行回调函数来获取数据（只能使用get请求）
+    面试题目
+    1、手动写一个ajax
+      var xhr = new XMLHttpRequest()
+      xhr.open("GET","/api",false)    //false表示请求地址是否发送异步请求 默认true
+      xhr.onreadystatechange = function(){
+          //这里的函数异步执行，可参考之前JS基础中的异步模块
+          if(xhr.readyState == 4){
+              if(xhr.status == 200){
+                  alert(xhr.responseText)
+              }
+          }
+      }
+      xhr.send(null)
+
+    2、状态码说明 
+        0 - (未初始化)     还没调用send()方法
+        1 - (载入)         已调send() 方法，正在发送请求
+        2 - (载入完成)     send()方法执行完成，已经接收到全部相应内容
+        3 - (交互)         正在解析响应内容
+        4 - (完成)         响应内容解析完成，可以在客户端调用了
+
+      status说明
+        1XX - 客户端在收到常规响应之前
+        2XX - 表示成功处理请求。如200
+        3XX - 需要重定向，浏览器直接跳转
+        4XX - 客户端请求错误，如404
+        5XX - 服务器端错误
+
+    3、什么是重定向和转发
+    3- 转发也叫服务器跳转，地址栏不变，相当于方法调用，而重定向则是客户端跳转，相当于客户端向服务端发送请求之后，得到一个响应后再发送一个请求。
+       对数据进行修改、删除、添加操作的时候，应该用重定向
+
+三、ES6
+    面试问答 由浅至深
+    1、了解 Promise 吗
+    1- Promise是异步编程的一种解决方案，比传统的异步解决方案【回调函数】和【事件】更合理、更强大
+
+    2、promise的状态
+    2- 三个状态:pending，异步任务正在进行。  resolved，异步任务执行成功。  rejected，异步任务执行失败。
+
+    3、promise的使用总结：
+    3-  初始化一个 Promise 对象，两种方式：1、new Promise(fn)  2、Promise.resolove(fn)   
+        然后调用上一步返回的 promise 对象的 then 方法，注册回调函数。
+           new Promist(fn).then((valse)=>{})
+        最后注册 catch 异常处理函数，处理前面回调中可能抛出的异常。
+    
+    4、 async/await相关
+    4- async/await也是基于Promise 实现的，使异步处理更接近同步处理，可读性更好
+
+四、Node
+    面试问答
+    Node的特点：单线程、事件驱动、非阻塞I/O
+    NodeJs是干吗：一种javascript的运行环境，能够使得javascript脱离浏览器运行，前后端分离
+
+五、HTTP
+    面试问答
+    1、GET和POST方法的区别
+    1- GET和POST本质上都是TCP链接，并无差别。但是由于HTTP的规定导致在应用过程中体现出一些不同，Get产生一个TCP数据包，POST则是两个，对于get的请求，浏览器会把http,header,data一并发出去，然后服务器响应200返回数据。而对于POST，浏览器先发送 header，服务器先响应100，然后浏览器再发送data，服务器响应200返回数据。Get的语义是请求获取指定资源，而Post则是对指定资源进行操作
+
+    2、谈谈WebSocket
+    2- websocket可以说是一个持久化的协议，用于浏览器与服务器之间双向即时通讯，可以彼此相互推送信息。
+
+六、前端安全
+    面试问答
+    1、xss跨站脚本攻击解决方式
+    1- xss又名跨站脚本攻击，解决原则是不让数据变成可执行的代码，不信任任何用户的数据，严格区分数据和代码，多使用HtmlEncode转码操作。
+
+    2、sql脚本注入攻击解决方式
+    2- 利用正哲表达式或者特定函数过滤和修正一些敏感非法字符，
+
+    3、谈谈前端数据加密
+    3- 前端加密不经常用，一般在后端加密。关于前端加密大概有base64，md5，sha1
+
+七、VUE
+    概念
+
+
+
+
+
+   
+      
+
+
+
+
 
 
 
