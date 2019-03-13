@@ -2,7 +2,7 @@
 layout:     post
 title:      "细数微信小程序的前端坑"
 subtitle:   "细数了半年"
-date:       2018-04-10 11:10:25
+date:       2018-07-10 11:10:25
 author:     "AXiang"
 header-img: "img/post-bg-webchat.jpg"
 catalog:  true

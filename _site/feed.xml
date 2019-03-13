@@ -5,8 +5,8 @@
     <description>关于一个菜鸡的个人博客</description>
     <link>http://localhost:5001/</link>
     <atom:link href="http://localhost:5001/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 27 Feb 2019 18:37:56 +0800</pubDate>
-    <lastBuildDate>Wed, 27 Feb 2019 18:37:56 +0800</lastBuildDate>
+    <pubDate>Wed, 13 Mar 2019 11:29:03 +0800</pubDate>
+    <lastBuildDate>Wed, 13 Mar 2019 11:29:03 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
     
       <item>
@@ -627,88 +627,823 @@ generator还有另一个巨大的好处，就是把异步回调代码变成“�
       </item>
     
       <item>
-        <title>JS中的栈内存、堆内存</title>
-        <description>&lt;h3 id=&quot;引言&quot;&gt;引言&lt;/h3&gt;
-
-&lt;h6 id=&quot;说说js中的堆栈&quot;&gt;说说JS中的堆栈&lt;/h6&gt;
-&lt;p&gt;我们都熟知并且常用JS变量的声明以及初始化（赋值），比如一行极其简单的代码&lt;code class=&quot;highlighter-rouge&quot;&gt;var str = '我是字符串'&lt;/code&gt;，那么这行代码执行的时候发生了什么呢？再比如&lt;code class=&quot;highlighter-rouge&quot;&gt;var obj = {name: 'reslicma'}&lt;/code&gt;又发生了什么？他们一样吗？请看正文。&lt;/p&gt;
-
-&lt;h3 id=&quot;js中变量的类型&quot;&gt;JS中变量的类型&lt;/h3&gt;
-&lt;p&gt;我们先行讨论JS中变量的类型，因为JS中变量的具体存储方式是取决于这个变量的类型的。JS中的变量共有两大类：&lt;strong&gt;基本数据类型&lt;/strong&gt; 和 &lt;strong&gt;引用数据类型&lt;/strong&gt;，下文说&lt;strong&gt;基本型&lt;/strong&gt;就是基本数据类型，&lt;strong&gt;引用型&lt;/strong&gt;就是引用数据类型。&lt;/p&gt;
-
-&lt;h6 id=&quot;基本数据类型简单数据类型&quot;&gt;基本数据类型（简单数据类型）&lt;/h6&gt;
-&lt;p&gt;JS中的基本型共有六种：string，number，Boolean，undefined，null和symbol。分别对应：字符串类型，数字类型，布尔类型，undefined（变量声明未初始化），null（空对象或理解为空指针）以及ES6新添加的定义对象的唯一属性名类型。&lt;/p&gt;
-
-&lt;h6 id=&quot;引用数据类型&quot;&gt;引用数据类型&lt;/h6&gt;
-&lt;p&gt;JS中的引用型：Array，Function，Object。但是实际上就是一种：Object型，没错，就是对象，毕竟Array，Function也是对象。JS一切皆对象这句话并不为过······&lt;/p&gt;
-
-&lt;h3 id=&quot;栈内存和堆内存&quot;&gt;栈内存和堆内存&lt;/h3&gt;
-&lt;p&gt;介绍完基本型和引用型就可以真正的进入正题了。我们知道声明一个变量并且给它赋值这样的操作对于这两种类型而言没什么区别，但是对这两种类型的具体的操作却大不相同。在JS中，栈内存用于存储基本型的变量值，堆内存用于存储引用型的值。这是为什么呢？因为JS这门语言和其他语言有一个不同之处：不允许直接访问内存的位置，也就是说不能直接操作对象的内存空间，操作的是对象的引用而已，那么引用可以理解为是一个指针，是一个具体的堆内存的地址。下部示例的代码和图可以详细的看一下：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`我是字符串`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;bl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;nu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;un&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'reslicma'&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        <title>JavaScript的Event Loop机制</title>
+        <description>&lt;h2 id=&quot;简述&quot;&gt;简述&lt;/h2&gt;
+&lt;p&gt;前几天看一个题↓↓↓，随口答出12354，答案却是不然。。。看似简单却很复杂的问题在不断思考，复杂是在于它的广度和深度都很大，对自己影响很大。这道题牵涉到了Javascript的运行机制，刚好想着可以巩固一下之前学习过的东西，作为一个学习笔记记录下来。&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;在内存中就发生了如下图这样的事情：
-&lt;img src=&quot;/img/in-post/post-js/js_1902_5.png&quot; alt=&quot;类型内存的变化&quot; /&gt;
-我们接下来详细的分析它：
-首先，我定义的前五个变量都是基本型，那么他们都是存储在&lt;strong&gt;栈内存&lt;/strong&gt;当中，并且他们存储的就是&lt;strong&gt;值本身&lt;/strong&gt;，所以说访问基本型变量就能访问得到&lt;strong&gt;值&lt;/strong&gt;。而obj这个变量是个引用型，所以它在栈内存中只保存了一个指针（或者理解为一个地址），比如上图中的这个地址，那么这个地址指向了堆内存中的一块内存空间，这个空间才是真正存储了这个obj对象的内存空间。&lt;/p&gt;
 
-&lt;h6 id=&quot;理解栈内存和堆内存&quot;&gt;理解栈内存和堆内存&lt;/h6&gt;
-&lt;p&gt;我们来说一下&lt;strong&gt;栈内存和堆内存具体的区别和联系。栈内存就像一个线性的、规则的、大小基本固定的、有序的&lt;/strong&gt;排列起来的一块块内存空间，就像我上图画的那样，每个单元大小固定，规则有序的排列下来，就是栈。所以，在定义一个基本型变量的时候，发生的事情如下：向栈内存&lt;strong&gt;申请（注意是申请）一块空间，然后把你声明的变量名和这个变量的具体的值本身&lt;/strong&gt;压入这个申请好的小空间内。 &lt;br /&gt;
-堆内存就像一个&lt;strong&gt;不规则的、大小不固定的、无序的&lt;/strong&gt;一块块内存空间，像上图中我画的堆内存图中，大小不固定，并且每一块&lt;strong&gt;堆内存都有一个自己的地址（指针）&lt;/strong&gt;，用来操作它们。这个地址很有意思，在你&lt;strong&gt;定义一个引用型变量&lt;/strong&gt;的时候，向&lt;strong&gt;堆内存申请一块空间&lt;/strong&gt;，用于存储这个具体的引用型的值（对象），同时JS会&lt;strong&gt;随机分配给这块堆内存的小空间一个地址&lt;/strong&gt;，然后，把&lt;strong&gt;这个变量名和这个地址压入申请好的栈空间内&lt;/strong&gt;。这里就是我详细说明的地方，其实上图就很形象的表达了这个流程。&lt;/p&gt;
+&lt;h2 id=&quot;javascript的运行机制&quot;&gt;Javascript的运行机制&lt;/h2&gt;
+&lt;p&gt;JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。 &lt;br /&gt;
+JavaScript的&lt;code class=&quot;highlighter-rouge&quot;&gt;单线程&lt;/code&gt;，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？&lt;/p&gt;
 
-&lt;h6 id=&quot;栈内存和堆内存的优缺点&quot;&gt;栈内存和堆内存的优缺点&lt;/h6&gt;
-&lt;p&gt;那么为什么JS要这样区分栈内存和堆内存呢？在JS中，这些&lt;strong&gt;基本型变量大小固定，并且操作容易简单&lt;/strong&gt;，所以把它们放入栈中存储。&lt;strong&gt;引用型变量大小不固定&lt;/strong&gt;，所以把它们分配给堆中，让他们申请空间的时候自己确定大小，这样把它们分开存储能够使得程序运行起来占用的内存最小。 &lt;br /&gt;
-栈内存由于它的特点，所以它的系统效率较高，堆内存需要分配空间和地址，还要把地址存到栈中，所以效率低于栈。&lt;/p&gt;
+&lt;p&gt;所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。&lt;/p&gt;
 
-&lt;h5 id=&quot;栈内存和堆内存的垃圾回收&quot;&gt;栈内存和堆内存的垃圾回收&lt;/h5&gt;
-&lt;p&gt;我们知道JS是有垃圾回收制，栈内存中基本型一般在它的当前执行环境结束就会被销毁被垃圾回收制回收，而引用类型不会，因为不确定其他的地方是不是还有一些对它的引用，所以引用型只有在所有对它的引用都结束的时候才会被回收掉。&lt;/p&gt;
+&lt;p&gt;为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。&lt;/p&gt;
 
-&lt;h5 id=&quot;加深理解&quot;&gt;加深理解&lt;/h5&gt;
-&lt;p&gt;在JS中&lt;strong&gt;访问变量&lt;/strong&gt;时，是把&lt;strong&gt;变量名作为索引&lt;/strong&gt;来寻找值的，无论是基本型还是引用型。也就是说，访问变量的过程就是：通过&lt;strong&gt;变量名&lt;/strong&gt;找到&lt;strong&gt;栈内存&lt;/strong&gt;中存储的&lt;strong&gt;具体的值&lt;/strong&gt;，如果是&lt;strong&gt;基本型&lt;/strong&gt;，直接就返回值，如果是&lt;strong&gt;引用型&lt;/strong&gt;，返回一个&lt;strong&gt;指向堆内存的地址&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&quot;任务队列&quot;&gt;任务队列&lt;/h2&gt;
+&lt;p&gt;单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。&lt;/p&gt;
 
-&lt;p&gt;案例1：基本型的复制：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;num2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;num1&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 修改num1的值&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;num1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 还是1，不会改变&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;num2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;解析具体过程：首先在栈内存中压入一个变量名为&lt;code class=&quot;highlighter-rouge&quot;&gt;num1&lt;/code&gt;、值为1的一个变量。然后，第二行代码：赋值操作，先执行赋值运算符右边的式子，所以通过变量名找到了&lt;code class=&quot;highlighter-rouge&quot;&gt;num1&lt;/code&gt;的值1，然后把这个值1返回并且赋值给了&lt;code class=&quot;highlighter-rouge&quot;&gt;num2&lt;/code&gt;这个变量，所以栈内存中就又压入了一个变量名为&lt;code class=&quot;highlighter-rouge&quot;&gt;num2&lt;/code&gt;、值为1的变量，&lt;strong&gt;这两个变量的值1相等但不是同一个&lt;/strong&gt;。所以，改变num1的值就只改变了num1栈内存中的值，对&lt;code class=&quot;highlighter-rouge&quot;&gt;num2&lt;/code&gt;没有任何影响。图解：
-&lt;img src=&quot;/img/in-post/post-js/js_1902_6.png&quot; alt=&quot;栗子1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;如果排队是因为计算量大，CPU忙不过来，倒也算了，但是很多时候CPU是闲着的，因为IO设备（输入输出设备）很慢（比如Ajax操作从网络读取数据），不得不等着结果出来，再往下执行。&lt;/p&gt;
 
-&lt;p&gt;案例2：引用型的复制：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'reslicma'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj1&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;obj1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'我被修改了'&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 我被修改了&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;我们前面已经说过了，无论是基本型还是引用型都是按变量名访问栈内存中的值，所以，第二句代码执行的时候，就相当于把通过&lt;code class=&quot;highlighter-rouge&quot;&gt;obj1&lt;/code&gt;找到的那个内存地址赋值给了&lt;code class=&quot;highlighter-rouge&quot;&gt;obj2&lt;/code&gt;这个变量，所以这两个变量在栈内存中都是存储的同一个地址、指针，指向的是同一块堆内存中的空间，我修改了&lt;code class=&quot;highlighter-rouge&quot;&gt;obj1&lt;/code&gt;的内容，那么由于&lt;code class=&quot;highlighter-rouge&quot;&gt;obj2&lt;/code&gt;也是指向这个内容，所以&lt;code class=&quot;highlighter-rouge&quot;&gt;obj2&lt;/code&gt;的内容也会随之改变。 &lt;br /&gt;
-内存图解： &lt;br /&gt;
-&lt;img src=&quot;/img/in-post/post-js/js_1902_7.png&quot; alt=&quot;栗子2-1&quot; /&gt;
-&lt;img src=&quot;/img/in-post/post-js/js_1902_8.png&quot; alt=&quot;栗子2-2&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。&lt;/p&gt;
 
-&lt;h4 id=&quot;参考文献&quot;&gt;参考文献&lt;/h4&gt;
+&lt;p&gt;于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。&lt;/p&gt;
+
+&lt;p&gt;具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/xiaohuochai/p/7245510.html&quot;&gt;ES6中的Symbol类型&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/danbing/p/5023231.html&quot;&gt;Java中堆内存（heap）和栈内存（stack）的区别&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://juejin.im/post/5c7157f3e51d4526643fac46&quot;&gt;JS中的栈内存、堆内存介绍&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;1、所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。&lt;/li&gt;
+  &lt;li&gt;2、主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。&lt;/li&gt;
+  &lt;li&gt;3、一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。&lt;/li&gt;
+  &lt;li&gt;4、主线程不断重复上面的第三步。&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h6 id=&quot;主线程的执行栈&quot;&gt;主线程的执行栈&lt;/h6&gt;
+&lt;p&gt;如下图（截取自&lt;code class=&quot;highlighter-rouge&quot;&gt;Help, I’m stuck in an event-loop&lt;/code&gt;演讲视频的讲解）
+&lt;img src=&quot;/img/in-post/post-js/js_1807_1.png&quot; alt=&quot;执行栈&quot; /&gt;
+执行栈，先入后出。第一个进入的是要执行的函数(图中就是printSquare函数)，然后就是依次调用的函数入栈，运行完就依次出栈，直到执行栈为空。&lt;/p&gt;
+
+&lt;h2 id=&quot;event-loop&quot;&gt;Event Loop&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;主线程从&quot;任务队列&quot;中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。&lt;/code&gt;
+&lt;img src=&quot;/img/in-post/post-js/js_1807_2.png&quot; alt=&quot;执行栈&quot; /&gt;&lt;/p&gt;
+&lt;h6 id=&quot;用我自己的话来讲一下event-loop&quot;&gt;用我自己的话来讲一下event loop&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;1、当任务进来时，js解析引擎会分辨是同步任务还是异步任务，如果是同步任务，就一并放进主线程 (也就是执行栈Stack)去同步执行；如果是异步任务，则在事件表里不阻塞进行，遇到回调函数就注册在任务队列(callback queue)中。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;2、放在任务队列中的回调函数需要等待主线程中的同步任务完成方可执行，这时候同步任务会在主线程中同步阻塞执行，等到所有在主线程中的任务执行完，也就是执行栈清空了的时候，触发让任务队列内的回调函数先入先出地进入到主线程中执行。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;3、第1步，第2步一直循环，直到所有任务都执行完。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;宏任务和微任务&quot;&gt;宏任务和微任务&lt;/h2&gt;
+&lt;p&gt;除了广义的同步任务和异步任务，我们对任务有更精细的定义：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;macro-task(宏任务)：包括整体代码script，setTimeout，setInterval&lt;/li&gt;
+  &lt;li&gt;micro-task(微任务)：Promise，process.nextTick&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;不同类型的任务会进入对应的事件队列，比如setTimeout和setInterval会进入相同的事件队列。 &lt;br /&gt;
+事件循环的顺序，决定js代码的执行顺序。进入整体代码(宏任务)后，开始第一次循环。接着执行所有的微任务。然后再次从宏任务开始，找到其中一个任务队列执行完毕，再执行所有的微任务。&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;这段代码作为宏任务，进入主线程。&lt;/li&gt;
+  &lt;li&gt;先遇到setTimeout，那么将其回调函数注册后分发到宏任务Event Queue。(注册过程与上同，下文不再描述)&lt;/li&gt;
+  &lt;li&gt;接下来遇到了Promise，new Promise立即执行，then函数分发到微任务Event Queue。&lt;/li&gt;
+  &lt;li&gt;遇到console.log()，立即执行。&lt;/li&gt;
+  &lt;li&gt;好啦，整体代码script作为第一个宏任务执行结束，看看有哪些微任务？我们发现了then在微任务Event Queue里面，执行。&lt;/li&gt;
+  &lt;li&gt;ok，第一轮事件循环结束了，我们开始第二轮循环，当然要从宏任务Event Queue开始。我们发现了宏任务Event Queue中setTimeout对应的回调函数，立即执行。&lt;/li&gt;
+  &lt;li&gt;结束。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;事件循环，宏任务，微任务的关系如图所示：
+&lt;img src=&quot;/img/in-post/post-js/js_1807_3.png&quot; alt=&quot;关系&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;而&lt;code class=&quot;highlighter-rouge&quot;&gt;宏任务&lt;/code&gt;一般是：包括整体代码script，setTimeout，setInterval。 &lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;微任务&lt;/code&gt;：Promise，process.nextTick。  &lt;br /&gt;
+记住就行了。
+然后回到开头的代码。因为settimeout是宏任务，虽然先执行的他，但是他被放到了宏任务的事件队列里面，然后代码继续往下检查看有没有微任务，检测到Promise的then函数把他放入了微任务序列。等到主线进程的所有代码执行结束后。先从微任务队列里拿回掉函数，然后微任务地队列空了后再从宏任务的队列拿函数。
+所以正确的执行结果当然是：&lt;code class=&quot;highlighter-rouge&quot;&gt;1,3,5,4,2&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;这边重点说一下这个setTimeout，setTimeout(fn,0)的含义是，&lt;code class=&quot;highlighter-rouge&quot;&gt;指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在&quot;任务队列&quot;的尾部添加一个事件，因此要等到同步任务和&quot;任务队列&quot;现有的事件都处理完，才会得到执行&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔），不得低于4毫秒，如果低于这个值，就会自动增加。在此之前，老版本的浏览器都将最短间隔设为10毫秒。另外，对于那些DOM的变动（尤其是涉及页面重新渲染的部分），通常不会立即执行，而是每16毫秒执行一次。这时使用requestAnimationFrame()的效果要好于setTimeout()。&lt;/p&gt;
+
+&lt;p&gt;需要注意的是，setTimeout()只是将事件插入了”任务队列”，必须等到当前代码（执行栈）执行完，主线程才会去执行它指定的回调函数。要是当前代码耗时很长，有可能要等很久，所以并没有办法保证，回调函数一定会在setTimeout()指定的时间执行。
+这样我归类出异步任务就可以轻而易举地判断了，把一些常用的异步操作分类；&lt;/p&gt;
+
+&lt;p&gt;客户端js:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ajax一类的请求事件；&lt;/li&gt;
+  &lt;li&gt;定时器：setTimeout 和 setInterval;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;服务端js:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;process.nextTick 这一类；&lt;/li&gt;
+  &lt;li&gt;数据库操作、文件操作、网络操作；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;finally&quot;&gt;Finally&lt;/h2&gt;
+
+&lt;p&gt;简言之就是JS只有一个主线程，主线程执行完执行栈的任务后去检查异步的任务队列，如果异步事件触发，则将其加到主线程的执行栈。over~&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“概念部分转自阮一峰博客-&lt;a href=&quot;http://www.ruanyifeng.com/blog/2014/10/event-loop.html&quot;&gt;JavaScript 运行机制详解：再谈Event Loop&lt;/a&gt;”&lt;/p&gt;
+&lt;/blockquote&gt;
+
 </description>
-        <pubDate>Thu, 13 Dec 2018 17:51:06 +0800</pubDate>
-        <link>http://localhost:5001/2018/12/13/AboutJsOfHeapAndStack/</link>
-        <guid isPermaLink="true">http://localhost:5001/2018/12/13/AboutJsOfHeapAndStack/</guid>
+        <pubDate>Wed, 12 Dec 2018 10:11:13 +0800</pubDate>
+        <link>http://localhost:5001/2018/12/12/AboutJsEventLoop/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/12/12/AboutJsEventLoop/</guid>
         
         <category>前端</category>
         
         <category>JavaScript</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>伪元素content的应用</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;“没有引言”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;go&quot;&gt;Go&lt;/h3&gt;
+&lt;p&gt;日常开发中,一般会用到一些伪类如:before，:after来实现一些效果，比如:用于尾部追加边距和前部插入icon
+&lt;img src=&quot;/img/in-post/post-css/css_1803_1.png&quot; alt=&quot;:after和:before&quot; /&gt;   &lt;br /&gt;
+通常我们使用contend只是追加一些字符串，事实上，content属性不仅仅支持字符串，也支持一些内置的css方法。 &lt;br /&gt;
+使用content: attr(XXXX)可以实现HTML与CSS的“通讯”，使得伪元素能读取当前元素的属性。看以下例子  &lt;br /&gt;
+&lt;img src=&quot;/img/in-post/post-css/css_1803_2.png&quot; alt=&quot;绿帽样式&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+     &lt;span class=&quot;nt&quot;&gt;&amp;lt;span&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;NTR&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;data-content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;绿帽样式&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;绿帽样式&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nc&quot;&gt;.NTR&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inline-block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#666&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;white-space&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nc&quot;&gt;.NTR&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:before&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;z-index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;      
+        &lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/in-post/post-css/css_1803_3.png&quot; alt=&quot;尾部留空&quot; /&gt;   &lt;br /&gt;
+在图中，要实现多行文本的自动截断，而却设计上还在第二行末尾增加了一个单独icon，没办法使用简单粗暴的flex-box的-webkit-line-clamp:4来搞定。 这时就可以用伪元素了。具体实现上，before和after均通过content:attr()获取文本，before展示前三行，而after则通过padding-right与text-indent的配合，给icon腾了个空位。以下为具体实现代码:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;clamp&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;data-tt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;expand-box&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;i&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;icon-toggle&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/i&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;nc&quot;&gt;.clampClick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/* position: relative; */&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;400px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;solid&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#999&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;.clamp&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;max-height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;80px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*用像素表示，不要用em，以免造成不同浏览器下计算出现小数点取舍不同导致1像素的差距【行高*截取行数】 这是里4*20=60px */&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;word-wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break-word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;word-break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break-all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*强制打散字符*/&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;line-height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#fff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*同背景色*/&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;.clamp&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;::before&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;z-index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*显示在最上面，展示前面的(截取行数-1)行字符*/&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;max-height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;60px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*根据行高和截取行数调整，值为[(截取行数-1)*行高]  这是里(4-1)*20=60px */&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;background-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#fff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*同背景色*/&lt;/span&gt;
+            
+            &lt;span class=&quot;nl&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;green&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;.clamp&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;::after&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-webkit-box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;-webkit-box-orient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vertical&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;-webkit-box-sizing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;border-box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;box-sizing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;border-box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;-webkit-line-clamp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*截取行数*/&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;text-indent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-9em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*行首缩进字符数，值为[-(截取行数-1)*尾部留空字符数]，取负值把每行多padding-right的部分给缩进回去  这是里-(4-1)*3=-9em*/&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;padding-right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3em&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*尾部留空字符数*/&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;red&lt;/span&gt; &lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;.clamp&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;::before&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;.clamp&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;::after&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#333&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*实际文本颜色*/&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data-tt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;.clamp&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.expand-box&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;max-height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*(截取行数+1)*行高  这里是(4+1)*20=100px 这里用于判断折叠 */&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;nc&quot;&gt;.clamp&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.icon-toggle&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(&quot;1.png&quot;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;no-repeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
+            &lt;span class=&quot;c&quot;&gt;/* 绿帽样式本地图片 */&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;background-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cover&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;bottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;/*使用固定定位，在没超出高度的情况下，会被before伪元素给挡住，这样就不会显示该按钮了*/&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;要判断是否折叠，判断一下.clamp的高度和.expand-box的高度是否相等就好了:&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.clampClick'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'click'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;inner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.expand-box'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;wrapHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;innerHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;inner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wrapHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;innerHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hasClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'clamp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)){&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'clamp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wrapHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;innerHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hasClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'clamp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)){&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'clamp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;以下为非折叠状态
+&lt;img src=&quot;/img/in-post/post-css/css_1803_4.png&quot; alt=&quot;非折叠&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当然，这只是attr的一个应用场景，还可以通过content来实现一个自定义的tooltip(气泡提示)等等。&lt;br /&gt;
+content属性还支持url方法嵌入图片：&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    
+    &lt;span class=&quot;nc&quot;&gt;.clamp&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;::after&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url('1.png')&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;不过可控性没有background-image高，所以实际场景中较少用到。  &lt;br /&gt;
+以及&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Lists_and_Counters/Using_CSS_counters&quot;&gt;counter&lt;/a&gt;方法实现自增，在此不多加赘述。&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 03 Oct 2018 19:29:21 +0800</pubDate>
+        <link>http://localhost:5001/2018/10/03/ApplicationOfPseudoElementForContent/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/10/03/ApplicationOfPseudoElementForContent/</guid>
+        
+        <category>前端</category>
+        
+        <category>Css</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>流离在过去的Css样式</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;老忘记但是炒鸡好用的Css样式&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;视差效果background-attachment-fixed&quot;&gt;视差效果：background-attachment: fixed;&lt;/h5&gt;
+&lt;p&gt;视差滚动能让多层背景以不同的速度移动，形成立体的运动效果，带来非常出色的视觉体验。在CSS中定义背景滚动方式的属性是&lt;a href=&quot;http://www.w3school.com.cn/cssref/pr_background-attachment.asp&quot;&gt;backgroud-attacthment&lt;/a&gt;，下面简单的写了一个Demo。&lt;/p&gt;
+
+&lt;style&gt;
+.demo {
+    margin-bottom: 30px;
+}
+.demo font,.demo-title {
+    color: #1e70cd;
+    margin: 40px 0 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 35px;
+    display: block;
+}
+.demo .demo-iframe {
+    margin: 1em auto;
+    box-shadow: 0px 0px 1px 0px #aaa;
+    background: #eee;
+    position: relative;
+}
+.demo iframe {
+    display: block;
+    width: 100%;
+    border: none;
+    margin: 0;
+    box-sizing: border-box;
+    height: 400px;
+    width: 1px;
+    min-width: 100%;
+}
+&lt;/style&gt;
+
+&lt;div class=&quot;demo&quot;&gt;
+	&lt;font&gt;简易视差Demo&lt;/font&gt;
+	&lt;div class=&quot;demo-iframe&quot;&gt;
+		&lt;iframe frameborder=&quot;0&quot; scrolling=&quot;yes&quot; src=&quot;http://wangxiang.vip/practiced-parallax_image/&quot; style=&quot;height:340px&quot;&gt;&lt;/iframe&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;弹性盒子模型-displayflex&quot;&gt;弹性盒子模型 display:flex&lt;/h5&gt;
+
+&lt;p&gt;CSS3的弹性盒提供了一种当页面需要适应不同的屏幕大小以及设备类型时确保元素拥有恰当的行为的布局方式，不需要在设置左右浮动，margin，padding来调整位置。
+强烈推荐阮一峰大牛的教程：&lt;a href=&quot;http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html&quot;&gt;Flex 布局教程&lt;/a&gt;，举例几个常用的参数：&lt;/p&gt;
+
+&lt;p&gt;以下5个属性设置在容器上（第一个属性值均为默认值）：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;flex-direction （主轴的方向：row（横向从左到右） column（纵向从上到下））&lt;/li&gt;
+  &lt;li&gt;justify-content （主轴的对齐方式：flex-start（左对齐） flex-end（右对齐） center（居中） space-between（两端对齐，间隔相等） space-around（两端对齐，边距较大））&lt;/li&gt;
+  &lt;li&gt;align-items （纵向交叉轴对齐方式：stretch（占满） flex-start（起点对齐） flex-end（终点对齐） center（居中））&lt;/li&gt;
+  &lt;li&gt;align-content （多个轴线的对齐方式：stretch（轴线占满）flex-start（左对齐） flex-end（右对齐） center（居中） space-between（两端对齐，间隔相等） space-around（两端对齐，边距较大））&lt;/li&gt;
+  &lt;li&gt;flex-wrap （是否换行：nowrap（不换） wrap（换））&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以下2个属性设置在子类上（常用）：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;align-self （允许子类与其他不同的对齐方式，可覆盖align-items属性:与&lt;code class=&quot;highlighter-rouge&quot;&gt;align-items&lt;/code&gt;属性完全一致）&lt;/li&gt;
+  &lt;li&gt;flex-grow （定义项目的放大比例，默认为0，如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话））&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;单行省略&quot;&gt;单行省略&lt;/h5&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;让一个自身有宽度或是容器有宽度的元素实现单行溢出省略（省略号表示）&lt;/p&gt;
+
+&lt;h5 id=&quot;页内滚动&quot;&gt;页内滚动&lt;/h5&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    overflow: auto;
+    //使IOS下的滑轮和原生一致，丝滑般顺畅
+    -webkit-overflow-scrolling:touch;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;效果类似下图&lt;img src=&quot;/img/in-post/post-css/css_1711_3.png&quot; alt=&quot;效果图&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;移动端图像禁止拷贝&quot;&gt;移动端图像禁止拷贝&lt;/h5&gt;
+
+&lt;p&gt;在移动端的webkit内核浏览器的下，可以防止用户长按图片跳出系统默认菜单（菜单有下载图片之类的功能），使用如下代码：&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nt&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;-webkit-touch-callout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;常用选择器&quot;&gt;常用选择器&lt;/h5&gt;
+
+&lt;p&gt;p:first-child 选择器：选择父级下的首个元素为&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt;元素;  &lt;br /&gt;
+  p:last-child 选择器：选择父级下的最后一个为&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt;元素;   &lt;br /&gt;
+  p:nth-child(2) 选择器：选择父级下的第2个为&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;&lt;/code&gt;元素;&lt;/p&gt;
+
+&lt;h5 id=&quot;calc四则运算动态计算长宽高&quot;&gt;calc()四则运算动态计算长宽高&lt;/h5&gt;
+
+&lt;p&gt;用于动态计算长度值。
+  需要注意的是，运算符前后都需要保留一个空格，例如：width: calc(100% - 10px)；
+  任何长度值都可以使用calc()函数进行计算；
+  calc()函数支持 &lt;code class=&quot;highlighter-rouge&quot;&gt;+&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt; 运算；
+  calc()函数使用标准的数学运算优先级规则；
+  兼容到IE9IE9+、FF4.0+、Chrome19+、Safari6+,需要加上识别符，小程序完美支持。&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;c&quot;&gt;/* 宽度为1000px,下列表达式则为 950px */&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.elm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100%-50px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;transform和position-fixed&quot;&gt;transform和position: fixed&lt;/h5&gt;
+
+&lt;p&gt;如果在父级有设置&lt;code class=&quot;highlighter-rouge&quot;&gt;transform&lt;/code&gt;属性时，容器内设有position: fixed属性将会失效，变成仅仅只是 position: absolute 的效果;
+  Google给的解释是&lt;strong&gt;position: fixed” still do not cope with transform value&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 16 Sep 2018 16:50:15 +0800</pubDate>
+        <link>http://localhost:5001/2018/09/16/AmazingCss/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/09/16/AmazingCss/</guid>
+        
+        <category>前端</category>
+        
+        <category>Css</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>前端骨架屏方案小结</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;“学习大咖的细节”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;骨架屏&quot;&gt;骨架屏&lt;/h2&gt;
+
+&lt;p&gt;最近在项目不时有用到骨架屏的需求.在这里按照个人的理解做了一个汇总和分类笔记.&lt;/p&gt;
+
+&lt;h2 id=&quot;关于骨架屏简介&quot;&gt;关于骨架屏(简介)&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;骨架屏就是在页面数据尚未加载前先给用户展示出页面的大致结构，直到请求数据返回后再渲染页面，补充进需要显示的数据内容。常用于文章列表、动态列表页等相对比较规则的列表页面。
+很多项目中都有应用:ex:饿了么h5版本,知乎,facebook等网站中都有应用。
+借个图举例如下:
+&lt;img src=&quot;/img/in-post/post-responsive/responsive-1808_1.png&quot; alt=&quot;骨架例子&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;两类用途&quot;&gt;两类用途&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;简介中作了关于用途的说明,但是仍然可以继续细分:&lt;/p&gt;
+
+&lt;p&gt;1.作为spa中路由切换的loading,结合组件的生命周期和ajax请求返回的时机来使用.
+2.作为首屏渲染的优化.&lt;/p&gt;
+
+&lt;h4 id=&quot;第一类用途&quot;&gt;第一类用途&lt;/h4&gt;
+
+&lt;p&gt;第一类用途需要自己编写骨架屏,推荐两个成熟方便定制的svg组件定制为骨架屏的方案&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fdanilowoz%2Freact-content-loader&quot;&gt;react-content-loader&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/egoist/vue-content-loader&quot;&gt;vue-content-loader&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;img替换使用的1x1像素gif替换地址:data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;作为首屏渲染自动化方案&quot;&gt;作为首屏渲染(自动化方案)&lt;/h4&gt;
+
+&lt;p&gt;该方案是饿了么在骨架屏的实践中总结出的一套方案:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;骨架屏的dom结构和css通过离线生成后构建的时候注入模板中的节点下面.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;！！重点标记！！&lt;/strong&gt;原理&lt;a href=&quot;https://github.com/Jocs/jocs.github.io/issues/22&quot;&gt;相关eleme骨架屏插件实现原理&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;方案的项目地址:&lt;a href=&quot;https://github.com/ElemeFE/page-skeleton-webpack-plugin&quot;&gt;page-skeleton-webpack-plugin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;使用时候的注意点: &lt;br /&gt;
+1.cssUnit的配置: 需要使用自适应的单位,按照文档给出的选择范围选,直接用 px 生成的比例会不合适. &lt;br /&gt;
+2.puppeteer有大概80M, 安装的时候有可能不能一次下载成功.&lt;/li&gt;
+  &lt;li&gt;原理:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;通过 puppeteer 在服务端操控 headless Chrome 打开开发中的需要生成骨架屏的页面，在等待页面加载渲染完成之后，在保留页面布局样式的前提下，通过对页面中元素进行删减或增添，对已有元素通过层叠样式进行覆盖，这样达到在不改变页面布局下，隐藏图片和文字，通过样式覆盖，使得其展示为灰色块。然后将修改后的 HTML 和 CSS 样式提取出来，这样就是骨架屏了.&lt;/em&gt;
+&lt;img src=&quot;/img/in-post/post-responsive/responsive-1808_2.png&quot; alt=&quot;puppeteer例子2&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;其他方案&quot;&gt;其他方案&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;结合ssr render/prerender来使用:  &lt;br /&gt;
+1.事先编写好骨架屏组件通过ssr render 解析注入html文件中(除了需要自己编写外其实过程类似于上面的自动化方案)&lt;a href=&quot;https://segmentfault.com/a/1190000014832185n&quot;&gt;参考文章&lt;/a&gt;  &lt;br /&gt;
+2.1中事先编写好的骨架屏组件可以用图片代替 (svg) ;或者设计师设计好.&lt;/p&gt;
+
+&lt;h2 id=&quot;小程序的骨架屏&quot;&gt;小程序的骨架屏&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;结合目前大火的小程序，也可以预设骨架屏，因为小程序不存在预渲染的概念,但是还是可以通过自己预先编写骨架屏组件放在页面中,等到异步请求的数据回来后更新页面.&lt;/p&gt;
+
+&lt;h2 id=&quot;建议配合其他加载技术一起使用&quot;&gt;建议配合其他加载技术一起使用&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;用户的网络环境是复杂的，如果加载持续时间很久，单凭&lt;strong&gt;骨架屏&lt;/strong&gt;起不到流畅过渡的效果，建议配合懒加载（先文字后图片）、逐条加载、预加载等技术，以达到更出色的体验。 &lt;br /&gt;
+以下是传统转菊花和骨架屏配合懒加载等技术的对比。
+&lt;img src=&quot;/img/in-post/post-responsive/responsive-1808_3.gif&quot; alt=&quot;puppeteer例子3&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;o&quot;&gt;&amp;lt;!&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;常用骨架屏动效&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.skeleton&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.skeleton-content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#f1f1f1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;background-image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear-gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;90deg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;25%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;transparent&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;25%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;background-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20rem&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20rem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;animation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;skeleton-stripes&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;infinite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;border-radius&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;@keyframes&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;skeleton-stripes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;background-position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;background-position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20rem&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 29 Aug 2018 05:11:14 +0800</pubDate>
+        <link>http://localhost:5001/2018/08/28/SkeletonScreen/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/08/28/SkeletonScreen/</guid>
+        
+        <category>前端</category>
+        
+        <category>响应式设计</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>细数微信小程序的前端坑</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;酝酿了半年，个人理解&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;wxml&quot;&gt;WXML&lt;/h3&gt;
+
+&lt;h5 id=&quot;小程序的标签&quot;&gt;小程序的标签&lt;/h5&gt;
+
+&lt;p&gt;小程序里的标签远没有H5里的标签多，这主要归于H5许多标签仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用&lt;code class=&quot;highlighter-rouge&quot;&gt;view&lt;/code&gt;代替&lt;code class=&quot;highlighter-rouge&quot;&gt;div&lt;/code&gt;作为小程序最常见的容器，推荐使用的&lt;a href=&quot;https://developers.weixin.qq.com/miniprogram/dev/component/&quot;&gt;API官方组件&lt;/a&gt;里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，而且编译时小概率出现错误。
+虽然标签简化了，但是普通容器一般都用view的情况下，样式都需要打类名或ID，总觉得十分繁琐(个人习惯是在父级类名下使用标签选择器)。在小程序里个人常用的容器标签有:&lt;em&gt;view&lt;/em&gt;,&lt;em&gt;label&lt;/em&gt;,&lt;em&gt;text&lt;/em&gt;。&lt;/p&gt;
+
+&lt;h5 id=&quot;scroll-view&quot;&gt;scroll-view&lt;/h5&gt;
+&lt;p&gt;scroll-view算是进阶版的view，提供的是一个可滚动视图区域，类似于&lt;strong&gt;overflow:auto&lt;/strong&gt;的功能，只是&lt;strong&gt;overflow:auto&lt;/strong&gt;在小程序很难用的原因，所以在特别的时候可以用上这个组件，例如在一个固定高度的&lt;strong&gt;swiper&lt;/strong&gt;组件里定义一个可滚动视图区域，可以使用scroll-view。
+&lt;img src=&quot;/img/in-post/post-xcx/exm_1.gif&quot; alt=&quot;滑动例子&quot; /&gt; 
+scroll-view支持横纵滚动，滚动条事件等。但是目前好像在官方API暂时还没有发现有滚动条结束监控，我们可以在&lt;code class=&quot;highlighter-rouge&quot;&gt;bindscroll&lt;/code&gt;绑定一个一个延时函数来达到滚动条结束的监听：&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+  &lt;span class=&quot;nx&quot;&gt;bindScrollOver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;clearTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//   滚动结束时的事件&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timeoutId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;swiper&quot;&gt;swiper&lt;/h5&gt;
+&lt;p&gt;小程序的swiper就是&lt;a href=&quot;http://www.swiper.com.cn/&quot;&gt;h5中swiper&lt;/a&gt;的阉割版，但是这个阉割版我是很喜欢的，保存了90%的功能，但内容清爽了许多，依旧是丝滑般的感觉。指示点，自动切换，环形轮播，纵横方向之类的都是支持。目前有一个还未解决问题：没有办法舒服的控制&lt;strong&gt;swiper-item&lt;/strong&gt;之间间距，因为小程序的swiper封装得太好了，再加上没有办法获取dom元素，官方渲染的时候也不用类名id控制样式，所以想要控制到元素很麻烦，原先在H5用swiper做的一个效果图如下&lt;img src=&quot;/img/in-post/post-xcx/exm_2.gif&quot; alt=&quot;轮播例子&quot; /&gt;在可以控制到dom的情况下轻松修改到原生样式；以下为小程序的swiper做的类似页面&lt;img src=&quot;/img/in-post/post-xcx/exm_3.gif&quot; alt=&quot;轮播例子&quot; /&gt;但是在大多情况下使用swiper当做轮播滚动，信息滚动都十分好用。&lt;/p&gt;
+
+&lt;h5 id=&quot;text&quot;&gt;text&lt;/h5&gt;
+&lt;p&gt;小程序的text组件是一个用于文本的内联元素，比较特殊的是它支持解码&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;nbsp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;lt&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;gt&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;amp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;apos&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;ensp&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;emsp&lt;/code&gt;以及换行&lt;code class=&quot;highlighter-rouge&quot;&gt;\n&lt;/code&gt;和空格&lt;code class=&quot;highlighter-rouge&quot;&gt;\t&lt;/code&gt;，这边要注意的是，小程序里是不识别&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;br/&amp;gt;&lt;/code&gt;换行的，而且text标签里只能嵌套text标签。&lt;/p&gt;
+
+&lt;h5 id=&quot;button&quot;&gt;button&lt;/h5&gt;
+&lt;p&gt;小程序的button主要功能是使用微信开发的能力(open-type属性：分享，打开客服之类)以及提供formId的表单提交，通常我们设计的一个按钮在button组件上得不到很好的样式体现，因为小程序在wxss里是不支持导入本地连接的图片的，只能使用网络地址，导致在button上不能显示本地的背景图片，所以一般都是把一张图片和一个button放在一个容器里，图片为按钮背景图，button则设置定位重叠在图片上方，并且设置透明无色。&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    
+    &lt;span class=&quot;nc&quot;&gt;.con&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;       
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;.ccon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:after&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;很坑的一点是，小程序中button的默认样式很多，特别是button的border属性，不是写在button内，而是写在button:after里。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;button open-type=&quot;&quot;&amp;gt;&amp;lt;/button&amp;gt;&lt;/code&gt;这边例举常用的open-type的有效值&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;share: 触发用户转发，和js里的onShareAppMessage相对应&lt;/li&gt;
+  &lt;li&gt;contact: 打开客服会话&lt;/li&gt;
+  &lt;li&gt;getUserInfo:获取用户信息，可以从bindgetuserinfo回调中获取到用户信息&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;canvas&quot;&gt;canvas&lt;/h5&gt;
+&lt;p&gt;h5的canvas真的是太牛逼了，导致我对小程序里的canvas也有很大的期望，结果发现小程序的canvas是真的难用。小程序的canvas阉割了太多的功能。通过唯一的canvas-id进行识别。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题1ctxdrawimage真机无法显示&quot;&gt;　问题1:ctx.drawImage真机无法显示&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：用ctx.drawImage画线上图片在真机上显示不出来，模拟器上却可以显示（需要说明的是：ctx.drawImage画图片是需要获取到图片后才能开始画，并且获取的线上图片地址需要是https。）但是在真机上还是无法显示，也试过下载到本地后画也没有用。&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：首先，用canvas绘制线上图片时，必须先下载到本地，而且线上图片的地址必须是在配置的安全域名下，遇到绘制不出的原因在于：没有等待图片完全下载好就绘制了，所以这里要考虑绘图顺序，可以用wx.downloadFile返回的对象的成功回调后绘制图片。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题2实现圆形裁剪&quot;&gt;　问题2：实现圆形裁剪&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：小程序的canvas没有裁剪的api，如何用canvas将图片画成圆形？&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：我是通过制作一张和头像图片一样大的中间有个圆形镂空（中间透明，外切圆）的正方形图片绘制在头像上，在视觉上给头像做出圆形的效果。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题3文字定位&quot;&gt;　问题3：文字定位&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：canvas生成一张用于裂变的分享图常常需要写入许多文字，而且文字并非一段而是拆分成很多段，如下图：&lt;img src=&quot;/img/in-post/post-xcx/exm_4.png&quot; alt=&quot;canvas例子&quot; /&gt;中间那段红蓝相间的文字就是用多段ctx.fillText定位的，但是ctx.fillText(输出文本,x轴距离,y轴距离)是只支持从左上角开始定位的，而且只能使用&lt;strong&gt;px&lt;/strong&gt;单位，导致在不同机型上显示的效果都不一样，而且文字换行也是个大问题。&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：通过手动计算rpx的比值进行等比例转换px再配合ctx.setTextAlign设置文字对其方式可以较完美的解决文字定位问题，文字换行同理。在基础库1.9.90里还更新了ctx.measureText方法，能测量文本尺寸信息，返回文本宽度，同步接口，便于我们文字进行定位。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题4字体设置&quot;&gt;　问题4：字体设置&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：canvas不能设置字体，只能使用宋体。&lt;/p&gt;
+
+&lt;p&gt;　&lt;del&gt;&lt;strong&gt;未解决&lt;/strong&gt;：确实只能显示宋体&lt;/del&gt;。  &lt;br /&gt;
+　&lt;del&gt;&lt;strong&gt;半解决&lt;/strong&gt;：基础库1.9.90开始支持ctx.font，支持设置字体粗细，形态，大小以及字体，还没有用过，有机会试一下&lt;/del&gt;。&lt;br /&gt;
+　&lt;strong&gt;已解决&lt;/strong&gt;：在基础库为1.9.90确实可以通过font来设置字体形态，但是它不像setFillStyle，setFontSize这些只向下有效，font对没有设置过字态的fillText都会进行设置，向上也有效，所以如果使用了font，要对所有的fillText都进行设置，目前自测支持的字体有:宋体，黑体，楷体。。。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题5canvas隐藏问题&quot;&gt;　问题5：canvas隐藏问题&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：为了让canvas不在页面显示，将canvas用view标签包起来后，给view设置了overflow=hidden和opacity=0的属性，是可以成功将canvas隐藏，但是在真机上测试时，一旦在这个隐藏的canvas上绘制图片，canvas又显示在屏幕上了。模拟器上是不会显示的。&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：由于canvas是客户端创建的原生组件，它的层级是最高的，并且不能通过 z-index 控制层级，所以在真机上canvas一旦被绘制就一定会显示，而且如果用wx:if来隐藏会把canvas销毁掉，使其不工作，我个人的解决方式是将canvas设置定位绝对定位或固定定位,left设置-10000px,使其脱离屏幕，如果需要时再把left动态设置回来，这样达到一个隐藏的效果。&lt;/p&gt;
+
+&lt;h6 id=&quot;问题6canvas的层级问题&quot;&gt;　问题6：canvas的层级问题&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：写的所有东西都被canvas盖住了，在模拟器上是显示的，但是在真机上都是被canvas盖住的。&lt;/p&gt;
+
+&lt;p&gt;　&lt;strong&gt;已解决&lt;/strong&gt;：上面说到canvas是客户端创建的原生组件（类似的还有map、video、camera、live-player、live-pusher），它们的层级是最高的，并且不能通过 z-index 控制层级，所以大部分组件是不能位于canvas之上的，但是微信提供了cover-view和cover-image这两个组件。一个用于普通容器，一个用于图片显示。它们和view、image用法一样，但是很多样式不支持，例如单边的border、background、shadow等，cover-view和cover-image只支持嵌套cover-view和cover-image，并且只能写在canvas内，如下：&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;canvas&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;canvas-id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'myCanvas'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+           &lt;span class=&quot;nt&quot;&gt;&amp;lt;cover-view&amp;gt;&lt;/span&gt;
+               6666
+           &lt;span class=&quot;nt&quot;&gt;&amp;lt;/cover-view&amp;gt;&lt;/span&gt;
+           &lt;span class=&quot;nt&quot;&gt;&amp;lt;cover-image&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;nice.png&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; 
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/canvas&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h6 id=&quot;问题7drawimage绘制的画布使用ctxclearrect清除不了&quot;&gt;　问题7：drawImage绘制的画布，使用ctx.clearRect清除不了&lt;/h6&gt;
+&lt;p&gt;　&lt;strong&gt;问&lt;/strong&gt;：ctx.drawImage绘制的画布，使用ctx.clearRect清除不了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;未解决&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;h5 id=&quot;web-view&quot;&gt;web-view&lt;/h5&gt;
+&lt;p&gt;web-view是一个可以用来承载网页的容器，会自动铺满整个小程序页面，有点类似h5的iframe，如果有现成的h5网页，并且不需要支付接口（不支持）可以考虑直接使用这个组件来开发，使用bindmessage来接受网页向小程序postMessage时的消息e.detail = { data }。&lt;a href=&quot;http://www.swiper.com.cn/&quot;&gt;主要支持的接口&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;wjs&quot;&gt;WJS&lt;/h3&gt;
+&lt;p&gt;每个人写法都不一样，推荐使用ES6写法，这边不多赘述。&lt;/p&gt;
+
+&lt;h5 id=&quot;thissetdata&quot;&gt;this.setData({})&lt;/h5&gt;
+&lt;p&gt;一般setData方法多用于改变页面信息或者刷新后与后台交互获取最新的信息。这是我们最常用的接口，要注意的是小程序是基于双线程模型的，在这个模型中，小程序的逻辑层与渲染层分开在不同的线程运行，大部分代码都是异步的。以下是错误写法:&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;onLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;奎尔萨拉斯&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;因为代码是异步加载，无法100%保证text能在输出前成功赋值(虽然大部分情况下可以，但是如果赋值数据大，则会出现这样的问题)。正确写法:&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;onLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;奎尔萨拉斯&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;ES6的箭头函数能完美解决这个问题。&lt;/p&gt;
+
+&lt;h5 id=&quot;settimeout和setinterval&quot;&gt;setTimeout和setInterval&lt;/h5&gt;
+&lt;p&gt;&lt;del&gt;自我感觉小程序对setTimeout以及setInterval的支持很差，多次循环调用setTimeout会严重影响页面渲染效果，而且不同机型差异很大，不推荐使用，同理的还有CSS3动画。&lt;/del&gt; &lt;br /&gt;
+确实小程序的setInterval、setTimeout很不精确，主要是因为套了几层、或者用setTimeout以递归形式变相实现setInterval的会超过实际设定时间(间隔1000ms时误差：pc 2ms以内, 中等性能安卓机 10ms左右), 会造成较大的累积差。思路是:每次补了上次的误差。超出误差范围会掉回来，从而无累计。通过更小的Interval实现无累计差的、相对精确的Interval。但是还是需要在频率(影响性能,本人一般30-50ms)和误差范围之前做权衡。特别注意的是每个计时器(setTimeout和setInterval)应该在页面结束时Stop，否则在hide后重新show页面改变，计时器没停止，可能导致重大问题。以下为优化消除累计差的方法：&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;setInterval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;now: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;lastTime: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;wxif和动画加载&quot;&gt;wx:if和动画加载&lt;/h5&gt;
+&lt;p&gt;wx:if包含的物体(包括自身)加动画有bug，播放一次动画-&amp;gt;隐藏-&amp;gt;显示-&amp;gt;物体卡在动画第一个step结束后，之后再播动画怎么setData都不起作用(因为动画是差值播放。永远停在第一步结束, 即重新播放的第一步永远不会再执行)。解决方法: 每次重新显示后先清掉之前的动画，并在非本帧(setTimeout 50ms以上)重新setData动画数据。&lt;/p&gt;
+
+&lt;h5 id=&quot;服务端下发很多文字自然段客户端渲染问题&quot;&gt;服务端下发很多文字自然段，客户端渲染问题&lt;/h5&gt;
+&lt;p&gt;一些长文需要服务器可配，如何在一个字段内完成客户端可换行的渲染。 &lt;br /&gt;
+方法1：小程序不支持&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;br/&amp;gt;&lt;/code&gt;换行标签，只有在&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;text&amp;gt;&lt;/code&gt;标签内使用&lt;strong&gt;\t&lt;/strong&gt;来完成换行，所以可以让服务端下发带有\t字段的标识符，客户端使用&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;text&amp;gt;&lt;/code&gt;来进行渲染。 &lt;br /&gt;
+方法2：让服务器在需要换行的位置插入独特标识符，例如&lt;strong&gt;|&lt;/strong&gt;,&lt;strong&gt;&amp;amp;&lt;/strong&gt;之类的，使用split在客户端对字段进行分割后循环渲染出来，例如：&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nx&quot;&gt;httpGet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;about&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'about'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;|&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;block&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;wx:for=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;wx:for-item=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;item&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text-indent:2em;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/block&amp;gt;&lt;/span&gt; 
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;wxss&quot;&gt;WXSS&lt;/h3&gt;
+
+&lt;h5 id=&quot;小程序的样式表&quot;&gt;小程序的样式表&lt;/h5&gt;
+&lt;p&gt;小程序的WXSS就是H5的CSS，它具有CSS大部分的特性，并且对小程序有一定的拓展和修改。主要的拓展就是尺寸单位rpx的确定。rpx可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在iPhone6上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。&lt;img src=&quot;/img/in-post/post-xcx/exm_5.png&quot; alt=&quot;5,6,6p&quot; /&gt;关于这个rpx，就像h5里的&lt;strong&gt;rem&lt;/strong&gt;单位一样，我是十分喜欢的，就像秦始皇统一六国，统一了货币一样，当然你也可以使用&lt;strong&gt;px&lt;/strong&gt;、&lt;strong&gt;%&lt;/strong&gt;、&lt;strong&gt;vh&lt;/strong&gt;、&lt;strong&gt;em&lt;/strong&gt;,这些在小程序都是支持的，不存在兼容问题。&lt;/p&gt;
+
+&lt;h5 id=&quot;calc&quot;&gt;calc()&lt;/h5&gt;
+&lt;p&gt;一直觉得calc()在css3中是一个亮点，碍于在移动端浏览器兼容性表现不佳，一直不敢常用（和2年前的弹性盒子一样）。但是在小程序里是可以完美兼容的，小程序使用rpx单位使布局方便，calc()更加灵活的运算使得锦上添花。要注意点是calc()中的运算符需要左右空格间距和h5是一样的。&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nc&quot;&gt;.con_view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rpx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;上述得到的width为700rpx。calc()在有paddding时计算宽度会比&lt;strong&gt;box-sizing: border-box;&lt;/strong&gt;方便一些。&lt;/p&gt;
+
+&lt;h5 id=&quot;filter&quot;&gt;filter&lt;/h5&gt;
+&lt;p&gt;同样和calc()一样出彩的css3新样式，在小程序也是完美兼容，以下是我比较常用的几种，&lt;a href=&quot;http://www.runoob.com/cssref/css3-pr-filter.html&quot;&gt;filter&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;blur(px):高斯模糊度&lt;/li&gt;
+  &lt;li&gt;grayscale(%):灰度值&lt;/li&gt;
+  &lt;li&gt;opacity(%):透明度，和opacity效果类似，不同之处在于通过filter，一些浏览器为了提升性能会提供硬件加速，但在小程序里不存在这种情况。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;多行省略&quot;&gt;多行省略&lt;/h5&gt;
+&lt;p&gt;在CSS中简单解决多行省略逻辑&lt;/p&gt;
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nc&quot;&gt;.hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-webkit-box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;word-break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break-all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;text-overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ellipsis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;-webkit-box-orient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vertical&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;nl&quot;&gt;-webkit-line-clamp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;css3动画animation&quot;&gt;CSS3动画animation&lt;/h5&gt;
+&lt;p&gt;小程序因为自带动画（特别难用！），所以对CSS3的动画支持不好，之前有用CSS3做弹幕效果，因为过度渲染导致效果很差，常常闪屏，所以不推荐大面积使用css3的动画。&lt;/p&gt;
+
+&lt;h3 id=&quot;other&quot;&gt;OTHER&lt;/h3&gt;
+
+&lt;h5 id=&quot;阻止页面下拉和滚动&quot;&gt;阻止页面下拉和滚动&lt;/h5&gt;
+&lt;p&gt;在对应的页面的.json里配置&lt;strong&gt;“disableScroll”: true&lt;/strong&gt;可以阻止页面上下拉，如果是在canvas里进行绘画操作时，&lt;strong&gt;“disableScroll”: true&lt;/strong&gt;会失效，手指在画板上绘画会导致屏幕滑动。可以在元素标签里绑定&lt;strong&gt;disable-scroll=”true”&lt;/strong&gt;，可解决滑动问题。&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;canvas&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;canvas-id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'myCanvas'&lt;/span&gt;  &lt;span class=&quot;na&quot;&gt;disable-scroll=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bindtouchstart=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;touchStart&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bindtouchmove=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;touchMove&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/canvas&amp;gt;&lt;/span&gt;
+ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;关闭小程序&quot;&gt;关闭小程序&lt;/h5&gt;
+&lt;p&gt;官方没有特别说明这个方法，可以使用这个:&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+    &lt;span class=&quot;nx&quot;&gt;wx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;navigateBack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+       &lt;span class=&quot;na&quot;&gt;delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h5 id=&quot;关于路由跳转&quot;&gt;关于路由跳转&lt;/h5&gt;
+&lt;p&gt;之前路由是一直使用wx.navigateTo或者wx.redirectTo，但是wx.navigateTo和wx.redirectTo不允许跳转到tabbar页面(底部导航)，只能用 wx.switchTab 跳转到 tabbar页面。&lt;/p&gt;
+
+&lt;h5 id=&quot;多目运算&quot;&gt;多目运算&lt;/h5&gt;
+&lt;p&gt;当需要判断两个特定情况渲染页面时，true和false往往不够用，可以把两个或者多个三目运算组合起来使用，例如:&lt;/p&gt;
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 当type=1时使用btn1，type=2时使用btn2 --&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- &amp;lt;view class=&quot;&quot;&amp;gt;&amp;lt;/view&amp;gt; --&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;适配iphonex&quot;&gt;适配iphonex&lt;/h5&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;// 在app.js中判断是否是哪种设备 &lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+  &lt;span class=&quot;nl&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  
+  &lt;span class=&quot;nx&quot;&gt;userInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;  
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;  
+&lt;span class=&quot;nx&quot;&gt;onShow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;  
+  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;that&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
+  &lt;span class=&quot;nx&quot;&gt;wx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getSystemInfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;  
+    &lt;span class=&quot;na&quot;&gt;success&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+      &lt;span class=&quot;c1&quot;&gt;// console.log('手机信息res'+res.model)  &lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;modelmes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;modelmes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'iPhone X'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;  
+        &lt;span class=&quot;nx&quot;&gt;that&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;  
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;  
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;  
+&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; 
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在需要引用的页面js文件中onload方法里获取全局变量&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   
+    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;globalData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+       &lt;span class=&quot;na&quot;&gt;isIphoneX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;isIphoneX&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在 wxml文件中 进行css的逻辑判断&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;view class=&quot;{isIphoneX?&quot;linkCon&quot;:&quot;&quot;} flex &quot;&amp;gt; &amp;lt;/wiew&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;会一直更新的&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Tue, 10 Jul 2018 19:10:25 +0800</pubDate>
+        <link>http://localhost:5001/2018/07/10/AboutMiniProgram/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/07/10/AboutMiniProgram/</guid>
+        
+        <category>前端</category>
+        
+        <category>小程序</category>
         
         
       </item>
@@ -848,400 +1583,9 @@ async属性在内联&lt;strong&gt;普通js脚本&lt;/strong&gt;不生效，不�
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Thu, 25 Oct 2018 01:21:04 +0800</pubDate>
-        <link>http://localhost:5001/2018/10/24/AboutJsModules/</link>
-        <guid isPermaLink="true">http://localhost:5001/2018/10/24/AboutJsModules/</guid>
-        
-        <category>前端</category>
-        
-        <category>JavaScript</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>浅入JS的原型链</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;prototype chain&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;原型&quot;&gt;原型&lt;/h2&gt;
-&lt;p&gt;首先要说一下为什么会有原型这个东西，那是因为在 JavaScript 中并没有 “类” 的概念，它是靠原型和原型链实现对象属性的继承，即便在 ES6 中新出了class的语法，但那也只是一个语法糖，它的底层依然是原型。&lt;/p&gt;
-
-&lt;p&gt;要理解原型（原型链），最重要的是理解两个属性以及它们之间的关系，附上一张经典关系图：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;__ proto __&lt;/li&gt;
-  &lt;li&gt;prototype&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/js_1902_1.png&quot; alt=&quot;区别图&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;__-proto-__&quot;&gt;__ proto __&lt;/h3&gt;
-&lt;p&gt;JavaScript中，万物皆对象，所有的对象都有__proto__属性（null和undefined除外），而且指向创造这个对象的函数对象的prototype属性。&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){};&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;前面说了，在 JavaScript 中，一切皆对象（可以理解为它们都是从对象那里继承过来的），所以基本类型对象也是通用：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;而因为Object.prototype的__proto__已经是终点了，所以它的指向是：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true &lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;，虽然大多数浏览器都支持通过__proto__来访问，但它并不是ECMAScript的标准，在ES5中可以通过&lt;strong&gt;Object.getPrototypeOf()&lt;/strong&gt;来获取这个属性。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getPrototypeOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// true&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;prototype&quot;&gt;prototype&lt;/h3&gt;
-&lt;p&gt;prototype是每个函数对象都具有的属性（它也有__proto__，因为函数也是对象），实例化创建出来的对象会共享此prototype里的属性和方法（通过__proto__）。在上面的例子中已经看到过prototype的身影，下面通过一个例子来讲述它的作用。现在我们有一个构造函数Person，并且对它进行实例化：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-            &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;我的名字是：&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小明&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小红&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 我的名字是：小明&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 我的名字是：小红&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;new运算符的缺点&quot;&gt;new运算符的缺点&lt;/h3&gt;
-&lt;p&gt;但是，用构造函数生成实例对象，有一个缺点，那就是无法共享属性和方法。例如上面例子中的a和b，它们都有sayName方法，虽然做的事相同，但它们却是独立的，这就会造成极大的资源浪费，因为每一个实例对象，都有自己的属性和方法的副本。&lt;/p&gt;
-
-&lt;h3 id=&quot;prototype属性的引入&quot;&gt;prototype属性的引入&lt;/h3&gt;
-&lt;p&gt;考虑到这一点，JS大佬决定为构造函数设置一个prototype属性。这个属性包含一个对象，所有实例对象需要共享的属性和方法，都放在这个对象里面，而不需要共享属性和方法，就放在构造函数里面，这个对象就是prototype对象。实例对象一旦创建，将自动引用prototype对象的属性和方法。也就是说，实例对象的属性和方法，分成两种，一种是本地的，另一种是引用的。&lt;/p&gt;
-
-&lt;p&gt;现在对上面的例子进行改写：&lt;/p&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;sayName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-            &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;我的名字是：&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小明&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小红&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 我的名字是：小明&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sayName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 我的名字是：小红&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;现在无论Person被实例化多少次，它的实例对象都共享同一个sayName方法，这就是prototype最大的用处。&lt;/p&gt;
-
-&lt;h2 id=&quot;原型链&quot;&gt;原型链&lt;/h2&gt;
-&lt;p&gt;讲原型一个不可避免的概念就是原型链，原型链是通过__proto__来实现的。现在我们以Person的例子来讲整个原型链。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小明&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 实例化对象的 __proto__ 指针指向构造函数的原型&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 构造函数的原型是一个对象，它的 __proto__ 指向对象的原型&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 函数也是一个对象，它的 __proto__ 指向 函数的原型&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 函数的原型是一个对象，它的 __proto__ 指向对象的原型&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 对象的原型的__proto__ 指向 null&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/in-post/post-js/js_1902_2.png&quot; alt=&quot;链式图&quot; /&gt;
-以上就是a对象的整个原型链和图解。&lt;/p&gt;
-
-&lt;h3 id=&quot;属性查找机制&quot;&gt;属性查找机制&lt;/h3&gt;
-&lt;p&gt;当访问一个对象的属性时，Javascript 会从对象本身开始往上遍历整个原型链，直到找到对应属性为止。如果此时到达了原型链的顶部，也就是上例中的 Object.prototype，仍然未发现需要查找的属性，那么 Javascript 就会返回 undefined值。&lt;/p&gt;
-
-&lt;h3 id=&quot;应用简单实例&quot;&gt;应用简单实例&lt;/h3&gt;
-&lt;p&gt;利用 Function 创建一个求三个数中最大数的函数：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;// 传统&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Function&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'c'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'var res = a &amp;gt; b ? a : b;res = res &amp;gt; c ? res : c;return res;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// Function太长可简化&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'c'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'return foo( a, b, c );'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Wed, 19 Sep 2018 19:01:04 +0800</pubDate>
-        <link>http://localhost:5001/2018/09/19/PrototypeChain/</link>
-        <guid isPermaLink="true">http://localhost:5001/2018/09/19/PrototypeChain/</guid>
-        
-        <category>前端</category>
-        
-        <category>JavaScript</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>前端骨架屏方案小结</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;“学习大咖的细节”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;骨架屏&quot;&gt;骨架屏&lt;/h2&gt;
-
-&lt;p&gt;最近在项目不时有用到骨架屏的需求.在这里按照个人的理解做了一个汇总和分类笔记.&lt;/p&gt;
-
-&lt;h2 id=&quot;关于骨架屏简介&quot;&gt;关于骨架屏(简介)&lt;/h2&gt;
-&lt;hr /&gt;
-&lt;p&gt;骨架屏就是在页面数据尚未加载前先给用户展示出页面的大致结构，直到请求数据返回后再渲染页面，补充进需要显示的数据内容。常用于文章列表、动态列表页等相对比较规则的列表页面。
-很多项目中都有应用:ex:饿了么h5版本,知乎,facebook等网站中都有应用。
-借个图举例如下:
-&lt;img src=&quot;/img/in-post/post-responsive/responsive-1808_1.png&quot; alt=&quot;骨架例子&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;两类用途&quot;&gt;两类用途&lt;/h2&gt;
-&lt;hr /&gt;
-&lt;p&gt;简介中作了关于用途的说明,但是仍然可以继续细分:&lt;/p&gt;
-
-&lt;p&gt;1.作为spa中路由切换的loading,结合组件的生命周期和ajax请求返回的时机来使用.
-2.作为首屏渲染的优化.&lt;/p&gt;
-
-&lt;h4 id=&quot;第一类用途&quot;&gt;第一类用途&lt;/h4&gt;
-
-&lt;p&gt;第一类用途需要自己编写骨架屏,推荐两个成熟方便定制的svg组件定制为骨架屏的方案&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fdanilowoz%2Freact-content-loader&quot;&gt;react-content-loader&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/egoist/vue-content-loader&quot;&gt;vue-content-loader&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;img替换使用的1x1像素gif替换地址:data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;作为首屏渲染自动化方案&quot;&gt;作为首屏渲染(自动化方案)&lt;/h4&gt;
-
-&lt;p&gt;该方案是饿了么在骨架屏的实践中总结出的一套方案:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;骨架屏的dom结构和css通过离线生成后构建的时候注入模板中的节点下面.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;！！重点标记！！&lt;/strong&gt;原理&lt;a href=&quot;https://github.com/Jocs/jocs.github.io/issues/22&quot;&gt;相关eleme骨架屏插件实现原理&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;方案的项目地址:&lt;a href=&quot;https://github.com/ElemeFE/page-skeleton-webpack-plugin&quot;&gt;page-skeleton-webpack-plugin&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;使用时候的注意点: &lt;br /&gt;
-1.cssUnit的配置: 需要使用自适应的单位,按照文档给出的选择范围选,直接用 px 生成的比例会不合适. &lt;br /&gt;
-2.puppeteer有大概80M, 安装的时候有可能不能一次下载成功.&lt;/li&gt;
-  &lt;li&gt;原理:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;em&gt;通过 puppeteer 在服务端操控 headless Chrome 打开开发中的需要生成骨架屏的页面，在等待页面加载渲染完成之后，在保留页面布局样式的前提下，通过对页面中元素进行删减或增添，对已有元素通过层叠样式进行覆盖，这样达到在不改变页面布局下，隐藏图片和文字，通过样式覆盖，使得其展示为灰色块。然后将修改后的 HTML 和 CSS 样式提取出来，这样就是骨架屏了.&lt;/em&gt;
-&lt;img src=&quot;/img/in-post/post-responsive/responsive-1808_2.png&quot; alt=&quot;puppeteer例子2&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;其他方案&quot;&gt;其他方案&lt;/h2&gt;
-&lt;hr /&gt;
-&lt;p&gt;结合ssr render/prerender来使用:  &lt;br /&gt;
-1.事先编写好骨架屏组件通过ssr render 解析注入html文件中(除了需要自己编写外其实过程类似于上面的自动化方案)&lt;a href=&quot;https://segmentfault.com/a/1190000014832185n&quot;&gt;参考文章&lt;/a&gt;  &lt;br /&gt;
-2.1中事先编写好的骨架屏组件可以用图片代替 (svg) ;或者设计师设计好.&lt;/p&gt;
-
-&lt;h2 id=&quot;小程序的骨架屏&quot;&gt;小程序的骨架屏&lt;/h2&gt;
-&lt;hr /&gt;
-&lt;p&gt;结合目前大火的小程序，也可以预设骨架屏，因为小程序不存在预渲染的概念,但是还是可以通过自己预先编写骨架屏组件放在页面中,等到异步请求的数据回来后更新页面.&lt;/p&gt;
-
-&lt;h2 id=&quot;建议配合其他加载技术一起使用&quot;&gt;建议配合其他加载技术一起使用&lt;/h2&gt;
-&lt;hr /&gt;
-&lt;p&gt;用户的网络环境是复杂的，如果加载持续时间很久，单凭&lt;strong&gt;骨架屏&lt;/strong&gt;起不到流畅过渡的效果，建议配合懒加载（先文字后图片）、逐条加载、预加载等技术，以达到更出色的体验。 &lt;br /&gt;
-以下是传统转菊花和骨架屏配合懒加载等技术的对比。
-&lt;img src=&quot;/img/in-post/post-responsive/responsive-1808_3.gif&quot; alt=&quot;puppeteer例子3&quot; /&gt;&lt;/p&gt;
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;o&quot;&gt;&amp;lt;!&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;常用骨架屏动效&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;.skeleton&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;.skeleton-content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#f1f1f1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;background-image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear-gradient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;90deg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;25%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;transparent&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;25%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;background-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20rem&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20rem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;animation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;skeleton-stripes&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;infinite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;nl&quot;&gt;border-radius&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;@keyframes&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;skeleton-stripes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;nl&quot;&gt;background-position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;nt&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;nl&quot;&gt;background-position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20rem&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Wed, 29 Aug 2018 05:11:14 +0800</pubDate>
-        <link>http://localhost:5001/2018/08/28/SkeletonScreen/</link>
-        <guid isPermaLink="true">http://localhost:5001/2018/08/28/SkeletonScreen/</guid>
-        
-        <category>前端</category>
-        
-        <category>响应式设计</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>JavaScript的Event Loop机制</title>
-        <description>&lt;h2 id=&quot;简述&quot;&gt;简述&lt;/h2&gt;
-&lt;p&gt;前几天看一个题↓↓↓，随口答出12354，答案却是不然。。。看似简单却很复杂的问题在不断思考，复杂是在于它的广度和深度都很大，对自己影响很大。这道题牵涉到了Javascript的运行机制，刚好想着可以巩固一下之前学习过的东西，作为一个学习笔记记录下来。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;javascript的运行机制&quot;&gt;Javascript的运行机制&lt;/h2&gt;
-&lt;p&gt;JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。 &lt;br /&gt;
-JavaScript的&lt;code class=&quot;highlighter-rouge&quot;&gt;单线程&lt;/code&gt;，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？&lt;/p&gt;
-
-&lt;p&gt;所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。&lt;/p&gt;
-
-&lt;p&gt;为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。&lt;/p&gt;
-
-&lt;h2 id=&quot;任务队列&quot;&gt;任务队列&lt;/h2&gt;
-&lt;p&gt;单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。&lt;/p&gt;
-
-&lt;p&gt;如果排队是因为计算量大，CPU忙不过来，倒也算了，但是很多时候CPU是闲着的，因为IO设备（输入输出设备）很慢（比如Ajax操作从网络读取数据），不得不等着结果出来，再往下执行。&lt;/p&gt;
-
-&lt;p&gt;JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。&lt;/p&gt;
-
-&lt;p&gt;于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。&lt;/p&gt;
-
-&lt;p&gt;具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1、所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。&lt;/li&gt;
-  &lt;li&gt;2、主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。&lt;/li&gt;
-  &lt;li&gt;3、一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。&lt;/li&gt;
-  &lt;li&gt;4、主线程不断重复上面的第三步。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h6 id=&quot;主线程的执行栈&quot;&gt;主线程的执行栈&lt;/h6&gt;
-&lt;p&gt;如下图（截取自&lt;code class=&quot;highlighter-rouge&quot;&gt;Help, I’m stuck in an event-loop&lt;/code&gt;演讲视频的讲解）
-&lt;img src=&quot;/img/in-post/post-js/js_1807_1.png&quot; alt=&quot;执行栈&quot; /&gt;
-执行栈，先入后出。第一个进入的是要执行的函数(图中就是printSquare函数)，然后就是依次调用的函数入栈，运行完就依次出栈，直到执行栈为空。&lt;/p&gt;
-
-&lt;h2 id=&quot;event-loop&quot;&gt;Event Loop&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;主线程从&quot;任务队列&quot;中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。&lt;/code&gt;
-&lt;img src=&quot;/img/in-post/post-js/js_1807_2.png&quot; alt=&quot;执行栈&quot; /&gt;&lt;/p&gt;
-&lt;h6 id=&quot;用我自己的话来讲一下event-loop&quot;&gt;用我自己的话来讲一下event loop&lt;/h6&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;1、当任务进来时，js解析引擎会分辨是同步任务还是异步任务，如果是同步任务，就一并放进主线程 (也就是执行栈Stack)去同步执行；如果是异步任务，则在事件表里不阻塞进行，遇到回调函数就注册在任务队列(callback queue)中。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;2、放在任务队列中的回调函数需要等待主线程中的同步任务完成方可执行，这时候同步任务会在主线程中同步阻塞执行，等到所有在主线程中的任务执行完，也就是执行栈清空了的时候，触发让任务队列内的回调函数先入先出地进入到主线程中执行。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;3、第1步，第2步一直循环，直到所有任务都执行完。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;宏任务和微任务&quot;&gt;宏任务和微任务&lt;/h2&gt;
-&lt;p&gt;除了广义的同步任务和异步任务，我们对任务有更精细的定义：&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;macro-task(宏任务)：包括整体代码script，setTimeout，setInterval&lt;/li&gt;
-  &lt;li&gt;micro-task(微任务)：Promise，process.nextTick&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;不同类型的任务会进入对应的事件队列，比如setTimeout和setInterval会进入相同的事件队列。 &lt;br /&gt;
-事件循环的顺序，决定js代码的执行顺序。进入整体代码(宏任务)后，开始第一次循环。接着执行所有的微任务。然后再次从宏任务开始，找到其中一个任务队列执行完毕，再执行所有的微任务。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;这段代码作为宏任务，进入主线程。&lt;/li&gt;
-  &lt;li&gt;先遇到setTimeout，那么将其回调函数注册后分发到宏任务Event Queue。(注册过程与上同，下文不再描述)&lt;/li&gt;
-  &lt;li&gt;接下来遇到了Promise，new Promise立即执行，then函数分发到微任务Event Queue。&lt;/li&gt;
-  &lt;li&gt;遇到console.log()，立即执行。&lt;/li&gt;
-  &lt;li&gt;好啦，整体代码script作为第一个宏任务执行结束，看看有哪些微任务？我们发现了then在微任务Event Queue里面，执行。&lt;/li&gt;
-  &lt;li&gt;ok，第一轮事件循环结束了，我们开始第二轮循环，当然要从宏任务Event Queue开始。我们发现了宏任务Event Queue中setTimeout对应的回调函数，立即执行。&lt;/li&gt;
-  &lt;li&gt;结束。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;事件循环，宏任务，微任务的关系如图所示：
-&lt;img src=&quot;/img/in-post/post-js/js_1807_3.png&quot; alt=&quot;关系&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;而&lt;code class=&quot;highlighter-rouge&quot;&gt;宏任务&lt;/code&gt;一般是：包括整体代码script，setTimeout，setInterval。 &lt;br /&gt;
-&lt;code class=&quot;highlighter-rouge&quot;&gt;微任务&lt;/code&gt;：Promise，process.nextTick。  &lt;br /&gt;
-记住就行了。
-然后回到开头的代码。因为settimeout是宏任务，虽然先执行的他，但是他被放到了宏任务的事件队列里面，然后代码继续往下检查看有没有微任务，检测到Promise的then函数把他放入了微任务序列。等到主线进程的所有代码执行结束后。先从微任务队列里拿回掉函数，然后微任务地队列空了后再从宏任务的队列拿函数。
-所以正确的执行结果当然是：&lt;code class=&quot;highlighter-rouge&quot;&gt;1,3,5,4,2&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;这边重点说一下这个setTimeout，setTimeout(fn,0)的含义是，&lt;code class=&quot;highlighter-rouge&quot;&gt;指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在&quot;任务队列&quot;的尾部添加一个事件，因此要等到同步任务和&quot;任务队列&quot;现有的事件都处理完，才会得到执行&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔），不得低于4毫秒，如果低于这个值，就会自动增加。在此之前，老版本的浏览器都将最短间隔设为10毫秒。另外，对于那些DOM的变动（尤其是涉及页面重新渲染的部分），通常不会立即执行，而是每16毫秒执行一次。这时使用requestAnimationFrame()的效果要好于setTimeout()。&lt;/p&gt;
-
-&lt;p&gt;需要注意的是，setTimeout()只是将事件插入了”任务队列”，必须等到当前代码（执行栈）执行完，主线程才会去执行它指定的回调函数。要是当前代码耗时很长，有可能要等很久，所以并没有办法保证，回调函数一定会在setTimeout()指定的时间执行。
-这样我归类出异步任务就可以轻而易举地判断了，把一些常用的异步操作分类；&lt;/p&gt;
-
-&lt;p&gt;客户端js:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;ajax一类的请求事件；&lt;/li&gt;
-  &lt;li&gt;定时器：setTimeout 和 setInterval;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;服务端js:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;process.nextTick 这一类；&lt;/li&gt;
-  &lt;li&gt;数据库操作、文件操作、网络操作；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;finally&quot;&gt;Finally&lt;/h2&gt;
-
-&lt;p&gt;简言之就是JS只有一个主线程，主线程执行完执行栈的任务后去检查异步的任务队列，如果异步事件触发，则将其加到主线程的执行栈。over~&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“概念部分转自阮一峰博客-&lt;a href=&quot;http://www.ruanyifeng.com/blog/2014/10/event-loop.html&quot;&gt;JavaScript 运行机制详解：再谈Event Loop&lt;/a&gt;”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-</description>
-        <pubDate>Sat, 14 Jul 2018 10:11:13 +0800</pubDate>
-        <link>http://localhost:5001/2018/07/14/AboutJsEventLoop/</link>
-        <guid isPermaLink="true">http://localhost:5001/2018/07/14/AboutJsEventLoop/</guid>
+        <pubDate>Mon, 04 Jun 2018 01:21:04 +0800</pubDate>
+        <link>http://localhost:5001/2018/06/03/AboutJsModules/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/06/03/AboutJsModules/</guid>
         
         <category>前端</category>
         
@@ -1291,242 +1635,15 @@ JavaScript的&lt;code class=&quot;highlighter-rouge&quot;&gt;单线程&lt;/code&
 &lt;p&gt;总的来说小程序对template支持还算可以，只是官方的api和网上的资料真的太少，需要自个儿研究。&lt;/p&gt;
 
 </description>
-        <pubDate>Mon, 04 Jun 2018 01:25:21 +0800</pubDate>
-        <link>http://localhost:5001/2018/06/03/WxXcxTemplate/</link>
-        <guid isPermaLink="true">http://localhost:5001/2018/06/03/WxXcxTemplate/</guid>
+        <pubDate>Fri, 04 May 2018 01:25:21 +0800</pubDate>
+        <link>http://localhost:5001/2018/05/03/WxXcxTemplate/</link>
+        <guid isPermaLink="true">http://localhost:5001/2018/05/03/WxXcxTemplate/</guid>
         
         <category>前端</category>
         
         <category>小程序</category>
         
         <category>JavaScript</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>var和let/const的区别-细节版</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;let和const是 ES6 新增的命令，用于声明变量，这两个命令跟 ES5 的var有许多不同，并且let和const也有一些细微的不同，再认真阅读了&lt;a href=&quot;http://es6.ruanyifeng.com/#docs/let&quot;&gt;阮一峰老师的文档&lt;/a&gt;后，发现还是有一些不知道的细节…&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h6 id=&quot;var和letconst的区别&quot;&gt;var和let/const的区别&lt;/h6&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、块级作用域&lt;/li&gt;
-  &lt;li&gt;2、不存在变量提升&lt;/li&gt;
-  &lt;li&gt;3、暂时性死区&lt;/li&gt;
-  &lt;li&gt;4、不可重复声明&lt;/li&gt;
-  &lt;li&gt;5、let、const声明的全局变量不会挂在顶层对象下面&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h6 id=&quot;const命令两个注意点&quot;&gt;const命令两个注意点&lt;/h6&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、const 声明之后必须马上赋值，否则会报错&lt;/li&gt;
-  &lt;li&gt;2、const 简单类型一旦声明就不能再更改，复杂类型(数组、对象等)指针指向的地址不能更改，内部数据可以更改&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;为什么需要块级作用域&quot;&gt;为什么需要块级作用域?&lt;/h5&gt;
-&lt;p&gt;ES5只有全局作用域和函数作用域，没有块级作用域。这带来很多不合理的场景:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、内层变量可能覆盖外层变量&lt;/li&gt;
-  &lt;li&gt;2、用来计数的循环变量泄露为全局变量
-    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 想打印外层的时间作用域&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello world'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 这里声明的作用域为整个函数&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// i应该为此次for循环使用的变量&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 5 全局范围都可以读到&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;块级作用域&quot;&gt;块级作用域&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、作用域
-    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;f1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-          &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-          &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 10 内层的n&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 5 当前层的n&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2、块级作用域任意嵌套
-    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;insane&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hello World'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;insane&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 报错 读不到子作用域的变量&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;3、块级作用域真正使代码分割成块了
-    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...;&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...;&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;以上形式，可以用于测试一些想法，不用担心变量重名，也不用担心外界干扰。&lt;/p&gt;
-    &lt;h5 id=&quot;块级作用域声明函数&quot;&gt;块级作用域声明函数&lt;/h5&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;在块级作用域声明函数，因为浏览器的要兼容老代码，会产生一些&lt;a href=&quot;http://es6.ruanyifeng.com/#docs/let#%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E&quot;&gt;问题&lt;/a&gt;！&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;在块级作用域声明函数最好使用匿名函数的形式&quot;&gt;在块级作用域声明函数，最好使用匿名函数的形式&lt;/h5&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 作用域为块级 令声明的函数作用域范围更清晰&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;ES6 的块级作用域允许声明函数的规则，只在使用大括号的情况下成立，如果没有使用大括号，就会报错。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;// 报错&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;'use strict'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 我们需要给if加个{}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h5 id=&quot;不存在变量提升&quot;&gt;不存在变量提升&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;变量提升的现象&lt;/strong&gt;：在同一作用域下，变量可以在声明之前使用，值为 undefined。
-ES5 时使用var声明变量，经常会出现变量提升的现象。&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;// var 的情况&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 输出undefined&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// let 的情况&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 报错ReferenceError&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;暂时性死区&quot;&gt;暂时性死区&lt;/h5&gt;
-&lt;p&gt;只要一进入当前作用域，所要使用的变量就已经存在了，但是不可获取，只有等到声明变量的那一行代码出现，才可以获取和使用该变量&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 声明&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'abc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 报错 因为本区域有tmp声明变量&lt;/span&gt;
-        &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 绑定if这个块级的作用域 不能出现tmp变量&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h6 id=&quot;暂时性死区和不能变量提升的意义在于&quot;&gt;暂时性死区和不能变量提升的意义在于&lt;/h6&gt;
-&lt;p&gt;&lt;strong&gt;为了减少运行时错误，防止在变量声明前就使用这个变量，从而导致意料之外的行为&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;h5 id=&quot;不允许重复声明变量&quot;&gt;不允许重复声明变量&lt;/h5&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;在测试时出现这种情况:var a= ‘声明’;const a = ‘不报错’，这种情况是因为babel在转化的时候，做了一些处理，在浏览器的控制台中测试，就成功报错
-let、const不允许在相同作用域内，重复声明同一个变量
-```js
-    function func(arg) {
-      let arg; // 报错
-    }&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function func(arg) {
-    {
-        let arg; // 不报错
-    }
-} ```    
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;letconst声明的全局变量不会挂在顶层对象下面&quot;&gt;let、const声明的全局变量不会挂在顶层对象下面&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、浏览器环境顶层对象是: window&lt;/li&gt;
-  &lt;li&gt;2、node环境顶层对象是: global&lt;/li&gt;
-  &lt;li&gt;3、var声明的全局变量会挂在顶层对象下面，而let、const不会挂在顶层对象下面&lt;br /&gt;
-如下面这个栗子：
-    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// 如果在 Node环境，可以写成 global.a&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// 或者采用通用方法，写成 this.a&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 1&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;const命令&quot;&gt;const命令&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、一旦声明，必须马上赋值
-    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 不报错&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'马上赋值'&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 报错 没有赋值&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2、const一旦声明值就不能改变&lt;br /&gt;
-简单类型:不能改动
-    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'不能改变'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'报错'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;复杂类型:变量指针不能变&lt;/p&gt;
-    &lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'不能改动'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'OBKoro1'&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'不报错'&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;p2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'不报错'&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'报错'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;p2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'报错'&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;const所说的一旦声明值就不能改变，实际上指的是：变量指向的那个内存地址所保存的数据不得改动&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;简单类型(number、string、boolean)：内存地址就是值,即常量(一变就报错)&lt;/li&gt;
-  &lt;li&gt;复杂类型(对象、数组等)：地址保存的是一个指针，const只能保证指针是固定的(总是指向同一个地址),它内部的值是可以改变的(不要以为const就安全了！)&lt;br /&gt;
-所以只要不重新赋值整个数组/对象， 因为保存的是一个指针，所以对数组使用的push、shift、splice等方法也是允许的，你就是把值一个一个全都删光了都不会报错。
-    &lt;blockquote&gt;
-      &lt;p&gt;复杂类型还有函数，正则等，这点也要注意一下&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;总结&quot;&gt;总结&lt;/h4&gt;
-&lt;p&gt;再总结一下，看到这些名词，脑子里应该会有对应的理解，如果没有的话，那可以再看看对应的内容&lt;br /&gt;
-&lt;strong&gt;var和let/const的区别:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、块级作用域&lt;/li&gt;
-  &lt;li&gt;2、不存在变量提升&lt;/li&gt;
-  &lt;li&gt;3、暂时性死区&lt;/li&gt;
-  &lt;li&gt;4、不可重复声明&lt;/li&gt;
-  &lt;li&gt;5、let、const声明的全局变量不会挂在顶层对象下面&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;const命令两个注意点:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、let可以先声明稍后再赋值,而const在 声明之后必须马上赋值，否则会报错&lt;/li&gt;
-  &lt;li&gt;2、const 简单类型一旦声明就不能再更改，复杂类型(数组、对象等)指针指向的地址不能更改，内部数据可以更改。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;let、const使用场景:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;1、let使用场景：变量，用以替代var。&lt;/li&gt;
-  &lt;li&gt;2、const使用场景：常量、声明匿名函数、箭头函数的时候。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;参考文献&quot;&gt;参考文献&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://es6.ruanyifeng.com/#docs/let&quot;&gt;阮一峰-let和const命令&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sat, 12 May 2018 20:13:16 +0800</pubDate>
-        <link>http://localhost:5001/2018/05/12/DifferentFromVarLetConst/</link>
-        <guid isPermaLink="true">http://localhost:5001/2018/05/12/DifferentFromVarLetConst/</guid>
-        
-        <category>前端</category>
-        
-        <category>JavaScript</category>
-        
-        <category>ES6</category>
         
         
       </item>

@@ -2,7 +2,7 @@
 layout:     post
 title:      "浅入JS的原型链"
 subtitle:   ""
-date:       2018-09-19 11:01:04
+date:       2017-11-19 11:01:04
 author:     "AXiang"
 header-img: "img/post-bg-Mjs.jpg"
 catalog:  true

@@ -254,88 +254,96 @@ ES6定义generator标准的哥们借鉴了Python的generator的概念和语法�
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/12/13/AboutJsOfHeapAndStack/">
+    <a href="/2018/12/12/AboutJsEventLoop/">
         <h2 class="post-title">
-            JS中的栈内存、堆内存
+            JavaScript的Event Loop机制
         </h2>
         
         <h3 class="post-subtitle">
-            heap and stack
+             
         </h3>
 
         
         
         <div class="post-content-preview">
-            引言
-
-说说JS中的堆栈
-我们都熟知并且常用JS变量的声明以及初始化（赋值），比如一行极其简单的代码var str = '我是字符串'，那么这行代码执行的时候发生了什么呢？再比如var obj = {name: 'reslicma'}又发生了什么？他们一样吗？请看正文。
-
-JS中变量的类型
-我们先行讨论JS中变量的类型，因为JS中变量的具体存储方式是取决于这个变量的类型的。JS中的变量共有两...
+            简述
+前几天看一个题↓↓↓，随口答出12354，答案却是不然。。。看似简单却很复杂的问题在不断思考，复杂是在于它的广度和深度都很大，对自己影响很大。这道题牵涉到了Javascript的运行机制，刚好想着可以巩固一下之前学习过的东西，作为一个学习笔记记录下来。
+    console.log("1")
+    setTimeout(() =&gt; {
+        console.log(...
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on December 13, 2018
+        Posted by AXiang on December 12, 2018
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/10/24/AboutJsModules/">
+    <a href="/2018/10/03/ApplicationOfPseudoElementForContent/">
         <h2 class="post-title">
-            js模块化-javascript module相关
+            伪元素content的应用
         </h2>
         
         <h3 class="post-subtitle">
-            ECMAScript module
-        </h3>
-
-        
-        
-        <div class="post-content-preview">
-            简介
-现在，所有主流浏览器都已经支持JS module（Chrome、Edge、Safari、Firefox）。modules，就是JS的模块，我的理解就是，当有大量同类型或者有关联的数据和函数，方法需要当作一个整体展示的时候，可以单独定义成一个module也就是模块。module意义就使得代码模块化，使你的代码分成一个个逻辑上独立的子集，每个子集处理特定的功能，然后被单独调用。。
-
-
-
-截...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by AXiang on October 24, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/09/19/PrototypeChain/">
-        <h2 class="post-title">
-            浅入JS的原型链
-        </h2>
-        
-        <h3 class="post-subtitle">
-            
+             
         </h3>
 
         
         
         <div class="post-content-preview">
             
-  prototype chain
+  “没有引言”
 
 
-原型
-首先要说一下为什么会有原型这个东西，那是因为在 JavaScript 中并没有 “类” 的概念，它是靠原型和原型链实现对象属性的继承，即便在 ES6 中新出了class的语法，但那也只是一个语法糖，它的底层依然是原型。
-
-要理解原型（原型链），最重要的是理解两个属性以及它们之间的关系，附上一张经典关系图：
-
-  __ proto __
-  pr...
+Go
+日常开发中,一般会用到一些伪类如:before，:after来实现一些效果，比如:用于尾部追加边距和前部插入icon
+   
+通常我们使用contend只是追加一些字符串，事实上，content属性不仅仅支持字符串，也支持一些内置的css方法。 
+使用content: attr(XXXX)可以实现HTML与CSS的“通讯”，使得伪元素能读取当前元素的属性。看以下...
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on September 19, 2018
+        Posted by AXiang on October 3, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/09/16/AmazingCss/">
+        <h2 class="post-title">
+            流离在过去的Css样式
+        </h2>
+        
+        <h3 class="post-subtitle">
+            健忘的福音
+        </h3>
+
+        
+        
+        <div class="post-content-preview">
+            
+  老忘记但是炒鸡好用的Css样式
+
+
+视差效果：background-attachment: fixed;
+视差滚动能让多层背景以不同的速度移动，形成立体的运动效果，带来非常出色的视觉体验。在CSS中定义背景滚动方式的属性是backgroud-attacthment，下面简单的写了一个Demo。
+
+
+
+
+	简易视差Demo
+	
+		
+    
+
+
+弹性盒子模型 display:flex
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on September 16, 2018
     </p>
 </div>
 <hr>
@@ -374,33 +382,64 @@ JS中变量的类型
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/07/14/AboutJsEventLoop/">
+    <a href="/2018/07/10/AboutMiniProgram/">
         <h2 class="post-title">
-            JavaScript的Event Loop机制
+            细数微信小程序的前端坑
         </h2>
         
         <h3 class="post-subtitle">
-             
+            细数了半年
         </h3>
 
         
         
         <div class="post-content-preview">
-            简述
-前几天看一个题↓↓↓，随口答出12354，答案却是不然。。。看似简单却很复杂的问题在不断思考，复杂是在于它的广度和深度都很大，对自己影响很大。这道题牵涉到了Javascript的运行机制，刚好想着可以巩固一下之前学习过的东西，作为一个学习笔记记录下来。
-    console.log("1")
-    setTimeout(() =&gt; {
-        console.log(...
+            
+  酝酿了半年，个人理解
+
+
+WXML
+
+小程序的标签
+
+小程序里的标签远没有H5里的标签多，这主要归于H5许多标签仅仅是个普通容器，只是语义化不相同，在浏览器搜索引擎检索时发挥一下权重点的作用。但在小程序里就没有这种情况，所以在小程序里剔除了许多语义容器，用view代替div作为小程序最常见的容器，推荐使用的API官方组件里的官方组件，h5标签不是不能用，只是在渲染的时候会没有默认属性，...
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on July 14, 2018
+        Posted by AXiang on July 10, 2018
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/06/03/WxXcxTemplate/">
+    <a href="/2018/06/03/AboutJsModules/">
+        <h2 class="post-title">
+            js模块化-javascript module相关
+        </h2>
+        
+        <h3 class="post-subtitle">
+            ECMAScript module
+        </h3>
+
+        
+        
+        <div class="post-content-preview">
+            简介
+现在，所有主流浏览器都已经支持JS module（Chrome、Edge、Safari、Firefox）。modules，就是JS的模块，我的理解就是，当有大量同类型或者有关联的数据和函数，方法需要当作一个整体展示的时候，可以单独定义成一个module也就是模块。module意义就使得代码模块化，使你的代码分成一个个逻辑上独立的子集，每个子集处理特定的功能，然后被单独调用。。
+
+
+
+截...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by AXiang on June 3, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/05/03/WxXcxTemplate/">
         <h2 class="post-title">
             小程序·模板Template相关
         </h2>
@@ -425,39 +464,7 @@ JS中变量的类型
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on June 3, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/05/12/DifferentFromVarLetConst/">
-        <h2 class="post-title">
-            var和let/const的区别-细节版
-        </h2>
-        
-        <h3 class="post-subtitle">
-            
-        </h3>
-
-        
-        
-        <div class="post-content-preview">
-            
-  let和const是 ES6 新增的命令，用于声明变量，这两个命令跟 ES5 的var有许多不同，并且let和const也有一些细微的不同，再认真阅读了阮一峰老师的文档后，发现还是有一些不知道的细节…
-
-
-var和let/const的区别
-
-  1、块级作用域
-  2、不存在变量提升
-  3、暂时性死区
-  4、不可重复声明
-  5、let、const声明的全局变量不会挂在顶层对象下面...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by AXiang on May 12, 2018
+        Posted by AXiang on May 3, 2018
     </p>
 </div>
 <hr>
@@ -564,14 +571,14 @@ var和let/const的区别
                             
                         
                             
-                                <a href="/tags/#小程序" title="小程序" rel="2">
-                                    小程序
+                                <a href="/tags/#ES6" title="ES6" rel="2">
+                                    ES6
                                 </a>
                             
                         
                             
-                                <a href="/tags/#ES6" title="ES6" rel="2">
-                                    ES6
+                                <a href="/tags/#小程序" title="小程序" rel="2">
+                                    小程序
                                 </a>
                             
                         

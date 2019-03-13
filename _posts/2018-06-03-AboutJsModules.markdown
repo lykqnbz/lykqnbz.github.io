@@ -2,7 +2,7 @@
 layout:     post
 title:      "js模块化-javascript module相关"
 subtitle:   "ECMAScript module"
-date:       2018-10-24 17:21:04
+date:       2018-06-03 17:21:04
 author:     "AXiang"
 header-img: "img/post-bg-Mjs_2.jpg"
 catalog:  true

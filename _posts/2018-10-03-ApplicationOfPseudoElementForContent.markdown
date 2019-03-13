@@ -2,7 +2,7 @@
 layout:     post
 title:      "伪元素content的应用"
 subtitle:   " "
-date:       2018-03-03 11:29:21
+date:       2018-10-03 11:29:21
 author:     "AXiang"
 header-img: "img/post-bg-css.jpg"
 catalog:  true

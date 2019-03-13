@@ -2,7 +2,7 @@
 layout:     post
 title:      "var和let/const的区别-细节版"
 subtitle:   ""
-date:       2018-05-12 12:13:16
+date:       2018-03-12 12:13:16
 author:     "AXiang"
 header-img: "img/post-bg-noe.jpg"
 catalog:  true
