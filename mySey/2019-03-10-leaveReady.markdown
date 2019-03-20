@@ -164,6 +164,9 @@
             var func = bar.bind(foo);
             func(); // 3
             这里我们创建了一个新的函数 func，当使用 bind() 创建一个绑定函数之后，它被执行的时候，它的 this 会被设置成 foo ， 而不是像我们调用 bar() 时的全局作用域。
+            call: fn.call(target, 1, 2)
+            apply: fn.apply(target, [1, 2])
+            bind: fn.bind(target)(1,2)
 
       4、创建10个<a>标签，点击的时候弹出对应的序号
       4- for(var i=0;i<10;i++){
@@ -328,6 +331,40 @@
     概念
 
 
+八、数组操作相关
+    map: 遍历数组，返回回调返回值组成的新数组
+    forEach: 无法break，可以用try/catch中throw new Error来停止
+    join: 通过指定连接符生成字符串
+    push / pop: 末尾推入和弹出，改变原数组， 返回推入/弹出项
+    unshift / shift: 头部推入和弹出，改变原数组，返回操作项
+    sort(fn) / reverse: 排序与反转，改变原数组
+    concat: 连接数组，不影响原数组， 浅拷贝
+    slice(start, end): 返回截断后的新数组，不改变原数组
+    splice(start, number, value...): 返回删除元素组成的数组，value 为插入项，改变原数组
+    indexOf / lastIndexOf(value, fromIndex): 查找数组项，返回对应的下标
+    reduce / reduceRight(fn(prev, cur)， defaultPrev): 两两执行，prev 为上次化简函数的return值，cur 为当前值(从第二项开始)
+    数组乱序：
+      var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      arr.sort(function () {
+          return Math.random() - 0.5;
+      });
+    数组拆解: flat: [1,[2,3]] --> [1, 2, 3]   
+    var arr2 = [1, 2, [3, 4, [5, 6]]];
+    arr2.flat();
+    // [1, 2, 3, 4, [5, 6]]
+
+    var arr3 = [1, 2, [3, 4, [5, 6]]];
+    arr3.flat(2);
+    // [1, 2, 3, 4, 5, 6]
+
+    //Infinity展开所有嵌套数组
+    arr3.flat(Infinity); 
+    // [1, 2, 3, 4, 5, 6]
+    
+    Array.prototype.flat = function() {
+      return this.toString().split(',').map(item => +item )
+    }  
+
 
 
 
@@ -353,8 +390,9 @@
 3、Vue的跨域问题
 4、JS如何重载
   JS不能支持函数重载，需要通过arguments.length判断一下调用时传入的参数个数。然后对不同的情况采用不同的处理方式，实现重载
-
-
+5、浅拷贝和深拷贝
+  浅拷贝: 以赋值的形式拷贝引用对象，仍指向同一个地址，修改时原对象也会受到影响    Object.assign(a,b)
+  深拷贝: 完全拷贝一个新对象，修改时原对象不再受到任何影响  JSON.parse(JSON.stringify(a))
 
 
 

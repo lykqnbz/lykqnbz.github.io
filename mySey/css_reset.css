@@ -17,7 +17,7 @@ th, td /* 表格元素 */ {
 body, button, input, select, textarea {
     font: 1rem '微软雅黑','黑体', Helvetica, sans-serif;
 }
-h1, h2, h3, h4, h5, h6, button, input, select, textarea { font-size: 100%; }
+h1, h2, h3, h4, h5, h6, button, input, select, textarea { font-size: 100%;}
 
 /** 重置列表元素 **/
 ul, ol { list-style: none; }
