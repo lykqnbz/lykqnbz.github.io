@@ -118,6 +118,7 @@
 
       2、如何准确判断一个变量是否是数组类型
       2- var arr = [];     arr instanceOf Array  // true        typeof arr   //Object
+        使用Object.prototype.toString.call([1,1,3])
        
       
       3、描述创建一个对象的过程
@@ -329,6 +330,9 @@
 
 七、VUE
     概念
+    面试问答
+    1、vue双向绑定的原理
+    1- 通过对浏览器的数据劫持，重写对象的set,get方法 vue 2.0使用 Object.defineProperty(),  vue 3.0使用Proxy
 
 
 八、数组操作相关
@@ -378,7 +382,6 @@
 
 
 
-
 <!-- 面试不会的或者没答好的 -->
 1、vue组件之间的通信，父子，同级
   父向子传值：属性传值，父组件通过给子组件标签上定义属性，子组件通过props方法接收数据；
@@ -393,6 +396,17 @@
 5、浅拷贝和深拷贝
   浅拷贝: 以赋值的形式拷贝引用对象，仍指向同一个地址，修改时原对象也会受到影响    Object.assign(a,b)
   深拷贝: 完全拷贝一个新对象，修改时原对象不再受到任何影响  JSON.parse(JSON.stringify(a))
+6、小程序的生命周期
+  app.js   onLanuch onShow onHide onError 
+  page.js  onLoad onShow onHide onUnload onReady 
+7、canvas 跨域 数据污染
+
+8、前端性能如何优化
+
+9、一百万条数据到前端，如何优化
+
+10、纯CSS写倒数计时 
+    animation:run 6s steps(6);
 
 
 
