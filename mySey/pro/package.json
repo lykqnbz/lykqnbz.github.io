@@ -1,0 +1,21 @@
+{
+  "name": "AXiang",
+  "version": "4.2.1",
+  "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
+  "author": "Axiang",
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {
+    "chalk": "^3.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=8.9",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "private": true
+}
