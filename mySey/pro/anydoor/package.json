@@ -2,6 +2,10 @@
   "name": "anydoor",
   "version": "1.0.1",
   "description": "tiny noodejs web server",
+  "main":"src/app.js",
+  "bin":{
+    "xiaogebbb":"bin/xiaogebbb"
+  },
   "author": "AXiang",
   "license": "MIT",
   "scripts": {},
@@ -9,6 +13,7 @@
     "chalk": "^3.0.0",
     "handlebars": "^4.7.3",
     "supervisor": "^0.12.0",
+    "yargs": "^15.3.0",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
