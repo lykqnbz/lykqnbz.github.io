@@ -389,9 +389,26 @@
   深拷贝: 完全拷贝一个新对象，修改时原对象不再受到任何影响  JSON.parse(JSON.stringify(a))
 6、小程序的生命周期
   app.js   onLanuch onShow onHide onError 
-  page.js  onLoad onShow onHide onUnload onReady 
-7、canvas 跨域 数据污染
+  page.js  onLoad onShow onHide onUnload onRead y 
+7、canvas 中图片跨域问题产生的数据污染如何解决
+  一、将需要的图片重定向到同一个域名下
+  二、开启图片crossorigin的属性，这个属性决定了图片获取过程中是否开启验证跨域的操作
 
+8、前端性能如何优化
+  1-减少http请求，类同数据可以合并接口，图片的话可以使用sprite图
+  2-合理运用缓存 减少带宽压力 
+  3-压缩 CSS, JS 和 HTML
+  4-减少DOM元素数量，适当情况使用碎片文档
+
+9、一百万条数据到前端，如何优化
+    每次对dom的操作都会触发"重排"（重新渲染界面，发生重绘或回流），这严重影响到能耗，一般通常采取的做法是尽可能的减少 dom操作来减少"重排"   
+    document.createDocumentFragment()    一个容器，用于暂时存放创建的dom元素      
+    将需要添加的大量元素  先添加到文档碎片中，再将文档碎片添加到需要插入的位置，大大 减少dom操作，提高性能
+10、纯CSS写倒数计时 
+    animation:run 6s steps(6);
+
+11、不同页面之间如何传值
+   一、url携带参数 二、cookie方式 三、利用window.open设置窗口之间的父子关联关系  四、localStorage
 8、前端性能如何优化(具体CDN缓存之类)
 
 9、纯CSS写倒数计时 

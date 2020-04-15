@@ -1,0 +1,73 @@
+
+b与strong的区别 
+
+现在写页面一般喜欢用什么布局，用过flex布局吗   说一些CSS3的常用伪类
+
+animation与transition
+纯CSS写倒数计时 
+    animation:run 6s steps(6);
+
+
+JS如何重载
+  JS不能支持函数重载，需要通过arguments.length判断一下调用时传入的参数个数。然后对不同的情况采用不同的处理方式，实现重载
+
+谈谈原型和原型链
+  Js中没有 “类” 的概念，所以靠原型和原型链实现对象属性的继承。除了null和undefined以外所有的对象都有__proto__属性，而且指向创造这个对象的函数对象的prototype属性。
+
+一般怎么调试页面，那真机调试安卓和IOS呢
+
+谈一谈前端性能优化
+	一百万条数据到前端，如何优化
+    每次对dom的操作都会触发"重排"（重新渲染界面，发生重绘或回流），这严重影响到能耗，一般通常采取的做法是尽可能的减少 dom操作来减少"重排"   
+    文档碎片document.createDocumentFragment() 一个容器，用于暂时存放创建的dom元素      
+    将需要添加的大量元素  先添加到文档碎片中，再将文档碎片添加到需要插入的位置，大大 减少dom操作，提高性能
+
+
+说说 JQuery里的parents() 和closest() : parents 从父节点出发，返回当前元素的符合条件的所有父节点直到根目录 ，closest() 是找当前元素的所有父节点 ，返回找到第一个匹配的父节点
+jquery链式调用的原理  jquery大部分方法都返回一个对象
+
+为什么不考虑禁掉自带的下拉，聊天是你写的吗，说说这个聊天。你做到在朋友圈分享这个小程序吗
+
+小程序有哪些坑，用过原生组件吗，会二次封装request吗，有用到ES6的promise吗  promise有几种状态 pending/reslove/reject ，async(额sin)await
+
+token
+当调用wx.login()时，就可以向服务器发起请求，得到code，客户端拿到code码是需要发送给服务器的
+在服务器接收到code码后，再携带这appid，secret去访问微信服务器，微信服务器会返回openid，session_key。 
+openid是用户标识 session_key是解密用的（比如解密unionid）
+当搭建者服务器拿到微信返回的openid，session_key后，会自己生成一个3rd_session （最好和openid相关联）也可以叫做一个token吧。
+然后把这个token返回给客户端，客户端把token存在本地缓存，
+
+小程序的生命周期
+  app.js   onLanuch onShow onHide onError 
+  page.js  onLoad onShow onHide onUnload onRead
+
+
+在ios上或者android上遇到什么奇怪的兼容问题吗？
+在ios上用过fixed定位吗
+
+PS上，自己切的图，导出图片怎么导出，一张一张导出吗
+
+用过vue吗 
+vue双向绑定的原理
+   通过对浏览器的数据劫持，重写对象的set,get方法 vue 2.0使用 Object.defineProperty(),  vue 3.0使用Proxy
+
+vue组件之间怎么通信
+   父向子传值：属性传值，父组件通过给子组件标签上定义属性，子组件通过props方法接收数据；
+   子向父传值：事件传值，子组件通过$emit(‘自定义事件名’，值)，父组件通过子组件上的@自定义事件名=“函数”接收
+   非父子组件传值：全局定义bus，var bus=new Vue() ; 发送者， bus.$emit(‘自定义名’，值) ；接受者，bus.$on(‘自定义名’，(值)=>{})
+   create  mounted  update  destroy 
+mounted(mout提特)和create的区别
+   created:在模板渲染成html前调用，即通常初始化某些属性值，然后再渲染成视图。
+   mounted:在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
+
+Vue的跨域问题  img,script,link
+
+vue的插槽默认插槽 具名插槽 作用域插槽
+插槽用于决定将所携带的内容，插入到指定的某个位置，从而使模板分块，具有模块化的特质和更大的重用性。插槽显不显示、怎样显示是由父组件来控制的，而插槽在哪里显示就由子组件来进行控制
+
+会自己配置webpack吗
+
+怎么和ios安卓交互？如何优化webview 特别是安卓端
+
+问个逻辑题 
+
