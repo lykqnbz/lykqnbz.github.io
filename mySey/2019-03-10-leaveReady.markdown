@@ -65,7 +65,7 @@
       @keyframes changebox { 0% {  background:red;  }
                           100% {  width:180px;  height:180px; }}
       
-      4、flex布局相关： align-self,justify-content,flex-direction,flex-wrap
+      4、flex布局相关： align-self,justify-content,flex-direction,flex-wrap,flex-shrink
       5、单行省略: width:5em;text-overflow: ellipsis; overflow: hidden; white-space: nowrap;
       6、多行省略：  display: -webkit-box;
                     text-overflow: ellipsis;
@@ -475,6 +475,8 @@
     }
   }
   HR你们好，我叫王翔。在之前公司就职前端开发，17年毕业投入工作，现有2年的工作经验。掌握的前端技术有H5,CSS3，JS,小程序相关等，熟悉数据可视化渲染，性能优化以及动效制作。掌握UI设计师的设计思路，同时也了解java语言和数据库表结构这块，所以与UI和后端人员能更有效的沟通。自身性格热情开朗，与同事乐于沟通，对工作认真负责，有责任心。非常开心能来到贵公司面试。
+
+  HR你们好，我叫王翔，在之前公司司职前端开发，17年毕业至今有3年工作经验，半年管理经验，参与并主导开发过多平台项目，例如WebH5,移动端H5，APP，小程序等都有建树，三大框架中对Vue比较熟悉，React和Angular也有所了解，如果需要的话上手起来肯定不会慢，前端技术栈均有尝试，基本功扎实，乐于沟通，喜欢有氛围的技术团队，非常开心能来到贵公司面试。
 
 - Vue复习笔记
 1--------------------------------
