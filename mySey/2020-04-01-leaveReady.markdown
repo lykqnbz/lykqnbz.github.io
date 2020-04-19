@@ -3,7 +3,7 @@
  * @Author: AXiang
  * @Date: 2020-04-15 19:04:28
  * @LastEditors: AXiang
- * @LastEditTime: 2020-04-16 03:05:25
+ * @LastEditTime: 2020-04-20 02:52:14
  -->
 自审面试：
     1、谈谈CommonJS规范与AMD/CMD规范总结
@@ -84,18 +84,74 @@
         -创建一个js文件作为对vue全局拦截器，利用beforeEach等钩子函数实现对权限的判断，动态生成路由
     17、vue的生命周期
         -created,mounted,updata,destory
-    18、谈一谈vuex
-        -对Vue的状态管理，利用commit触发mutation对state进行修改
+    18、简述Vuex的原理和使用方法，为什么要用它
+        -对为Vue的开发的状态管理模式，外部调用dispatch(dis棒尺)来触发actions里面的方法，actions里面的每个方法中都会有一个commit方法，利用commit触发mutation对state进行修改，当数据修改完毕后，会传导给页面。页面的数据也会发生改变
         五大核心
         state（存储数据，利用this.$store.state来访问，为全局响应式）
         getter（可以认为是store 的计算属性和watch，computed有点像）
-        mutation（提供更改store中的状态的方法）
+        mutation（提供更改state中状态的方法）
         action（外部通过自带的commit提交 mutation 间接更变状态）
         module（将 store 分割成模块）
+        由于在vue中传参的方法对于多层嵌套的组件将会非常繁琐，所以我们需要把组件的共享状态抽取出来，构成一个公共的识图，任何组件都能获取状态或触发行为
     19、router、routes、route的区别
         -router：路由器对象  $router.push()
         -routes：创建vue-router路由实例的配置项
         -route：路由对象表示当前路由状态   this.$route
-
-
-
+    20、vue路由的两种模式
+        - hash模式 工作原理是触发监听hachChange事件，通过改变hash标志#后的数据来控制我们需要的操作
+        - history模式 则更加自由，提供了history的api，包含路由前进后退跳转修改等操作。但是页面刷新后如果服务器配置的URL匹配不到资源则会返回404，我们一般靠配置nginx转发index.html
+    21、vue的双向绑定原理
+        -Vue采用数据劫持结合发布者-订阅者模式的方法，通过Object.defineProperty()来劫持各个属性的setter,getter属性，在数据变动话，通知订阅者，触发更新，重新渲染视图
+    22、如何定义vue-router的动态路由，怎么获取传过来的动态参数
+        -path属性加上/:id，使用router对象的params.id来获取
+    23、简述vue-router导航钩子
+        -主要用来作用是拦截导航，让他在完成前进行一些操作。分为全局的，独个路由的，以及组件的。
+        全局有：beforeEach()，afterEach()等，路由的有beforeEnter(),组件的有beforeRouteEnter，Update，Leave。都有to, from, next三个参数
+    24、手写数组去重，获取不同随机数，遍历DOM树
+        - let arr = [1, 3, 5, 3, 1, 6, 8, 4, 5, 5, 6, 7, 8]  let hash = []   let n = []
+          arr.forEach((item, index) => {
+            if (!hash[arr[index]]) {
+              hash[arr[index]] = true
+              n.push(item)
+            }
+          })
+        -   let tem = []
+            for (let i = 0; i < 100; i++) {
+              let num = Math.floor(Math.random() * 10)
+              if (tem.indexOf(num) == -1) {
+                tem.push(num)
+              }
+              if (tem.length == 10) {
+                break
+              }
+            }
+        -   const DFS = {
+              nodes: [],
+              do(root) {
+                for (let i = 0; i < root.childNodes.length; i++) {
+                  var node = root.childNodes[i]
+                  this.nodes.push(node)
+                  this.do(node)
+                }
+                return this.nodes
+              }
+            }   console.log(DFS.do(document.body))
+      25、解释一下什么是Nginx?
+        -Nginx是一个web服务器和反向代理服务器
+      26、解释Nginx如何处理HTTP请求
+        -Nginx使用反应器模式，会根据过来的http请求头里的Host字段里的值，来判断使用哪个server{}
+      27、使用“反向代理服务器”的优点是什么
+        -隐藏源服务器的存在和特征，充当互联网云和web服务器之间的中间层。安全方面来说是很好的。
+      28、canvas与svg的区别有什么？
+        -canvas是H5提供新的元素，svg是描述二维图形的语言。canvas通过JS进行绘制，，不依赖分辨率,逐像素进行渲染，支持事件处理器，复杂度高会延缓渲染速度，一旦绘画完成就不会被浏览器所关注，如果发生位置之类的变化，那整个场景也需要重新绘制。 而在svg中，渲染依赖分辨率，并且不支持事件处理器，但每个被绘制图像都是一个对象，如果svg对象的属性发生变化，浏览器会自动重绘图像。  
+      29、canvas的特点
+        -数据储存结构是点阵，有层级之分，先画的在下，后画的在上。可以绘制线条，字符图片等。在数据覆盖到屏幕数据前，任意代码操作都不影响输出。
+      30、canvas中，什么是跳帧？
+        -当Canvas绘画所需的时间大于一次循环更新所需的时间，我们的下一帧就不绘画了，把时间留给上一帧绘画，以此保证上一帧绘画完整。如果两帧的时间还画不完说明主线程循环速度需要调节。
+      31、Vue的渐进式理解
+        -在我看来，渐进式代表的含义是：主张最少。每个框架都不可避免会有自己的一些特点，从而会对使用者有一定的要求，这些要求就是主张，主张有强有弱，它的强势程度会影响在业务开发中的使用方式，例如angular强主张使用它的模块机制必须使用它的依赖注入，React主张函数式编程一样。Vue可能有些方面是不如ang，react，但是它是渐进的，没用强主张，你可以在原系统上，改用一两个组件用vue实现，当jqeruy用，也可以用全家桶开发之类，渐进式的含义，我的理解是：没有多做职责之外的事
+      32、浏览器是如何渲染页⾯的？
+        -解析HTML文件，创建DOM树。自上而下，遇到任何样式（link、style）与脚本（script）都会阻塞。然后解析CSS，.将CSS与DOM合并，构建渲染树。最后布局和绘制，重绘（repaint）和重排（reflow）
+      33、前后端路由的区别？
+        -后端路由页面请求的url全部要通过后端服务的过滤器进行过滤和处理，前端浏览器显示的页面信息是通过后端服务直接处理过的
+        -前端路由没有原来意义上的页面跳转，改变url不触发请求，页面的跳转和切换，只需要请求数据，关注接口数据的改变即可。不会再去重新请求js文件及css文件
