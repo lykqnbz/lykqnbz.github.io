@@ -109,31 +109,30 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
-
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
@@ -141,11 +140,11 @@
 
 <!-- Post Header -->
 <style type="text/css">
-    header.intro-header{
+    header.intro-header {
         background-image: url('/img/post-bg-note.jpg')
     }
 </style>
-<header class="intro-header" >
+<header class="intro-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -160,7 +159,9 @@
                     
                     <h2 class="subheading">　</h2>
                     
-                    <span class="meta">Posted by AXiang on August 1, 2017</span>
+                    <span class="meta">Posted by
+                        AXiang on
+                        August 1, 2017</span>
                 </div>
             </div>
         </div>
@@ -168,17 +169,19 @@
 </header>
 
 <!-- Post Content -->
+
+
 <article>
     <div class="container">
         <div class="row">
 
-    <!-- Post Container -->
+            <!-- Post Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<blockquote>
+                <blockquote>
   <p>“保存一些有用的网站，当做云端浏览器收藏夹 :D”</p>
 </blockquote>
 
@@ -194,130 +197,35 @@
 
 
 
-                <hr style="visibility: hidden;"> 
+                <hr style="visibility: hidden;">
 
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/" data-toggle="tooltip" data-placement="top" title="初学Git命令笔记">&larr; Previous Post</a>
+                        <a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/"
+                            data-toggle="tooltip" data-placement="top" title="初学Git命令笔记">&larr; Previous
+                            Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" data-toggle="tooltip" data-placement="top" title="响应式设计的基础知识">Next Post &rarr;</a>
+                        <a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" data-toggle="tooltip"
+                            data-placement="top" title="响应式设计的基础知识">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
 
 
             </div>
-    <!-- Side Catalog Container -->
-        
-    <!-- Sidebar Container -->
+            <!-- Side Catalog Container -->
+            
+            <!-- Sidebar Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
                 <!-- Featured Tags -->
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-        				
-                            
-                				<a href="/tags/#生活" title="生活" rel="1">
-                                    生活
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Git" title="Git" rel="1">
-                                    Git
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#笔记" title="笔记" rel="6">
-                                    笔记
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#前端" title="前端" rel="22">
-                                    前端
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#响应式设计" title="响应式设计" rel="2">
-                                    响应式设计
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Css" title="Css" rel="6">
-                                    Css
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Bootstrap" title="Bootstrap" rel="1">
-                                    Bootstrap
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Sass" title="Sass" rel="1">
-                                    Sass
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#JavaScript" title="JavaScript" rel="11">
-                                    JavaScript
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Vue.js" title="Vue.js" rel="1">
-                                    Vue.js
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#SEO" title="SEO" rel="1">
-                                    SEO
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#插件" title="插件" rel="1">
-                                    插件
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#ES6" title="ES6" rel="2">
-                                    ES6
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#小程序" title="小程序" rel="2">
-                                    小程序
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Html" title="Html" rel="1">
-                                    Html
-                                </a>
-                            
-        				
-        			</div>
-                </section>
                 
 
                 <!-- Friends Blog -->
@@ -326,11 +234,11 @@
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
-                        <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
+                    <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
                     
-                        <li><a href="http://ngabbs.com/">NGA</a></li>
+                    <li><a href="http://ngabbs.com/">NGA</a></li>
                     
-                        <li><a href="http://www.acfun.cn/">ACFUN</a></li>
+                    <li><a href="http://www.acfun.cn/">ACFUN</a></li>
                     
                 </ul>
                 
@@ -361,21 +269,21 @@
 <!-- async load function -->
 <script>
     function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function () {
         anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
+            visible: 'always',
+            placement: 'right',
+            icon: '#'
         };
         anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
     })
@@ -383,15 +291,14 @@
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {
-        .anchorjs-link{
+        .anchorjs-link {
             position: absolute;
             left: -0.75em;
             font-size: 1.1em;
-            margin-top : -0.1em;
+            margin-top: -0.1em;
         }
     }
 </style>
-
 
 
     <!-- Footer -->
@@ -455,7 +362,7 @@
                     </li>
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 空的伸手摘星 <!--2019-->2048
+                    Copyright &copy; 空的伸手摘星 <!--2020-->2048
                     <br>
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -573,7 +480,6 @@
                             = 'rotate(' + beta + 'deg)';
     }, false);
     } else {
-    document.querySelector('body').innerHTML = '浏览器不支持DeviceOrientationEvent';
     }
 </script>
 

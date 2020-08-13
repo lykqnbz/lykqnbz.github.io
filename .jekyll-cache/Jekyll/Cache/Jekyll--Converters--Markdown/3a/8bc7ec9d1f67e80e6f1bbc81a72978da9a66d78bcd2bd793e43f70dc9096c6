@@ -1,0 +1,83 @@
+I"/<blockquote>
+  <p>“针对2017年9月时期百度引擎的个人见解”</p>
+</blockquote>
+
+<h3 id="前言">前言</h3>
+<p>抛出大观点：<strong>移动站点的收录排名是参考PC站点的数据，所以移动站优化前提是得有个收录比较健康的PC站，而且得做好适配。</strong></p>
+
+<h3 id="现状以及有关移动站点收录">现状以及有关移动站点收录</h3>
+<p>目前我司网站在移动搜索中的表现为：移动搜索出现均为PC站网址，没有移动站网址出现，点击PC站后代码跳转移动站，可以理解为移动站没有收录且没有排行。</p>
+
+<p>对于百度搜索而言，PC端搜索会优先呈现PC站点，而移动搜索会优先移动站。如搜索关键词<strong>宝鸡车网</strong>：</p>
+
+<p><img src="/img/in-post/post-seo/seo-1709_1.png" alt="高频关键词：宝鸡车网在PC端和移动端的搜索区别" /></p>
+
+<p>宝鸡车网，这种高频词，竞争比较大的词在PC端和移动端所展现的网站都是各不相同的，并且移动端展现的网址都是专门的移动网址<strong>www.m.xxx.com</strong>、<strong>www.wap.xxx.com</strong>、<strong>www.3g.xxx.com</strong>，说明做这个词的公司在移动端优化得特别好，使搜索有定向性，展现的都是移动样式网页。但如果是一些低竞争词，如搜索关键词<strong>夏黑葡萄苗</strong>：
+<img src="/img/in-post/post-seo/seo-1709_2.png" alt="低频关键词：夏黑葡萄苗在PC端和移动端的搜索区别" /></p>
+
+<p>因为竞争小，基本上没有专门的移动网站，所以在移动端搜索展现的都是优化比较好的PC网址。可以得出百度在移动端搜索可能是有这样一个排行的优先级:</p>
+<ul>
+  <li>1、移动站被收录，移动站点有适配PC站点，且PC站点的排名优化较好</li>
+  <li>2、移动站被收录，PC站点排名优化较好，有类似于移动站点的网页，但没有适配绑定</li>
+  <li>3、移动站没有被收录，PC站点排名优化较好，但有类似于移动站点的网页，且没有适配绑定（我司目前情况）</li>
+  <li>4、PC站点排名优化较好，没有移动站点的网站，百度提供移动端转码</li>
+</ul>
+
+<p>所以说，对于<strong>夏黑葡萄苗</strong>这样的低竞争词，只需要在PC端优化好的基础上，对其进行移动站点收录适配，就能让百度移动端检索到该网页的移动站点，排名就能轻而易举的上去，排在那些PC站点之前。</p>
+
+<h3 id="移动适配">移动适配</h3>
+
+<p>那如何进行适配呢,根据我司情况，提供以下方式：<strong>在百度站长平台开放适配部分提交移动和PC站的URL对应关系，这样百度才能将PC页面的排名数据转移到对应的移动页面上</strong>。这样移动站点就容易被搜索引擎收录并且适配成功后可以和PC站点共享优化成果。
+<img src="/img/in-post/post-seo/seo-1709_3.png" alt="百度站长平台的移动适配" /></p>
+
+<h3 id="提高收录">提高收录</h3>
+
+<p>如果移动网址在百度搜索都没有被收录，那一些都是泡影。除了适配以外，还有几个要点可以提高移动站收录率：</p>
+
+<h5 id="吸引baiduspider">吸引Baiduspider</h5>
+<p>百度通过<code class="language-plaintext highlighter-rouge">Baiduspider</code>（百度蜘蛛）来进行对网站的信息采集，一般来说只有被<code class="language-plaintext highlighter-rouge">Baiduspider</code>采集了的网站才能被收录，使用一下几个方式可以有效的吸引<code class="language-plaintext highlighter-rouge">Baiduspider</code>:</p>
+<ul>
+  <li>robots限制放开，允许百度蜘蛛进行爬取</li>
+  <li>5秒内的移动端加载速度，越快越好</li>
+  <li>发布贴合网站类型的文章，保持类同的更新频率</li>
+  <li>网站树形状物理结构，导航结构清晰，便于百度蜘蛛爬行</li>
+</ul>
+
+<h5 id="applicable-device标注">applicable-device标注</h5>
+<p>在网站首页代码头标签中的添加<strong>applicable-device标注的META标记</strong>，具体规则和对应关系见下：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="c">&lt;!-- PC站 --&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"applicable-device"</span> <span class="na">content=</span><span class="s">"pc"</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- 移动站 --&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"applicable-device"</span> <span class="na">content=</span><span class="s">"mobile"</span> <span class="nt">/&gt;</span>
+
+</code></pre></div></div>
+<p>这个标注是用来向百度蜘蛛说明此url页面适合在PC端还是移动端展现。说白了，就是帮助百度提交校验识别结果的正确性，减少百度蜘蛛把PC站当成移动站，或者把移动站当成PC站进行抓取。</p>
+
+<h5 id="屏蔽百度自动转码">屏蔽百度自动转码</h5>
+<p>在百度移动搜索引擎中，如果PC网页没有对应的移动网页，百度为了更好地满足用户需求，会为用户提供百度自行转码，将其转换为适合手机浏览的网页，使其能够在移动端的浏览器有较好的浏览体验。但是这种转码不仅会严重破坏网站结构，而且站内的JS会被全部抹去，然后添加百度自家的广告，就等于你的网站流量基本被百度抢去。使用<code class="language-plaintext highlighter-rouge">dno-transform</code>协议，禁止网站被转码，规则如下：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="c">&lt;!-- PC站 --&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Cache-Control"</span> <span class="na">content=</span><span class="s">"no-transform "</span> <span class="nt">/&gt;</span> 
+
+</code></pre></div></div>
+
+<p>我司的网站普遍都有对应的移动站，被转码的情况基本没有，但是还是要防范于未然。</p>
+
+<h5 id="canonical标签和alternate标签">canonical标签和alternate标签</h5>
+<p><img src="/img/in-post/post-seo/seo-1709_4.png" alt="canonical标签的重要性" /> 
+同理于<code class="language-plaintext highlighter-rouge">alternate</code>标签，在PC网页上，添加指向对应移动版网址的特殊链接<code class="language-plaintext highlighter-rouge">rel="alternate"</code>标记，这有助于百度发现网站的移动版网页所在的位置，同时在移动版网页上，添加指向对应PC版网址的链接<code class="language-plaintext highlighter-rouge">rel="canonical"</code>标记。具体规则和对应关系见下：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="c">&lt;!-- PC站 --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"alternate"</span>  <span class="na">href=</span><span class="s">"移动站点的绝对地址"</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- 移动站 --&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"canonical"</span> <span class="na">href=</span><span class="s">"PC站点的绝对地址"</span><span class="nt">&gt;</span>
+
+</code></pre></div></div>
+
+<h3 id="结语">结语</h3>
+<p>总之，移动站要有排名就要有收录，要有收录就要与PC站适配和被百度蜘蛛采集。当然目前还没有具体实践，都是本人根据收集的材料和理解进行的猜想。</p>
+
+:ET

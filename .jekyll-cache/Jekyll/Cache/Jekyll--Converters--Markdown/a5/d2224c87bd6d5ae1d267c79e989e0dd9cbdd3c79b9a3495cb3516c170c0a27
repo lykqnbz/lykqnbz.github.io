@@ -1,0 +1,156 @@
+I"FH<blockquote>
+  <p>“没有引言，一个人很无趣。”</p>
+</blockquote>
+
+<h3 id="前言">前言</h3>
+<p>现在设计师同学越来越高大上了，纯色背景已经不能满足人民群众日益增长的物质文化需要了，必须各类渐变背景。。要怎么还原呢（虽然UI给的Sketch切图工具自带实现代码，嘻嘻），所以深入研究了一下这个CSS3的渐变Gradient。</p>
+
+<h3 id="兼容性">兼容性</h3>
+<p>从<a href="https://caniuse.com/#feat=css-gradients">Can I use</a>上看，除了极具中国社会主义的IE789不支持外，现代浏览器支持程度都良好，尤其移动端，对于不支持的浏览器，下文会提供一种采用纯色的降级方案。
+<img src="/img/in-post/post-css/css_1805_1.png" alt="兼容性" />  <br />
+<img src="/img/in-post/post-css/css_1805_2.png" alt="兼容性" />   <br />
+但是各种兼容性问题肯定免不了，Gradient和flex布局一样麻烦，总共有三种语法规则，而且差异很大。。。 <br />
+这里为了讨论简单，我们只涉及最新的语法（基本能覆盖大量新浏览器了）。老旧语法规则和IE等各浏览器的兼容方法请见参考文章的2、3有详细的介绍，也可以使用Gradient Generator或者autoprefixer自动生成代码。</p>
+
+<h3 id="前置知识">前置知识</h3>
+<p>1、绘制区域，也就是规范中所谓的gradient box（为了理解无歧义，下文不再翻译该术语），跟所关联DOM的实际尺寸有关，比如，设定background的话，绘制区域就是DOM的padding box，除非用backgroud-size指定大小；如果是设定list-style-image，绘制区域就是1em的正方形。 <br />
+2、从W3C的描述中可以知道，浏览器实际是根据Gradient指定的语法来生成对应的图片   <br />
+A gradient is an image that smoothly fades from one color to another. 而且不只background可以用，比如:</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">.clmap</span><span class="p">{</span>
+        <span class="nl">background</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="no">white</span><span class="p">,</span> <span class="no">gray</span><span class="p">);</span>
+        <span class="nl">list-style-image</span><span class="p">:</span> <span class="n">radial-gradient</span><span class="p">(</span><span class="nb">circle</span><span class="p">,</span> <span class="no">red</span><span class="p">,</span> <span class="no">green</span><span class="p">,</span> <span class="no">blue</span><span class="p">,</span> <span class="no">black</span><span class="p">);</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-css/css_1805_3.png" alt="gradient定义" />  <br />
+3、由于是image，所以用于background时，实际是设置在background-image上，如果只是单纯的渐变颜色，可以用以下的样式来对不支持的老旧浏览器做降级处理：</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nc">.clmap</span> <span class="p">{</span>
+        <span class="c">/* old */</span>
+        <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+        <span class="c">/* new */</span>
+        <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span> <span class="no">orange</span><span class="p">);</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+<p>原理借用慕课网的一张图：<br />
+<img src="/img/in-post/post-css/css_1805_4.jpg" alt="盒子3D模型" /> <br />
+Gradient有几个子特性，下面一一列出。</p>
+<h3 id="线性渐变linear-gradient">线性渐变（linear-gradient）</h3>
+<p>以下实例演示了最基础的从头部开始的线性渐变，从红色开始，转为黄色，再到蓝色:</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nc">.clamp</span> <span class="p">{</span>
+        <span class="nl">background</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span><span class="no">yellow</span><span class="p">,</span><span class="no">blue</span><span class="p">);</span> <span class="c">/* 标准语法 */</span>
+        <span class="nl">background</span><span class="p">:</span> <span class="n">-webkit-linear-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span><span class="no">yellow</span><span class="p">,</span><span class="no">blue</span><span class="p">);</span> <span class="c">/* Safari 5.1-6.0 */</span>
+        <span class="nl">background</span><span class="p">:</span> <span class="n">-o-linear-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span><span class="no">yellow</span><span class="p">,</span><span class="no">blue</span><span class="p">);</span> <span class="c">/* Opera 11.1-12.0 */</span> 
+        <span class="nl">background</span><span class="p">:</span> <span class="n">-moz-linear-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span><span class="no">yellow</span><span class="p">,</span><span class="no">blue</span><span class="p">);</span> <span class="c">/* Firefox 3.6-15 */</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+<p>为了创建一个线性渐变，你需要设置一个起始点和一个方向（指定为一个角度）的渐变效果。你还要定义终止色。终止色就是你想让Gecko去平滑的过渡，并且你必须指定至少两种，当然也会可以指定更多的颜色去创建更复杂的渐变效果。以下的写法效果其实都一样:</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nc">.clamp</span> <span class="p">{</span>
+        <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span> <span class="c">/*  默认方向为to bottom */</span>
+        <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="n">to</span> <span class="nb">bottom</span><span class="p">,</span> <span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span> <span class="c">/*  使用关键字指定方向 */</span>
+        <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="m">180deg</span><span class="p">,</span> <span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span> <span class="c">/*  使用角度指定方向 */</span>
+        <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="n">to</span> <span class="nb">top</span><span class="p">,</span> <span class="no">green</span><span class="p">,</span> <span class="no">yellow</span><span class="p">);</span>
+        <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="n">to</span> <span class="nb">bottom</span><span class="p">,</span> <span class="no">yellow</span> <span class="m">0%</span><span class="p">,</span> <span class="no">green</span> <span class="m">100%</span><span class="p">);</span> <span class="c">/*  指定颜色断点 */</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-css/css_1805_5.png" alt="多种实现代码" /><br />
+也可以设置多个颜色断点以及颜色上设置透明度渐变实现锐变的效果：</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nc">.clamp-1</span> <span class="p">{</span>
+    <span class="nl">background-image</span><span class="p">:</span> <span class="sx">url(1.jpg)</span><span class="p">;</span>
+    <span class="nl">background-size</span><span class="p">:</span> <span class="m">100%</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="nc">.clamp-2</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="n">to</span> <span class="nb">right</span><span class="p">,</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">255</span><span class="p">,</span> <span class="m">1</span><span class="p">)),</span> <span class="sx">url(1.jpg)</span> <span class="nb">no-repeat</span><span class="p">;</span>
+    <span class="nl">background-size</span><span class="p">:</span> <span class="m">100%</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+<p>效果如下，左边原图，右边增加了一层遮罩，这个效果其实是利用了<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Using_multiple_backgrounds">CSS3的多背景语法</a> 
+<img src="/img/in-post/post-css/css_1805_6.png" alt="锐变效果" /></p>
+
+<p>更多突破脑洞例子可以在这里看<a href="http://lea.verou.me/css3patterns/">http://lea.verou.me/css3patterns/</a></p>
+
+<h3 id="径向渐变radial-gradient">径向渐变（radial-gradient）</h3>
+<p>radial gradient其实就是颜色从一个点以同心圆或者椭圆向外渐变。
+<img src="/img/in-post/post-css/css_1805_7.png" alt="原理实现图" /> <br />
+以下实例演示了最基础的从中心开始发散到周围的径向渐变，从红色开始，转为黄色，再到绿:```css</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">.clamp</span> <span class="p">{</span>
+        <span class="nl">background</span><span class="p">:</span> <span class="n">-webkit-radial-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span> <span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span> <span class="c">/* Safari 5.1- 6.0 */</span>
+        <span class="nl">background</span><span class="p">:</span> <span class="n">-o-radial-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span> <span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span> <span class="c">/* Opera 11.6-12.0 */</span>
+        <span class="nl">background</span><span class="p">:</span> <span class="n">-moz-radial-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span> <span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span> <span class="c">/* Firefox 3.6-15 */</span>
+        <span class="nl">background</span><span class="p">:</span> <span class="n">radial-gradient</span><span class="p">(</span><span class="no">red</span><span class="p">,</span> <span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span> <span class="c">/* 标准语法 */</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-css/css_1805_8.jpg" alt="最基础的径向渐变" />   <br />
+其最主要的参数格式为：<strong>background: radial-gradient(shape size at position, start-color, …, last-color);</strong>
+<img src="/img/in-post/post-css/css_1805_9.png" alt="参数详解" /><br />
+以下的写法效果其实都一样:</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nc">.clamp</span> <span class="p">{</span>
+       <span class="err">.clamp-1</span> <span class="err">{</span>
+            <span class="nl">background-image</span><span class="p">:</span> <span class="n">radial-gradient</span><span class="p">(</span><span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nc">.clamp-2</span> <span class="p">{</span>
+            <span class="nl">background-image</span><span class="p">:</span> <span class="n">radial-gradient</span><span class="p">(</span><span class="n">ellipse</span> <span class="n">at</span> <span class="nb">center</span><span class="p">,</span> <span class="no">yellow</span> <span class="m">0%</span><span class="p">,</span> <span class="no">green</span> <span class="m">100%</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nc">.clamp-3</span> <span class="p">{</span>
+            <span class="nl">background-image</span><span class="p">:</span> <span class="n">radial-gradient</span><span class="p">(</span><span class="n">farthest-corner</span> <span class="n">at</span> <span class="m">50%</span> <span class="m">50%</span><span class="p">,</span> <span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nc">.clamp-4</span> <span class="p">{</span>
+            <span class="nl">background-image</span><span class="p">:</span> <span class="n">radial-gradient</span><span class="p">(</span><span class="n">ellipse</span> <span class="n">farthest-corner</span> <span class="n">at</span> <span class="m">50%</span> <span class="m">50%</span><span class="p">,</span> <span class="no">yellow</span><span class="p">,</span> <span class="no">green</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="err">}</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-css/css_1805_10.png" alt="多种实现代码" /></p>
+
+<p>有几个需要注意的点：</p>
+<ul>
+  <li>size的数值不能是负数</li>
+  <li>W3C规范规定，百分比的数值只能用于椭圆，不能用于圆形。</li>
+  <li>position的值可以是负数</li>
+</ul>
+
+<h3 id="重复渐变repeating-gradients">重复渐变（Repeating Gradients）</h3>
+<p>基本语法与上面的线性渐变和径向渐变类似，就是增加了重复的特性。
+从<a href="https://caniuse.com/#feat=css-repeating-gradients">Can I use</a>的数据看目前支持程度还不错，PC除了IE789都还不错，移动端排除掉远古机型Android4.0以下都红其他都可以。  <br />
+<img src="/img/in-post/post-css/css_1805_11.png" alt="重复渐变" /> <br />
+<img src="/img/in-post/post-css/css_1805_12.png" alt="重复渐变" /> <br />
+重复的规则简单说就是用最后一个颜色断点的位置减去第一个颜色断点位置的距离作为区间长度，不断的重复。比如repeating-linear-gradient(red 10px, blue 50px) 就相当于linear-gradient(…, red -30px, blue 10px, red 10px, blue 50px, red 50px, blue 90px, …)</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">div</span> <span class="p">{</span>
+        <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+        <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+        <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+        <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">blue</span><span class="p">;</span>
+        <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.repeat-linear</span> <span class="p">{</span>
+    <span class="nl">background-image</span><span class="p">:</span> <span class="n">repeating-linear-gradient</span><span class="p">(</span> <span class="m">45deg</span><span class="p">,</span> <span class="no">white</span><span class="p">,</span> <span class="no">white</span> <span class="m">10px</span><span class="p">,</span> <span class="no">red</span> <span class="m">10px</span><span class="p">,</span> <span class="no">red</span> <span class="m">20px</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="nc">.repeat-radial</span> <span class="p">{</span>
+    <span class="nl">background</span><span class="p">:</span> <span class="n">repeating-radial-gradient</span><span class="p">(</span> <span class="nb">circle</span> <span class="n">at</span> <span class="nb">bottom</span> <span class="nb">left</span><span class="p">,</span> <span class="no">white</span><span class="p">,</span> <span class="no">white</span> <span class="m">10px</span><span class="p">,</span> <span class="no">red</span> <span class="m">10px</span><span class="p">,</span> <span class="no">red</span> <span class="m">20px</span><span class="p">);</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-css/css_1805_13.png" alt="重复渐变" /> <br />
+根据上面说的规则，这个例子里的区间长度是首尾颜色的位置之差，是20px。  <br />
+我们可以验证下，两张图里都有约7个红白条，矩形宽高均100px，对角线则是约140px，140px/7=20px，bingo！</p>
+
+<h3 id="参考文章">参考文章</h3>
+<ul>
+  <li><a href="https://www.w3cschool.cn/css3/css3-gradients.html">W3C:CSS3-gradients</a></li>
+  <li><a href="http://www.runoob.com/cssref/func-radial-gradient.html">runoob:CSS3-gradients</a></li>
+  <li><a href="http://www.w3cplus.com/content/css3-gradient">大漠</a></li>
+</ul>
+
+:ET

@@ -1,0 +1,128 @@
+I"�2<h2 id="简述">简述</h2>
+<p>前几天看一个题↓↓↓，随口答出12354，答案却是不然。。。看似简单却很复杂的问题在不断思考，复杂是在于它的广度和深度都很大，对自己影响很大。这道题牵涉到了Javascript的运行机制，刚好想着可以巩固一下之前学习过的东西，作为一个学习笔记记录下来。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">)</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">3</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">4</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">5</span><span class="dl">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="javascript的运行机制">Javascript的运行机制</h2>
+<p>JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。 <br />
+JavaScript的<code class="language-plaintext highlighter-rouge">单线程</code>，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p>
+
+<p>所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。</p>
+
+<p>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
+
+<h2 id="任务队列">任务队列</h2>
+<p>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。</p>
+
+<p>如果排队是因为计算量大，CPU忙不过来，倒也算了，但是很多时候CPU是闲着的，因为IO设备（输入输出设备）很慢（比如Ajax操作从网络读取数据），不得不等着结果出来，再往下执行。</p>
+
+<p>JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。</p>
+
+<p>于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
+
+<p>具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）</p>
+
+<ul>
+  <li>1、所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。</li>
+  <li>2、主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。</li>
+  <li>3、一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</li>
+  <li>4、主线程不断重复上面的第三步。</li>
+</ul>
+
+<h6 id="主线程的执行栈">主线程的执行栈</h6>
+<p>如下图（截取自<code class="language-plaintext highlighter-rouge">Help, I’m stuck in an event-loop</code>演讲视频的讲解）
+<img src="/img/in-post/post-js/js_1807_1.png" alt="执行栈" />
+执行栈，先入后出。第一个进入的是要执行的函数(图中就是printSquare函数)，然后就是依次调用的函数入栈，运行完就依次出栈，直到执行栈为空。</p>
+
+<h2 id="event-loop">Event Loop</h2>
+<p><code class="language-plaintext highlighter-rouge">主线程从"任务队列"中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。</code>
+<img src="/img/in-post/post-js/js_1807_2.png" alt="执行栈" /></p>
+<h6 id="用我自己的话来讲一下event-loop">用我自己的话来讲一下event loop</h6>
+<ul>
+  <li>
+    <p>1、当任务进来时，js解析引擎会分辨是同步任务还是异步任务，如果是同步任务，就一并放进主线程 (也就是执行栈Stack)去同步执行；如果是异步任务，则在事件表里不阻塞进行，遇到回调函数就注册在任务队列(callback queue)中。</p>
+  </li>
+  <li>
+    <p>2、放在任务队列中的回调函数需要等待主线程中的同步任务完成方可执行，这时候同步任务会在主线程中同步阻塞执行，等到所有在主线程中的任务执行完，也就是执行栈清空了的时候，触发让任务队列内的回调函数先入先出地进入到主线程中执行。</p>
+  </li>
+  <li>
+    <p>3、第1步，第2步一直循环，直到所有任务都执行完。</p>
+  </li>
+</ul>
+
+<h2 id="宏任务和微任务">宏任务和微任务</h2>
+<p>除了广义的同步任务和异步任务，我们对任务有更精细的定义：</p>
+<ul>
+  <li>macro-task(宏任务)：包括整体代码script，setTimeout，setInterval</li>
+  <li>micro-task(微任务)：Promise，process.nextTick</li>
+</ul>
+
+<p>不同类型的任务会进入对应的事件队列，比如setTimeout和setInterval会进入相同的事件队列。 <br />
+事件循环的顺序，决定js代码的执行顺序。进入整体代码(宏任务)后，开始第一次循环。接着执行所有的微任务。然后再次从宏任务开始，找到其中一个任务队列执行完毕，再执行所有的微任务。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">1</span><span class="dl">"</span><span class="p">)</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">2</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">},</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">3</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">4</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">5</span><span class="dl">"</span><span class="p">)</span>
+</code></pre></div></div>
+<ul>
+  <li>这段代码作为宏任务，进入主线程。</li>
+  <li>先遇到setTimeout，那么将其回调函数注册后分发到宏任务Event Queue。(注册过程与上同，下文不再描述)</li>
+  <li>接下来遇到了Promise，new Promise立即执行，then函数分发到微任务Event Queue。</li>
+  <li>遇到console.log()，立即执行。</li>
+  <li>好啦，整体代码script作为第一个宏任务执行结束，看看有哪些微任务？我们发现了then在微任务Event Queue里面，执行。</li>
+  <li>ok，第一轮事件循环结束了，我们开始第二轮循环，当然要从宏任务Event Queue开始。我们发现了宏任务Event Queue中setTimeout对应的回调函数，立即执行。</li>
+  <li>结束。</li>
+</ul>
+
+<p>事件循环，宏任务，微任务的关系如图所示：
+<img src="/img/in-post/post-js/js_1807_3.png" alt="关系" /></p>
+
+<p>而<code class="language-plaintext highlighter-rouge">宏任务</code>一般是：包括整体代码script，setTimeout，setInterval。 <br />
+<code class="language-plaintext highlighter-rouge">微任务</code>：Promise，process.nextTick。  <br />
+记住就行了。
+然后回到开头的代码。因为settimeout是宏任务，虽然先执行的他，但是他被放到了宏任务的事件队列里面，然后代码继续往下检查看有没有微任务，检测到Promise的then函数把他放入了微任务序列。等到主线进程的所有代码执行结束后。先从微任务队列里拿回掉函数，然后微任务地队列空了后再从宏任务的队列拿函数。
+所以正确的执行结果当然是：<code class="language-plaintext highlighter-rouge">1,3,5,4,2</code>。</p>
+
+<p>这边重点说一下这个setTimeout，setTimeout(fn,0)的含义是，<code class="language-plaintext highlighter-rouge">指定某个任务在主线程最早可得的空闲时间执行，也就是说，尽可能早得执行。它在"任务队列"的尾部添加一个事件，因此要等到同步任务和"任务队列"现有的事件都处理完，才会得到执行</code>。</p>
+
+<p>HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔），不得低于4毫秒，如果低于这个值，就会自动增加。在此之前，老版本的浏览器都将最短间隔设为10毫秒。另外，对于那些DOM的变动（尤其是涉及页面重新渲染的部分），通常不会立即执行，而是每16毫秒执行一次。这时使用requestAnimationFrame()的效果要好于setTimeout()。</p>
+
+<p>需要注意的是，setTimeout()只是将事件插入了”任务队列”，必须等到当前代码（执行栈）执行完，主线程才会去执行它指定的回调函数。要是当前代码耗时很长，有可能要等很久，所以并没有办法保证，回调函数一定会在setTimeout()指定的时间执行。
+这样我归类出异步任务就可以轻而易举地判断了，把一些常用的异步操作分类；</p>
+
+<p>客户端js:</p>
+<ul>
+  <li>ajax一类的请求事件；</li>
+  <li>定时器：setTimeout 和 setInterval;</li>
+</ul>
+
+<p>服务端js:</p>
+<ul>
+  <li>process.nextTick 这一类；</li>
+  <li>数据库操作、文件操作、网络操作；</li>
+</ul>
+
+<h2 id="finally">Finally</h2>
+
+<p>简言之就是JS只有一个主线程，主线程执行完执行栈的任务后去检查异步的任务队列，如果异步事件触发，则将其加到主线程的执行栈。over~</p>
+
+<blockquote>
+  <p>“概念部分转自阮一峰博客-<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html">JavaScript 运行机制详解：再谈Event Loop</a>”</p>
+</blockquote>
+
+:ET

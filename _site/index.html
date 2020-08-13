@@ -109,34 +109,34 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
 
-
     <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg_3.jpg')">
+<header class="intro-header"
+    style="background-image: url('/img/home-bg_3.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
@@ -152,20 +152,14 @@
 
 <!-- Main Content -->
 <div class="container">
-	<div class="row">
+    <div class="row">
         
+        <!-- NO SIDEBAR -->
+        <!-- Post Container -->
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+            <div style="font-weight: 600;font-size:30px;">抱歉，俺都收起来了</div>
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-    			
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2019/02/21/AboutRedrawAndReflow/">
         <h2 class="post-title">
             掌握浏览器重绘重排原理
@@ -195,10 +189,10 @@
     <p class="post-meta">
         Posted by AXiang on February 21, 2019
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2019/01/26/AboutCSSGradient/">
         <h2 class="post-title">
             CSS3 Gradient细解
@@ -225,10 +219,10 @@
     <p class="post-meta">
         Posted by AXiang on January 26, 2019
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2019/01/04/ES6AboutGenerator/">
         <h2 class="post-title">
             generator·ES6中的新贵
@@ -250,10 +244,10 @@ ES6定义generator标准的哥们借鉴了Python的generator的概念和语法�
     <p class="post-meta">
         Posted by AXiang on January 4, 2019
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2018/12/12/AboutJsEventLoop/">
         <h2 class="post-title">
             JavaScript的Event Loop机制
@@ -276,10 +270,10 @@ ES6定义generator标准的哥们借鉴了Python的generator的概念和语法�
     <p class="post-meta">
         Posted by AXiang on December 12, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2018/10/03/ApplicationOfPseudoElementForContent/">
         <h2 class="post-title">
             伪元素content的应用
@@ -306,10 +300,10 @@ Go
     <p class="post-meta">
         Posted by AXiang on October 3, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2018/09/16/AmazingCss/">
         <h2 class="post-title">
             流离在过去的Css样式
@@ -345,11 +339,11 @@ Go
     <p class="post-meta">
         Posted by AXiang on September 16, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
-    <a href="/2018/08/28/SkeletonScreen/">
+<!-- <div class="post-preview">
+    <a href="/2018/08/29/SkeletonScreen/">
         <h2 class="post-title">
             前端骨架屏方案小结
         </h2>
@@ -376,12 +370,12 @@ Go
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on August 28, 2018
+        Posted by AXiang on August 29, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2018/07/10/AboutMiniProgram/">
         <h2 class="post-title">
             细数微信小程序的前端坑
@@ -408,11 +402,11 @@ WXML
     <p class="post-meta">
         Posted by AXiang on July 10, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
-    <a href="/2018/06/03/AboutJsModules/">
+<!-- <div class="post-preview">
+    <a href="/2018/06/04/AboutJsModules/">
         <h2 class="post-title">
             js模块化-javascript module相关
         </h2>
@@ -433,13 +427,13 @@ WXML
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on June 3, 2018
+        Posted by AXiang on June 4, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
-    <a href="/2018/05/03/WxXcxTemplate/">
+<!-- <div class="post-preview">
+    <a href="/2018/05/04/WxXcxTemplate/">
         <h2 class="post-title">
             小程序·模板Template相关
         </h2>
@@ -464,14 +458,14 @@ WXML
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on May 3, 2018
+        Posted by AXiang on May 4, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
 
 <!-- Pager -->
-
+<!-- 
     <ul class="pager">
         
         
@@ -480,194 +474,32 @@ WXML
         </li>
         
     </ul>
+ -->
+        </div>
+        <!-- Sidebar Container -->
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 sidebar-container">
 
+            <!-- Featured Tags -->
+            
 
-    		</div>
-    <!-- Sidebar Container -->
-            <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container">
-                <!-- Featured Tags -->
+            <!-- Friends Blog -->
+            
+            <hr>
+            <h5>FRIENDS</h5>
+            <ul class="list-inline">
                 
+                <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
                 
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                                <a href="/tags/#生活" title="生活" rel="1">
-                                    生活
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Git" title="Git" rel="1">
-                                    Git
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#笔记" title="笔记" rel="6">
-                                    笔记
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#前端" title="前端" rel="22">
-                                    前端
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#响应式设计" title="响应式设计" rel="2">
-                                    响应式设计
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Css" title="Css" rel="6">
-                                    Css
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Bootstrap" title="Bootstrap" rel="1">
-                                    Bootstrap
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Sass" title="Sass" rel="1">
-                                    Sass
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#JavaScript" title="JavaScript" rel="11">
-                                    JavaScript
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Vue.js" title="Vue.js" rel="1">
-                                    Vue.js
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#SEO" title="SEO" rel="1">
-                                    SEO
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#插件" title="插件" rel="1">
-                                    插件
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#ES6" title="ES6" rel="2">
-                                    ES6
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#小程序" title="小程序" rel="2">
-                                    小程序
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Html" title="Html" rel="1">
-                                    Html
-                                </a>
-                            
-                        
-                    </div>
-                </section>
+                <li><a href="http://ngabbs.com/">NGA</a></li>
                 
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <img src="/img/xiang.png" />
-                        
-                        
-                            <p>愿</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline" style="position: relative;">
-                             
-                            <li>
-                                <a href="/feed.xml">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                             
-                            <!--  -->
-                            <!-- 
-                            <li>
-                                <a target="_blank" href="https://www.zhihu.com/people/lykqnbz">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                    </span>
-                                </a>
-                            </li>
-                             -->
-                            <!-- 
-                            <li>
-                                <a target="_blank" href="http://weibo.com/空的伸手摘星">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                             -->
-                            <!-- 
-                            <li>
-                                <a target="_blank" href="https://www.facebook.com/王翔">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                             -->
-                            
-                        </ul>
-                    </div>
-                </section>
-                <!-- Friends Blog -->
+                <li><a href="http://www.acfun.cn/">ACFUN</a></li>
                 
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
-                    
-                        <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
-                    
-                        <li><a href="http://ngabbs.com/">NGA</a></li>
-                    
-                        <li><a href="http://www.acfun.cn/">ACFUN</a></li>
-                    
-                </ul>
-                
-    		</div>
+            </ul>
+            
+        </div>
         
-	</div>
+    </div>
 </div>
-
 
     <!-- Footer -->
 <footer>
@@ -730,7 +562,7 @@ WXML
                     </li>
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 空的伸手摘星 <!--2019-->2048
+                    Copyright &copy; 空的伸手摘星 <!--2020-->2048
                     <br>
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -848,7 +680,6 @@ WXML
                             = 'rotate(' + beta + 'deg)';
     }, false);
     } else {
-    document.querySelector('body').innerHTML = '浏览器不支持DeviceOrientationEvent';
     }
 </script>
 

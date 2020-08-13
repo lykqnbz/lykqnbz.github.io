@@ -1,0 +1,240 @@
+I"�0<blockquote>
+  <p><a href="http://www.swiper.com.cn/">Swiper中文官网</a></p>
+</blockquote>
+
+<p>最近朋友推荐的一款轮播插件，优雅易用，效果华丽中带简朴，操作简单上手，扩展性高，占用也不大。</p>
+
+<h3 id="使用前">使用前</h3>
+<p>和通常的插件一样，可以使用本地加载也能使用CDN加载，需要的只有一个CSS文件和一个JS文件。Swiper不需要在JQuery环境中加载，独立性强，如果环境中加载了JQuery也可以使用更加轻便的JQuery版。</p>
+
+<h6 id="本地加载">本地加载</h6>
+<p><a href="http://www.swiper.com.cn/download/index.html">本地加载文件下载地址</a>   <br />
+通常使用<code class="language-plaintext highlighter-rouge">swiper-3.X.X.css</code>，如需压缩版可以使用<code class="language-plaintext highlighter-rouge">swiper-3.X.X.min.css</code>，而JS则通常使用<code class="language-plaintext highlighter-rouge">swiper-3.X.X.js</code>和<code class="language-plaintext highlighter-rouge">swiper-3.X.X.min.js</code>，如果加载了JQuery可以使用<code class="language-plaintext highlighter-rouge">swiper-3.X.X.jquery.js</code>和<code class="language-plaintext highlighter-rouge">swiper-3.X.X.jquery.min.js</code></p>
+
+<h6 id="cdn加载">CDN加载</h6>
+<p>如果不想将Swiper文件放在你的项目中，可以使用Swiper的CDN服务。以下是各版本的Swiper CDN地址，要将3.X.X改成相应的版本，如3.4.2。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/css/swiper.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/css/swiper.min.css"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.X.X/js/swiper.jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+</code></pre></div></div>
+
+<h3 id="使用中">使用中</h3>
+
+<h6 id="初始化">初始化</h6>
+
+<p>官方建议写在HTML内容的底部，紧靠<code class="language-plaintext highlighter-rouge">&lt;/body&gt;</code>标签：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    …………
+    <span class="nt">&lt;script&gt;</span>        
+    <span class="kd">var</span> <span class="nx">mySwiper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Swiper</span> <span class="p">(</span><span class="dl">'</span><span class="s1">.swiper-container</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+        <span class="c1">// 滑动方向</span>
+        <span class="na">direction</span><span class="p">:</span> <span class="dl">'</span><span class="s1">vertical</span><span class="dl">'</span><span class="p">,</span>
+        <span class="c1">// 是否有回路</span>
+        <span class="na">loop</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        
+        <span class="c1">// 如果需要分页器</span>
+        <span class="na">pagination</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.swiper-pagination</span><span class="dl">'</span><span class="p">,</span>
+        
+        <span class="c1">// 如果需要前进后退按钮</span>
+        <span class="na">nextButton</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.swiper-button-next</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">prevButton</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.swiper-button-prev</span><span class="dl">'</span><span class="p">,</span>
+        
+        <span class="c1">// 如果需要滚动条</span>
+        <span class="na">scrollbar</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.swiper-scrollbar</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">})</span>        
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+</code></pre></div></div>
+
+<p>如果不能写在HTML内容的后面，则需要在页面加载完成后再初始化：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+</code></pre></div></div>
+<p>或者这样（Jquery支持版本）</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="p">})</span>
+    <span class="nt">&lt;/script&gt;</span>
+
+</code></pre></div></div>
+
+<p>常用的初始化参数例举:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">参数</th>
+      <th style="text-align: center">类型</th>
+      <th style="text-align: center">默认值</th>
+      <th style="text-align: center">例子</th>
+      <th style="text-align: center">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">direction</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center">horizontal</td>
+      <td style="text-align: center">vertical</td>
+      <td style="text-align: center">滑动方向，可设置水平(horizontal)或垂直(vertical)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">loop</td>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center">false</td>
+      <td style="text-align: center">true</td>
+      <td style="text-align: center">是否开启回路模式，意为滑到最后一张图片时是否可以继续滑到第一张，形成循环</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">nextButton</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center">null</td>
+      <td style="text-align: center">.swiper-button-next</td>
+      <td style="text-align: center">是否生成前进按钮</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">prevButton</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center">null</td>
+      <td style="text-align: center">.swiper-button-prev</td>
+      <td style="text-align: center">是否生成后退按钮</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">pagination</td>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center">null</td>
+      <td style="text-align: center">.swiper-pagination</td>
+      <td style="text-align: center">是否启用圆点分页，前提HTML内有该元素</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">speed</td>
+      <td style="text-align: center">number</td>
+      <td style="text-align: center">300</td>
+      <td style="text-align: center">1000</td>
+      <td style="text-align: center">滑块动画之间的持续时间（单位ms）</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">autoplay</td>
+      <td style="text-align: center">number</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1000</td>
+      <td style="text-align: center">几秒后开始自动轮播，不写为手动轮播</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">speed</td>
+      <td style="text-align: center">number</td>
+      <td style="text-align: center">300</td>
+      <td style="text-align: center">1000</td>
+      <td style="text-align: center">滑块动画之间的持续时间（单位ms）</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">spaceBetween</td>
+      <td style="text-align: center">number</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">20</td>
+      <td style="text-align: center">每个滑块之间的距离（单位px）</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>更多复杂的常数组合请查阅<a href="http://www.swiper.com.cn/api/index.html">官方文档</a>，右上角可以直接搜索参数：</p>
+
+<h6 id="设定大小">设定大小</h6>
+
+<p>如果想要给Swiper定义一个固定大小（当然不要也行）：</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nc">.swiper-container</span> <span class="p">{</span>
+        <span class="nl">width</span><span class="p">:</span> <span class="m">600px</span><span class="p">;</span>
+        <span class="nl">height</span><span class="p">:</span> <span class="m">300px</span><span class="p">;</span>
+    <span class="p">}</span>  
+
+</code></pre></div></div>
+<style>
+.demo {
+margin-bottom: 40px;
+}
+
+.demo font,.demo-title {
+color: #1e70cd;
+margin: 60px 0 5px;
+text-align: center;
+font-size: 20px;
+font-weight: 300;
+line-height: 35px;
+display: block;
+}
+.demo .demo-iframe {
+margin: 1em auto;
+box-shadow: 0px 0px 1px 0px #aaa;
+background: #eee;
+position: relative;
+}
+.demo iframe {
+display: block;
+width: 100%;
+border: none;
+margin: 0;
+box-sizing: border-box;
+height: 400px;
+width: 1px;
+min-width: 100%;
+}
+</style>
+
+<h3 id="官方常用demo展示">官方常用Demo展示</h3>
+
+<div class="demo">
+	<font>默认设置</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/01-default.html" style="height:340px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>自适应 / 全屏 + 分页</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/02-responsive.html" style="height:340px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>分组显示</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/05-slides-per-view.html" style="height:340px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>多行Slides 分布</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/10-slides-per-column.html" style="height:430px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>视差效果</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/28-parallax.html" style="height:340px"></iframe>
+    </div>
+</div>
+<div class="demo">
+	<font>渐变效果</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="no" src="http://www.swiper.com.cn/demo/16-effect-fade.html" style="height:340px"></iframe>
+    </div>
+</div>
+
+<h3 id="使用后">使用后</h3>
+
+<p>Swiper是一个好用又方便的轮播插件，但正是因为它已经被封装好了，在有些个性化的需求时，不是那么容易人为干预，所以在使用的时候可能会碰到不少头疼的问题，但这一点也不影响它成为一款优雅的插件，<strong>打Call</strong>。</p>
+:ET

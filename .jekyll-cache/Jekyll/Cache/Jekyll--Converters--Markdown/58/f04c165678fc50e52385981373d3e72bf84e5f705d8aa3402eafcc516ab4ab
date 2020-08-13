@@ -1,0 +1,58 @@
+I"�<p>开发过程使用flex简直不要太6，但是如果只是写新版本的语法形式，是肯定存在兼容性问题的（安卓机基本没啥问题，主要是IOS）</p>
+
+<h3 id="一须知">一、须知</h3>
+<p>flex布局分为三个版本:</p>
+<ul>
+  <li>旧版本<strong>dispaly: box</strong></li>
+  <li>过渡版本<strong>dispaly: flex box</strong></li>
+  <li>现在的标准版本<strong>display: flex</strong></li>
+</ul>
+
+<p>Android:</p>
+<ul>
+  <li>2.3 开始就支持旧版本<strong>display:-webkit-box</strong></li>
+  <li>4.4 开始支持标准版本<strong>display: flex</strong></li>
+</ul>
+
+<p>IOS:</p>
+<ul>
+  <li>6.1 开始支持旧版本<strong>display:-webkit-box</strong></li>
+  <li>7.1 开始支持标准版本<strong>display: flex</strong></li>
+</ul>
+
+<p>PC:</p>
+<ul>
+  <li>IE10开始支持，但是IE10的是<strong>-ms</strong>形式的</li>
+</ul>
+
+<h3 id="二解决">二、解决</h3>
+
+<p><strong>特别特别注意：把旧语法写在底下（ps：css向下兼容），否则无效</strong></p>
+
+<hr />
+
+<p>盒子写法:</p>
+<ul>
+  <li>display:-webkit-box;　　　　/* 老版本语法: Safari, iOS, Android browser,older WebKit */</li>
+  <li>display:-moz-box;　　　　　/* 老版本语法: Firefox (buggy) */</li>
+  <li>display:-ms-flexbox;　　　　/* 混合版本语法: IE 10 */</li>
+  <li>display:-webkit-flex;　　　　/* 新版本语法: Chrome 21+ */</li>
+  <li>display:flex;　　　　　 　　/* 新版本语法: Opera 12.1, Firefox 22+ */</li>
+</ul>
+
+<hr />
+
+<p>子元素写法:</p>
+<ul>
+  <li>-webkit-flex:1;　　　　　　/* Chrome */</li>
+  <li>-ms-flex:1;　　　　　　　 /* IE 10 */</li>
+  <li>-webkit-box-flex:1;　　　　/* OLD - iOS 6-, Safari 3.1-6 */</li>
+  <li>-moz-box-flex:1;　 　　 　 /* OLD - Firefox 19- */</li>
+  <li>flex:1;　　　　　　　　　/* NEW, Spec - Opera 12.1, Firefox 20+ */</li>
+</ul>
+
+<hr />
+
+<p>例子（兼容iphone 6）
+<img src="/img/in-post/post-css/css_1712_1.png" alt="兼容iphone6的举例" /></p>
+:ET

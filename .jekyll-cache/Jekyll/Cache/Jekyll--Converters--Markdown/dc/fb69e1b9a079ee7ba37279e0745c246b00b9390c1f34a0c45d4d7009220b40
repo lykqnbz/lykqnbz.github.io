@@ -1,0 +1,669 @@
+I"�!<blockquote>
+  <p>“预编译Bootstrap(v3.3.7)的风格设计查询手册”</p>
+</blockquote>
+
+<h3 id="基础引入方式">基础引入方式</h3>
+
+<p>本文只讨论预编译的Bootstrap。下图是官方下载zip解压后的文件目录结构图：</p>
+
+<p><img src="/img/in-post/post-note/bootstrap-1708_1.jpg" alt="已编译的版本的文件/目录结构" /></p>
+
+<p>可以直接本地<code class="language-plaintext highlighter-rouge">LINK</code>方式引入<code class="language-plaintext highlighter-rouge">css</code>，<code class="language-plaintext highlighter-rouge">JQuery</code>和<code class="language-plaintext highlighter-rouge">JS</code>，也可以直接使用国内的CDN，具体如下：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"https://maxcdn.Bootstrapcdn.com/Bootstrap/3.3.7/css/Bootstrap.min.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"http://cdn.bootcss.com/Bootstrap/3.3.7/js/Bootstrap.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="c">&lt;!--[if lt IE 9]&gt;
+    &lt;script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"&gt;&lt;/script&gt;
+    &lt;script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;</span>
+
+</code></pre></div></div>
+<p>Bootstrap基于<code class="language-plaintext highlighter-rouge">JQuery</code>开发，引入<code class="language-plaintext highlighter-rouge">JS</code>前必须先引入<code class="language-plaintext highlighter-rouge">JQuery</code>。由于低版本IE兼容性的问题，建议引入<code class="language-plaintext highlighter-rouge">html5shiv.js</code>和<code class="language-plaintext highlighter-rouge">respond.min.js</code>使低版本IE兼容H5新标签和<code class="language-plaintext highlighter-rouge">css</code>的媒体查询。</p>
+
+<p>以下手册只写出<strong>关键</strong>的css样式，还是方便自己查询。</p>
+
+<h3 id="排版">排版</h3>
+
+<h5 id="正标题">正标题</h5>
+<p><code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code>:36px　　<code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code>:30px　　<code class="language-plaintext highlighter-rouge">&lt;h3&gt;</code>:24px <br />
+<code class="language-plaintext highlighter-rouge">&lt;h4&gt;</code>:18px　　<code class="language-plaintext highlighter-rouge">&lt;h5&gt;</code>:14px　　<code class="language-plaintext highlighter-rouge">&lt;h6&gt;</code>:12px   <br />
+类名<code class="language-plaintext highlighter-rouge">.h1</code>~<code class="language-plaintext highlighter-rouge">.h6</code>同理</p>
+
+<h5 id="副标题">副标题</h5>
+<p><code class="language-plaintext highlighter-rouge">h1</code>~<code class="language-plaintext highlighter-rouge">h3</code>内，其大小都设置为当前字号的65%，而在<code class="language-plaintext highlighter-rouge">h4</code>~<code class="language-plaintext highlighter-rouge">h6</code>内的字号都设置为当前字号的75%。 <br />
+对应的标签和类名是：<code class="language-plaintext highlighter-rouge">&lt;small&gt;</code>和<code class="language-plaintext highlighter-rouge">.small</code></p>
+
+<h5 id="段落">段落</h5>
+<p>文字大小<code class="language-plaintext highlighter-rouge">14px</code>，行高约为<code class="language-plaintext highlighter-rouge">20px</code>，颜色为深灰色<code class="language-plaintext highlighter-rouge">#fff</code>。  <br />
+对应的标签是：<code class="language-plaintext highlighter-rouge">&lt;p&gt;&lt;/p&gt;</code></p>
+
+<h5 id="强调内容">强调内容</h5>
+<p>让文字突出显示，为其增大字号，并且在大于<code class="language-plaintext highlighter-rouge">768px</code>像素情况下字体会更大。
+对应的类名是：<code class="language-plaintext highlighter-rouge">.lead</code></p>
+
+<h5 id="文字状态和语义状态">文字状态和语义状态</h5>
+<p>单纯的css样式加粗：<code class="language-plaintext highlighter-rouge">&lt;b&gt; &lt;/b&gt;</code>    　　　具有突出强调语义的加粗html标签：<code class="language-plaintext highlighter-rouge">&lt;strong&gt; &lt;/strong&gt;</code> <br />
+单纯的css样式斜体：<code class="language-plaintext highlighter-rouge">&lt;i&gt; &lt;/i&gt;</code>  　　　具有突出强调语义的斜体html标签：<code class="language-plaintext highlighter-rouge">&lt;em&gt; &lt;/em&gt;</code></p>
+
+<h5 id="强调相关的类">强调相关的类</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.text-muted</code>：提示，使用浅灰色（#999）</li>
+  <li><code class="language-plaintext highlighter-rouge">.text-primary</code>：主要，使用蓝色（#428bca）</li>
+  <li><code class="language-plaintext highlighter-rouge">.text-success</code>：成功，使用浅绿色(#3c763d)</li>
+  <li><code class="language-plaintext highlighter-rouge">.text-info</code>：通知信息，使用浅蓝色（#31708f）</li>
+  <li><code class="language-plaintext highlighter-rouge">.text-warning</code>：警告，使用黄色（#8a6d3b）</li>
+  <li><code class="language-plaintext highlighter-rouge">.text-danger</code>：危险，使用褐色（#a94442）</li>
+</ul>
+
+<h5 id="文本对齐风格">文本对齐风格</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.text-left</code>：左对齐</li>
+  <li><code class="language-plaintext highlighter-rouge">.text-center</code>：居中对齐</li>
+  <li><code class="language-plaintext highlighter-rouge">.text-right</code>：右对齐</li>
+  <li><code class="language-plaintext highlighter-rouge">.text-justify</code>：两端对齐</li>
+</ul>
+
+<h5 id="列表">列表</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- 无序列表 --&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>…<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="c">&lt;!-- 有序列表 --&gt;</span>
+    <span class="nt">&lt;ol&gt;</span>
+        <span class="nt">&lt;li&gt;</span>…<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ol&gt;</span>
+<span class="c">&lt;!-- 定义列表 --&gt;</span>
+    <span class="nt">&lt;dl&gt;</span>
+        <span class="nt">&lt;dt&gt;</span>…<span class="nt">&lt;/dt&gt;</span>
+        <span class="nt">&lt;dd&gt;</span>…<span class="nt">&lt;/dd&gt;</span>
+    <span class="nt">&lt;/dl&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.list-unstyled</code>：去点列表</li>
+  <li><code class="language-plaintext highlighter-rouge">.list-inline</code>：内联列表</li>
+  <li><code class="language-plaintext highlighter-rouge">.dl-horizontal</code>：水平定义列表</li>
+</ul>
+
+<h5 id="代码风格">代码风格</h5>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;code&gt;&lt;/code&gt;</code>来显示单行内联代码</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;pre&gt;&lt;/pre&gt;</code>来显示多行块代码</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;kbd&gt;&lt;/kbd&gt;</code>来显示用户输入代码</li>
+</ul>
+
+<p><img src="/img/in-post/post-note/bootstrap-1708_2.png" alt="三种不同代码风格样式" /></p>
+
+<p>对于<code class="language-plaintext highlighter-rouge">&lt;pre&gt;&lt;/pre&gt;</code>风格的代码，如果代码块内内容过多，可添加<code class="language-plaintext highlighter-rouge">.pre-scrollable</code>类名使其在高度超过<code class="language-plaintext highlighter-rouge">340px</code>时出现Y轴滚动条。</p>
+
+<h5 id="表格">表格</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table&gt;</span>
+    <span class="nt">&lt;thead&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>表格标题<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>表格标题<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/thead&gt;</span>
+    <span class="nt">&lt;tbody&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>表格单元格<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>表格单元格<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>表格单元格<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>表格单元格<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/tbody&gt;</span>
+ <span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.table</code>：基础表格</li>
+  <li><code class="language-plaintext highlighter-rouge">.table-striped</code>：斑马线表格</li>
+  <li><code class="language-plaintext highlighter-rouge">.table-bordered</code>：带边框表格</li>
+  <li><code class="language-plaintext highlighter-rouge">.table-hover</code>：鼠标悬停高亮的表格</li>
+  <li><code class="language-plaintext highlighter-rouge">.table-condensed</code>：紧凑型表格</li>
+  <li><code class="language-plaintext highlighter-rouge">.table-responsive</code>：响应式表格</li>
+</ul>
+
+<p>对于响应式表格，当浏览器可视区域小于<code class="language-plaintext highlighter-rouge">768px</code>时，表格底部会出现水平滚动条。当浏览器可视区域大于<code class="language-plaintext highlighter-rouge">768px</code>时，表格底部水平滚动条就会消失。  <br />
+对表格的行元素<code class="language-plaintext highlighter-rouge">&lt;tr&gt;</code>提供了五种表示不同意义颜色的类：
+<img src="/img/in-post/post-note/bootstrap-1708_3.jpg" alt="5种&lt;tr&gt;提供的颜色类" /></p>
+
+<h3 id="表单">表单</h3>
+
+<p>对应标签为<code class="language-plaintext highlighter-rouge">&lt;form&gt;&lt;/form&gt;</code><br />
+<strong>水平风格</strong>：标签内添加<code class="language-plaintext highlighter-rouge">form-horizontal</code><br />
+<strong>内联表单</strong>：标签内添加<code class="language-plaintext highlighter-rouge">form-inline</code></p>
+
+<h5 id="表单控件大小">表单控件大小</h5>
+
+<p>一般看到的表单控件都是正常的大小，即可以自定义大小，也可以用Bootstrap提供的两个的类名：<code class="language-plaintext highlighter-rouge">.input-sm</code>和<code class="language-plaintext highlighter-rouge">.input-lg</code>，同样适用于<code class="language-plaintext highlighter-rouge">input</code>，<code class="language-plaintext highlighter-rouge">textarea</code>，<code class="language-plaintext highlighter-rouge">select</code>。</p>
+
+<h5 id="表单控件的状态">表单控件的状态</h5>
+
+<ul>
+  <li>焦点状态： :focus</li>
+  <li>禁用状态:  disabled自定义属性</li>
+  <li>验证状态： .has-warning:警告状态（黄色）</li>
+  <li>.has-error：错误状态（红色）</li>
+  <li>.has-success：成功状态（绿色）</li>
+  <li>提醒状态： .help-block</li>
+</ul>
+
+<p>焦点状态通过伪类<code class="language-plaintext highlighter-rouge">：focus</code>来实现，而禁用状态则是在表单控件上添加自定义属性<code class="language-plaintext highlighter-rouge">disabled</code>。在制作表单时，不免要做表单验证。同样也需要提供验证状态样式，Bootstrap提供了以上3种效果。使用的时候需要在<code class="language-plaintext highlighter-rouge">.form-group</code>容器上对应追加状态类名。而提醒状态这是在表单验证时，提供不同的提示信息。</p>
+
+<h5 id="icon图标">icon图标</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon-warning-sign"</span><span class="nt">&gt;&lt;/span&gt;</span>
+
+</code></pre></div></div>
+<p>所有icon都是以<strong>glyphicon-</strong>前缀的类名开始，然后后缀表示图标的名称。 <br />
+<a href="http://v3.bootcss.com/components/">Bootstrap 提供的字体图标</a></p>
+
+<h5 id="输入框input">输入框input</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">placeholder=</span><span class="s">"Enter email"</span><span class="nt">&gt;</span>
+
+</code></pre></div></div>
+<p>添加<code class="language-plaintext highlighter-rouge">.form-control</code>使其展示Bootstrap风格，初始文字提示使用<code class="language-plaintext highlighter-rouge">placeholder</code>属性。</p>
+
+<h5 id="下拉选择框select">下拉选择框select</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;form</span> <span class="na">role=</span><span class="s">"form"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;select</span> <span class="na">class=</span><span class="s">"form-control"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;option&gt;</span>1<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;/select&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;select</span> <span class="na">multiple</span> <span class="na">class=</span><span class="s">"form-control"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;option&gt;</span>1<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;/select&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-note/bootstrap-1708_4.png" alt="添加multiple后的竖形效果" /></p>
+
+<h5 id="文本域textarea">文本域textarea</h5>
+<p>Bootstrap中的文本域和原生的文本域使用方法一样，设置<code class="language-plaintext highlighter-rouge">rows</code>可定义其高度，设置<code class="language-plaintext highlighter-rouge">cols</code>可以设置其宽度。但如果<code class="language-plaintext highlighter-rouge">textarea</code>元素中添加了类名<code class="language-plaintext highlighter-rouge">.form-control</code>类名，则无需设置<code class="language-plaintext highlighter-rouge">cols</code>属性。因为Bootstrap框架中的<code class="language-plaintext highlighter-rouge">.form-control</code>样式的表单控件宽度为100%或auto。</p>
+
+<h5 id="复选框checkbox和单选择按钮radio">复选框checkbox和单选择按钮radio</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"radio"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"checkbox-inline"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"optionsRadios"</span> <span class="na">id=</span><span class="s">"optionsRadios1"</span> <span class="na">value=</span><span class="s">"love"</span> <span class="na">checked</span><span class="nt">&gt;</span>
+      喜欢
+    <span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"radio"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"checkbox-inline"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"optionsRadios"</span> <span class="na">id=</span><span class="s">"optionsRadios2"</span> <span class="na">value=</span><span class="s">"hate"</span><span class="nt">&gt;</span>
+      不喜欢
+    <span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p>不管是<code class="language-plaintext highlighter-rouge">checkbox</code>还是<code class="language-plaintext highlighter-rouge">radio</code>都需要使用<code class="language-plaintext highlighter-rouge">label</code>标签包起来了，<code class="language-plaintext highlighter-rouge">checkbox</code>连同<code class="language-plaintext highlighter-rouge">label</code>标签放置在一个名为<code class="language-plaintext highlighter-rouge">.radio</code>的容器内，在Bootstrap框架中，主要借助<code class="language-plaintext highlighter-rouge">.checkbox</code>和<code class="language-plaintext highlighter-rouge">.radio</code>样式，来处理复选框、单选按钮与标签的对齐方式，如果需要水平排列，只需要在<code class="language-plaintext highlighter-rouge">label</code>标签上添加类名<code class="language-plaintext highlighter-rouge">.checkbox-inline</code>。</p>
+
+<h5 id="按钮">按钮</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">input[type="submit"]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">input[type="button"]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">input[type="reset"]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;button&gt;</code><br />
+html里实现按钮主要有以上4种方式，在Bootstrap框架中的按钮都是建议采用<code class="language-plaintext highlighter-rouge">&lt;button&gt;</code>来实现，虽然基本是所有标签都可以是用类名<code class="language-plaintext highlighter-rouge">.btn</code>来变成一个按钮，但个人并不建议这样使用，为了避免浏览器兼容性问题，个人强烈建议使用<code class="language-plaintext highlighter-rouge">&lt;button&gt;</code>或<code class="language-plaintext highlighter-rouge">&lt;a&gt;</code>标签来制作按钮。
+<img src="/img/in-post/post-note/bootstrap-1708_5.jpg" alt="按钮风格" /> 
+<img src="/img/in-post/post-note/bootstrap-1708_6.jpg" alt="按钮风格" /></li>
+</ul>
+
+<p>同样的按钮也可以使用类名<code class="language-plaintext highlighter-rouge">.btn-lg</code>，<code class="language-plaintext highlighter-rouge">.btn-sm</code>，<code class="language-plaintext highlighter-rouge">.btn-xs</code>来设置的大小。</p>
+
+<h5 id="图像">图像</h5>
+<p>图像在网页制作中也是常要用到的元素，在Bootstrap框架中对于图像的样式风格提供以下几种风格：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.img-responsive</code>：响应式图片，主要针对于响应式设计</li>
+  <li><code class="language-plaintext highlighter-rouge">.img-rounded</code>：圆角图片</li>
+  <li><code class="language-plaintext highlighter-rouge">.img-circle</code>：圆形图片</li>
+  <li><code class="language-plaintext highlighter-rouge">.img-thumbnail</code>：缩略图片
+<img src="/img/in-post/post-note/bootstrap-1708_7.png" alt="图像样式风格" /></li>
+</ul>
+
+<h3 id="栅格系统">栅格系统</h3>
+
+<p>Bootstrap框架中的栅格系统十分强大，对响应式排版友好性十足，大致就是将容器平分成12份，元素根据视口大小分份。数据行<code class="language-plaintext highlighter-rouge">.row</code>必须包含在容器<code class="language-plaintext highlighter-rouge">.container</code>内。如：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>.col-md-4<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-8"</span><span class="nt">&gt;</span>.col-md-8<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- 行内4个单位的列偏移 --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>.col-md-4<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-2 col-md-offset-4"</span><span class="nt">&gt;</span>列向右移动四列的间距<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-2"</span><span class="nt">&gt;</span>.col-md-3<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- 行内可以进行嵌套 --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-4"</span><span class="nt">&gt;</span>.col-md-4<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-8"</span><span class="nt">&gt;</span>.col-md-8<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- 响应式写法 --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3 col-sm-6"</span><span class="nt">&gt;</span>.col-md-4<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3 col-sm-6"</span><span class="nt">&gt;</span>.col-md-8<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3 col-sm-6"</span><span class="nt">&gt;</span>.col-md-4<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3 col-sm-6"</span><span class="nt">&gt;</span>.col-md-8<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+
+<p>在行<code class="language-plaintext highlighter-rouge">.row</code>中可以添加列<code class="language-plaintext highlighter-rouge">.col-num</code>，但列数之和不能超过平分的总列数<strong>12列</strong>。栅格系统具有响应性，对于最外边框，针对浏览器大中小屏具有不同的<strong>断点</strong>（像素分界点：768px、992px、1220px）。而第二边框，就是容器<code class="language-plaintext highlighter-rouge">.container</code>，针对不同浏览器分辨率，其宽度也不一样，有这几个分界点：<strong>自动</strong>，<strong>750px</strong>，<strong>970px</strong>，<strong>1170px</strong>。</p>
+
+<p>栅格系统用来布局基本就是列的组合，Bootstrap提供了4种基本用法，主要是针对不同屏幕尺寸使用不同的网络样式：<code class="language-plaintext highlighter-rouge">.col-xs-1</code>，<code class="language-plaintext highlighter-rouge">.col-sm-1</code>，<code class="language-plaintext highlighter-rouge">.col-md-1</code>，<code class="language-plaintext highlighter-rouge">.col-lg-1</code>。下图是这四种样式的区别所在。
+<img src="/img/in-post/post-note/bootstrap-1708_8.png" alt="按钮风格" /></p>
+
+<p>但我们不希望相邻的两个列紧靠在一起时，可以使用<strong>列偏移</strong>，具体代码如上第二段所示，只需要在需要隔开的列元素上添加类名<code class="language-plaintext highlighter-rouge">.col-md-offset-4</code>，该列就会向右移动4个列的宽度。</p>
+
+<p>Bootstrap框架的栅格系统还支持列的嵌套。具体代码如上第三段所示，你可以在一个列中添加一个或者多个行<code class="language-plaintext highlighter-rouge">.row</code>容器中。</p>
+
+<p>对于响应式写法，如代码所示，如果当前视口为<strong>md</strong>范围下，则一行显示4个(3+3+3+3)，如果当前视口为<strong>sm</strong>范围下，则这一行显示2个(6+6)。这样来达到响应式排版。</p>
+
+<h3 id="菜单按钮及简单导航">菜单、按钮及简单导航</h3>
+<h5 id="下拉菜单">下拉菜单</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- 父级菜单按钮 --&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn btn-default dropdown-toggle"</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">id=</span><span class="s">"dropdownMenu1"</span> <span class="na">data-toggle=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+    下拉菜单
+    <span class="c">&lt;!-- 三角形icon --&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;/button&gt;</span>
+    <span class="c">&lt;!-- 子级列表 --&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"dropdown-menu"</span>  <span class="na">aria-labelledby=</span><span class="s">"dropdownMenu1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"dropdown-header"</span><span class="nt">&gt;</span>第一部分菜单头部<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>下拉菜单项<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"divider"</span><span class="nt">&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>下拉菜单项<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+
+<p>使用下拉菜单主要是看结构运用的正确与否，使用一个<code class="language-plaintext highlighter-rouge">.dropdown</code>的容器包裹整个下拉菜单元素，然后使用一个<code class="language-plaintext highlighter-rouge">button</code>按钮作为父级菜单
+，并且定名类名为<code class="language-plaintext highlighter-rouge">.dropdown-toggle</code>，再加上自定义<code class="language-plaintext highlighter-rouge">data-toggle</code>属性，且值为<code class="language-plaintext highlighter-rouge">dropdown</code>，此示例为：<strong>data-toggle=”dropdown”</strong>， 最后就是下拉列表，使用的是<code class="language-plaintext highlighter-rouge">ul</code>列表，定义类名<code class="language-plaintext highlighter-rouge">.dropdown-menu</code>，以及<code class="language-plaintext highlighter-rouge">li</code>标签了。</p>
+
+<p>以下是下拉菜单的拓展：</p>
+<ul>
+  <li>使用<code class="language-plaintext highlighter-rouge">&lt;li class="divider"&gt;  &lt;/li&gt;</code>可以形成一条下拉分割线</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">&lt;li class="dropdown-header"&gt;</code>可以让下拉菜单呈现一个菜单头部标题</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">&lt;li class="active"&gt;</code>可以设置成该<code class="language-plaintext highlighter-rouge">li</code>标签为当前选中状态</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">&lt;li class="disabled"&gt;</code>可以设置成该<code class="language-plaintext highlighter-rouge">li</code>标签为禁止选中状态</li>
+  <li>对父级菜单按钮追加一个<code class="language-plaintext highlighter-rouge">.dropup</code>类名，可以变成上拉菜单</li>
+  <li>对<code class="language-plaintext highlighter-rouge">ul</code>标签追加一个<code class="language-plaintext highlighter-rouge">.pull-right</code>类名，可以让下拉菜单相对于父级容器右对齐</li>
+</ul>
+
+<p>下图是上述代码的实现展示：
+<img src="/img/in-post/post-note/bootstrap-1708_9.png" alt="代码实现呈现" /></p>
+
+<h5 id="按钮组">按钮组</h5>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-toolbar"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-fast-forward"</span><span class="nt">&gt;&lt;/span&gt;&lt;/button&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-step-forward"</span><span class="nt">&gt;&lt;/span&gt;&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-search"</span><span class="nt">&gt;&lt;/span&gt;&lt;/button&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-fast-backward"</span><span class="nt">&gt;&lt;/span&gt;&lt;/button&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"glyphicon glyphicon-backward"</span><span class="nt">&gt;&lt;/span&gt;&lt;/button&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p>多个按钮一起组成按钮组，在一些编辑器里我们常用到按钮组。实现一个按钮组只需要使用一个类名为<code class="language-plaintext highlighter-rouge">.btn-group</code>的容器，把多个按钮放到这个容器中。联动之前谈论过的图标，可以做成一个十分好看的控件。下图为两个按钮组+icon组成的编辑按钮组。
+<img src="/img/in-post/post-note/bootstrap-1708_10.png" alt="编辑按钮组" /></p>
+
+<p>以下是按钮组的拓展：</p>
+<ul>
+  <li>组成一个由多个按钮组构成的按钮工具栏，只需将按钮组<code class="language-plaintext highlighter-rouge">.btn-group</code>按组放在一个大的容器<code class="language-plaintext highlighter-rouge">.btn-toolbar</code>中</li>
+  <li>按钮组默认是水平分组的，如果需要垂直分组可以把<code class="language-plaintext highlighter-rouge">.btn-group</code>替换成<code class="language-plaintext highlighter-rouge">.btn-group-vertical</code></li>
+  <li>将按钮组设置为自适应分组按钮，只需要在按钮组<code class="language-plaintext highlighter-rouge">.btn-group</code>上追加一个<code class="language-plaintext highlighter-rouge">.btn-group-justified</code>类名</li>
+</ul>
+
+<h5 id="简单导航">简单导航</h5>
+<p>Bootstrap实现导航十分简单，和原生写导航的方式一样，使用<code class="language-plaintext highlighter-rouge">ul</code>+<code class="language-plaintext highlighter-rouge">li</code>实现导航，只需在<code class="language-plaintext highlighter-rouge">ul</code>添加<code class="language-plaintext highlighter-rouge">.nav</code>类名即可。</p>
+
+<p>简单导航的拓展：</p>
+<ul>
+  <li>对<code class="language-plaintext highlighter-rouge">ul</code>追加<code class="language-plaintext highlighter-rouge">.nav-tabs</code>可变成标签型导航</li>
+  <li>对<code class="language-plaintext highlighter-rouge">ul</code>追加<code class="language-plaintext highlighter-rouge">.nav-pills</code>可变成胶囊型导航</li>
+  <li>对<code class="language-plaintext highlighter-rouge">ul</code>追加<code class="language-plaintext highlighter-rouge">.nav-stacked</code>可变成垂直导航</li>
+  <li>对<code class="language-plaintext highlighter-rouge">ul</code>追加<code class="language-plaintext highlighter-rouge">.nav-justified</code>可变成自适应导航，自适应导航在视口宽度大于<code class="language-plaintext highlighter-rouge">768px</code>时是水平风格，小于则是垂直风格</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">&lt;li class="active"&gt;</code>可以设置成该<code class="language-plaintext highlighter-rouge">li</code>标签为当前选中状态</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">&lt;li class="disabled"&gt;</code>可以设置成该<code class="language-plaintext highlighter-rouge">li</code>标签为禁止选中状态</li>
+</ul>
+
+<p>制作二级导航或是多级导航，只需要将<code class="language-plaintext highlighter-rouge">li</code>当作父容器，使用类名<code class="language-plaintext highlighter-rouge">.dropdown</code>，同时在li中嵌套另一个列表<code class="language-plaintext highlighter-rouge">ul</code>，使用前面介绍下拉菜单的方法就可以，而面包屑导航将<code class="language-plaintext highlighter-rouge">ul</code>的类名替换成<code class="language-plaintext highlighter-rouge">.breadcrumb</code>。以下是代码实现。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav nav-pills"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>首页<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"##"</span> <span class="na">class=</span><span class="s">"dropdown-toggle"</span> <span class="na">data-toggle=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+            教程
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"dropdown-menu"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>Css3<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>Sass<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>JQuery<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>Responsive<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>关于我们<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="c">&lt;!-- 面包屑导航 --&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"breadcrumb"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>首页<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>我的书<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;</span>解css3<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span> 
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-note/bootstrap-1708_11.png" alt="简单导航各类实现" /></p>
+
+<h3 id="导航条分页导航">导航条、分页导航</h3>
+<h5 id="导航条">导航条</h5>
+<p>导航条(navbar)和上面介绍的导航(nav)，其实在Bootstrap中还是明显的区别。在导航条中有一个背景色、而且可以是纯链接，也可以有表单一起结合等多种形式。</p>
+
+<p>同样的，一个导航条的构成是由使用类名<code class="language-plaintext highlighter-rouge">.navbar</code>和<code class="language-plaintext highlighter-rouge">.navbar-default</code>的容器，包含一个<code class="language-plaintext highlighter-rouge">ul</code>列表<code class="language-plaintext highlighter-rouge">&lt;ul class=”nav”&gt;</code>基础上添加类名<code class="language-plaintext highlighter-rouge">.navbar-nav</code>。</p>
+
+<p>导航条的拓展：</p>
+<ul>
+  <li>给导航条容器追加<code class="language-plaintext highlighter-rouge">.navbar-fixed-top</code>或<code class="language-plaintext highlighter-rouge">.navbar-fixed-bottom</code>类名，可设置导航条绝对定位在视口顶部或者底部</li>
+  <li>设置一个与列表<code class="language-plaintext highlighter-rouge">ul</code>同级类名为<code class="language-plaintext highlighter-rouge">.navbar-header</code>的容器，该容器内设置一个类名为<code class="language-plaintext highlighter-rouge">."navbar-bran</code>的a标签，可形成导航条标题</li>
+  <li>设置一个与列表<code class="language-plaintext highlighter-rouge">ul</code>同级类名为<code class="language-plaintext highlighter-rouge">.navbar-form</code>的表单容器，该容器内可以添加表单控件</li>
+  <li>将导航条容器的<code class="language-plaintext highlighter-rouge">.navbar-deafult</code>替换成<code class="language-plaintext highlighter-rouge">.navbar-inverse</code>可形成反色导航条</li>
+  <li>而多级导航写法和上述的方式一样</li>
+</ul>
+
+<p>对于我们常用的响应式导航条，在宽屏情况下和正常导航条无差别，但在窄屏情况下列表会折叠起来，通过点击图标来形成下拉导航，具体代码如下所示，首先是图标样式的<strong>固定写法</strong>：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"navbar-toggle"</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">data-toggle=</span><span class="s">"collapse"</span> <span class="na">data-target=</span><span class="s">".类名/#id名"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+<span class="nt">&lt;/button&gt;</span>
+
+</code></pre></div></div>
+<p>其中自定义属性<code class="language-plaintext highlighter-rouge">data-target</code>的值是根据折叠列表中自定义的类名或是id名来确定。而折叠列表代码必须包裹在一个以<code class="language-plaintext highlighter-rouge">.collapse</code>和<code class="language-plaintext highlighter-rouge">.navbar-collapse</code>为类名的<code class="language-plaintext highlighter-rouge">div</code>内，并且为这个<code class="language-plaintext highlighter-rouge">div</code>添加一个自定义的class类名或者id名。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar navbar-default"</span> <span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar-header"</span><span class="nt">&gt;</span>
+     　<span class="c">&lt;!-- .navbar-toggle样式用于toggle收缩的内容，即nav-collapse collapse样式所在元素 --&gt;</span>
+       <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"navbar-toggle"</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">data-toggle=</span><span class="s">"collapse"</span> <span class="na">data-target=</span><span class="s">".w666"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"icon-bar"</span><span class="nt">&gt;&lt;/span&gt;</span>
+       <span class="nt">&lt;/button&gt;</span>
+       <span class="c">&lt;!-- 确保无论是宽屏还是窄屏，导航条标题都显示 --&gt;</span>
+       <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"##"</span> <span class="na">class=</span><span class="s">"navbar-brand"</span><span class="nt">&gt;</span>Warcraft<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- 屏幕宽度小于768px时，div.navbar-responsive-collapse容器里的内容都会隐藏，显示icon图标，当点击icon图标时，再展开。屏幕大于768px时，默认显示。 --&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"collapse navbar-collapse w666"</span><span class="nt">&gt;</span>
+    	<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav"</span><span class="nt">&gt;</span>
+      		<span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>网站首页<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+      		<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>测试标题<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+      		<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>测试标题<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+      		<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>测试标题<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+      		<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"##"</span><span class="nt">&gt;</span>测试标题<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+	 	<span class="nt">&lt;/ul&gt;</span>
+         <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"##"</span> <span class="na">class=</span><span class="s">"navbar-form navbar-left"</span> <span class="na">rol=</span><span class="s">"search"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+                  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">placeholder=</span><span class="s">"请输入关键词"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>搜索<span class="nt">&lt;/button&gt;</span>
+     <span class="nt">&lt;/form&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-note/bootstrap-1708_12.png" alt="响应式导航条" /></p>
+
+<h5 id="分页导航">分页导航</h5>
+
+<p>分页导航几乎在哪个网站都可见。好的分页导航能给用户带来更好的用户体验。在Bootstrap中提供了两种分页导航：<strong>带页码的分页导航</strong>和<strong>带翻页的分页导航</strong>。两者都是有<code class="language-plaintext highlighter-rouge">ul</code>列表和<code class="language-plaintext highlighter-rouge">li</code>标签组成。</p>
+
+<p>首先是<strong>带页码的分页导航</strong>在<code class="language-plaintext highlighter-rouge">ul</code>标签上加入<code class="language-plaintext highlighter-rouge">.pagination</code>类名即可，而<strong>带翻页的分页导航</strong>则是加上<code class="language-plaintext highlighter-rouge">.pager</code>。两种分页导航通常和当前活动状态<code class="language-plaintext highlighter-rouge">.active</code>和禁止状态<code class="language-plaintext highlighter-rouge">.disabled</code>一起组合使用。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="c">&lt;!--页码分页--&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"pagination "</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span><span class="ni">&amp;laquo;</span>第一页<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>12<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"active"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>13<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>14<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"disabled"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>最后一页<span class="ni">&amp;raquo;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>   
+    <span class="c">&lt;!--翻页分页--&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"pager"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span><span class="ni">&amp;laquo;</span>上一页<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>下一页<span class="ni">&amp;raquo;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span> 
+    <span class="c">&lt;!--左右对齐--&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"pager"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"previous"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span><span class="ni">&amp;laquo;</span>上一页<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"next"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>下一页<span class="ni">&amp;raquo;</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span> 
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-note/bootstrap-1708_13.png" alt="两种分页导航" /></p>
+
+<h5 id="徽章效果">徽章效果</h5>
+<p><img src="/img/in-post/post-note/bootstrap-1708_14.jpg" alt="徽章效果实例" /> 
+在一些Web页面中常常会添加一个类似徽章的标签用来告诉用户一些额外的信息。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c">&lt;!-- 矩形徽章 --&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"label label-success"</span><span class="nt">&gt;</span>矩形徽章标签<span class="nt">&lt;/span&gt;</span>
+<span class="c">&lt;!-- 带圆角矩形徽章 --&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>带圆角矩形徽章<span class="nt">&lt;/span&gt;</span>
+
+</code></pre></div></div>
+<p>给两种徽章样式额外添加<code class="language-plaintext highlighter-rouge">style="vertical-align:super; font-size:10px;</code>的样式可以控制字体大小和位置。</p>
+
+<h3 id="其它内置组件">其它内置组件</h3>
+<h5 id="缩略图栏目类">缩略图栏目类</h5>
+<p>缩略图在网站中最常用的地方就是产品列表页面，Bootstrap可以通过栅格系统配合<code class="language-plaintext highlighter-rouge">.thumbnail</code>样式来实现。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-xs-6 col-md-3"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"thumbnail"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;img</span>  <span class="na">src=</span><span class="s">"images.png"</span> <span class="nt">&gt;</span>
+            <span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"caption"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;h3&gt;</span>Bootstrap缩略图栏目类<span class="nt">&lt;/h3&gt;</span>
+                <span class="nt">&lt;p&gt;</span>Bootstrap框架是一个优秀的前端框，就算您是一位后端程序员或者你是一位不懂设计的前端人员，你也能依赖于Bootstrap制作做优美的网站...<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;p&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"##"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>开始学习<span class="nt">&lt;/a&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"##"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>正在学习<span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/p&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>  
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-xs-6 col-md-3"</span><span class="nt">&gt;</span>
+        ………………
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-xs-6 col-md-3"</span><span class="nt">&gt;</span>
+        ………………
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-xs-6 col-md-3"</span><span class="nt">&gt;</span>
+        ………………
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p>这里的栅格系统表示的<code class="language-plaintext highlighter-rouge">.col-num</code>是在大屏幕的时候一行4个(3+3+3+3=12)，小屏幕的时候一行2个(6+6=2)，在单位栅格内把图片用带有<code class="language-plaintext highlighter-rouge">.thumbnail</code>类名的<code class="language-plaintext highlighter-rouge">a</code>标签包裹起来，可变成带边框的略缩图样式图片，把标题、文本描述和按钮等内容放在一个名为<code class="language-plaintext highlighter-rouge">.caption</code>的<code class="language-plaintext highlighter-rouge">div</code>容器内，这个容器和<code class="language-plaintext highlighter-rouge">a</code>标签同级。</p>
+
+<p><img src="/img/in-post/post-note/bootstrap-1708_15.png" alt="缩略图栏目" /></p>
+
+<h5 id="警告框">警告框</h5>
+<p>同样是经典的4色样式：</p>
+<ul>
+  <li>表示成功信息的绿色<code class="language-plaintext highlighter-rouge">.alert-success</code>类</li>
+  <li>表示提示信息的蓝色<code class="language-plaintext highlighter-rouge">.alert-info</code>类</li>
+  <li>表示警告信息的黄色<code class="language-plaintext highlighter-rouge">.alert-warning</code>类</li>
+  <li>表示错误信息的红色<code class="language-plaintext highlighter-rouge">.alert-danger</code>类</li>
+  <li>需要关闭按钮可追加<code class="language-plaintext highlighter-rouge">.alert-dismissable</code>类</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"alert alert-info alert-dismissable"</span> <span class="na">role=</span><span class="s">"alert"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"close"</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">data-dismiss=</span><span class="s">"alert"</span><span class="nt">&gt;</span><span class="ni">&amp;times;</span><span class="nt">&lt;/button&gt;</span>
+    请输入正确的密码
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-note/bootstrap-1708_16.png" alt="警告框" /></p>
+
+<p>如果不需要右侧的关闭按钮，可以将<code class="language-plaintext highlighter-rouge">button</code>和<code class="language-plaintext highlighter-rouge">.alert-dismissable</code>删除即可。</p>
+
+<h5 id="进度条">进度条</h5>
+<p>用类名为<code class="language-plaintext highlighter-rouge">.progress</code>的容器包裹一个类名为<code class="language-plaintext highlighter-rouge">.progress-bar</code>的<code class="language-plaintext highlighter-rouge">div</code>标签，即可构成一个基本进度条   <br />
+以下是进度条的拓展：</p>
+<ul>
+  <li>在div标签追加<code class="language-plaintext highlighter-rouge">.progress-bar-success</code>表示成功进度条，进度条颜色为绿色</li>
+  <li>在div标签追加<code class="language-plaintext highlighter-rouge">.progress-bar-info</code>表示信息进度条，进度条颜色为蓝色</li>
+  <li>在div标签追加<code class="language-plaintext highlighter-rouge">.progress-bar-warning</code>表示警告进度条，进度条颜色为黄色</li>
+  <li>在div标签追加<code class="language-plaintext highlighter-rouge">.progress-bar-danger</code>表示错误进度条，进度条颜色为红色</li>
+  <li>给容器标签追加<code class="language-plaintext highlighter-rouge">.progress-striped</code>可变成条纹进度条</li>
+  <li>在容器标签有<code class="language-plaintext highlighter-rouge">.progress</code>和<code class="language-plaintext highlighter-rouge">.progress-striped</code>的基础下，追加<code class="language-plaintext highlighter-rouge">.active</code>类名可变成动态条纹进度条</li>
+  <li>在容器内添加多个进度条标签可形成层叠进度条，多个进度条占比相加不能超过100%</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="c">&lt;!--基础进度条--&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar"</span> <span class="na">style=</span><span class="s">"width:50%"</span><span class="nt">&gt;</span>50%<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span> 
+    <span class="c">&lt;!--彩色进度条--&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar progress-bar-success"</span> <span class="na">style=</span><span class="s">"width:50%"</span><span class="nt">&gt;</span>50%<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span> 
+    <span class="c">&lt;!--条纹进度条--&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress progress-striped"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar progress-bar-success"</span> <span class="na">style=</span><span class="s">"width:40%"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+    <span class="c">&lt;!--动态进度条--&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress progress-striped active"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar progress-bar-success"</span> <span class="na">style=</span><span class="s">"width:40%"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span> 
+    <span class="c">&lt;!--层叠进度条--&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar progress-bar-success"</span> <span class="na">style=</span><span class="s">"width:20%"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar progress-bar-info"</span> <span class="na">style=</span><span class="s">"width:10%"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar progress-bar-warning"</span> <span class="na">style=</span><span class="s">"width:30%"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar progress-bar-danger"</span> <span class="na">style=</span><span class="s">"width:15%"</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span> 
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-note/bootstrap-1708_17.png" alt="各类进度条" /></p>
+
+<h5 id="列表组">列表组</h5>
+<p>列表组是Bootstrap新增的一个组件，可以用来制作列表清单、垂直导航等效果，也可以配合其他的组件制作出更漂亮的组件。主要包含以下两个部分：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.list-group</code>：列表组容器，常用的是<code class="language-plaintext highlighter-rouge">ul</code>元素，当然也可以是<code class="language-plaintext highlighter-rouge">ol</code>或者<code class="language-plaintext highlighter-rouge">div</code>元素</li>
+  <li><code class="language-plaintext highlighter-rouge">.list-group-item</code>：列表项，常用的是<code class="language-plaintext highlighter-rouge">li</code>元素，当然也可以是<code class="language-plaintext highlighter-rouge">div</code>元素</li>
+</ul>
+
+<p>在列表项内可以添加徽章样式，只需要在列表项内添加<code class="language-plaintext highlighter-rouge">&lt;span class="badge"&gt;456&lt;/span&gt;</code> 。列表项也是可以有当前状态<code class="language-plaintext highlighter-rouge">.active</code>和禁用状态<code class="language-plaintext highlighter-rouge">.disabled</code>的。给列表项追加<code class="language-plaintext highlighter-rouge">.list-group-item-success</code>等样式可以制作彩色列表项。</p>
+
+<h5 id="面板">面板</h5>
+<p>面板也是Bootstrap新增的一个组件其主要作用就是用来处理一些其他组件无法完成的功能。基础面板非常简单，就是一个<code class="language-plaintext highlighter-rouge">div</code>容器运用了<code class="language-plaintext highlighter-rouge">.panel</code>样式，产生一个具有边框的文本显示块。由于<code class="language-plaintext highlighter-rouge">.panel</code>不控制主题颜色，所以在<code class="language-plaintext highlighter-rouge">.panel</code>的基础上增加一个控制颜色的主题<code class="language-plaintext highlighter-rouge">.panel-default</code>，在这个容器内主要有以下几个主体：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.panel-body</code>:用来放置面板主体内容</li>
+  <li><code class="language-plaintext highlighter-rouge">.panel-heading</code>：用来设置面板头部样式</li>
+  <li><code class="language-plaintext highlighter-rouge">.panel-footer</code>：用来设置面板尾部样式</li>
+</ul>
+
+<p>一般情况下可以把面板理解为一个区域，在使用面板的时候，都会在<code class="language-plaintext highlighter-rouge">.panel-body</code>放置需要的内容，可能是图片、表格或者列表等。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel panel-default"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-heading"</span><span class="nt">&gt;</span>标题<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-body"</span><span class="nt">&gt;</span>基础面板
+        <span class="nt">&lt;p&gt;&lt;/p&gt;</span>
+        <span class="nt">&lt;table&gt;&lt;/table&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"list-group"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"panel-footer"</span><span class="nt">&gt;</span>作者：阿翔<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p>除了默认的主题样式之外，还包括以下几种主题样式，构成了一个彩色面板：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">.panel-default</code>：默认灰</li>
+  <li><code class="language-plaintext highlighter-rouge">.panel-primary</code>：重点蓝</li>
+  <li><code class="language-plaintext highlighter-rouge">.panel-success</code>：成功绿</li>
+  <li><code class="language-plaintext highlighter-rouge">.panel-info</code>:信息蓝</li>
+  <li><code class="language-plaintext highlighter-rouge">.panel-warning</code>：警告黄</li>
+  <li><code class="language-plaintext highlighter-rouge">.panel-danger</code>：危险红</li>
+</ul>
+
+<h3 id="模态弹窗">模态弹窗</h3>
+<p>Bootstrap框架中的模态弹出框，分别运用了<code class="language-plaintext highlighter-rouge">.modal</code>、<code class="language-plaintext highlighter-rouge">.modal-dialog</code>和<code class="language-plaintext highlighter-rouge">.modal-content</code>样式，而弹出窗真正的内容都放置在<code class="language-plaintext highlighter-rouge">.modal-content</code>中，其主要又包括三个部分：</p>
+<ul>
+  <li>弹出框头部，一般使用<code class="language-plaintext highlighter-rouge">.modal-header</code>表示，主要包括标题和关闭按钮</li>
+  <li>弹出框主体，一般使用<code class="language-plaintext highlighter-rouge">.modal-body</code>表示，弹出框的主要内容</li>
+  <li>弹出框脚部，一般使用<code class="language-plaintext highlighter-rouge">.modal-footer</code>表示，主要放置操作按钮</li>
+</ul>
+
+<p>实现方法有2种，一是通过<code class="language-plaintext highlighter-rouge">button</code>标签，二是通过<code class="language-plaintext highlighter-rouge">a</code>标签。   <br />
+<code class="language-plaintext highlighter-rouge">button</code>标签方法：只需要给<code class="language-plaintext highlighter-rouge">button</code>添加自定义两个必要的属性：<code class="language-plaintext highlighter-rouge">data-toggle="modal"</code>和<code class="language-plaintext highlighter-rouge">data-target="#xxx或者.xxx"</code>，<code class="language-plaintext highlighter-rouge">data-target</code>的值取决于模态弹出窗容器的id值或是唯一类名。
+<code class="language-plaintext highlighter-rouge">a</code>标签方法：使用链接元素自带的<code class="language-plaintext highlighter-rouge">href</code>属性替代<code class="language-plaintext highlighter-rouge">data-target</code>属性，加上<code class="language-plaintext highlighter-rouge">data-toggle="modal"</code>即可
+详细看如下代码构成：</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c">&lt;!-- data-target触发模态弹出窗元素 --&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">data-toggle=</span><span class="s">"modal"</span> <span class="na">data-target=</span><span class="s">"#C999"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span> <span class="na">type=</span><span class="s">"button"</span><span class="nt">&gt;</span>通过data-target触发<span class="nt">&lt;/button&gt;</span>
+<span class="c">&lt;!-- href触发模态弹出窗元素 --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">data-toggle=</span><span class="s">"modal"</span> <span class="na">href=</span><span class="s">"#C999"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>通过链接href属性触发<span class="nt">&lt;/a&gt;</span>
+
+<span class="c">&lt;!-- 模态弹出窗内容 --&gt;</span>
+<span class="c">&lt;!-- 增加类名fade为模态弹出框增加一个过渡动画效果 --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal fade"</span> <span class="na">id=</span><span class="s">"C999"</span> <span class="na">tabindex=</span><span class="s">"-1"</span> <span class="na">aria-labelledby=</span><span class="s">"myLargeModalLabel"</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-dialog"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-header"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"close"</span> <span class="na">data-dismiss=</span><span class="s">"modal"</span><span class="nt">&gt;&lt;span</span> <span class="na">aria-hidden=</span><span class="s">"true"</span><span class="nt">&gt;</span><span class="ni">&amp;times;</span><span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"sr-only"</span><span class="nt">&gt;</span>Close<span class="nt">&lt;/span&gt;&lt;/button&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"modal-title"</span><span class="nt">&gt;</span>模态弹出窗标题<span class="nt">&lt;/h4&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-body"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;p&gt;</span>模态弹出窗主体内容<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"modal-footer"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span> <span class="na">data-dismiss=</span><span class="s">"modal"</span><span class="nt">&gt;</span>关闭<span class="nt">&lt;/button&gt;</span>
+            <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>保存<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p><img src="/img/in-post/post-note/bootstrap-1708_18.png" alt="模态弹出窗" /></p>
+
+<h3 id="实例">实例</h3>
+
+<ul>
+  <li><a href="http://wangxiang.vip/practice-bootstrap/">仿了一个网站</a></li>
+</ul>
+
+<h3 id="结束语">结束语</h3>
+<p>断断续续写了两周，主要方便自己日后查询以及复习一遍（忘得差不多了），虽然Bootstrap很好用，但是不能太过依赖，应该多去了解Bootstrap里的各类样式的逻辑和设计理念，融合进自己的代码风格里才是王道。</p>
+:ET

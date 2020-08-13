@@ -109,34 +109,34 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
 
-
     <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg_3.jpg')">
+<header class="intro-header"
+    style="background-image: url('/img/home-bg_3.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
@@ -152,20 +152,14 @@
 
 <!-- Main Content -->
 <div class="container">
-	<div class="row">
+    <div class="row">
         
+        <!-- NO SIDEBAR -->
+        <!-- Post Container -->
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
+            <div style="font-weight: 600;font-size:30px;">抱歉，俺都收起来了</div>
 
-<!-- USE SIDEBAR -->
-    <!-- Post Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-    			
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2018/04/14/AboutJsOfHeapAndStack/">
         <h2 class="post-title">
             JS中的栈内存、堆内存
@@ -190,10 +184,10 @@ JS中变量的类型
     <p class="post-meta">
         Posted by AXiang on April 14, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2018/03/12/DifferentFromVarLetConst/">
         <h2 class="post-title">
             var和let/const的区别-细节版
@@ -222,10 +216,10 @@ var和let/const的区别
     <p class="post-meta">
         Posted by AXiang on March 12, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2018/01/02/MyCodeBase/">
         <h2 class="post-title">
             代码库
@@ -263,11 +257,11 @@ var aldR = {
     <p class="post-meta">
         Posted by AXiang on January 2, 2018
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
-    <a href="/2017/12/20/CompatibleToIOS8AboutFlex/">
+<!-- <div class="post-preview">
+    <a href="/2017/12/21/CompatibleToIOS8AboutFlex/">
         <h2 class="post-title">
             对ios8（iphone6）兼容flex布局的解决
         </h2>
@@ -296,12 +290,12 @@ Android:
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on December 20, 2017
+        Posted by AXiang on December 21, 2017
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2017/11/19/PrototypeChain/">
         <h2 class="post-title">
             浅入JS的原型链
@@ -330,11 +324,11 @@ Android:
     <p class="post-meta">
         Posted by AXiang on November 19, 2017
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
-    <a href="/2017/10/10/Swiper/">
+<!-- <div class="post-preview">
+    <a href="/2017/10/11/Swiper/">
         <h2 class="post-title">
             超级好用的滑动轮播-Swiper3
         </h2>
@@ -361,12 +355,12 @@ Android:
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on October 10, 2017
+        Posted by AXiang on October 11, 2017
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2017/09/22/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E4%BA%8E%E7%99%BE%E5%BA%A6%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2SEO%E4%BC%98%E5%8C%96%E8%A7%81%E8%A7%A3/">
         <h2 class="post-title">
             移动端针对百度搜索引擎SEO优化见解
@@ -395,11 +389,11 @@ Android:
     <p class="post-meta">
         Posted by AXiang on September 22, 2017
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
-    <a href="/2017/09/12/Vue.js-Frist/">
+<!-- <div class="post-preview">
+    <a href="/2017/09/13/Vue.js-Frist/">
         <h2 class="post-title">
             Vue.js-2.0使用体验
         </h2>
@@ -427,12 +421,12 @@ Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和�
         </div>
     </a>
     <p class="post-meta">
-        Posted by AXiang on September 12, 2017
+        Posted by AXiang on September 13, 2017
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2017/09/08/JsAboutEqual/">
         <h2 class="post-title">
             JavaScript中对象相等问题粗鉴
@@ -459,10 +453,10 @@ Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和�
     <p class="post-meta">
         Posted by AXiang on September 8, 2017
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
-<div class="post-preview">
+<!-- <div class="post-preview">
     <a href="/2017/08/30/Sass-Frist/">
         <h2 class="post-title">
             Sass初体验
@@ -490,12 +484,12 @@ Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和�
     <p class="post-meta">
         Posted by AXiang on August 30, 2017
     </p>
-</div>
-<hr>
+</div> -->
+<!-- <hr> -->
 
 
 <!-- Pager -->
-
+<!-- 
     <ul class="pager">
         
         <li class="previous">
@@ -508,194 +502,32 @@ Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和�
         </li>
         
     </ul>
+ -->
+        </div>
+        <!-- Sidebar Container -->
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 sidebar-container">
 
+            <!-- Featured Tags -->
+            
 
-    		</div>
-    <!-- Sidebar Container -->
-            <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container">
-                <!-- Featured Tags -->
+            <!-- Friends Blog -->
+            
+            <hr>
+            <h5>FRIENDS</h5>
+            <ul class="list-inline">
                 
+                <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
                 
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                            
-                                <a href="/tags/#生活" title="生活" rel="1">
-                                    生活
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Git" title="Git" rel="1">
-                                    Git
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#笔记" title="笔记" rel="6">
-                                    笔记
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#前端" title="前端" rel="22">
-                                    前端
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#响应式设计" title="响应式设计" rel="2">
-                                    响应式设计
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Css" title="Css" rel="6">
-                                    Css
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Bootstrap" title="Bootstrap" rel="1">
-                                    Bootstrap
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Sass" title="Sass" rel="1">
-                                    Sass
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#JavaScript" title="JavaScript" rel="11">
-                                    JavaScript
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Vue.js" title="Vue.js" rel="1">
-                                    Vue.js
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#SEO" title="SEO" rel="1">
-                                    SEO
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#插件" title="插件" rel="1">
-                                    插件
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#ES6" title="ES6" rel="2">
-                                    ES6
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#小程序" title="小程序" rel="2">
-                                    小程序
-                                </a>
-                            
-                        
-                            
-                                <a href="/tags/#Html" title="Html" rel="1">
-                                    Html
-                                </a>
-                            
-                        
-                    </div>
-                </section>
+                <li><a href="http://ngabbs.com/">NGA</a></li>
                 
-
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-                        
-                            <img src="/img/xiang.png" />
-                        
-                        
-                            <p>愿</p>
-                        
-                        <!-- SNS Link -->
-                        <ul class="list-inline" style="position: relative;">
-                             
-                            <li>
-                                <a href="/feed.xml">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                             
-                            <!--  -->
-                            <!-- 
-                            <li>
-                                <a target="_blank" href="https://www.zhihu.com/people/lykqnbz">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
-                                    </span>
-                                </a>
-                            </li>
-                             -->
-                            <!-- 
-                            <li>
-                                <a target="_blank" href="http://weibo.com/空的伸手摘星">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                             -->
-                            <!-- 
-                            <li>
-                                <a target="_blank" href="https://www.facebook.com/王翔">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                             -->
-                            
-                        </ul>
-                    </div>
-                </section>
-                <!-- Friends Blog -->
+                <li><a href="http://www.acfun.cn/">ACFUN</a></li>
                 
-                <hr>
-                <h5>FRIENDS</h5>
-                <ul class="list-inline">
-                    
-                        <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
-                    
-                        <li><a href="http://ngabbs.com/">NGA</a></li>
-                    
-                        <li><a href="http://www.acfun.cn/">ACFUN</a></li>
-                    
-                </ul>
-                
-    		</div>
+            </ul>
+            
+        </div>
         
-	</div>
+    </div>
 </div>
-
 
     <!-- Footer -->
 <footer>
@@ -758,7 +590,7 @@ Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和�
                     </li>
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 空的伸手摘星 <!--2019-->2048
+                    Copyright &copy; 空的伸手摘星 <!--2020-->2048
                     <br>
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -876,7 +708,6 @@ Vue.js 的目标是尽可能通过简单的 API 实现响应的数据绑定和�
                             = 'rotate(' + beta + 'deg)';
     }, false);
     } else {
-    document.querySelector('body').innerHTML = '浏览器不支持DeviceOrientationEvent';
     }
 </script>
 

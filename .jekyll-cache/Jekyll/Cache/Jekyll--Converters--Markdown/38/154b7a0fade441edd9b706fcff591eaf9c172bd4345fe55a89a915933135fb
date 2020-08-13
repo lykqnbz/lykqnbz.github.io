@@ -1,0 +1,125 @@
+I"�<blockquote>
+  <p>老忘记但是炒鸡好用的Css样式</p>
+</blockquote>
+
+<h5 id="视差效果background-attachment-fixed">视差效果：background-attachment: fixed;</h5>
+<p>视差滚动能让多层背景以不同的速度移动，形成立体的运动效果，带来非常出色的视觉体验。在CSS中定义背景滚动方式的属性是<a href="http://www.w3school.com.cn/cssref/pr_background-attachment.asp">backgroud-attacthment</a>，下面简单的写了一个Demo。</p>
+
+<style>
+.demo {
+    margin-bottom: 30px;
+}
+.demo font,.demo-title {
+    color: #1e70cd;
+    margin: 40px 0 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 35px;
+    display: block;
+}
+.demo .demo-iframe {
+    margin: 1em auto;
+    box-shadow: 0px 0px 1px 0px #aaa;
+    background: #eee;
+    position: relative;
+}
+.demo iframe {
+    display: block;
+    width: 100%;
+    border: none;
+    margin: 0;
+    box-sizing: border-box;
+    height: 400px;
+    width: 1px;
+    min-width: 100%;
+}
+</style>
+
+<div class="demo">
+	<font>简易视差Demo</font>
+	<div class="demo-iframe">
+		<iframe frameborder="0" scrolling="yes" src="http://wangxiang.vip/practiced-parallax_image/" style="height:340px"></iframe>
+    </div>
+</div>
+
+<h5 id="弹性盒子模型-displayflex">弹性盒子模型 display:flex</h5>
+
+<p>CSS3的弹性盒提供了一种当页面需要适应不同的屏幕大小以及设备类型时确保元素拥有恰当的行为的布局方式，不需要在设置左右浮动，margin，padding来调整位置。
+强烈推荐阮一峰大牛的教程：<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">Flex 布局教程</a>，举例几个常用的参数：</p>
+
+<p>以下5个属性设置在容器上（第一个属性值均为默认值）：</p>
+<ul>
+  <li>flex-direction （主轴的方向：row（横向从左到右） column（纵向从上到下））</li>
+  <li>justify-content （主轴的对齐方式：flex-start（左对齐） flex-end（右对齐） center（居中） space-between（两端对齐，间隔相等） space-around（两端对齐，边距较大））</li>
+  <li>align-items （纵向交叉轴对齐方式：stretch（占满） flex-start（起点对齐） flex-end（终点对齐） center（居中））</li>
+  <li>align-content （多个轴线的对齐方式：stretch（轴线占满）flex-start（左对齐） flex-end（右对齐） center（居中） space-between（两端对齐，间隔相等） space-around（两端对齐，边距较大））</li>
+  <li>flex-wrap （是否换行：nowrap（不换） wrap（换））</li>
+</ul>
+
+<p>以下2个属性设置在子类上（常用）：</p>
+<ul>
+  <li>align-self （允许子类与其他不同的对齐方式，可覆盖align-items属性:与<code class="language-plaintext highlighter-rouge">align-items</code>属性完全一致）</li>
+  <li>flex-grow （定义项目的放大比例，默认为0，如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话））</li>
+</ul>
+
+<h5 id="单行省略">单行省略</h5>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+</code></pre></div></div>
+<p>让一个自身有宽度或是容器有宽度的元素实现单行溢出省略（省略号表示）</p>
+
+<h5 id="页内滚动">页内滚动</h5>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    overflow: auto;
+    //使IOS下的滑轮和原生一致，丝滑般顺畅
+    -webkit-overflow-scrolling:touch;
+
+</code></pre></div></div>
+
+<p>效果类似下图<img src="/img/in-post/post-css/css_1711_3.png" alt="效果图" /></p>
+
+<h5 id="移动端图像禁止拷贝">移动端图像禁止拷贝</h5>
+
+<p>在移动端的webkit内核浏览器的下，可以防止用户长按图片跳出系统默认菜单（菜单有下载图片之类的功能），使用如下代码：</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nt">img</span><span class="p">{</span>
+        <span class="nl">-webkit-touch-callout</span><span class="p">:</span><span class="nb">none</span><span class="p">;</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+
+<h5 id="常用选择器">常用选择器</h5>
+
+<p>p:first-child 选择器：选择父级下的首个元素为<code class="language-plaintext highlighter-rouge">&lt;p&gt;</code>元素;  <br />
+  p:last-child 选择器：选择父级下的最后一个为<code class="language-plaintext highlighter-rouge">&lt;p&gt;</code>元素;   <br />
+  p:nth-child(2) 选择器：选择父级下的第2个为<code class="language-plaintext highlighter-rouge">&lt;p&gt;</code>元素;</p>
+
+<h5 id="calc四则运算动态计算长宽高">calc()四则运算动态计算长宽高</h5>
+
+<p>用于动态计算长度值。
+  需要注意的是，运算符前后都需要保留一个空格，例如：width: calc(100% - 10px)；
+  任何长度值都可以使用calc()函数进行计算；
+  calc()函数支持 <code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">/</code> 运算；
+  calc()函数使用标准的数学运算优先级规则；
+  兼容到IE9IE9+、FF4.0+、Chrome19+、Safari6+,需要加上识别符，小程序完美支持。</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="c">/* 宽度为1000px,下列表达式则为 950px */</span>
+    <span class="nc">.elm</span><span class="p">{</span>
+      <span class="nl">width</span><span class="p">:</span> <span class="n">calc</span><span class="p">(</span><span class="m">100%-50px</span><span class="p">);</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+
+<h5 id="transform和position-fixed">transform和position: fixed</h5>
+
+<p>如果在父级有设置<code class="language-plaintext highlighter-rouge">transform</code>属性时，容器内设有position: fixed属性将会失效，变成仅仅只是 position: absolute 的效果;
+  Google给的解释是<strong>position: fixed” still do not cope with transform value</strong></p>
+
+:ET

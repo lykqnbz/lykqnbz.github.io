@@ -109,51 +109,52 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
 
-
     <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/tag-bg.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading" id="tag-heading">
-                    <h1>Tags</h1>
-                    <span class="subheading">Because of juvenscence</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<header class="intro-header"
+	style="background-image: url('/img/tag-bg.jpg')">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div class="site-heading" id="tag-heading">
+					<h1>Tags</h1>
+					<span class="subheading">Because of juvenscence</span>
+				</div>
+			</div>
+		</div>
+	</div>
 </header>
 
 <!-- Main Content -->
 <div class="container">
-	<div class="row">
+	<div style="text-align: center;font-weight: 600;font-size:30px;">收了</div>
+	<div class="row" hidden>
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 标签云 -->
+			<!-- 标签云 -->
 			<div id='tag_cloud' class="tags">
 				
 				<a href="#生活" title="生活" rel="1">生活</a>
@@ -188,1229 +189,1229 @@
 				
 			</div>
 
-            <!-- 标签列表 -->
+			<!-- 标签列表 -->
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="生活">
-                    <span class="tag-text">生活</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="生活">
+					<span class="tag-text">生活</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-07-21">2017-07-21</time>
-				  <a href="/2017/07/21/hello-2017/" title="Welcome to AXiang Blog">Welcome to AXiang Blog</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-07-22">2017-07-22</time>
+				  <a href="/2017/07/22/hello-2017/" title="Welcome to AXiang Blog">Welcome to AXiang Blog</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/07/21/hello-2017/">
-				        <h2 class="post-title">
-                            Welcome to AXiang Blog
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             "Hello World"
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-07-21</p> -->
+				<div class="post-preview">
+					<a href="/2017/07/22/hello-2017/">
+						<h2 class="post-title">
+							Welcome to AXiang Blog
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 "Hello World"
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-07-22</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="Git">
-                    <span class="tag-text">Git</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="Git">
+					<span class="tag-text">Git</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-07-26">2017-07-26</time>
 				  <a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/" title="初学Git命令笔记">初学Git命令笔记</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/">
-				        <h2 class="post-title">
-                            初学Git命令笔记
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            不适合人类阅读，非常水的自我笔记
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-07-26</p> -->
+				<div class="post-preview">
+					<a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/">
+						<h2 class="post-title">
+							初学Git命令笔记
+						</h2>
+						
+						<h3 class="post-subtitle">
+							不适合人类阅读，非常水的自我笔记
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-07-26</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="笔记">
-                    <span class="tag-text">笔记</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="笔记">
+					<span class="tag-text">笔记</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-10">2017-10-10</time>
-				  <a href="/2017/10/10/Swiper/" title="超级好用的滑动轮播-Swiper3">超级好用的滑动轮播-Swiper3</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-10-11">2017-10-11</time>
+				  <a href="/2017/10/11/Swiper/" title="超级好用的滑动轮播-Swiper3">超级好用的滑动轮播-Swiper3</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/10/Swiper/">
-				        <h2 class="post-title">
-                            超级好用的滑动轮播-Swiper3
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            开源、稳定、使用简单、功能强大
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-10</p> -->
+				<div class="post-preview">
+					<a href="/2017/10/11/Swiper/">
+						<h2 class="post-title">
+							超级好用的滑动轮播-Swiper3
+						</h2>
+						
+						<h3 class="post-subtitle">
+							开源、稳定、使用简单、功能强大
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-10-11</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-09-12">2017-09-12</time>
-				  <a href="/2017/09/12/Vue.js-Frist/" title="Vue.js-2.0使用体验">Vue.js-2.0使用体验</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-09-13">2017-09-13</time>
+				  <a href="/2017/09/13/Vue.js-Frist/" title="Vue.js-2.0使用体验">Vue.js-2.0使用体验</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/09/12/Vue.js-Frist/">
-				        <h2 class="post-title">
-                            Vue.js-2.0使用体验
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            轻量级前端MVVM框架
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-09-12</p> -->
+				<div class="post-preview">
+					<a href="/2017/09/13/Vue.js-Frist/">
+						<h2 class="post-title">
+							Vue.js-2.0使用体验
+						</h2>
+						
+						<h3 class="post-subtitle">
+							轻量级前端MVVM框架
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-09-13</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-30">2017-08-30</time>
 				  <a href="/2017/08/30/Sass-Frist/" title="Sass初体验">Sass初体验</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/30/Sass-Frist/">
-				        <h2 class="post-title">
-                            Sass初体验
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-30</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/30/Sass-Frist/">
+						<h2 class="post-title">
+							Sass初体验
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-30</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-14">2017-08-14</time>
 				  <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/" title="Bootstrap查询手册">Bootstrap查询手册</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
-				        <h2 class="post-title">
-                            Bootstrap查询手册
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-14</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
+						<h2 class="post-title">
+							Bootstrap查询手册
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-14</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-01">2017-08-01</time>
 				  <a href="/2017/08/01/favorite/" title="懒猿收藏夹">懒猿收藏夹</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/01/favorite/">
-				        <h2 class="post-title">
-                            懒猿收藏夹
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-01</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/01/favorite/">
+						<h2 class="post-title">
+							懒猿收藏夹
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-01</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-07-26">2017-07-26</time>
 				  <a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/" title="初学Git命令笔记">初学Git命令笔记</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/">
-				        <h2 class="post-title">
-                            初学Git命令笔记
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            不适合人类阅读，非常水的自我笔记
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-07-26</p> -->
+				<div class="post-preview">
+					<a href="/2017/07/26/%E5%88%9D%E5%AD%A6%E5%B8%B8%E7%94%A8git%E5%91%BD%E4%BB%A4/">
+						<h2 class="post-title">
+							初学Git命令笔记
+						</h2>
+						
+						<h3 class="post-subtitle">
+							不适合人类阅读，非常水的自我笔记
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-07-26</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="前端">
-                    <span class="tag-text">前端</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="前端">
+					<span class="tag-text">前端</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2019-02-21">2019-02-21</time>
 				  <a href="/2019/02/21/AboutRedrawAndReflow/" title="掌握浏览器重绘重排原理">掌握浏览器重绘重排原理</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2019/02/21/AboutRedrawAndReflow/">
-				        <h2 class="post-title">
-                            掌握浏览器重绘重排原理
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            About redraw and reflow
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2019-02-21</p> -->
+				<div class="post-preview">
+					<a href="/2019/02/21/AboutRedrawAndReflow/">
+						<h2 class="post-title">
+							掌握浏览器重绘重排原理
+						</h2>
+						
+						<h3 class="post-subtitle">
+							About redraw and reflow
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2019-02-21</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2019-01-26">2019-01-26</time>
 				  <a href="/2019/01/26/AboutCSSGradient/" title="CSS3 Gradient细解">CSS3 Gradient细解</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2019/01/26/AboutCSSGradient/">
-				        <h2 class="post-title">
-                            CSS3 Gradient细解
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2019-01-26</p> -->
+				<div class="post-preview">
+					<a href="/2019/01/26/AboutCSSGradient/">
+						<h2 class="post-title">
+							CSS3 Gradient细解
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2019-01-26</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2019-01-04">2019-01-04</time>
 				  <a href="/2019/01/04/ES6AboutGenerator/" title="generator·ES6中的新贵">generator·ES6中的新贵</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2019/01/04/ES6AboutGenerator/">
-				        <h2 class="post-title">
-                            generator·ES6中的新贵
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2019-01-04</p> -->
+				<div class="post-preview">
+					<a href="/2019/01/04/ES6AboutGenerator/">
+						<h2 class="post-title">
+							generator·ES6中的新贵
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2019-01-04</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-12-12">2018-12-12</time>
 				  <a href="/2018/12/12/AboutJsEventLoop/" title="JavaScript的Event Loop机制">JavaScript的Event Loop机制</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/12/12/AboutJsEventLoop/">
-				        <h2 class="post-title">
-                            JavaScript的Event Loop机制
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-12-12</p> -->
+				<div class="post-preview">
+					<a href="/2018/12/12/AboutJsEventLoop/">
+						<h2 class="post-title">
+							JavaScript的Event Loop机制
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-12-12</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-10-03">2018-10-03</time>
 				  <a href="/2018/10/03/ApplicationOfPseudoElementForContent/" title="伪元素content的应用">伪元素content的应用</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/10/03/ApplicationOfPseudoElementForContent/">
-				        <h2 class="post-title">
-                            伪元素content的应用
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-10-03</p> -->
+				<div class="post-preview">
+					<a href="/2018/10/03/ApplicationOfPseudoElementForContent/">
+						<h2 class="post-title">
+							伪元素content的应用
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-10-03</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-09-16">2018-09-16</time>
 				  <a href="/2018/09/16/AmazingCss/" title="流离在过去的Css样式">流离在过去的Css样式</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/09/16/AmazingCss/">
-				        <h2 class="post-title">
-                            流离在过去的Css样式
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            健忘的福音
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-09-16</p> -->
+				<div class="post-preview">
+					<a href="/2018/09/16/AmazingCss/">
+						<h2 class="post-title">
+							流离在过去的Css样式
+						</h2>
+						
+						<h3 class="post-subtitle">
+							健忘的福音
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-09-16</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2018-08-28">2018-08-28</time>
-				  <a href="/2018/08/28/SkeletonScreen/" title="前端骨架屏方案小结">前端骨架屏方案小结</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2018-08-29">2018-08-29</time>
+				  <a href="/2018/08/29/SkeletonScreen/" title="前端骨架屏方案小结">前端骨架屏方案小结</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/08/28/SkeletonScreen/">
-				        <h2 class="post-title">
-                            前端骨架屏方案小结
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            Skeleton Screen
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-08-28</p> -->
+				<div class="post-preview">
+					<a href="/2018/08/29/SkeletonScreen/">
+						<h2 class="post-title">
+							前端骨架屏方案小结
+						</h2>
+						
+						<h3 class="post-subtitle">
+							Skeleton Screen
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-08-29</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-07-10">2018-07-10</time>
 				  <a href="/2018/07/10/AboutMiniProgram/" title="细数微信小程序的前端坑">细数微信小程序的前端坑</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/07/10/AboutMiniProgram/">
-				        <h2 class="post-title">
-                            细数微信小程序的前端坑
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            细数了半年
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-07-10</p> -->
+				<div class="post-preview">
+					<a href="/2018/07/10/AboutMiniProgram/">
+						<h2 class="post-title">
+							细数微信小程序的前端坑
+						</h2>
+						
+						<h3 class="post-subtitle">
+							细数了半年
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-07-10</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2018-06-03">2018-06-03</time>
-				  <a href="/2018/06/03/AboutJsModules/" title="js模块化-javascript module相关">js模块化-javascript module相关</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2018-06-04">2018-06-04</time>
+				  <a href="/2018/06/04/AboutJsModules/" title="js模块化-javascript module相关">js模块化-javascript module相关</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/06/03/AboutJsModules/">
-				        <h2 class="post-title">
-                            js模块化-javascript module相关
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            ECMAScript module
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-06-03</p> -->
+				<div class="post-preview">
+					<a href="/2018/06/04/AboutJsModules/">
+						<h2 class="post-title">
+							js模块化-javascript module相关
+						</h2>
+						
+						<h3 class="post-subtitle">
+							ECMAScript module
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-06-04</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2018-05-03">2018-05-03</time>
-				  <a href="/2018/05/03/WxXcxTemplate/" title="小程序·模板Template相关">小程序·模板Template相关</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2018-05-04">2018-05-04</time>
+				  <a href="/2018/05/04/WxXcxTemplate/" title="小程序·模板Template相关">小程序·模板Template相关</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/05/03/WxXcxTemplate/">
-				        <h2 class="post-title">
-                            小程序·模板Template相关
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-05-03</p> -->
+				<div class="post-preview">
+					<a href="/2018/05/04/WxXcxTemplate/">
+						<h2 class="post-title">
+							小程序·模板Template相关
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-05-04</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-04-14">2018-04-14</time>
 				  <a href="/2018/04/14/AboutJsOfHeapAndStack/" title="JS中的栈内存、堆内存">JS中的栈内存、堆内存</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/04/14/AboutJsOfHeapAndStack/">
-				        <h2 class="post-title">
-                            JS中的栈内存、堆内存
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            heap and stack
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-04-14</p> -->
+				<div class="post-preview">
+					<a href="/2018/04/14/AboutJsOfHeapAndStack/">
+						<h2 class="post-title">
+							JS中的栈内存、堆内存
+						</h2>
+						
+						<h3 class="post-subtitle">
+							heap and stack
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-04-14</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-03-12">2018-03-12</time>
 				  <a href="/2018/03/12/DifferentFromVarLetConst/" title="var和let/const的区别-细节版">var和let/const的区别-细节版</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/03/12/DifferentFromVarLetConst/">
-				        <h2 class="post-title">
-                            var和let/const的区别-细节版
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-03-12</p> -->
+				<div class="post-preview">
+					<a href="/2018/03/12/DifferentFromVarLetConst/">
+						<h2 class="post-title">
+							var和let/const的区别-细节版
+						</h2>
+						
+						<h3 class="post-subtitle">
+							
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-03-12</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-01-02">2018-01-02</time>
 				  <a href="/2018/01/02/MyCodeBase/" title="代码库">代码库</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/01/02/MyCodeBase/">
-				        <h2 class="post-title">
-                            代码库
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            JavaScript常用实例的实现与封装
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-01-02</p> -->
+				<div class="post-preview">
+					<a href="/2018/01/02/MyCodeBase/">
+						<h2 class="post-title">
+							代码库
+						</h2>
+						
+						<h3 class="post-subtitle">
+							JavaScript常用实例的实现与封装
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-01-02</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-12-20">2017-12-20</time>
-				  <a href="/2017/12/20/CompatibleToIOS8AboutFlex/" title="对ios8（iphone6）兼容flex布局的解决">对ios8（iphone6）兼容flex布局的解决</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-12-21">2017-12-21</time>
+				  <a href="/2017/12/21/CompatibleToIOS8AboutFlex/" title="对ios8（iphone6）兼容flex布局的解决">对ios8（iphone6）兼容flex布局的解决</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/12/20/CompatibleToIOS8AboutFlex/">
-				        <h2 class="post-title">
-                            对ios8（iphone6）兼容flex布局的解决
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            完美布局怎容瑕疵
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-12-20</p> -->
+				<div class="post-preview">
+					<a href="/2017/12/21/CompatibleToIOS8AboutFlex/">
+						<h2 class="post-title">
+							对ios8（iphone6）兼容flex布局的解决
+						</h2>
+						
+						<h3 class="post-subtitle">
+							完美布局怎容瑕疵
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-12-21</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-11-19">2017-11-19</time>
 				  <a href="/2017/11/19/PrototypeChain/" title="浅入JS的原型链">浅入JS的原型链</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/11/19/PrototypeChain/">
-				        <h2 class="post-title">
-                            浅入JS的原型链
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-11-19</p> -->
+				<div class="post-preview">
+					<a href="/2017/11/19/PrototypeChain/">
+						<h2 class="post-title">
+							浅入JS的原型链
+						</h2>
+						
+						<h3 class="post-subtitle">
+							
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-11-19</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-10">2017-10-10</time>
-				  <a href="/2017/10/10/Swiper/" title="超级好用的滑动轮播-Swiper3">超级好用的滑动轮播-Swiper3</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-10-11">2017-10-11</time>
+				  <a href="/2017/10/11/Swiper/" title="超级好用的滑动轮播-Swiper3">超级好用的滑动轮播-Swiper3</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/10/Swiper/">
-				        <h2 class="post-title">
-                            超级好用的滑动轮播-Swiper3
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            开源、稳定、使用简单、功能强大
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-10</p> -->
+				<div class="post-preview">
+					<a href="/2017/10/11/Swiper/">
+						<h2 class="post-title">
+							超级好用的滑动轮播-Swiper3
+						</h2>
+						
+						<h3 class="post-subtitle">
+							开源、稳定、使用简单、功能强大
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-10-11</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-09-22">2017-09-22</time>
 				  <a href="/2017/09/22/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E4%BA%8E%E7%99%BE%E5%BA%A6%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2SEO%E4%BC%98%E5%8C%96%E8%A7%81%E8%A7%A3/" title="移动端针对百度搜索引擎SEO优化见解">移动端针对百度搜索引擎SEO优化见解</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/09/22/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E4%BA%8E%E7%99%BE%E5%BA%A6%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2SEO%E4%BC%98%E5%8C%96%E8%A7%81%E8%A7%A3/">
-				        <h2 class="post-title">
-                            移动端针对百度搜索引擎SEO优化见解
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-09-22</p> -->
+				<div class="post-preview">
+					<a href="/2017/09/22/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E4%BA%8E%E7%99%BE%E5%BA%A6%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2SEO%E4%BC%98%E5%8C%96%E8%A7%81%E8%A7%A3/">
+						<h2 class="post-title">
+							移动端针对百度搜索引擎SEO优化见解
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-09-22</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-09-12">2017-09-12</time>
-				  <a href="/2017/09/12/Vue.js-Frist/" title="Vue.js-2.0使用体验">Vue.js-2.0使用体验</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-09-13">2017-09-13</time>
+				  <a href="/2017/09/13/Vue.js-Frist/" title="Vue.js-2.0使用体验">Vue.js-2.0使用体验</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/09/12/Vue.js-Frist/">
-				        <h2 class="post-title">
-                            Vue.js-2.0使用体验
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            轻量级前端MVVM框架
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-09-12</p> -->
+				<div class="post-preview">
+					<a href="/2017/09/13/Vue.js-Frist/">
+						<h2 class="post-title">
+							Vue.js-2.0使用体验
+						</h2>
+						
+						<h3 class="post-subtitle">
+							轻量级前端MVVM框架
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-09-13</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-09-08">2017-09-08</time>
 				  <a href="/2017/09/08/JsAboutEqual/" title="JavaScript中对象相等问题粗鉴">JavaScript中对象相等问题粗鉴</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/09/08/JsAboutEqual/">
-				        <h2 class="post-title">
-                            JavaScript中对象相等问题粗鉴
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-09-08</p> -->
+				<div class="post-preview">
+					<a href="/2017/09/08/JsAboutEqual/">
+						<h2 class="post-title">
+							JavaScript中对象相等问题粗鉴
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-09-08</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-30">2017-08-30</time>
 				  <a href="/2017/08/30/Sass-Frist/" title="Sass初体验">Sass初体验</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/30/Sass-Frist/">
-				        <h2 class="post-title">
-                            Sass初体验
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-30</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/30/Sass-Frist/">
+						<h2 class="post-title">
+							Sass初体验
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-30</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-14">2017-08-14</time>
 				  <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/" title="Bootstrap查询手册">Bootstrap查询手册</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
-				        <h2 class="post-title">
-                            Bootstrap查询手册
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-14</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
+						<h2 class="post-title">
+							Bootstrap查询手册
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-14</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-08">2017-08-08</time>
 				  <a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="响应式设计的基础知识">响应式设计的基础知识</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
-				        <h2 class="post-title">
-                            响应式设计的基础知识
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            做一个魔王扎克
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-08</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+						<h2 class="post-title">
+							响应式设计的基础知识
+						</h2>
+						
+						<h3 class="post-subtitle">
+							做一个魔王扎克
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-08</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="响应式设计">
-                    <span class="tag-text">响应式设计</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="响应式设计">
+					<span class="tag-text">响应式设计</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2018-08-28">2018-08-28</time>
-				  <a href="/2018/08/28/SkeletonScreen/" title="前端骨架屏方案小结">前端骨架屏方案小结</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2018-08-29">2018-08-29</time>
+				  <a href="/2018/08/29/SkeletonScreen/" title="前端骨架屏方案小结">前端骨架屏方案小结</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/08/28/SkeletonScreen/">
-				        <h2 class="post-title">
-                            前端骨架屏方案小结
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            Skeleton Screen
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-08-28</p> -->
+				<div class="post-preview">
+					<a href="/2018/08/29/SkeletonScreen/">
+						<h2 class="post-title">
+							前端骨架屏方案小结
+						</h2>
+						
+						<h3 class="post-subtitle">
+							Skeleton Screen
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-08-29</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-08">2017-08-08</time>
 				  <a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="响应式设计的基础知识">响应式设计的基础知识</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
-				        <h2 class="post-title">
-                            响应式设计的基础知识
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            做一个魔王扎克
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-08</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/08/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+						<h2 class="post-title">
+							响应式设计的基础知识
+						</h2>
+						
+						<h3 class="post-subtitle">
+							做一个魔王扎克
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-08</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="Css">
-                    <span class="tag-text">Css</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="Css">
+					<span class="tag-text">Css</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2019-01-26">2019-01-26</time>
 				  <a href="/2019/01/26/AboutCSSGradient/" title="CSS3 Gradient细解">CSS3 Gradient细解</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2019/01/26/AboutCSSGradient/">
-				        <h2 class="post-title">
-                            CSS3 Gradient细解
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2019-01-26</p> -->
+				<div class="post-preview">
+					<a href="/2019/01/26/AboutCSSGradient/">
+						<h2 class="post-title">
+							CSS3 Gradient细解
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2019-01-26</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-10-03">2018-10-03</time>
 				  <a href="/2018/10/03/ApplicationOfPseudoElementForContent/" title="伪元素content的应用">伪元素content的应用</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/10/03/ApplicationOfPseudoElementForContent/">
-				        <h2 class="post-title">
-                            伪元素content的应用
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-10-03</p> -->
+				<div class="post-preview">
+					<a href="/2018/10/03/ApplicationOfPseudoElementForContent/">
+						<h2 class="post-title">
+							伪元素content的应用
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-10-03</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-09-16">2018-09-16</time>
 				  <a href="/2018/09/16/AmazingCss/" title="流离在过去的Css样式">流离在过去的Css样式</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/09/16/AmazingCss/">
-				        <h2 class="post-title">
-                            流离在过去的Css样式
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            健忘的福音
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-09-16</p> -->
+				<div class="post-preview">
+					<a href="/2018/09/16/AmazingCss/">
+						<h2 class="post-title">
+							流离在过去的Css样式
+						</h2>
+						
+						<h3 class="post-subtitle">
+							健忘的福音
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-09-16</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-12-20">2017-12-20</time>
-				  <a href="/2017/12/20/CompatibleToIOS8AboutFlex/" title="对ios8（iphone6）兼容flex布局的解决">对ios8（iphone6）兼容flex布局的解决</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-12-21">2017-12-21</time>
+				  <a href="/2017/12/21/CompatibleToIOS8AboutFlex/" title="对ios8（iphone6）兼容flex布局的解决">对ios8（iphone6）兼容flex布局的解决</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/12/20/CompatibleToIOS8AboutFlex/">
-				        <h2 class="post-title">
-                            对ios8（iphone6）兼容flex布局的解决
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            完美布局怎容瑕疵
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-12-20</p> -->
+				<div class="post-preview">
+					<a href="/2017/12/21/CompatibleToIOS8AboutFlex/">
+						<h2 class="post-title">
+							对ios8（iphone6）兼容flex布局的解决
+						</h2>
+						
+						<h3 class="post-subtitle">
+							完美布局怎容瑕疵
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-12-21</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-30">2017-08-30</time>
 				  <a href="/2017/08/30/Sass-Frist/" title="Sass初体验">Sass初体验</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/30/Sass-Frist/">
-				        <h2 class="post-title">
-                            Sass初体验
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-30</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/30/Sass-Frist/">
+						<h2 class="post-title">
+							Sass初体验
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-30</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-14">2017-08-14</time>
 				  <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/" title="Bootstrap查询手册">Bootstrap查询手册</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
-				        <h2 class="post-title">
-                            Bootstrap查询手册
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-14</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
+						<h2 class="post-title">
+							Bootstrap查询手册
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-14</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="Bootstrap">
-                    <span class="tag-text">Bootstrap</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="Bootstrap">
+					<span class="tag-text">Bootstrap</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-14">2017-08-14</time>
 				  <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/" title="Bootstrap查询手册">Bootstrap查询手册</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
-				        <h2 class="post-title">
-                            Bootstrap查询手册
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-14</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/14/Bootstrap%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">
+						<h2 class="post-title">
+							Bootstrap查询手册
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-14</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="Sass">
-                    <span class="tag-text">Sass</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="Sass">
+					<span class="tag-text">Sass</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-08-30">2017-08-30</time>
 				  <a href="/2017/08/30/Sass-Frist/" title="Sass初体验">Sass初体验</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/08/30/Sass-Frist/">
-				        <h2 class="post-title">
-                            Sass初体验
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-08-30</p> -->
+				<div class="post-preview">
+					<a href="/2017/08/30/Sass-Frist/">
+						<h2 class="post-title">
+							Sass初体验
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-08-30</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="JavaScript">
-                    <span class="tag-text">JavaScript</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="JavaScript">
+					<span class="tag-text">JavaScript</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2019-02-21">2019-02-21</time>
 				  <a href="/2019/02/21/AboutRedrawAndReflow/" title="掌握浏览器重绘重排原理">掌握浏览器重绘重排原理</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2019/02/21/AboutRedrawAndReflow/">
-				        <h2 class="post-title">
-                            掌握浏览器重绘重排原理
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            About redraw and reflow
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2019-02-21</p> -->
+				<div class="post-preview">
+					<a href="/2019/02/21/AboutRedrawAndReflow/">
+						<h2 class="post-title">
+							掌握浏览器重绘重排原理
+						</h2>
+						
+						<h3 class="post-subtitle">
+							About redraw and reflow
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2019-02-21</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2019-01-04">2019-01-04</time>
 				  <a href="/2019/01/04/ES6AboutGenerator/" title="generator·ES6中的新贵">generator·ES6中的新贵</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2019/01/04/ES6AboutGenerator/">
-				        <h2 class="post-title">
-                            generator·ES6中的新贵
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2019-01-04</p> -->
+				<div class="post-preview">
+					<a href="/2019/01/04/ES6AboutGenerator/">
+						<h2 class="post-title">
+							generator·ES6中的新贵
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2019-01-04</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-12-12">2018-12-12</time>
 				  <a href="/2018/12/12/AboutJsEventLoop/" title="JavaScript的Event Loop机制">JavaScript的Event Loop机制</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/12/12/AboutJsEventLoop/">
-				        <h2 class="post-title">
-                            JavaScript的Event Loop机制
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-12-12</p> -->
+				<div class="post-preview">
+					<a href="/2018/12/12/AboutJsEventLoop/">
+						<h2 class="post-title">
+							JavaScript的Event Loop机制
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-12-12</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2018-06-03">2018-06-03</time>
-				  <a href="/2018/06/03/AboutJsModules/" title="js模块化-javascript module相关">js模块化-javascript module相关</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2018-06-04">2018-06-04</time>
+				  <a href="/2018/06/04/AboutJsModules/" title="js模块化-javascript module相关">js模块化-javascript module相关</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/06/03/AboutJsModules/">
-				        <h2 class="post-title">
-                            js模块化-javascript module相关
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            ECMAScript module
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-06-03</p> -->
+				<div class="post-preview">
+					<a href="/2018/06/04/AboutJsModules/">
+						<h2 class="post-title">
+							js模块化-javascript module相关
+						</h2>
+						
+						<h3 class="post-subtitle">
+							ECMAScript module
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-06-04</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2018-05-03">2018-05-03</time>
-				  <a href="/2018/05/03/WxXcxTemplate/" title="小程序·模板Template相关">小程序·模板Template相关</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2018-05-04">2018-05-04</time>
+				  <a href="/2018/05/04/WxXcxTemplate/" title="小程序·模板Template相关">小程序·模板Template相关</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/05/03/WxXcxTemplate/">
-				        <h2 class="post-title">
-                            小程序·模板Template相关
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-05-03</p> -->
+				<div class="post-preview">
+					<a href="/2018/05/04/WxXcxTemplate/">
+						<h2 class="post-title">
+							小程序·模板Template相关
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-05-04</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-04-14">2018-04-14</time>
 				  <a href="/2018/04/14/AboutJsOfHeapAndStack/" title="JS中的栈内存、堆内存">JS中的栈内存、堆内存</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/04/14/AboutJsOfHeapAndStack/">
-				        <h2 class="post-title">
-                            JS中的栈内存、堆内存
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            heap and stack
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-04-14</p> -->
+				<div class="post-preview">
+					<a href="/2018/04/14/AboutJsOfHeapAndStack/">
+						<h2 class="post-title">
+							JS中的栈内存、堆内存
+						</h2>
+						
+						<h3 class="post-subtitle">
+							heap and stack
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-04-14</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-03-12">2018-03-12</time>
 				  <a href="/2018/03/12/DifferentFromVarLetConst/" title="var和let/const的区别-细节版">var和let/const的区别-细节版</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/03/12/DifferentFromVarLetConst/">
-				        <h2 class="post-title">
-                            var和let/const的区别-细节版
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-03-12</p> -->
+				<div class="post-preview">
+					<a href="/2018/03/12/DifferentFromVarLetConst/">
+						<h2 class="post-title">
+							var和let/const的区别-细节版
+						</h2>
+						
+						<h3 class="post-subtitle">
+							
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-03-12</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-01-02">2018-01-02</time>
 				  <a href="/2018/01/02/MyCodeBase/" title="代码库">代码库</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/01/02/MyCodeBase/">
-				        <h2 class="post-title">
-                            代码库
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            JavaScript常用实例的实现与封装
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-01-02</p> -->
+				<div class="post-preview">
+					<a href="/2018/01/02/MyCodeBase/">
+						<h2 class="post-title">
+							代码库
+						</h2>
+						
+						<h3 class="post-subtitle">
+							JavaScript常用实例的实现与封装
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-01-02</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-11-19">2017-11-19</time>
 				  <a href="/2017/11/19/PrototypeChain/" title="浅入JS的原型链">浅入JS的原型链</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/11/19/PrototypeChain/">
-				        <h2 class="post-title">
-                            浅入JS的原型链
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-11-19</p> -->
+				<div class="post-preview">
+					<a href="/2017/11/19/PrototypeChain/">
+						<h2 class="post-title">
+							浅入JS的原型链
+						</h2>
+						
+						<h3 class="post-subtitle">
+							
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-11-19</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-09-12">2017-09-12</time>
-				  <a href="/2017/09/12/Vue.js-Frist/" title="Vue.js-2.0使用体验">Vue.js-2.0使用体验</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-09-13">2017-09-13</time>
+				  <a href="/2017/09/13/Vue.js-Frist/" title="Vue.js-2.0使用体验">Vue.js-2.0使用体验</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/09/12/Vue.js-Frist/">
-				        <h2 class="post-title">
-                            Vue.js-2.0使用体验
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            轻量级前端MVVM框架
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-09-12</p> -->
+				<div class="post-preview">
+					<a href="/2017/09/13/Vue.js-Frist/">
+						<h2 class="post-title">
+							Vue.js-2.0使用体验
+						</h2>
+						
+						<h3 class="post-subtitle">
+							轻量级前端MVVM框架
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-09-13</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-09-08">2017-09-08</time>
 				  <a href="/2017/09/08/JsAboutEqual/" title="JavaScript中对象相等问题粗鉴">JavaScript中对象相等问题粗鉴</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/09/08/JsAboutEqual/">
-				        <h2 class="post-title">
-                            JavaScript中对象相等问题粗鉴
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            　
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-09-08</p> -->
+				<div class="post-preview">
+					<a href="/2017/09/08/JsAboutEqual/">
+						<h2 class="post-title">
+							JavaScript中对象相等问题粗鉴
+						</h2>
+						
+						<h3 class="post-subtitle">
+							　
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-09-08</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="Vue.js">
-                    <span class="tag-text">Vue.js</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="Vue.js">
+					<span class="tag-text">Vue.js</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-09-12">2017-09-12</time>
-				  <a href="/2017/09/12/Vue.js-Frist/" title="Vue.js-2.0使用体验">Vue.js-2.0使用体验</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-09-13">2017-09-13</time>
+				  <a href="/2017/09/13/Vue.js-Frist/" title="Vue.js-2.0使用体验">Vue.js-2.0使用体验</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/09/12/Vue.js-Frist/">
-				        <h2 class="post-title">
-                            Vue.js-2.0使用体验
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            轻量级前端MVVM框架
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-09-12</p> -->
+				<div class="post-preview">
+					<a href="/2017/09/13/Vue.js-Frist/">
+						<h2 class="post-title">
+							Vue.js-2.0使用体验
+						</h2>
+						
+						<h3 class="post-subtitle">
+							轻量级前端MVVM框架
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-09-13</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="SEO">
-                    <span class="tag-text">SEO</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="SEO">
+					<span class="tag-text">SEO</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2017-09-22">2017-09-22</time>
 				  <a href="/2017/09/22/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E4%BA%8E%E7%99%BE%E5%BA%A6%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2SEO%E4%BC%98%E5%8C%96%E8%A7%81%E8%A7%A3/" title="移动端针对百度搜索引擎SEO优化见解">移动端针对百度搜索引擎SEO优化见解</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/09/22/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E4%BA%8E%E7%99%BE%E5%BA%A6%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2SEO%E4%BC%98%E5%8C%96%E8%A7%81%E8%A7%A3/">
-				        <h2 class="post-title">
-                            移动端针对百度搜索引擎SEO优化见解
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-09-22</p> -->
+				<div class="post-preview">
+					<a href="/2017/09/22/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E4%BA%8E%E7%99%BE%E5%BA%A6%E5%BC%95%E6%93%8E%E6%90%9C%E7%B4%A2SEO%E4%BC%98%E5%8C%96%E8%A7%81%E8%A7%A3/">
+						<h2 class="post-title">
+							移动端针对百度搜索引擎SEO优化见解
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-09-22</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="插件">
-                    <span class="tag-text">插件</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="插件">
+					<span class="tag-text">插件</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2017-10-10">2017-10-10</time>
-				  <a href="/2017/10/10/Swiper/" title="超级好用的滑动轮播-Swiper3">超级好用的滑动轮播-Swiper3</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2017-10-11">2017-10-11</time>
+				  <a href="/2017/10/11/Swiper/" title="超级好用的滑动轮播-Swiper3">超级好用的滑动轮播-Swiper3</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2017/10/10/Swiper/">
-				        <h2 class="post-title">
-                            超级好用的滑动轮播-Swiper3
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            开源、稳定、使用简单、功能强大
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2017-10-10</p> -->
+				<div class="post-preview">
+					<a href="/2017/10/11/Swiper/">
+						<h2 class="post-title">
+							超级好用的滑动轮播-Swiper3
+						</h2>
+						
+						<h3 class="post-subtitle">
+							开源、稳定、使用简单、功能强大
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2017-10-11</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="ES6">
-                    <span class="tag-text">ES6</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="ES6">
+					<span class="tag-text">ES6</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2019-01-04">2019-01-04</time>
 				  <a href="/2019/01/04/ES6AboutGenerator/" title="generator·ES6中的新贵">generator·ES6中的新贵</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2019/01/04/ES6AboutGenerator/">
-				        <h2 class="post-title">
-                            generator·ES6中的新贵
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2019-01-04</p> -->
+				<div class="post-preview">
+					<a href="/2019/01/04/ES6AboutGenerator/">
+						<h2 class="post-title">
+							generator·ES6中的新贵
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2019-01-04</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-03-12">2018-03-12</time>
 				  <a href="/2018/03/12/DifferentFromVarLetConst/" title="var和let/const的区别-细节版">var和let/const的区别-细节版</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/03/12/DifferentFromVarLetConst/">
-				        <h2 class="post-title">
-                            var和let/const的区别-细节版
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-03-12</p> -->
+				<div class="post-preview">
+					<a href="/2018/03/12/DifferentFromVarLetConst/">
+						<h2 class="post-title">
+							var和let/const的区别-细节版
+						</h2>
+						
+						<h3 class="post-subtitle">
+							
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-03-12</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="小程序">
-                    <span class="tag-text">小程序</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="小程序">
+					<span class="tag-text">小程序</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2018-07-10">2018-07-10</time>
 				  <a href="/2018/07/10/AboutMiniProgram/" title="细数微信小程序的前端坑">细数微信小程序的前端坑</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/07/10/AboutMiniProgram/">
-				        <h2 class="post-title">
-                            细数微信小程序的前端坑
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            细数了半年
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-07-10</p> -->
+				<div class="post-preview">
+					<a href="/2018/07/10/AboutMiniProgram/">
+						<h2 class="post-title">
+							细数微信小程序的前端坑
+						</h2>
+						
+						<h3 class="post-subtitle">
+							细数了半年
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-07-10</p> -->
 				</div>
 				<hr>
 				
-				  <!-- <li class="listing-item">
-				  <time datetime="2018-05-03">2018-05-03</time>
-				  <a href="/2018/05/03/WxXcxTemplate/" title="小程序·模板Template相关">小程序·模板Template相关</a>
+				<!-- <li class="listing-item">
+				  <time datetime="2018-05-04">2018-05-04</time>
+				  <a href="/2018/05/04/WxXcxTemplate/" title="小程序·模板Template相关">小程序·模板Template相关</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2018/05/03/WxXcxTemplate/">
-				        <h2 class="post-title">
-                            小程序·模板Template相关
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				             
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2018-05-03</p> -->
+				<div class="post-preview">
+					<a href="/2018/05/04/WxXcxTemplate/">
+						<h2 class="post-title">
+							小程序·模板Template相关
+						</h2>
+						
+						<h3 class="post-subtitle">
+							 
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2018-05-04</p> -->
 				</div>
 				<hr>
 				
 			</div>
 			
 			<div class="one-tag-list">
-			  	<span class="fa fa-tag listing-seperator" id="Html">
-                    <span class="tag-text">Html</span>
-                </span>
+				<span class="fa fa-tag listing-seperator" id="Html">
+					<span class="tag-text">Html</span>
+				</span>
 				
-				  <!-- <li class="listing-item">
+				<!-- <li class="listing-item">
 				  <time datetime="2019-02-21">2019-02-21</time>
 				  <a href="/2019/02/21/AboutRedrawAndReflow/" title="掌握浏览器重绘重排原理">掌握浏览器重绘重排原理</a>
 				  </li> -->
-				 <div class="post-preview">
-				    <a href="/2019/02/21/AboutRedrawAndReflow/">
-				        <h2 class="post-title">
-                            掌握浏览器重绘重排原理
-				        </h2>
-				        
-				        <h3 class="post-subtitle">
-				            About redraw and reflow
-				        </h3>
-				        
-				    </a>
-				    <!-- <p class="post-meta">2019-02-21</p> -->
+				<div class="post-preview">
+					<a href="/2019/02/21/AboutRedrawAndReflow/">
+						<h2 class="post-title">
+							掌握浏览器重绘重排原理
+						</h2>
+						
+						<h3 class="post-subtitle">
+							About redraw and reflow
+						</h3>
+						
+					</a>
+					<!-- <p class="post-meta">2019-02-21</p> -->
 				</div>
 				<hr>
 				
@@ -1420,7 +1421,6 @@
 		</div>
 	</div>
 </div>
-
 
     <!-- Footer -->
 <footer>
@@ -1483,7 +1483,7 @@
                     </li>
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 空的伸手摘星 <!--2019-->2048
+                    Copyright &copy; 空的伸手摘星 <!--2020-->2048
                     <br>
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -1601,7 +1601,6 @@
                             = 'rotate(' + beta + 'deg)';
     }, false);
     } else {
-    document.querySelector('body').innerHTML = '浏览器不支持DeviceOrientationEvent';
     }
 </script>
 

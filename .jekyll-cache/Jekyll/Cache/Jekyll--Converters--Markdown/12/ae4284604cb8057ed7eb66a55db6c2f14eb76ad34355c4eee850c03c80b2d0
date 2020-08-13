@@ -1,0 +1,455 @@
+I"�<h2 id="前言">前言</h2>
+
+<blockquote>
+  <blockquote>
+    <p>开发的时候，有很多常见的实例操作，一直重复写的话，就是代码沉余。所以把一些常见的操作封装成函数，方便调用。一直待续……</p>
+  </blockquote>
+</blockquote>
+
+<h2 id="字符串操作">字符串操作</h2>
+
+<h6 id="2-1-去除字符串空格">2-1 去除字符串空格</h6>
+<h6 id="2-2-字母大小写切换">2-2 字母大小写切换</h6>
+<h6 id="2-3-字符串循环复制">2-3 字符串循环复制</h6>
+<h6 id="2-4-字符替换">2-4 字符替换</h6>
+<h6 id="2-5-正哲检测字符串">2-5 正哲检测字符串</h6>
+<h6 id="2-6-检测密码强度">2-6 检测密码强度</h6>
+<h6 id="2-7-查找字符串中某字符出现的次数">2-7 查找字符串中某字符出现的次数</h6>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">aldR</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// 2-1 去除字符串空格</span>
+    <span class="c1">//type 1-所有空格  2-前后空格  3-前空格 4-后空格</span>
+    <span class="c1">//aldR.trim('  DDSS5asd',1)</span>
+    <span class="c1">//result：DDSS5asd</span>
+    <span class="c1">//该方法可以兼容IE8</span>
+    <span class="na">trim</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\s</span><span class="sr">+/g</span><span class="p">,</span> <span class="dl">""</span><span class="p">);</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">(</span><span class="sr">^</span><span class="se">\s</span><span class="sr">*</span><span class="se">)</span><span class="sr">|</span><span class="se">(\s</span><span class="sr">*$</span><span class="se">)</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">""</span><span class="p">);</span>
+            <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">(</span><span class="sr">^</span><span class="se">\s</span><span class="sr">*</span><span class="se">)</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">""</span><span class="p">);</span>
+            <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">(\s</span><span class="sr">*$</span><span class="se">)</span><span class="sr">/g</span><span class="p">,</span> <span class="dl">""</span><span class="p">);</span>
+            <span class="nl">default</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="c1">// 2-2 字母大小写切换</span>
+    <span class="c1">//type 1-首字母大写  2-首页母小写  3-大小写转换 4-全部大写 5-全部小写</span>
+    <span class="c1">//aldR.changeCase('ccdde',1)</span>
+    <span class="c1">//result：Ccdde</span>
+    <span class="na">changeCase</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">ToggleCase</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">itemText</span> <span class="o">=</span> <span class="dl">""</span>
+            <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">""</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span>
+                <span class="kd">function</span> <span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="sr">/^</span><span class="se">([</span><span class="sr">a-z</span><span class="se">]</span><span class="sr">+</span><span class="se">)</span><span class="sr">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">item</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="nx">itemText</span> <span class="o">+=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="sr">/^</span><span class="se">([</span><span class="sr">A-Z</span><span class="se">]</span><span class="sr">+</span><span class="se">)</span><span class="sr">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">item</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="nx">itemText</span> <span class="o">+=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="nx">itemText</span> <span class="o">+=</span> <span class="nx">item</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+            <span class="k">return</span> <span class="nx">itemText</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\b\w</span><span class="sr">+</span><span class="se">\b</span><span class="sr">/g</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">word</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">word</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">word</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">toLowerCase</span><span class="p">();</span>
+                <span class="p">});</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">\b\w</span><span class="sr">+</span><span class="se">\b</span><span class="sr">/g</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">word</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">word</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">).</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">word</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">();</span>
+                <span class="p">});</span>
+            <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">ToggleCase</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+            <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+            <span class="k">case</span> <span class="mi">5</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+            <span class="nl">default</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nx">str</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="c1">// 2-3 字符串循环复制</span>
+    <span class="c1">//repeatStr(str-&gt;字符串, count-&gt;次数)</span>
+    <span class="c1">//aldR.repeatStr('123',3)</span>
+    <span class="c1">//"result：123123123"</span>
+    <span class="na">repeatStr</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">count</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">count</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">text</span> <span class="o">+=</span> <span class="nx">str</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">text</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="c1">// 2-4 字符替换</span>
+    <span class="c1">//replaceStr(字符串,字符格式, 替换方式,替换的字符（默认*）)</span>
+    <span class="c1">//字符格式自己理解:D 不好字述</span>
+    <span class="c1">//aldR.replaceStr('18819322663',[3,5,3],0)</span>
+    <span class="c1">//result：188*****663</span>
+    <span class="c1">//aldR.replaceStr('asdasdasdaa',[3,5,3],1)</span>
+    <span class="c1">//result：***asdas***</span>
+    <span class="c1">//aldR.replaceStr('1asd88465asdwqe3',[5],0)</span>
+    <span class="c1">//result：*****8465asdwqe3</span>
+    <span class="c1">//aldR.replaceStr('1asd88465asdwqe3',[5],1,'+')</span>
+    <span class="c1">//result："1asd88465as+++++"</span>
+    <span class="na">replaceStr</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">regArr</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">ARepText</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">regtext</span> <span class="o">=</span> <span class="dl">''</span><span class="p">,</span>
+            <span class="nx">Reg</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="nx">replaceText</span> <span class="o">=</span> <span class="nx">ARepText</span> <span class="o">||</span> <span class="dl">'</span><span class="s1">*</span><span class="dl">'</span><span class="p">;</span>
+        <span class="c1">//repeatStr是在上面定义过的 2-3字符串循环复制</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">regArr</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="nx">type</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">regtext</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(</span><span class="se">\\</span><span class="s1">w{</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">})</span><span class="se">\\</span><span class="s1">w{</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">}(</span><span class="se">\\</span><span class="s1">w{</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">})</span><span class="dl">'</span>
+            <span class="nx">Reg</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">regtext</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">replaceCount</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">repeatStr</span><span class="p">(</span><span class="nx">replaceText</span><span class="p">,</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+            <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">Reg</span><span class="p">,</span> <span class="dl">'</span><span class="s1">$1</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">replaceCount</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">$2</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">regArr</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="nx">type</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">regtext</span> <span class="o">=</span> <span class="dl">'</span><span class="se">\\</span><span class="s1">w{</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">}(</span><span class="se">\\</span><span class="s1">w{</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">})</span><span class="se">\\</span><span class="s1">w{</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">}</span><span class="dl">'</span>
+            <span class="nx">Reg</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">regtext</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">replaceCount1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">repeatStr</span><span class="p">(</span><span class="nx">replaceText</span><span class="p">,</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="kd">var</span> <span class="nx">replaceCount2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">repeatStr</span><span class="p">(</span><span class="nx">replaceText</span><span class="p">,</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+            <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">Reg</span><span class="p">,</span> <span class="nx">replaceCount1</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">$1</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">replaceCount2</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">regArr</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">type</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">regtext</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(^</span><span class="se">\\</span><span class="s1">w{</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">})</span><span class="dl">'</span>
+            <span class="nx">Reg</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">regtext</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">replaceCount</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">repeatStr</span><span class="p">(</span><span class="nx">replaceText</span><span class="p">,</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">Reg</span><span class="p">,</span> <span class="nx">replaceCount</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">regArr</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">type</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">regtext</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">(</span><span class="se">\\</span><span class="s1">w{</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">}$)</span><span class="dl">'</span>
+            <span class="nx">Reg</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="nx">regtext</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">replaceCount</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">repeatStr</span><span class="p">(</span><span class="nx">replaceText</span><span class="p">,</span> <span class="nx">regArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">Reg</span><span class="p">,</span> <span class="nx">replaceCount</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="c1">//2-5 正哲检测字符串</span>
+    <span class="c1">//aldR.checkType('165226226326','phone')</span>
+    <span class="c1">//result：false</span>
+    <span class="c1">//大家可以根据需要扩展</span>
+    <span class="na">checkType</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//邮箱</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">email</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">[\w</span><span class="sr">-</span><span class="se">]</span><span class="sr">+</span><span class="se">(\.[\w</span><span class="sr">-</span><span class="se">]</span><span class="sr">+</span><span class="se">)</span><span class="sr">*@</span><span class="se">[\w</span><span class="sr">-</span><span class="se">]</span><span class="sr">+</span><span class="se">(\.[\w</span><span class="sr">-</span><span class="se">]</span><span class="sr">+</span><span class="se">)</span><span class="sr">+$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//手机</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">phone</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^1</span><span class="se">[</span><span class="sr">3|4|5|7|8|9</span><span class="se">][</span><span class="sr">0-9</span><span class="se">]{9}</span><span class="sr">$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//联系电话</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">tel</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">(</span><span class="sr">0</span><span class="se">\d{2,3}</span><span class="sr">-</span><span class="se">\d{7,8})(</span><span class="sr">-</span><span class="se">\d{1,4})?</span><span class="sr">$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//正整数</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">number</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">[</span><span class="sr">0-9</span><span class="se">]</span><span class="sr">$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//英文</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">english</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">[</span><span class="sr">a-zA-Z</span><span class="se">]</span><span class="sr">+$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//文本</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">text</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">\w</span><span class="sr">+$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//中文</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">chinese</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">[\u</span><span class="sr">4E00-</span><span class="se">\u</span><span class="sr">9FA5</span><span class="se">]</span><span class="sr">+$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//小写英文</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">lower</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">[</span><span class="sr">a-z</span><span class="se">]</span><span class="sr">+$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//大写英文</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">upper</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">[</span><span class="sr">A-Z</span><span class="se">]</span><span class="sr">+$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//QQ号码</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">QQ</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">[</span><span class="sr">1-9</span><span class="se">][</span><span class="sr">0-9</span><span class="se">]{4,9}</span><span class="sr">$/gim</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="c1">//邮政编码</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">postcode</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">[</span><span class="sr">1-9</span><span class="se">]\d{5}</span><span class="sr">$/g</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);;</span>
+        <span class="c1">//身份证</span>
+        <span class="k">case</span> <span class="dl">'</span><span class="s1">idcard</span><span class="dl">'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sr">/^</span><span class="se">(</span><span class="sr">^</span><span class="se">[</span><span class="sr">1-9</span><span class="se">]\d{7}((</span><span class="sr">0</span><span class="se">\d)</span><span class="sr">|</span><span class="se">(</span><span class="sr">1</span><span class="se">[</span><span class="sr">0-2</span><span class="se">]))(([</span><span class="sr">0|1|2</span><span class="se">]\d)</span><span class="sr">|3</span><span class="se">[</span><span class="sr">0-1</span><span class="se">])\d{3}</span><span class="sr">$</span><span class="se">)</span><span class="sr">|</span><span class="se">(</span><span class="sr">^</span><span class="se">[</span><span class="sr">1-9</span><span class="se">]\d{5}[</span><span class="sr">1-9</span><span class="se">]\d{3}((</span><span class="sr">0</span><span class="se">\d)</span><span class="sr">|</span><span class="se">(</span><span class="sr">1</span><span class="se">[</span><span class="sr">0-2</span><span class="se">]))(([</span><span class="sr">0|1|2</span><span class="se">]\d)</span><span class="sr">|3</span><span class="se">[</span><span class="sr">0-1</span><span class="se">])((\d{4})</span><span class="sr">|</span><span class="se">\d{3}[</span><span class="sr">Xx</span><span class="se">])</span><span class="sr">$</span><span class="se">)</span><span class="sr">$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="nl">default</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="c1">//2-6 检测密码强度</span>
+    <span class="c1">//小于6位为0.只有数字为1，数字+小写为2，数字+大小写为3，数字+大小写+标点为4</span>
+    <span class="c1">//aldR.checkPwd('12asdASAD')</span>
+    <span class="c1">//result：3(强度等级为3)</span>
+    <span class="na">checkPwd</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">nowLv</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">nowLv</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/</span><span class="se">[</span><span class="sr">0-9</span><span class="se">]</span><span class="sr">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">nowLv</span><span class="o">++</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/</span><span class="se">[</span><span class="sr">a-z</span><span class="se">]</span><span class="sr">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">nowLv</span><span class="o">++</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/</span><span class="se">[</span><span class="sr">A-Z</span><span class="se">]</span><span class="sr">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">nowLv</span><span class="o">++</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/</span><span class="se">[\.</span><span class="sr">|-|_</span><span class="se">]</span><span class="sr">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">nowLv</span><span class="o">++</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">nowLv</span><span class="p">;</span>
+    <span class="p">},</span>   
+
+    <span class="c1">// 2-7 查找字符串中某字符出现的次数</span>
+    <span class="c1">//var strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuadbhjcibloguyeajzxkcabloguyiwezxc967'</span>
+    <span class="c1">//aldR.countStr(strTest,'blog')</span>
+    <span class="c1">//result：6</span>
+    <span class="na">countStr</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">strSplit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">strSplit</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="数组操作">数组操作</h2>
+
+<h6 id="3-1-数组去重">3-1 数组去重</h6>
+<h6 id="3-2-数组最大值最小值">3-2 数组最大值最小值</h6>
+<h6 id="3-3-数组求和平均值">3-3 数组求和，平均值</h6>
+<h6 id="3-4-返回数组字符串一个元素出现的次数">3-4 返回数组（字符串）一个元素出现的次数</h6>
+<h6 id="3-5-返回数组字符串出现最多的几次元素和出现次数">3-5 返回数组（字符串）出现最多的几次元素和出现次数</h6>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">aldR</span> <span class="o">=</span> <span class="p">{</span>
+    
+    <span class="c1">// 3-1 数组去重</span>
+    <span class="c1">//aldR.removeRepeatArray([1,1,2,3,4,5,6]))</span>
+    <span class="c1">//return:[1,2,3,4,5,6]</span>
+    <span class="na">removeRepeatArray</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nb">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">self</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="o">===</span> <span class="nx">index</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">},</span>
+
+    <span class="c1">// 3-2 数组最大值</span>
+    <span class="c1">//aldR.maxArr([1,1,2,3,4,5,6]))</span>
+    <span class="c1">//return:6</span>
+    <span class="na">maxArr</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">arr</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="c1">// 3-2 数组最小值</span>
+    <span class="c1">//aldR.minArr([1,1,2,3,4,5,6]))</span>
+    <span class="c1">//return:1</span>
+    <span class="na">minArr</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">arr</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="c1">// 3-3 求和</span>
+    <span class="c1">//主要是针对数字类型的数组</span>
+    <span class="c1">//aldR.sumArr([1,1,2,3,4,5,6]))</span>
+    <span class="c1">//return:22</span>
+    <span class="na">sumArr</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">pre</span><span class="p">,</span> <span class="nx">cur</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">pre</span> <span class="o">+</span> <span class="nx">cur</span>
+        <span class="p">})</span>
+    <span class="p">},</span>
+    <span class="c1">// 3-3 数组平均值</span>
+    <span class="c1">//小数点可能会有很多位，这里不做处理</span>
+    <span class="c1">//aldR.covArr([1,1,2,3,4,5,6]))</span>
+    <span class="c1">//return:3.1428545612399814</span>
+    <span class="na">covArr</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sumArr</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span> <span class="o">/</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="c1">// 3-4 返回数组（字符串）一个元素出现的次数</span>
+    <span class="c1">//aldR.getEleCount('asd56+asdasdwqe','a')</span>
+    <span class="c1">//result：3</span>
+    <span class="c1">//aldR.getEleCount([1,2,3,4,5,66,77,22,55,22],22)</span>
+    <span class="c1">//result：2</span>
+    <span class="na">getEleCount</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">ele</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">ele</span> <span class="o">===</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="p">{</span>
+                <span class="nx">num</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">num</span><span class="p">;</span>
+    <span class="p">},</span>
+    
+    <span class="c1">// 3-5 返回数组（字符串）出现最多的几次元素和出现次数</span>
+    <span class="c1">//arr, rank-&gt;长度，默认为数组长度，ranktype，排序方式，默认降序</span>
+    <span class="c1">//返回值：el-&gt;元素，count-&gt;次数</span>
+    <span class="c1">//aldR.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2])</span>
+    <span class="c1">//默认情况，返回所有元素出现的次数</span>
+    <span class="c1">//result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2},{"el":"4","count":1},{"el":"5","count":1},{"el":"6","count":1}]</span>
+    <span class="c1">//aldR.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3)</span>
+    <span class="c1">//传参（rank=3），只返回出现次数排序前三的</span>
+    <span class="c1">//result：[{"el":"2","count":6},{"el":"1","count":4},{"el":"3","count":2}]</span>
+    <span class="c1">//aldR.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],null,1)</span>
+    <span class="c1">//传参（ranktype=1,rank=null），升序返回所有元素出现次数</span>
+    <span class="c1">//result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1},{"el":"3","count":2},{"el":"1","count":4},{"el":"2","count":6}]</span>
+    <span class="c1">//aldR.getCount([1,2,3,1,2,5,2,4,1,2,6,2,1,3,2],3,1)</span>
+    <span class="c1">//传参（rank=3，ranktype=1），只返回出现次数排序（升序）前三的</span>
+    <span class="c1">//result：[{"el":"6","count":1},{"el":"5","count":1},{"el":"4","count":1}]</span>
+    <span class="na">getCount</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="nx">rank</span><span class="p">,</span> <span class="nx">ranktype</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{},</span>
+            <span class="nx">k</span><span class="p">,</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">//记录每一元素出现的次数</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">k</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">])</span> <span class="p">{</span>
+                <span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">obj</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">//保存结果{el-'元素'，count-出现次数}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">o</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">arr1</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="dl">'</span><span class="s1">el:</span><span class="dl">'</span><span class="o">+</span><span class="nx">o</span><span class="p">,</span> <span class="dl">'</span><span class="s1">count:</span><span class="dl">'</span><span class="o">+</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">o</span><span class="p">]]);</span>
+        <span class="p">}</span>
+        <span class="c1">//排序（降序）</span>
+        <span class="nx">arr1</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">n1</span><span class="p">,</span> <span class="nx">n2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">n2</span><span class="p">.</span><span class="nx">count</span> <span class="o">-</span> <span class="nx">n1</span><span class="p">.</span><span class="nx">count</span>
+        <span class="p">});</span>
+        <span class="c1">//如果ranktype为1，则为升序，反转数组</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">ranktype</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">arr1</span> <span class="o">=</span> <span class="nx">arr1</span><span class="p">.</span><span class="nx">reverse</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="kd">var</span> <span class="nx">rank1</span> <span class="o">=</span> <span class="nx">rank</span> <span class="o">||</span> <span class="nx">arr1</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">arr1</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">rank1</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="其他操作">其他操作</h2>
+
+<h6 id="4-1-cookie">4-1 cookie</h6>
+<h6 id="4-2-windowlocalstorage">4-2 Window.localStorage</h6>
+<h6 id="4-3-现金额大写转换函数">4-3 现金额大写转换函数</h6>
+<h6 id="4-4-日期到期时间计算">4-4 日期到期时间计算</h6>
+<h6 id="4-5-手机类型判断">4-5 手机类型判断</h6>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">var</span> <span class="nx">aldR</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="c1">// 4-1 cookie</span>
+    <span class="c1">//设置cookie</span>
+    <span class="na">setCookie</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">iDay</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">oDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+        <span class="nx">oDate</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">oDate</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span> <span class="o">+</span> <span class="nx">iDay</span><span class="p">);</span>
+        <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">name</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">;expires=</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">oDate</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="c1">//获取cookie</span>
+    <span class="na">getCookie</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">; </span><span class="dl">'</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">=</span><span class="dl">'</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">arr2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">arr2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="dl">''</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="c1">//删除cookie</span>
+    <span class="na">removeCookie</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">setCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">},</span>
+    
+    <span class="c1">// 4-2 Window.localStorage</span>
+    <span class="c1">//设置localStorage   DEMO功能:每日首次提醒</span>
+    <span class="na">setLocalStorage</span><span class="p">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">date</span><span class="o">=</span><span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">toLocaleDateString</span><span class="p">(),</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="c1">//获取localStorage   </span>
+    <span class="na">getLocalStorage</span><span class="p">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">date</span><span class="o">=</span><span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+       <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">toLocaleDateString</span><span class="p">()</span><span class="o">!=</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="c1">//删除localStorage</span>
+    <span class="na">removeLocalStorage</span><span class="p">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="nx">date</span><span class="o">=</span><span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+        <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">toLocaleDateString</span><span class="p">());</span>
+    <span class="p">},</span>
+
+    <span class="c1">// 4-3 现金额大写转换函数</span>
+    <span class="c1">//ecDo.upDigit(168752632)</span>
+    <span class="c1">//result："人民币壹亿陆仟捌佰柒拾伍万贰仟陆佰叁拾贰元整"</span>
+    <span class="c1">//ecDo.upDigit(1682)</span>
+    <span class="c1">//result："人民币壹仟陆佰捌拾贰元整"</span>
+    <span class="c1">//ecDo.upDigit(-1693)</span>
+    <span class="c1">//result："欠人民币壹仟陆佰玖拾叁元整"</span>
+    <span class="na">upDigit</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">fraction</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">角</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">分</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">厘</span><span class="dl">'</span><span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">digit</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">零</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">壹</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">贰</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">叁</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">肆</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">伍</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">陆</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">柒</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">捌</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">玖</span><span class="dl">'</span><span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">unit</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="dl">'</span><span class="s1">元</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">万</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">亿</span><span class="dl">'</span><span class="p">],</span>
+            <span class="p">[</span><span class="dl">''</span><span class="p">,</span> <span class="dl">'</span><span class="s1">拾</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">佰</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">仟</span><span class="dl">'</span><span class="p">]</span>
+        <span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">head</span> <span class="o">=</span> <span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">欠人民币</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">人民币</span><span class="dl">'</span><span class="p">;</span>
+        <span class="nx">n</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">fraction</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">s</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">digit</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nx">i</span><span class="p">))</span> <span class="o">%</span> <span class="mi">10</span><span class="p">]</span> <span class="o">+</span> <span class="nx">fraction</span><span class="p">[</span><span class="nx">i</span><span class="p">]).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/零./</span><span class="p">,</span> <span class="dl">''</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">s</span> <span class="o">=</span> <span class="nx">s</span> <span class="o">||</span> <span class="dl">'</span><span class="s1">整</span><span class="dl">'</span><span class="p">;</span>
+        <span class="nx">n</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">unit</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">p</span> <span class="o">=</span> <span class="nx">digit</span><span class="p">[</span><span class="nx">n</span> <span class="o">%</span> <span class="mi">10</span><span class="p">]</span> <span class="o">+</span> <span class="nx">unit</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">+</span> <span class="nx">p</span><span class="p">;</span>
+                <span class="nx">n</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">n</span> <span class="o">/</span> <span class="mi">10</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nx">s</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">(</span><span class="sr">零.</span><span class="se">)</span><span class="sr">*零$/</span><span class="p">,</span> <span class="dl">''</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^$/</span><span class="p">,</span> <span class="dl">'</span><span class="s1">零</span><span class="dl">'</span><span class="p">)</span> <span class="o">+</span> <span class="nx">unit</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="nx">s</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">head</span> <span class="o">+</span> <span class="nx">s</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">(</span><span class="sr">零.</span><span class="se">)</span><span class="sr">*零元/</span><span class="p">,</span> <span class="dl">'</span><span class="s1">元</span><span class="dl">'</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">(</span><span class="sr">零.</span><span class="se">)</span><span class="sr">+/g</span><span class="p">,</span> <span class="dl">'</span><span class="s1">零</span><span class="dl">'</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^整$/</span><span class="p">,</span> <span class="dl">'</span><span class="s1">零元整</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span> <span class="p">,</span>
+
+    
+    <span class="c1">// 4-4 日期到期时间计算</span>
+    <span class="c1">//ecDo.getEndTime('2017/7/22 16:0:0')</span>
+    <span class="c1">//result："剩余时间6天 2小时 28 分钟20 秒"</span>
+    <span class="na">getEndTime</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">endTime</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">startDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span> <span class="c1">//开始时间，当前时间</span>
+        <span class="kd">var</span> <span class="nx">endDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">endTime</span><span class="p">);</span> <span class="c1">//结束时间，需传入时间参数</span>
+        <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">endDate</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="nx">startDate</span><span class="p">.</span><span class="nx">getTime</span><span class="p">();</span> <span class="c1">//时间差的毫秒数</span>
+        <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">t</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">d</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">t</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">3600</span> <span class="o">/</span> <span class="mi">24</span><span class="p">);</span>
+            <span class="nx">h</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">t</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">%</span> <span class="mi">24</span><span class="p">);</span>
+            <span class="nx">m</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">t</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">%</span> <span class="mi">60</span><span class="p">);</span>
+            <span class="nx">s</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">t</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">%</span> <span class="mi">60</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="dl">"</span><span class="s2">剩余时间</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">d</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">天 </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">h</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">小时 </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">m</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> 分钟</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">s</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> 秒</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">},</span>
+    
+    
+    <span class="c1">// 4-5 手机类型判断</span>
+    <span class="na">browserInfo</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="dl">'</span><span class="s1">android</span><span class="dl">'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">'</span><span class="s1">android</span><span class="dl">'</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">case</span> <span class="dl">'</span><span class="s1">iphone</span><span class="dl">'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">'</span><span class="s1">iphone</span><span class="dl">'</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">case</span> <span class="dl">'</span><span class="s1">ipad</span><span class="dl">'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">'</span><span class="s1">ipad</span><span class="dl">'</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">case</span> <span class="dl">'</span><span class="s1">weixin</span><span class="dl">'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">'</span><span class="s1">micromessenger</span><span class="dl">'</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="na">default</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>肯定会一直更新的啦~</p>
+:ET

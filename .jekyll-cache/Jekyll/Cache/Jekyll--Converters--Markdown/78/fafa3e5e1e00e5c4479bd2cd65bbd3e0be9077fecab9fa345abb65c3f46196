@@ -1,0 +1,142 @@
+I"%J<blockquote>
+  <p>prototype chain</p>
+</blockquote>
+
+<h2 id="原型">原型</h2>
+<p>首先要说一下为什么会有原型这个东西，那是因为在 JavaScript 中并没有 “类” 的概念，它是靠原型和原型链实现对象属性的继承，即便在 ES6 中新出了class的语法，但那也只是一个语法糖，它的底层依然是原型。</p>
+
+<p>要理解原型（原型链），最重要的是理解两个属性以及它们之间的关系，附上一张经典关系图：</p>
+<ul>
+  <li>__ proto __</li>
+  <li>prototype</li>
+</ul>
+
+<p><img src="/img/in-post/post-js/js_1902_1.png" alt="区别图" /></p>
+
+<h3 id="__-proto-__">__ proto __</h3>
+<p>JavaScript中，万物皆对象，所有的对象都有__proto__属性（null和undefined除外），而且指向创造这个对象的函数对象的prototype属性。</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+    <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+    <span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){};</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+    <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">str</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+    <span class="kd">var</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">num</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Number</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+
+</code></pre></div></div>
+
+<p>前面说了，在 JavaScript 中，一切皆对象（可以理解为它们都是从对象那里继承过来的），所以基本类型对象也是通用：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+
+</code></pre></div></div>
+<p>而因为Object.prototype的__proto__已经是终点了，所以它的指向是：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">);</span> <span class="c1">// true </span>
+
+</code></pre></div></div>
+<p><strong>注意</strong>，虽然大多数浏览器都支持通过__proto__来访问，但它并不是ECMAScript的标准，在ES5中可以通过<strong>Object.getPrototypeOf()</strong>来获取这个属性。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">===</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">);</span> <span class="c1">// true</span>
+
+</code></pre></div></div>
+
+<h3 id="prototype">prototype</h3>
+<p>prototype是每个函数对象都具有的属性（它也有__proto__，因为函数也是对象），实例化创建出来的对象会共享此prototype里的属性和方法（通过__proto__）。在上面的例子中已经看到过prototype的身影，下面通过一个例子来讲述它的作用。现在我们有一个构造函数Person，并且对它进行实例化：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">sayName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">我的名字是：</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">"</span><span class="s2">小明</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">"</span><span class="s2">小红</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="nx">a</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">// 我的名字是：小明</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nx">sayName</span><span class="p">();</span> <span class="c1">// 我的名字是：小红</span>
+
+</code></pre></div></div>
+
+<h3 id="new运算符的缺点">new运算符的缺点</h3>
+<p>但是，用构造函数生成实例对象，有一个缺点，那就是无法共享属性和方法。例如上面例子中的a和b，它们都有sayName方法，虽然做的事相同，但它们却是独立的，这就会造成极大的资源浪费，因为每一个实例对象，都有自己的属性和方法的副本。</p>
+
+<h3 id="prototype属性的引入">prototype属性的引入</h3>
+<p>考虑到这一点，JS大佬决定为构造函数设置一个prototype属性。这个属性包含一个对象，所有实例对象需要共享的属性和方法，都放在这个对象里面，而不需要共享属性和方法，就放在构造函数里面，这个对象就是prototype对象。实例对象一旦创建，将自动引用prototype对象的属性和方法。也就是说，实例对象的属性和方法，分成两种，一种是本地的，另一种是引用的。</p>
+
+<p>现在对上面的例子进行改写：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="kd">function</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">sayName</span> <span class="p">:</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">我的名字是：</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">"</span><span class="s2">小明</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">"</span><span class="s2">小红</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">a</span><span class="p">.</span><span class="nx">sayName</span><span class="p">()</span> <span class="c1">// 我的名字是：小明</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nx">sayName</span><span class="p">()</span> <span class="c1">// 我的名字是：小红</span>
+
+</code></pre></div></div>
+<p>现在无论Person被实例化多少次，它的实例对象都共享同一个sayName方法，这就是prototype最大的用处。</p>
+
+<h2 id="原型链">原型链</h2>
+<p>讲原型一个不可避免的概念就是原型链，原型链是通过__proto__来实现的。现在我们以Person的例子来讲整个原型链。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">"</span><span class="s2">小明</span><span class="dl">"</span><span class="p">);</span>
+    <span class="c1">// 实例化对象的 __proto__ 指针指向构造函数的原型</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">a</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">)</span>
+    <span class="c1">// 构造函数的原型是一个对象，它的 __proto__ 指向对象的原型</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">)</span>
+    <span class="c1">// 函数也是一个对象，它的 __proto__ 指向 函数的原型</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">Person</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">)</span>
+    <span class="c1">// 函数的原型是一个对象，它的 __proto__ 指向对象的原型</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">)</span>
+    <span class="c1">// 对象的原型的__proto__ 指向 null</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">)</span>
+
+</code></pre></div></div>
+
+<p><img src="/img/in-post/post-js/js_1902_2.png" alt="链式图" />
+以上就是a对象的整个原型链和图解。</p>
+
+<h3 id="属性查找机制">属性查找机制</h3>
+<p>当访问一个对象的属性时，Javascript 会从对象本身开始往上遍历整个原型链，直到找到对应属性为止。如果此时到达了原型链的顶部，也就是上例中的 Object.prototype，仍然未发现需要查找的属性，那么 Javascript 就会返回 undefined值。</p>
+
+<h3 id="应用简单实例">应用简单实例</h3>
+<p>利用 Function 创建一个求三个数中最大数的函数：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// 传统</span>
+    <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">&gt;</span> <span class="nx">b</span> <span class="p">?</span> <span class="nx">a</span> <span class="p">:</span> <span class="nx">b</span><span class="p">;</span>
+        <span class="nx">res</span> <span class="o">=</span> <span class="nx">res</span> <span class="o">&gt;</span> <span class="nx">c</span> <span class="p">?</span> <span class="nx">res</span> <span class="p">:</span> <span class="nx">c</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">foo</span><span class="p">();</span>
+    <span class="c1">// Function</span>
+    <span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span> <span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">b</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">c</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">var res = a &gt; b ? a : b;res = res &gt; c ? res : c;return res;</span><span class="dl">'</span> <span class="p">)</span>
+    <span class="nx">func</span><span class="p">();</span>
+    <span class="c1">// Function太长可简化</span>
+    <span class="kd">function</span> <span class="nx">foo</span> <span class="p">(</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">&gt;</span> <span class="nx">b</span> <span class="p">?</span> <span class="nx">a</span> <span class="p">:</span> <span class="nx">b</span><span class="p">;</span>
+        <span class="nx">res</span> <span class="o">=</span> <span class="nx">res</span> <span class="o">&gt;</span> <span class="nx">c</span> <span class="p">?</span> <span class="nx">res</span> <span class="p">:</span> <span class="nx">c</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span> <span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">b</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">c</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">return foo( a, b, c );</span><span class="dl">'</span> <span class="p">);</span>
+    <span class="nx">func</span><span class="p">();</span>
+
+</code></pre></div></div>
+
+:ET

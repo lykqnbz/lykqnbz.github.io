@@ -109,31 +109,30 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
-
 
     <!DOCTYPE html>
 <html class="no-js">
@@ -150,11 +149,13 @@
 <body>
 	<div class="container" style="margin:0;padding:0;width:100%;">
 		<header>
-			<img width="175" height="175" style="border-radius:50%;box-shadow: 0px 0px 10px #ddd,0px 0px 20px #ddd;" src="/img/avatar-hux.jpg">
+			<img width="175" height="175" style="border-radius:50%;box-shadow: 0px 0px 10px #ddd,0px 0px 20px #ddd;"
+				src="/img/avatar-hux.jpg">
 			<h1>portfolio</h1>
 		</header>
 		<div class="main">
-			<ul class="cbp_tmtimeline">
+			<div style="text-align: center;font-weight: 600;font-size:30px;">收了</div>
+			<!-- <ul class="cbp_tmtimeline">
 
 				<li>
 					<div class="cbp_tmlabel">
@@ -334,8 +335,9 @@
 					</div>
 				</li>
 
+			</ul> -->
 
-				<!-- <li>
+			<!-- <li>
 					<div class="cbp_tmlabel">
 						<h2 id="boxoffice">practice-Bootstrap</h2>
 						<time>2017.07</time>
@@ -402,7 +404,6 @@
 					</div>
 				</li> -->
 
-			</ul>
 		</div>
 	</div>
 </body>
@@ -480,7 +481,7 @@
                     </li>
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 空的伸手摘星 <!--2019-->2048
+                    Copyright &copy; 空的伸手摘星 <!--2020-->2048
                     <br>
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -598,7 +599,6 @@
                             = 'rotate(' + beta + 'deg)';
     }, false);
     } else {
-    document.querySelector('body').innerHTML = '浏览器不支持DeviceOrientationEvent';
     }
 </script>
 

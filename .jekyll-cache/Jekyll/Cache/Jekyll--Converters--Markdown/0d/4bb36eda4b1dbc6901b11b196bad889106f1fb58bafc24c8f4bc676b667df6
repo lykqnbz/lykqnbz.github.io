@@ -1,0 +1,158 @@
+I"�H<blockquote>
+  <p>“可能是要成为海贼王的网页”</p>
+</blockquote>
+
+<h2 id="前言">前言</h2>
+
+<p>在2014年，手机网民规模超越传统PC网民规模，手机成为访问互联网最常见的终端。要在不同大小设备上呈现网页不是一件容易的事，如今做一个单纯的页面仔也不容易。</p>
+
+<hr />
+
+<h2 id="正文">正文</h2>
+
+<p>响应式设计，理念是设计和开发应根据屏幕的大小、平台的用户的行为和环境基础上自动调整；它应该有一个灵活的网格和布局，图像和CSS能够智能的组合使用。比如说用户从电脑切换到ipad，网站能够自动切换以适应分辨率，图像大小和脚本。换句话说，网站应该具备根据用户的使用环境来自动调整，这可以减少不必要的重复设计。</p>
+
+<p>现在主要有两种响应式的设计理念，一种是<code class="language-plaintext highlighter-rouge">bootstray</code>这样的框架，主要<code class="language-plaintext highlighter-rouge">媒体查询器media</code>来控制。但其默认的尺寸单位是px和pt。所以使用这种框架后，页面只是在某一个范围内进行相应的变化。这样会导致一个问题：页面很容易垮塌，比例失调。第二种是用上CSS3中的<code class="language-plaintext highlighter-rouge">rem</code>作为尺寸单位，单独使用或者是配合<code class="language-plaintext highlighter-rouge">bootstray</code>使用。<code class="language-plaintext highlighter-rouge">rem</code>是相对于根元素字体大小的单位，是一种相对单位和em类似，em根据父级元素改变而<code class="language-plaintext highlighter-rouge">rem</code>根据根元素。</p>
+
+<h4 id="参考资料">参考资料</h4>
+
+<ul>
+  <li><a href="http://mp.weixin.qq.com/s?__biz=MzA5NTM2MTEzNw==&amp;mid=388124021&amp;idx=1&amp;sn=175ee9b47b17dde0f30f6c42130ed5e2&amp;scene=2&amp;srcid=10014LSu0sE98eaP14RHzaMw&amp;from=timeline&amp;isappinstalled=0#rd">移动前端开发之viewport的深入理解</a></li>
+  <li>…</li>
+</ul>
+
+<h4 id="万恶的分辨率">万恶的分辨率</h4>
+
+<p>不同的设备都有各自的屏幕分辨率和清晰度，从当初Nokia的240×320像素2.0英寸手机，到如今SAMSUNG的2960x1440像素5.8英寸手机，期间也仅仅过了不到10年。但如今很多PC的分辨率也不及2960x1440像素，那是不是通过<code class="language-plaintext highlighter-rouge">媒体查询器media</code>来控制的响应式设计是不是就实现不了呢。其实并不是我们想象的那样。</p>
+
+<p>首先要记住，<strong>手机物理像素不等于PC端浏览器分辨率</strong>。作为Web开发者，我们整天在CSS里用<code class="language-plaintext highlighter-rouge">px</code>作为长度单位。这里的<code class="language-plaintext highlighter-rouge">px</code>指的是<strong>CSS像素</strong>。浏览器里的一切长度都是以<strong>CSS像素</strong>为单位的。在非高清屏幕以及未缩放浏览器的情况下，一个CSS像素等于一个物理像素。而在搭载了高清屏幕（PPI特别高，一个屏幕上的物理像素点非常多）的设备上，如果一个CSS像素仍等于一个物理像素，那么网页上的各种元素就变得非常小，用户很难看清，因此高<strong>PPI</strong>的设备中，一个CSS像素通常等于两个甚至三个物理像素。</p>
+
+<p>上面提及的<strong>PPI（Pixel per inch）</strong>译名为<strong>每英寸像素取值</strong>，意思是<strong>每一英寸内的物理像素数量</strong>，计算公式为：
+<img src="/img/in-post/post-responsive/responsive-1708_1.jpg" alt="PPI公式" /></p>
+
+<h4 id="视口viewport">视口（viewport）</h4>
+
+<p>讲述了设备的物理像素和CSS像素的区别后，我们说一个更重要的概念：<a href="http://mp.weixin.qq.com/s?__biz=MzA5NTM2MTEzNw==&amp;mid=388124021&amp;idx=1&amp;sn=175ee9b47b17dde0f30f6c42130ed5e2&amp;scene=2&amp;srcid=10014LSu0sE98eaP14RHzaMw&amp;from=timeline&amp;isappinstalled=0#rd">视口</a>，视口在CSS里的定义是&lt;html&gt;元素的<strong>包含块</strong>，称为<strong>初始包含块</strong>。他的宽度是<strong>所有CSS百分比宽度推算的根源</strong>。</p>
+
+<p><strong>在PC桌面上，视口的宽度等同于浏览器窗口的宽度，高度即为浏览器窗口的高度</strong>。而浏览器宽度通常为<code class="language-plaintext highlighter-rouge">240px</code>~<code class="language-plaintext highlighter-rouge">640px</code>像素的移动设备上也这样设定的话，这会很不方便。为了适应为桌面浏览器设计的网站，浏览器出现了<strong>布局视口概念</strong>。与桌面浏览器不同的是，浏览器默认的<strong>布局视口宽度</strong>与<strong>浏览器宽度</strong>完全独立。通常是<code class="language-plaintext highlighter-rouge">768px</code>~<code class="language-plaintext highlighter-rouge">1024px</code>，最常见的是<code class="language-plaintext highlighter-rouge">980px</code>。这里使用的是px单位，说明这些是CSS像素，不是移动设备的物理像素，因此“屏幕尺寸”的定义与设备屏幕的分辨率无关。实际上，这里的尺寸指的是浏览器的布局视口大小。</p>
+
+<p>对于这种情况，可以在<code class="language-plaintext highlighter-rouge">mete</code>标签内指定一个布局视口尺寸，而不是使用默认的<code class="language-plaintext highlighter-rouge">980px</code>尺寸：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=320"</span><span class="nt">&gt;</span>
+
+</code></pre></div></div>
+
+<p>然而一般我们都不指定具体宽度而是使其宽度“自由化”，做如下设置：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0, minimum-scale=1.0, 
+    maximum-scale=1.0, user-scalable=no"</span> <span class="nt">/&gt;</span>
+ 
+</code></pre></div></div>
+
+<p>上述表示的是视口宽度为理想宽度，初始的缩放比例为1倍，允许用户缩放到的最大最小比例都是1倍（意为无法缩放），且不允许用户手动缩放。这里的<code class="language-plaintext highlighter-rouge">device-width</code>是告诉浏览器，将布局视口的宽度设置为设备最理想的宽度。不同的设备有不同的理想宽度（同一设备的不同浏览器也有可能拥有不同的理想宽度），且随着设备的横放竖放也会有所改变，因此通常不指定特定的尺寸，而是使用<code class="language-plaintext highlighter-rouge">device-width</code>进行自适应。宽度为理想宽度的布局视口叫做<strong>“理想视口”</strong>。</p>
+
+<p><strong>媒体查询中，min-width、max-width的查询即是对布局视口宽度的查询</strong>。因此若想通过媒体查询来实现响应式设计，应当设置一个设备的布局视口宽度或是使其自适应到理想宽度，否则移动浏览器使用默认布局视口宽度（大都是980px）会使针对视口宽度的媒体查询器无功而返。</p>
+
+<h4 id="关于样式表">关于样式表</h4>
+
+<p>最适合新手的响应式样式无疑是百分比式的布局，在关键的宽度设置下百分比能够起到出乎意料的效果。给元素宽度设置100%之后它会自动以宽度填充满整个浏览器，不管你是手机PC什么分辨率，它总是有很好的表现。这时候你给元素下的<code class="language-plaintext highlighter-rouge">ul</code>设置左右2%的<code class="language-plaintext highlighter-rouge">margin</code>也是如此，随着浏览器窗口大小改变时<code class="language-plaintext highlighter-rouge">ul</code>的实际<code class="language-plaintext highlighter-rouge">margin</code>大小也会随着变化，这么一说大家多少也都理解了百分比布局的概念。</p>
+
+<p>当然有时候也不会有想象中的效果，特别是在较小的分辨率上时，原来看似不错的百分比设定会显得很怪，因为响应式多数时候只约定宽度，长度都是由文档和浏览器来决定的，这时候想要在所有的终端上都有很好的体验就需要<code class="language-plaintext highlighter-rouge">media query</code>来解决问题。</p>
+
+<p>说到<code class="language-plaintext highlighter-rouge">media query</code>就先要谈谈样式表的问题，对于引入样式表我们最常见的方式就是在头标签内使用<code class="language-plaintext highlighter-rouge">link</code>引用外部CSS文件。在进行响应式设计的时候一种方式是创建多个样式表，以适应不同设备类型的宽度范围。这样的分开引入的方式易于后期进行定向维护，减少维护成本。</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">media=</span><span class="s">"screen and (max-width: 480px)"</span> <span class="na">href=</span><span class="s">"style-m-480.css"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">media=</span><span class="s">"screen and (min-width: 481px)"</span> <span class="na">href=</span><span class="s">"style-l-481.css"</span> <span class="nt">/&gt;</span>
+
+</code></pre></div></div>
+<p>通过<code class="language-plaintext highlighter-rouge">媒体查询（media queries）</code>来指定特定的媒体类型，如<code class="language-plaintext highlighter-rouge">屏幕（screen）</code>和<code class="language-plaintext highlighter-rouge">打印（print）</code>等的样式表。上述第一行<code class="language-plaintext highlighter-rouge">media</code>语句表示的是当页宽度小于480px，调用<code class="language-plaintext highlighter-rouge">style-m-480.css</code>样式表来渲染你的Web页面。</p>
+
+<p>但是更有效率的做法是将多个<code class="language-plaintext highlighter-rouge">media queries</code>整合在一个样式表文件中：</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    
+    <span class="c">/* 屏幕宽度在320~480像素之间时调用的样式 */</span>
+    <span class="k">@media</span> <span class="n">screen</span> <span class="n">and</span> <span class="p">(</span><span class="n">min-width</span> <span class="p">:</span> <span class="m">320px</span><span class="p">)</span> <span class="n">and</span> <span class="p">(</span><span class="n">max-width</span> <span class="p">:</span> <span class="m">480px</span><span class="p">)</span> 
+    <span class="p">{</span>     
+        <span class="nc">.test</span> <span class="p">{</span>
+            <span class="nl">color</span><span class="p">:</span><span class="no">yellow</span><span class="p">;</span>
+         <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c">/* 屏幕宽度在大于480像素之间时调用的样式 */</span>
+    <span class="k">@media</span> <span class="n">screen</span> <span class="n">and</span> <span class="p">(</span><span class="n">min-width</span> <span class="p">:</span> <span class="m">480px</span><span class="p">)</span>
+    <span class="p">{</span>
+         <span class="nc">.test</span> <span class="p">{</span>
+            <span class="nl">color</span><span class="p">:</span><span class="no">red</span><span class="p">;</span>
+         <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c">/* 屏幕宽度在小于320像素之间时调用的样式 */</span>
+    <span class="k">@media</span> <span class="n">screen</span> <span class="n">and</span> <span class="p">(</span><span class="n">max-width</span> <span class="p">:</span> <span class="m">320px</span><span class="p">)</span> 
+    <span class="p">{</span>
+         <span class="nc">.test</span> <span class="p">{</span>
+            <span class="nl">color</span><span class="p">:</span><span class="no">green</span><span class="p">;</span>
+         <span class="p">}</span>
+    <span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>在一个样式表内我们使用的是将多个<code class="language-plaintext highlighter-rouge">media queries</code>整合在表中进行编码的句法。如上文所述，这样做更加高效，可以减少请求次数。</p>
+
+<p>有些时候，我们希望通过<code class="language-plaintext highlighter-rouge">media queries</code>作用于某种特定的设备，而忽略其上运行的浏览器是否由于没有最大化而在尺寸上与设备屏幕尺寸产生不一致的情况。这时，我们需要使用<code class="language-plaintext highlighter-rouge">min-device-width</code>与<code class="language-plaintext highlighter-rouge">max-device-width</code>，用来判断设备本身的屏幕尺寸。</p>
+
+<p>常用于布局的<code class="language-plaintext highlighter-rouge">CSS media queries</code>的适配对应样式有以下几种:</p>
+
+<p><strong>设备类型(media type):</strong></p>
+<ul>
+  <li>all  所有设备</li>
+  <li>screen  电脑显示器</li>
+  <li>print  打印用纸或打印预览视图</li>
+  <li>handheld  便携设备</li>
+  <li>tv  电视机类型的设备</li>
+  <li>speech  语意和音频盒成器</li>
+  <li>braille  盲人用点字法触觉回馈设备</li>
+  <li>embossed  盲文打印机</li>
+  <li>projection  各种投影设备</li>
+  <li>tty  使用固定密度字母栅格的媒介，比如电传打字机和终端</li>
+</ul>
+
+<p><strong>设备特性(media feature):</strong></p>
+<ul>
+  <li>width  浏览器宽度</li>
+  <li>height  浏览器高度</li>
+  <li>device-width  设备屏幕分辨率的宽度值</li>
+  <li>device-height  设备屏幕分辨率的高度值</li>
+  <li>orientation  设备窗口是纵向还是横向，当窗口的高度值大于等于宽度时为纵向位该特性值为portrait，否则为landscape</li>
+  <li>aspect-ratio  比例值，浏览器的纵横比</li>
+  <li>device-aspect-ratio  比例值，屏幕的纵横比</li>
+</ul>
+
+<h4 id="字体的选择">字体的选择</h4>
+
+<p>对于字体的选择一般会在<strong>有衬线字体</strong>和<strong>无衬线字体</strong>之间，所谓衬线就是在字的笔画开始及结束的地方有额外的装饰，而且笔画的粗细会因直横的不同而有不同。相反的，无衬线就没有这些额外装饰，而且笔画粗细大致上是差不多。这本身是一个很复杂的问题，如果你选择大于12号的字体，有衬线和无衬线字体可以表现得一样好。小于12号的有衬线字体渲染得不够锐利，但是在现代的显示器上，12号字体绝对太小了。</p>
+
+<p><img src="/img/in-post/post-responsive/responsive-1708_2.png" alt="有衬线字体和无衬线字体的区别" /></p>
+
+<p>正文字体的尺寸不是取决于你自己的个人喜好，它取决于阅读距离。因为一般的屏幕离人会比书本远一点，台式机字体的大小要比印刷的大一些，同理于行高。</p>
+
+<p>因此不同的设备对字体的设定也是有所不同，例如iPhone和iPad，我们在使用iPad的时候，眼睛与屏幕的距离往往要大于iPhone。iPhone上显示的屏幕更小，所以你需要集中来调整，幸运的是，iPhone会被放在面前很近的距离来操作，所以要用很小的文字尺寸来完美运行。</p>
+
+<h4 id="设计提速">设计提速</h4>
+
+<p>研究发现，如果3秒之内无法载入页面，一半的用户会选择离开。响应式网站相对于传统网站需要载入的东西更多，所以更需要优化。为了提高表现力，我们需要减少页面的资源的数量，缩小页面的尺寸。并不是必须调整页面的外观，我们通过一些工具和手段也能实现”瘦身”。</p>
+
+<p>首先要考虑的就是哪些元素是必要的，哪些是不必要的，去掉不必要的元素，这样就能最小化http请求，这样用户的等待加载的耗时也最少。这可以通过压缩CSS和JS来实现，推荐一款叫做<code class="language-plaintext highlighter-rouge">Compass</code>的工具——开源的CSS框架编写工具，可以配合<code class="language-plaintext highlighter-rouge">sass</code>一起使用。而JavaScript推荐一款工具叫UglifyJS，可以压缩代码。对有大量图片的网站来说，过多的http请求对于网站来说无疑是个灾难，推荐使用<strong>CSS Sprites</strong>，将各个图片整合成一张大图片，通过定位的方式来取得某张小图片。</p>
+
+<p>有选择性的载入也是可以考虑采用的重要手段，非常适用于响应式设计的提速，这样就能确保手机用户不会下载那些会降低载入速度的元素。
+有选择性的载入，能够阻拦各种内容的载入，包括社交窗口、图像、地图，以及其他。再采用这种手段之前，最好对网站进行全面的测试，先要了解是哪方面降低了网页的载入速度，这样对症下药，效果才能更好。</p>
+
+<p>我们都知道图像在网页中占据了大量的字节。一般在手机上的图像表现力要比桌面上的差。如果网站内容很多，便会影响到载入速度，因此就需要截断一部分内容，这样就能够提高载入速度，用户一边往下拉，一边跟着载入，这样同步于用户，用户体验就会很好。</p>
+
+<h2 id="结尾">结尾</h2>
+
+<p>现在的响应式技术，已经很发达了，不但能满足不同设备的适配，还能够从交互，从体验，从加载速度等方面进行匹配。现在的响应式技术，不能和响应式才开始流入的那几年相提并论，什么代码冗余等等的负面东西可以忽略了。其实对于响应式这个东西，剩下的，只是愿不愿意学更加先进的技术，愿不愿意研究和发现，愿不愿意使用到实际项目中的问题而已。</p>
+
+<p>啊，希望自己能成为海贼王（橡胶弹性网页之王）吧。</p>
+:ET

@@ -109,31 +109,30 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
-
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
@@ -141,11 +140,11 @@
 
 <!-- Post Header -->
 <style type="text/css">
-    header.intro-header{
+    header.intro-header {
         background-image: url('/img/post-bg-seo.jpg')
     }
 </style>
-<header class="intro-header" >
+<header class="intro-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -162,7 +161,9 @@
                     
                     <h2 class="subheading"> </h2>
                     
-                    <span class="meta">Posted by AXiang on September 22, 2017</span>
+                    <span class="meta">Posted by
+                        AXiang on
+                        September 22, 2017</span>
                 </div>
             </div>
         </div>
@@ -170,17 +171,19 @@
 </header>
 
 <!-- Post Content -->
+
+
 <article>
     <div class="container">
         <div class="row">
 
-    <!-- Post Container -->
+            <!-- Post Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<blockquote>
+                <blockquote>
   <p>“针对2017年9月时期百度引擎的个人见解”</p>
 </blockquote>
 
@@ -217,7 +220,7 @@
 <p>如果移动网址在百度搜索都没有被收录，那一些都是泡影。除了适配以外，还有几个要点可以提高移动站收录率：</p>
 
 <h5 id="吸引baiduspider">吸引Baiduspider</h5>
-<p>百度通过<code class="highlighter-rouge">Baiduspider</code>（百度蜘蛛）来进行对网站的信息采集，一般来说只有被<code class="highlighter-rouge">Baiduspider</code>采集了的网站才能被收录，使用一下几个方式可以有效的吸引<code class="highlighter-rouge">Baiduspider</code>:</p>
+<p>百度通过<code class="language-plaintext highlighter-rouge">Baiduspider</code>（百度蜘蛛）来进行对网站的信息采集，一般来说只有被<code class="language-plaintext highlighter-rouge">Baiduspider</code>采集了的网站才能被收录，使用一下几个方式可以有效的吸引<code class="language-plaintext highlighter-rouge">Baiduspider</code>:</p>
 <ul>
   <li>robots限制放开，允许百度蜘蛛进行爬取</li>
   <li>5秒内的移动端加载速度，越快越好</li>
@@ -238,7 +241,7 @@
 <p>这个标注是用来向百度蜘蛛说明此url页面适合在PC端还是移动端展现。说白了，就是帮助百度提交校验识别结果的正确性，减少百度蜘蛛把PC站当成移动站，或者把移动站当成PC站进行抓取。</p>
 
 <h5 id="屏蔽百度自动转码">屏蔽百度自动转码</h5>
-<p>在百度移动搜索引擎中，如果PC网页没有对应的移动网页，百度为了更好地满足用户需求，会为用户提供百度自行转码，将其转换为适合手机浏览的网页，使其能够在移动端的浏览器有较好的浏览体验。但是这种转码不仅会严重破坏网站结构，而且站内的JS会被全部抹去，然后添加百度自家的广告，就等于你的网站流量基本被百度抢去。使用<code class="highlighter-rouge">dno-transform</code>协议，禁止网站被转码，规则如下：</p>
+<p>在百度移动搜索引擎中，如果PC网页没有对应的移动网页，百度为了更好地满足用户需求，会为用户提供百度自行转码，将其转换为适合手机浏览的网页，使其能够在移动端的浏览器有较好的浏览体验。但是这种转码不仅会严重破坏网站结构，而且站内的JS会被全部抹去，然后添加百度自家的广告，就等于你的网站流量基本被百度抢去。使用<code class="language-plaintext highlighter-rouge">dno-transform</code>协议，禁止网站被转码，规则如下：</p>
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="c">&lt;!-- PC站 --&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Cache-Control"</span> <span class="na">content=</span><span class="s">"no-transform "</span> <span class="nt">/&gt;</span> 
@@ -249,7 +252,7 @@
 
 <h5 id="canonical标签和alternate标签">canonical标签和alternate标签</h5>
 <p><img src="/img/in-post/post-seo/seo-1709_4.png" alt="canonical标签的重要性" /> 
-同理于<code class="highlighter-rouge">alternate</code>标签，在PC网页上，添加指向对应移动版网址的特殊链接<code class="highlighter-rouge">rel="alternate"</code>标记，这有助于百度发现网站的移动版网页所在的位置，同时在移动版网页上，添加指向对应PC版网址的链接<code class="highlighter-rouge">rel="canonical"</code>标记。具体规则和对应关系见下：</p>
+同理于<code class="language-plaintext highlighter-rouge">alternate</code>标签，在PC网页上，添加指向对应移动版网址的特殊链接<code class="language-plaintext highlighter-rouge">rel="alternate"</code>标记，这有助于百度发现网站的移动版网页所在的位置，同时在移动版网页上，添加指向对应PC版网址的链接<code class="language-plaintext highlighter-rouge">rel="canonical"</code>标记。具体规则和对应关系见下：</p>
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="c">&lt;!-- PC站 --&gt;</span>
     <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"alternate"</span>  <span class="na">href=</span><span class="s">"移动站点的绝对地址"</span><span class="nt">&gt;</span>
@@ -264,25 +267,28 @@
 
 
 
-                <hr style="visibility: hidden;"> 
+                <hr style="visibility: hidden;">
 
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/09/12/Vue.js-Frist/" data-toggle="tooltip" data-placement="top" title="Vue.js-2.0使用体验">&larr; Previous Post</a>
+                        <a href="/2017/09/13/Vue.js-Frist/"
+                            data-toggle="tooltip" data-placement="top" title="Vue.js-2.0使用体验">&larr; Previous
+                            Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/10/10/Swiper/" data-toggle="tooltip" data-placement="top" title="超级好用的滑动轮播-Swiper3">Next Post &rarr;</a>
+                        <a href="/2017/10/11/Swiper/" data-toggle="tooltip"
+                            data-placement="top" title="超级好用的滑动轮播-Swiper3">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
 
 
             </div>
-    <!-- Side Catalog Container -->
-        
+            <!-- Side Catalog Container -->
+            
             <div class="
                 col-lg-2 col-lg-offset-0
                 visible-lg-block
@@ -296,112 +302,14 @@
                     <ul class="catalog-body"></ul>
                 </div>
             </div>
-        
-    <!-- Sidebar Container -->
+            
+            <!-- Sidebar Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
                 <!-- Featured Tags -->
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-        				
-                            
-                				<a href="/tags/#生活" title="生活" rel="1">
-                                    生活
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Git" title="Git" rel="1">
-                                    Git
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#笔记" title="笔记" rel="6">
-                                    笔记
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#前端" title="前端" rel="22">
-                                    前端
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#响应式设计" title="响应式设计" rel="2">
-                                    响应式设计
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Css" title="Css" rel="6">
-                                    Css
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Bootstrap" title="Bootstrap" rel="1">
-                                    Bootstrap
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Sass" title="Sass" rel="1">
-                                    Sass
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#JavaScript" title="JavaScript" rel="11">
-                                    JavaScript
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Vue.js" title="Vue.js" rel="1">
-                                    Vue.js
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#SEO" title="SEO" rel="1">
-                                    SEO
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#插件" title="插件" rel="1">
-                                    插件
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#ES6" title="ES6" rel="2">
-                                    ES6
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#小程序" title="小程序" rel="2">
-                                    小程序
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Html" title="Html" rel="1">
-                                    Html
-                                </a>
-                            
-        				
-        			</div>
-                </section>
                 
 
                 <!-- Friends Blog -->
@@ -410,11 +318,11 @@
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
-                        <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
+                    <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
                     
-                        <li><a href="http://ngabbs.com/">NGA</a></li>
+                    <li><a href="http://ngabbs.com/">NGA</a></li>
                     
-                        <li><a href="http://www.acfun.cn/">ACFUN</a></li>
+                    <li><a href="http://www.acfun.cn/">ACFUN</a></li>
                     
                 </ul>
                 
@@ -445,21 +353,21 @@
 <!-- async load function -->
 <script>
     function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function () {
         anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
+            visible: 'always',
+            placement: 'right',
+            icon: '#'
         };
         anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
     })
@@ -467,15 +375,14 @@
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {
-        .anchorjs-link{
+        .anchorjs-link {
             position: absolute;
             left: -0.75em;
             font-size: 1.1em;
-            margin-top : -0.1em;
+            margin-top: -0.1em;
         }
     }
 </style>
-
 
 
     <!-- Footer -->
@@ -539,7 +446,7 @@
                     </li>
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 空的伸手摘星 <!--2019-->2048
+                    Copyright &copy; 空的伸手摘星 <!--2020-->2048
                     <br>
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -657,7 +564,6 @@
                             = 'rotate(' + beta + 'deg)';
     }, false);
     } else {
-    document.querySelector('body').innerHTML = '浏览器不支持DeviceOrientationEvent';
     }
 </script>
 

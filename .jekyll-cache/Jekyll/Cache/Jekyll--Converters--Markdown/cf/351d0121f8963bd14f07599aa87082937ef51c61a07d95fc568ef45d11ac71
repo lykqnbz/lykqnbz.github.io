@@ -1,0 +1,39 @@
+I"<blockquote>
+  <p>“Template相关”</p>
+</blockquote>
+
+<h3 id="前言">前言</h3>
+<p>虽然小程序名为小程序，不乏有开发者将其做得相当庞大(比如我目前在做的。。。31个单页。。)。那模板的使用肯定少不了。但是对于H5的模板Template，<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/view/wxml/template.html">官方API</a>少之甚少,网上的资料也是千篇一律，所以自个儿研究了下，方便日后使用。</p>
+
+<h3 id="布局和样式">布局和样式</h3>
+
+<p>通常我们使用模板只是对wxml和wxss进行复刻，主要的逻辑都是写在应用界面，这也是网上大部分资料的研究方向。主要步骤：</p>
+<ul>
+  <li>1、新建一个template文件夹用来管理项目中所有的模板；</li>
+  <li>
+    <p>2、新建一个tem.wxml和tem.wxss进行模板和样式的定义； 
+<img src="/img/in-post/post-xcx/xcx_1806_1.png" alt="新建实例" /></p>
+  </li>
+  <li>3、使用name属性，作为模板的名字。然后在<code class="language-plaintext highlighter-rouge">&lt;template/&gt;</code>内定义代码片段。一个.wxml文件中可以定义多个模板，只需要通过name来区分； 
+<img src="/img/in-post/post-xcx/xcx_1806_2.png" alt="wxml模板引用" /></li>
+  <li>4、设置wxss样式，和普通的页面的wxss没有区别；</li>
+  <li>5、在需要使用的页面使用import导入wxml和wxss，注意路径位置
+<img src="/img/in-post/post-xcx/xcx_1806_3.png" alt="导入wxml" />
+<img src="/img/in-post/post-xcx/xcx_1806_4.png" alt="导入wxss" /></li>
+  <li>6、在页面上使用该模板，通过is判断使用哪个模板,如果模板是用于列表循环展示data值应设为item。下图事例：
+<img src="/img/in-post/post-xcx/xcx_1806_5.jpg" alt="列表循环模板" />
+<img src="/img/in-post/post-xcx/xcx_1806_6.png" alt="列表循环模板" />
+这里我们使用name为filter模板，为一个查询用户选择信息类型的独立组件；若将data使用ES6的展开运算符<code class="language-plaintext highlighter-rouge">‘...’</code>，则模板里面绑定数据就不需要在前面加入item了，多个数据对象可以用逗号隔开；
+<img src="/img/in-post/post-xcx/xcx_1806_7.png" alt="独立模板" />
+<img src="/img/in-post/post-xcx/xcx_1806_8.png" alt="独立模板" /></li>
+</ul>
+
+<h3 id="作用域">作用域</h3>
+<p>如果我们的所需要的模板只是用于列表循环展示这类，一些运算逻辑都在应用页的话，上述的方法已经足矣。但是如果我们需要把逻辑写在模板页在模板js里进行逻辑运算，应用页只接受运算结果这样，则我们也需要将js进行模块化。但是在小程序模板的数据作用域只能作用域应用页，所以我们把逻辑写在模板js，通过传递this对象来完成对数据的传输。以下为模板js代码，利用ES6的export default导出js，并且将传入的数据进行构造初始化，下图为完整模板js代码和应用层调用代码。
+<img src="/img/in-post/post-xcx/xcx_1806_9.png" alt="JS模板" />
+<img src="/img/in-post/post-xcx/xcx_1806_10.png" alt="应用层调用" /></p>
+
+<h3 id="结束语">结束语</h3>
+<p>总的来说小程序对template支持还算可以，只是官方的api和网上的资料真的太少，需要自个儿研究。</p>
+
+:ET

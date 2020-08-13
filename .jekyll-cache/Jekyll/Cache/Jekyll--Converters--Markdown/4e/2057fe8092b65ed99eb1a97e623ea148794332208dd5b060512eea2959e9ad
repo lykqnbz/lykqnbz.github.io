@@ -1,0 +1,214 @@
+I"_q<h3 id="概念及all">概念及all</h3>
+<p>generator（生成器）是ES6标准引入的新的数据类型。一个generator看上去像一个函数，但可以返回多次。
+ES6定义generator标准的哥们借鉴了Python的generator的概念和语法，如果你对Python的generator很熟悉，那么ES6的generator就是小菜一碟了。
+我们先复习函数的概念。一个函数是一段完整的代码，调用一个函数就是传入参数，然后返回结果：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 调用foo函数</span>
+</code></pre></div></div>
+<p>函数在执行过程中，如果没有遇到<code class="language-plaintext highlighter-rouge">return</code>语句（函数末尾如果没有<code class="language-plaintext highlighter-rouge">return</code>，就是隐含的<code class="language-plaintext highlighter-rouge">return undefined;</code>），控制权无法交回被调用的代码。
+generator跟函数很像，定义如下：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">function</span><span class="o">*</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">yield</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">yield</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>generator和函数不同的是，generator由<code class="language-plaintext highlighter-rouge">function* </code>定义（注意多出的<code class="language-plaintext highlighter-rouge">*</code>号），并且，除了<code class="language-plaintext highlighter-rouge">return</code>语句，还可以用<code class="language-plaintext highlighter-rouge">yield</code>返回多次。   <br />
+大多数同学立刻就晕了，generator就是能够返回多次的“函数”？返回多次有啥用？ <br />
+还是举个栗子吧。  <br />
+我们以一个著名的斐波那契数列为例，它由<code class="language-plaintext highlighter-rouge">0</code>，<code class="language-plaintext highlighter-rouge">1</code>开头：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">8</span> <span class="mi">13</span> <span class="mi">21</span> <span class="mi">34</span> <span class="p">...</span>    
+</code></pre></div></div>
+<p>要编写一个产生斐波那契数列的函数，可以这么写：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">function</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">t</span><span class="p">,</span>
+            <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+            <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">b</span><span class="p">,</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">];</span>
+            <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">arr</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 测试:</span>
+    <span class="nx">fib</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// [0, 1, 1, 2, 3]</span>
+    <span class="nx">fib</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]</span>
+</code></pre></div></div>
+<p>函数只能返回一次，所以必须返回一个<code class="language-plaintext highlighter-rouge">Array</code>。但是，如果换成generator，就可以一次返回一个数，不断返回多次。用generator改写如下：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">function</span><span class="o">*</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">t</span><span class="p">,</span>
+            <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">yield</span> <span class="nx">a</span><span class="p">;</span>
+            <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">b</span><span class="p">,</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">];</span>
+            <span class="nx">n</span> <span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>直接调用试试：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nx">fib</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// fib {[[GeneratorStatus]]: "suspended", [[GeneratorReceiver]]: Window}</span>
+</code></pre></div></div>
+<p>直接调用一个generator和调用函数不一样，<code class="language-plaintext highlighter-rouge">fib(5)</code>仅仅是创建了一个generator对象，还没有去执行它。    <br />
+调用generator对象有两个方法，一是不断地调用generator对象的<code class="language-plaintext highlighter-rouge">next()</code>方法：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">fib</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// {value: 0, done: false}</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// {value: 1, done: false}</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// {value: 1, done: false}</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// {value: 2, done: false}</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// {value: 3, done: false}</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span> <span class="c1">// {value: undefined, done: true}</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">next()</code>方法会执行generator的代码，然后，每次遇到<code class="language-plaintext highlighter-rouge">yield x</code>;就返回一个对象<code class="language-plaintext highlighter-rouge">{value: x, done: true/false}</code>，然后“暂停”。返回的<code class="language-plaintext highlighter-rouge">value</code>就是<code class="language-plaintext highlighter-rouge">yield</code>的返回值，<code class="language-plaintext highlighter-rouge">done</code>表示这个generator是否已经执行结束了。如果<code class="language-plaintext highlighter-rouge">done</code>为<code class="language-plaintext highlighter-rouge">true</code>，则<code class="language-plaintext highlighter-rouge">value</code>就是<code class="language-plaintext highlighter-rouge">return</code>的返回值。   <br />
+当执行到<code class="language-plaintext highlighter-rouge">done</code>为<code class="language-plaintext highlighter-rouge">true</code>时，这个generator对象就已经全部执行完毕，不要再继续调用<code class="language-plaintext highlighter-rouge">next()</code>了。   <br />
+第二个方法是直接用<code class="language-plaintext highlighter-rouge">for ... of</code>循环迭代generator对象，这种方式不需要我们自己判断<code class="language-plaintext highlighter-rouge">done</code>：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">function</span><span class="o">*</span> <span class="nx">fib</span><span class="p">(</span><span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">t</span><span class="p">,</span>
+            <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">yield</span> <span class="nx">a</span><span class="p">;</span>
+            <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">b</span><span class="p">,</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">];</span>
+            <span class="nx">n</span> <span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">x</span> <span class="k">of</span> <span class="nx">fib</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span> <span class="c1">// 依次输出0, 1, 1, 2, 3, ...</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>generator和普通函数相比，有什么用？  <br />
+因为generator可以在执行过程中多次返回，所以它看上去就像一个可以记住执行状态的函数，利用这一点，写一个generator就可以实现需要用面向对象才能实现的功能。例如，用一个对象来保存状态，得这么写：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">fib</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">a</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="na">b</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">n</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="na">max</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="na">next</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">,</span>
+                <span class="nx">t</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="nx">t</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">n</span> <span class="o">++</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+</code></pre></div></div>
+<p>用对象的属性来保存状态，相当繁琐。  <br />
+generator还有另一个巨大的好处，就是把异步回调代码变成“同步”代码。这个好处要等到后面学了AJAX以后才能体会到。  <br />
+没有generator之前的黑暗时代，用AJAX时需要这么写代码：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nx">ajax</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://url-1</span><span class="dl">'</span><span class="p">,</span> <span class="nx">data1</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">handle</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">ajax</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://url-2</span><span class="dl">'</span><span class="p">,</span> <span class="nx">data2</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">handle</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nx">ajax</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://url-3</span><span class="dl">'</span><span class="p">,</span> <span class="nx">data3</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">handle</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="nx">success</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+</code></pre></div></div>
+<p>回调越多，代码越难看。 <br />
+有了generator的美好时代，用AJAX时可以这么写：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">r1</span> <span class="o">=</span> <span class="k">yield</span> <span class="nx">ajax</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://url-1</span><span class="dl">'</span><span class="p">,</span> <span class="nx">data1</span><span class="p">);</span>
+        <span class="nx">r2</span> <span class="o">=</span> <span class="k">yield</span> <span class="nx">ajax</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://url-2</span><span class="dl">'</span><span class="p">,</span> <span class="nx">data2</span><span class="p">);</span>
+        <span class="nx">r3</span> <span class="o">=</span> <span class="k">yield</span> <span class="nx">ajax</span><span class="p">(</span><span class="dl">'</span><span class="s1">http://url-3</span><span class="dl">'</span><span class="p">,</span> <span class="nx">data3</span><span class="p">);</span>
+        <span class="nx">success</span><span class="p">(</span><span class="nx">r3</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">handle</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>看上去是同步的代码，实际执行是异步的。</p>
+
+<h3 id="自造简单应用">自造简单应用</h3>
+<p>要生成一个自增的ID，可以编写一个next_id()函数：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">current_id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    
+    <span class="kd">function</span> <span class="nx">next_id</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">current_id</span> <span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">current_id</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>由于函数无法保存状态，故需要一个全局变量current_id来保存数字。   <br />
+不用闭包，试用generator改写：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">function</span><span class="o">*</span> <span class="nx">next_id</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span> 
+            <span class="k">yield</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">x</span><span class="p">,</span>
+        <span class="nx">pass</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">g</span> <span class="o">=</span> <span class="nx">next_id</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">x</span> <span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">next</span><span class="p">().</span><span class="nx">value</span> <span class="o">!==</span> <span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">pass</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">fail!</span><span class="dl">'</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">pass</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">success!</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="自造复杂应用-promise任务序列">自造复杂应用-promise任务序列</h3>
+<p>将ES6中的promise和generator组合起来形成promise任务序列，可以优雅且幸福的使用异步和同步操作：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">const</span> <span class="nx">delayed</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">time</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span> <span class="nx">time</span> <span class="o">=</span> <span class="mi">3000</span> <span class="p">}</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 延时模拟异步，任务序列写在此处</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="nx">resolve</span><span class="p">(</span><span class="dl">"</span><span class="s2">value:</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> time:</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">time</span><span class="p">);</span>
+            <span class="p">},</span> <span class="nx">time</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">g</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">yield</span> <span class="nx">delayed</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">runGenerator</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">generator</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">dispose</span> <span class="o">=</span> <span class="nx">generator</span><span class="p">();</span>
+        <span class="kd">const</span> <span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">dispose</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">value</span>
+            <span class="p">}</span>
+            <span class="nx">result</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+                <span class="nx">go</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+            <span class="p">})</span>
+        <span class="p">}</span>
+        <span class="nx">go</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="nx">runGenerator</span><span class="p">(</span><span class="nx">g</span><span class="p">)</span>
+</code></pre></div></div>
+<p>控制台输出：
+<img src="/img/in-post/post-js/js_1806_1.png" alt="控制台输出" /></p>
+
+<blockquote>
+  <p>“概念部分转自廖雪峰博客-<a href="https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00143450083887673122b45a4414333ac366c3c935125e7000#0">generator</a>”</p>
+</blockquote>
+
+:ET

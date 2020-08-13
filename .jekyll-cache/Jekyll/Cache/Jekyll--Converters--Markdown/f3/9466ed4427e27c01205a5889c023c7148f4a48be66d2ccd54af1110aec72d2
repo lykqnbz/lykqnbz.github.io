@@ -1,0 +1,74 @@
+I"*<h3 id="引言">引言</h3>
+
+<h6 id="说说js中的堆栈">说说JS中的堆栈</h6>
+<p>我们都熟知并且常用JS变量的声明以及初始化（赋值），比如一行极其简单的代码<code class="language-plaintext highlighter-rouge">var str = '我是字符串'</code>，那么这行代码执行的时候发生了什么呢？再比如<code class="language-plaintext highlighter-rouge">var obj = {name: 'reslicma'}</code>又发生了什么？他们一样吗？请看正文。</p>
+
+<h3 id="js中变量的类型">JS中变量的类型</h3>
+<p>我们先行讨论JS中变量的类型，因为JS中变量的具体存储方式是取决于这个变量的类型的。JS中的变量共有两大类：<strong>基本数据类型</strong> 和 <strong>引用数据类型</strong>，下文说<strong>基本型</strong>就是基本数据类型，<strong>引用型</strong>就是引用数据类型。</p>
+
+<h6 id="基本数据类型简单数据类型">基本数据类型（简单数据类型）</h6>
+<p>JS中的基本型共有六种：string，number，Boolean，undefined，null和symbol。分别对应：字符串类型，数字类型，布尔类型，undefined（变量声明未初始化），null（空对象或理解为空指针）以及ES6新添加的定义对象的唯一属性名类型。</p>
+
+<h6 id="引用数据类型">引用数据类型</h6>
+<p>JS中的引用型：Array，Function，Object。但是实际上就是一种：Object型，没错，就是对象，毕竟Array，Function也是对象。JS一切皆对象这句话并不为过······</p>
+
+<h3 id="栈内存和堆内存">栈内存和堆内存</h3>
+<p>介绍完基本型和引用型就可以真正的进入正题了。我们知道声明一个变量并且给它赋值这样的操作对于这两种类型而言没什么区别，但是对这两种类型的具体的操作却大不相同。在JS中，栈内存用于存储基本型的变量值，堆内存用于存储引用型的值。这是为什么呢？因为JS这门语言和其他语言有一个不同之处：不允许直接访问内存的位置，也就是说不能直接操作对象的内存空间，操作的是对象的引用而已，那么引用可以理解为是一个指针，是一个具体的堆内存的地址。下部示例的代码和图可以详细的看一下：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">`我是字符串`</span><span class="p">,</span>
+        <span class="nx">num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">bl</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">nu</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+        <span class="nx">un</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">,</span>
+        <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">reslicma</span><span class="dl">'</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+<p>在内存中就发生了如下图这样的事情：
+<img src="/img/in-post/post-js/js_1902_5.png" alt="类型内存的变化" />
+我们接下来详细的分析它：
+首先，我定义的前五个变量都是基本型，那么他们都是存储在<strong>栈内存</strong>当中，并且他们存储的就是<strong>值本身</strong>，所以说访问基本型变量就能访问得到<strong>值</strong>。而obj这个变量是个引用型，所以它在栈内存中只保存了一个指针（或者理解为一个地址），比如上图中的这个地址，那么这个地址指向了堆内存中的一块内存空间，这个空间才是真正存储了这个obj对象的内存空间。</p>
+
+<h6 id="理解栈内存和堆内存">理解栈内存和堆内存</h6>
+<p>我们来说一下<strong>栈内存和堆内存具体的区别和联系。栈内存就像一个线性的、规则的、大小基本固定的、有序的</strong>排列起来的一块块内存空间，就像我上图画的那样，每个单元大小固定，规则有序的排列下来，就是栈。所以，在定义一个基本型变量的时候，发生的事情如下：向栈内存<strong>申请（注意是申请）一块空间，然后把你声明的变量名和这个变量的具体的值本身</strong>压入这个申请好的小空间内。 <br />
+堆内存就像一个<strong>不规则的、大小不固定的、无序的</strong>一块块内存空间，像上图中我画的堆内存图中，大小不固定，并且每一块<strong>堆内存都有一个自己的地址（指针）</strong>，用来操作它们。这个地址很有意思，在你<strong>定义一个引用型变量</strong>的时候，向<strong>堆内存申请一块空间</strong>，用于存储这个具体的引用型的值（对象），同时JS会<strong>随机分配给这块堆内存的小空间一个地址</strong>，然后，把<strong>这个变量名和这个地址压入申请好的栈空间内</strong>。这里就是我详细说明的地方，其实上图就很形象的表达了这个流程。</p>
+
+<h6 id="栈内存和堆内存的优缺点">栈内存和堆内存的优缺点</h6>
+<p>那么为什么JS要这样区分栈内存和堆内存呢？在JS中，这些<strong>基本型变量大小固定，并且操作容易简单</strong>，所以把它们放入栈中存储。<strong>引用型变量大小不固定</strong>，所以把它们分配给堆中，让他们申请空间的时候自己确定大小，这样把它们分开存储能够使得程序运行起来占用的内存最小。 <br />
+栈内存由于它的特点，所以它的系统效率较高，堆内存需要分配空间和地址，还要把地址存到栈中，所以效率低于栈。</p>
+
+<h5 id="栈内存和堆内存的垃圾回收">栈内存和堆内存的垃圾回收</h5>
+<p>我们知道JS是有垃圾回收制，栈内存中基本型一般在它的当前执行环境结束就会被销毁被垃圾回收制回收，而引用类型不会，因为不确定其他的地方是不是还有一些对它的引用，所以引用型只有在所有对它的引用都结束的时候才会被回收掉。</p>
+
+<h5 id="加深理解">加深理解</h5>
+<p>在JS中<strong>访问变量</strong>时，是把<strong>变量名作为索引</strong>来寻找值的，无论是基本型还是引用型。也就是说，访问变量的过程就是：通过<strong>变量名</strong>找到<strong>栈内存</strong>中存储的<strong>具体的值</strong>，如果是<strong>基本型</strong>，直接就返回值，如果是<strong>引用型</strong>，返回一个<strong>指向堆内存的地址</strong>。</p>
+
+<p>案例1：基本型的复制：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">num1</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="kd">var</span> <span class="nx">num2</span> <span class="o">=</span> <span class="nx">num1</span>
+    <span class="c1">// 修改num1的值</span>
+    <span class="nx">num1</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="c1">// 还是1，不会改变</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num2</span><span class="p">)</span> 
+</code></pre></div></div>
+<p>解析具体过程：首先在栈内存中压入一个变量名为<code class="language-plaintext highlighter-rouge">num1</code>、值为1的一个变量。然后，第二行代码：赋值操作，先执行赋值运算符右边的式子，所以通过变量名找到了<code class="language-plaintext highlighter-rouge">num1</code>的值1，然后把这个值1返回并且赋值给了<code class="language-plaintext highlighter-rouge">num2</code>这个变量，所以栈内存中就又压入了一个变量名为<code class="language-plaintext highlighter-rouge">num2</code>、值为1的变量，<strong>这两个变量的值1相等但不是同一个</strong>。所以，改变num1的值就只改变了num1栈内存中的值，对<code class="language-plaintext highlighter-rouge">num2</code>没有任何影响。图解：
+<img src="/img/in-post/post-js/js_1902_6.png" alt="栗子1" /></p>
+
+<p>案例2：引用型的复制：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">reslicma</span><span class="dl">'</span><span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="nx">obj1</span>
+    <span class="nx">obj1</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">我被修改了</span><span class="dl">'</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj2</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="c1">// 我被修改了</span>
+</code></pre></div></div>
+<p>我们前面已经说过了，无论是基本型还是引用型都是按变量名访问栈内存中的值，所以，第二句代码执行的时候，就相当于把通过<code class="language-plaintext highlighter-rouge">obj1</code>找到的那个内存地址赋值给了<code class="language-plaintext highlighter-rouge">obj2</code>这个变量，所以这两个变量在栈内存中都是存储的同一个地址、指针，指向的是同一块堆内存中的空间，我修改了<code class="language-plaintext highlighter-rouge">obj1</code>的内容，那么由于<code class="language-plaintext highlighter-rouge">obj2</code>也是指向这个内容，所以<code class="language-plaintext highlighter-rouge">obj2</code>的内容也会随之改变。 <br />
+内存图解： <br />
+<img src="/img/in-post/post-js/js_1902_7.png" alt="栗子2-1" />
+<img src="/img/in-post/post-js/js_1902_8.png" alt="栗子2-2" /></p>
+
+<h4 id="参考文献">参考文献</h4>
+<ul>
+  <li><a href="https://www.cnblogs.com/xiaohuochai/p/7245510.html">ES6中的Symbol类型</a></li>
+  <li><a href="https://www.cnblogs.com/danbing/p/5023231.html">Java中堆内存（heap）和栈内存（stack）的区别</a></li>
+  <li><a href="https://juejin.im/post/5c7157f3e51d4526643fac46">JS中的栈内存、堆内存介绍</a></li>
+</ul>
+
+:ET

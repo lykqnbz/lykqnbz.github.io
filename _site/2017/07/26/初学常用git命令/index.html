@@ -109,31 +109,30 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
-
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
@@ -141,11 +140,11 @@
 
 <!-- Post Header -->
 <style type="text/css">
-    header.intro-header{
+    header.intro-header {
         background-image: url('/img/post-bg-git.jpg')
     }
 </style>
-<header class="intro-header" >
+<header class="intro-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -162,7 +161,9 @@
                     
                     <h2 class="subheading">不适合人类阅读，非常水的自我笔记</h2>
                     
-                    <span class="meta">Posted by AXiang on July 26, 2017</span>
+                    <span class="meta">Posted by
+                        AXiang on
+                        July 26, 2017</span>
                 </div>
             </div>
         </div>
@@ -170,17 +171,19 @@
 </header>
 
 <!-- Post Content -->
+
+
 <article>
     <div class="container">
         <div class="row">
 
-    <!-- Post Container -->
+            <!-- Post Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<blockquote>
+                <blockquote>
   <p>“更新到地老天荒 —-17.08.04”</p>
 </blockquote>
 
@@ -212,7 +215,7 @@
 
 <p>虽说Window是较烂的开发平台，无奈从小就上了微软的贼船，暂且先攻略Window环境下的Git使用。</p>
 
-<p>Window版的Git可以直接从上述<a href="https://git-scm.com/">参考资料</a>里直接下载<code class="highlighter-rouge">.exe</code>，可以按默认选项安装即可，其他什么都不用（相对于Linux和Mac，微软就是傻瓜型安装）。</p>
+<p>Window版的Git可以直接从上述<a href="https://git-scm.com/">参考资料</a>里直接下载<code class="language-plaintext highlighter-rouge">.exe</code>，可以按默认选项安装即可，其他什么都不用（相对于Linux和Mac，微软就是傻瓜型安装）。</p>
 
 <p>安装后，桌面右键有Git GUI Here 或是 Git Bash Here的选项。成功后，可以设置一下自己的用户名和Email地址。</p>
 
@@ -230,7 +233,7 @@
 
 <p>Git是分布式版本控制系统，所以每个人都应该有自己的标记，这个标记就是用户名和Email。</p>
 
-<p>使用了<code class="highlighter-rouge">--global</code>这个参数后，表明这台机器所有的仓库都使用这个标记信息，之后也可以对取消或是对某个仓库指定不同的标记信息。</p>
+<p>使用了<code class="language-plaintext highlighter-rouge">--global</code>这个参数后，表明这台机器所有的仓库都使用这个标记信息，之后也可以对取消或是对某个仓库指定不同的标记信息。</p>
 
 <h4 id="拥有一个仓库">拥有一个仓库</h4>
 
@@ -262,7 +265,7 @@
 
 <p>Windows系统自带的CMD是使用Windows自己的命令，而Git Bash则使用的是Linux下的命令。</p>
 
-<p>vi其实是Linux下的一个文本编辑器，所以<code class="highlighter-rouge">vi 文件名</code>后，其实是进入了vi程序。vi存在两种模式，编辑模式和命令模式，键盘输入字母<code class="highlighter-rouge">i</code>或<code class="highlighter-rouge">Insert</code>键进入编辑模式，按下<code class="highlighter-rouge">ESC</code>键，切换到命令模式。放弃所有文件修改：在命令模式下，键入 <code class="highlighter-rouge">:q!</code> 回车后放弃修改并退出vi。</p>
+<p>vi其实是Linux下的一个文本编辑器，所以<code class="language-plaintext highlighter-rouge">vi 文件名</code>后，其实是进入了vi程序。vi存在两种模式，编辑模式和命令模式，键盘输入字母<code class="language-plaintext highlighter-rouge">i</code>或<code class="language-plaintext highlighter-rouge">Insert</code>键进入编辑模式，按下<code class="language-plaintext highlighter-rouge">ESC</code>键，切换到命令模式。放弃所有文件修改：在命令模式下，键入 <code class="language-plaintext highlighter-rouge">:q!</code> 回车后放弃修改并退出vi。</p>
 
 <p>初始化仓库后，目录下多了一个隐藏状态的.git文件夹。这个目录是Git用来跟踪和管理仓库的，不需要我们改动。</p>
 
@@ -283,7 +286,7 @@
 
 <h5 id="文件的操作">文件的操作</h5>
 
-<p>当在本地撰写代码的时候，我们是处于工作区（Workspace）。使用<code class="highlighter-rouge">add</code>命令将文件提交到暂存区（Index/Stage），然后使用<code class="highlighter-rouge">commit</code>命令将处于暂存区所有的文件提交到本地仓库（Repository）。</p>
+<p>当在本地撰写代码的时候，我们是处于工作区（Workspace）。使用<code class="language-plaintext highlighter-rouge">add</code>命令将文件提交到暂存区（Index/Stage），然后使用<code class="language-plaintext highlighter-rouge">commit</code>命令将处于暂存区所有的文件提交到本地仓库（Repository）。</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="c1"># 添加指定文件到暂存区</span>
@@ -339,7 +342,7 @@
 
 <h5 id="标签的操作">标签的操作</h5>
 
-<p>当提交<code class="highlighter-rouge">git commit -u "xxxxx"</code>时，编写的commit号往往不够生动形象，所以git引入了标签概念。发布一个版本时可以打上一个标签，将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。</p>
+<p>当提交<code class="language-plaintext highlighter-rouge">git commit -u "xxxxx"</code>时，编写的commit号往往不够生动形象，所以git引入了标签概念。发布一个版本时可以打上一个标签，将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="c1"># 列出所有本地标签</span>
@@ -403,25 +406,28 @@
 <p>日后慢慢学习，慢慢记录。</p>
 
 
-                <hr style="visibility: hidden;"> 
+                <hr style="visibility: hidden;">
 
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/07/21/hello-2017/" data-toggle="tooltip" data-placement="top" title="Welcome to AXiang Blog">&larr; Previous Post</a>
+                        <a href="/2017/07/22/hello-2017/"
+                            data-toggle="tooltip" data-placement="top" title="Welcome to AXiang Blog">&larr; Previous
+                            Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/08/01/favorite/" data-toggle="tooltip" data-placement="top" title="懒猿收藏夹">Next Post &rarr;</a>
+                        <a href="/2017/08/01/favorite/" data-toggle="tooltip"
+                            data-placement="top" title="懒猿收藏夹">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
 
 
             </div>
-    <!-- Side Catalog Container -->
-        
+            <!-- Side Catalog Container -->
+            
             <div class="
                 col-lg-2 col-lg-offset-0
                 visible-lg-block
@@ -435,112 +441,14 @@
                     <ul class="catalog-body"></ul>
                 </div>
             </div>
-        
-    <!-- Sidebar Container -->
+            
+            <!-- Sidebar Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
                 <!-- Featured Tags -->
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-        				
-                            
-                				<a href="/tags/#生活" title="生活" rel="1">
-                                    生活
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Git" title="Git" rel="1">
-                                    Git
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#笔记" title="笔记" rel="6">
-                                    笔记
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#前端" title="前端" rel="22">
-                                    前端
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#响应式设计" title="响应式设计" rel="2">
-                                    响应式设计
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Css" title="Css" rel="6">
-                                    Css
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Bootstrap" title="Bootstrap" rel="1">
-                                    Bootstrap
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Sass" title="Sass" rel="1">
-                                    Sass
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#JavaScript" title="JavaScript" rel="11">
-                                    JavaScript
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Vue.js" title="Vue.js" rel="1">
-                                    Vue.js
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#SEO" title="SEO" rel="1">
-                                    SEO
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#插件" title="插件" rel="1">
-                                    插件
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#ES6" title="ES6" rel="2">
-                                    ES6
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#小程序" title="小程序" rel="2">
-                                    小程序
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Html" title="Html" rel="1">
-                                    Html
-                                </a>
-                            
-        				
-        			</div>
-                </section>
                 
 
                 <!-- Friends Blog -->
@@ -549,11 +457,11 @@
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
-                        <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
+                    <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
                     
-                        <li><a href="http://ngabbs.com/">NGA</a></li>
+                    <li><a href="http://ngabbs.com/">NGA</a></li>
                     
-                        <li><a href="http://www.acfun.cn/">ACFUN</a></li>
+                    <li><a href="http://www.acfun.cn/">ACFUN</a></li>
                     
                 </ul>
                 
@@ -584,21 +492,21 @@
 <!-- async load function -->
 <script>
     function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function () {
         anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
+            visible: 'always',
+            placement: 'right',
+            icon: '#'
         };
         anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
     })
@@ -606,15 +514,14 @@
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {
-        .anchorjs-link{
+        .anchorjs-link {
             position: absolute;
             left: -0.75em;
             font-size: 1.1em;
-            margin-top : -0.1em;
+            margin-top: -0.1em;
         }
     }
 </style>
-
 
 
     <!-- Footer -->
@@ -678,7 +585,7 @@
                     </li>
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 空的伸手摘星 <!--2019-->2048
+                    Copyright &copy; 空的伸手摘星 <!--2020-->2048
                     <br>
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -796,7 +703,6 @@
                             = 'rotate(' + beta + 'deg)';
     }, false);
     } else {
-    document.querySelector('body').innerHTML = '浏览器不支持DeviceOrientationEvent';
     }
 </script>
 

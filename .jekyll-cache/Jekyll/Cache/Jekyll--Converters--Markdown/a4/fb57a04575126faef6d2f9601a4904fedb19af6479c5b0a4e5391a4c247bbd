@@ -1,0 +1,133 @@
+I"�F<h2 id="简介">简介</h2>
+<p>现在，所有主流浏览器都已经支持JS module（Chrome、Edge、Safari、Firefox）。modules，就是JS的模块，我的理解就是，当有大量同类型或者有关联的数据和函数，方法需要当作一个整体展示的时候，可以单独定义成一个module也就是模块。module意义就使得代码模块化，使你的代码分成一个个逻辑上独立的子集，每个子集处理特定的功能，然后被单独调用。。</p>
+
+<p><img src="/img/in-post/post-js/js_1902_3.png" alt="module兼容性" /></p>
+
+<p>截止2018.12.02关于js module在国内环境下的兼容性概况。</p>
+
+<h4 id="标准语法">标准语法</h4>
+<p>javascript现在已经为模块化制定了标准语法。有了JS module，你可以用export关键字去导出任何东西。你可以导出const、function，或者任何其他变量绑定或声明。你需要做的只是在变量声明前加个export或者用export去声明它。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// mod.mjs</span>
+    <span class="k">export</span> <span class="kd">const</span> <span class="nx">repeat</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s2">`</span><span class="p">${</span><span class="nx">string</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">string</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="k">export</span> <span class="kd">function</span> <span class="nx">shout</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="nx">string</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()}</span><span class="s2">!`</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>可以使用<strong>import</strong>从任何其他模块导入模块。这里，我们从<code class="language-plaintext highlighter-rouge">mod</code>模块中引入<code class="language-plaintext highlighter-rouge">repeat</code>和<code class="language-plaintext highlighter-rouge">shout</code>方法，并在main模块（当前模块）中使用它们。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//  main.mjs</span>
+    <span class="k">import</span> <span class="p">{</span><span class="nx">repeat</span><span class="p">,</span> <span class="nx">shout</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./mod.mjs</span><span class="dl">'</span><span class="p">;</span>
+    <span class="nx">repeat</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">);</span>
+    <span class="c1">// → 'hello hello'</span>
+    <span class="nx">shout</span><span class="p">(</span><span class="dl">'</span><span class="s1">Modules in action</span><span class="dl">'</span><span class="p">);</span>
+    <span class="c1">// → 'MODULES IN ACTION!'</span>
+</code></pre></div></div>
+<p>也可以使用<strong>export default</strong>从模块中导出一个默认值。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// mod.mjs</span>
+    <span class="k">export</span> <span class="k">default</span> <span class="kd">function</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="s2">`</span><span class="p">${</span><span class="nx">string</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()}</span><span class="s2">!`</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+<p>用<strong>export default</strong>导出的模块可以在其它模块中使用任意名称去import。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// main.mjs</span>
+       <span class="k">import</span> <span class="nx">repeat</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./mod.mjs</span><span class="dl">'</span><span class="p">;</span>
+       <span class="k">import</span> <span class="nx">shout</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./mod.mjs</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>JS module和普通的js脚本有些不同:</p>
+<ul>
+  <li>module默认使用的是严格模式（strick module）</li>
+  <li>不支持html风格的注释</li>
+  <li>模块具有自己的作用域。这意味着在模块中使用<strong>var foo = 42</strong>并不会创建一个全局变量<strong>foo</strong>，不能通过<strong>window.foo</strong>去访问。这点和<strong>普通的js脚本</strong>不同</li>
+  <li><strong>export</strong>和<strong>import</strong>关键字仅可在模块系统中使用—-所以不能在普通的js脚本中使用。</li>
+</ul>
+
+<p>由于有这些不同点，当相同的js脚本分别被当做JS module和普通js脚本执行时，可能有不同的行为表现。所以，javascript运行环境必须知道引入的脚本是不是一个JS module。</p>
+
+<h2 id="在浏览器中使用js-modules">在浏览器中使用JS modules</h2>
+<p>在web应用中，你可以将<code class="language-plaintext highlighter-rouge">&lt;script&gt;</code>标签的type属性设置为module，这样浏览器就会把引入的脚本识别为JS module。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span> <span class="na">src=</span><span class="s">"main.mjs"</span><span class="nt">&gt;&lt;/script&gt;</span>   
+    <span class="nt">&lt;script </span><span class="na">nomodule</span> <span class="na">src=</span><span class="s">"fallback.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>浏览器会识别<strong>type=”module”</strong>属性，并忽略设置有<strong>nomodule</strong>属性的脚本。这意味着你可以向支持模块加载的浏览器提供基于<strong>JS module</strong>的代码，同时让不支持模块加载的浏览器回退到<strong>普通js脚本</strong>模式。如果在表现上，这种区分脚本的能力惊人的有用。想一想：只有现代浏览器支持modules，如果浏览器能够识别你的模块代码，那么它肯定也支持在模块化标准之前的新的js特性，比如：<strong>箭头函数</strong>，<strong>async-await</strong>。你不需要再去编译那些使用新特性写的代码！能为现代浏览器提供更小、很大程度上不需要再编译的代码。只有不支持模块加载的浏览器会请求设置<strong>nomodule</strong>的脚本。</p>
+
+<h4 id="特定于浏览器环境下-js-module和普通js脚本的区别">特定于浏览器环境下， JS module和普通js脚本的区别</h4>
+<p>前面已经说过，<strong>JS module</strong>和<strong>普通js</strong>加载是不同的。在上边我们列举了一些平台无关的差异，在浏览器环境中它们还有一些不同点。比如，<strong>JS module</strong>只会被浏览器解析并执行一次，<strong>普通js脚本</strong>每一次通过<code class="language-plaintext highlighter-rouge">&lt;script&gt;</code>引入，浏览器都会去解析和执行它。</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"classic.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"classic.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="c">&lt;!-- classic.js 会被多次解析 --&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span> <span class="na">src=</span><span class="s">"module.mjs"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span> <span class="na">src=</span><span class="s">"module.mjs"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span><span class="nt">&gt;</span><span class="k">import</span> <span class="dl">'</span><span class="s1">./module.mjs</span><span class="dl">'</span><span class="p">;</span><span class="nt">&lt;/script&gt;</span>
+    <span class="c">&lt;!-- module.mjs 只会被解析一次 --&gt;</span>
+</code></pre></div></div>
+<p>而且，<strong>JS module</strong>脚本和依赖有了跨域限制，这意味着任何跨域的JS module脚本都必须有正确的http头部信息。如：<code class="language-plaintext highlighter-rouge">Access-Control-Allow-Origin: *</code>。而<strong>普通的js脚本</strong>并没有这些限制。
+另一个不同与async属性有关，async属性可以使js脚本的下载不会阻塞HTML解析（就像defer），但同时async属性也会使得脚本在加载完成后立即执行（defer是等到html解析完成后执行），不能保证脚本的执行顺序，也不会等待html解析完成。
+async属性在内联<strong>普通js脚本</strong>不生效，不过在内联<strong>JS module</strong>模式下可以生效。</p>
+
+<h4 id="mjs文件扩展名">.mjs文件扩展名</h4>
+<p>我们在写模块代码时是用.mjs作为文件扩展名。在web中，只要http的响应头中提供了<code class="language-plaintext highlighter-rouge">JavaScript MIME typetext/javascript</code>字段，文件扩展名并不是特别重要。
+而且，浏览器通过<code class="language-plaintext highlighter-rouge">&lt;script&gt;</code>标签上的type属性就可以知道这是不是一个JS module模块。  <br />
+但是，仍然推荐使用.mjs作为文件扩展名，原因有以下两个方面：</p>
+
+<ul>
+  <li>在开发中，可以很容易的通过扩展名去辨识文件是一个模块而不是一个普通的脚本文件（仅仅靠查看代码去辨别不会总行得通）。正如前边提到的，浏览器对待模块代码和普通脚本文件是完全不同的。</li>
+  <li>符合node.js规范。nodeJs实验模块仅仅支持.mjs扩展名的文件。</li>
+</ul>
+
+<h4 id="引入规范">引入规范</h4>
+<p>当我们使用import时，在浏览器中，还有一些限制。浏览器是不支持下面这种引入方式的</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">import</span> <span class="p">{</span><span class="nx">shout</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">jquery</span><span class="dl">'</span><span class="p">;</span>
+    <span class="k">import</span> <span class="p">{</span><span class="nx">shout</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">lib.mjs</span><span class="dl">'</span><span class="p">;</span>
+    <span class="k">import</span> <span class="p">{</span><span class="nx">shout</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">modules/lib.mjs</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+<p>下面这些引用方式是合法的</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">import</span> <span class="p">{</span><span class="nx">shout</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./lib.mjs</span><span class="dl">'</span><span class="p">;</span>
+    <span class="k">import</span> <span class="p">{</span><span class="nx">shout</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../lib.mjs</span><span class="dl">'</span><span class="p">;</span>
+    <span class="k">import</span> <span class="p">{</span><span class="nx">shout</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">/modules/lib.mjs</span><span class="dl">'</span><span class="p">;</span>
+    <span class="k">import</span> <span class="p">{</span><span class="nx">shout</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">https://simple.example/modules/lib.mjs</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+<p>引入必须是完整的URL，或以/ ./ ../开头的相对URL。</p>
+
+<h4 id="模块默认是延迟执行的defer">模块默认是延迟执行的（defer）</h4>
+<p>普通js脚本默认会阻塞html解析。你可以加一个<strong>defer</strong>属性，让脚本的下载和html解析并发执行。</p>
+
+<p><img src="/img/in-post/post-js/js_1902_4.png" alt="defer and async" /><br />
+<strong>JS module脚本</strong>默认就有<strong>defer</strong>属性，所以，没有必要再加一个<strong>defer</strong>属性到<code class="language-plaintext highlighter-rouge">&lt;script type="module"&gt;</code>标签上.
+不仅仅是主模块，所有模块的加载都和html解析是并行的。</p>
+
+<h4 id="使用更细粒度的模块">使用更细粒度的模块</h4>
+<p>养成写更小、细粒度模块代码的习惯。在开发中，<strong>每个（文件）模块只含有少数几个导出</strong> 要比 <strong>将多个导出写到一个文件</strong> 好的多。
+考虑这样一种情况，<strong>util.mjs</strong>文件导出三个方法分别是：<code class="language-plaintext highlighter-rouge">drop</code>，<code class="language-plaintext highlighter-rouge">pluck</code>和<code class="language-plaintext highlighter-rouge">zip</code>：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">export</span> <span class="kd">function</span> <span class="nx">drop</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* … */</span> <span class="p">}</span>
+    <span class="k">export</span> <span class="kd">function</span> <span class="nx">pluck</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* … */</span> <span class="p">}</span>
+    <span class="k">export</span> <span class="kd">function</span> <span class="nx">zip</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* … */</span> <span class="p">}</span>
+</code></pre></div></div>
+<p>如果你的代码只需要<code class="language-plaintext highlighter-rouge">pluck</code>方法，你可能要这样写：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">import</span> <span class="p">{</span> <span class="nx">pluck</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./util.mjs</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+<p>在这种情况下（没有进行构建时打包），即使你只需要<code class="language-plaintext highlighter-rouge">pluck</code>一个导出，浏览器仍然需要去下载、解析和编译整个utils.mjs文件。真是糟糕呢~
+如果<code class="language-plaintext highlighter-rouge">pluck</code>没有和<code class="language-plaintext highlighter-rouge">drop、zip</code>有任何共享模块的话，最好的做法是将它拆分为更细粒度的模块文件./pluck.mjs。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">export</span> <span class="kd">function</span> <span class="nx">pluck</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* … */</span> <span class="p">}</span>
+</code></pre></div></div>
+<p>这样，我们可以只导入<code class="language-plaintext highlighter-rouge">pluck</code>，而不用浏览器去处理<code class="language-plaintext highlighter-rouge">drop</code>和<code class="language-plaintext highlighter-rouge">zip</code>模块：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">import</span> <span class="p">{</span> <span class="nx">pluck</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./pluck.mjs</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+<blockquote>
+  <p>提示：您可以在此处使用命名导出export default</p>
+</blockquote>
+
+<p>这样不仅能使你的代码保持良好和简单，还能减少打包工具处理无用代码的时间。如果其中一个模块没有被使用，那它永远不会被import，所以浏览器永远不会使用它。而那些被使用的模块会被浏览器每个单独缓存下来。</p>
+
+<h4 id="参考文献">参考文献</h4>
+<ul>
+  <li><a href="https://wolfx.cn/ecmascript-modules-in-browsers/">在浏览器中使用 JavaScript module</a></li>
+  <li><a href="https://jakearchibald.com/2017/es-modules-in-browsers/">ECMAScript modules in browsers</a></li>
+  <li><a href="https://codepen.io/samthor/pen/MmvdOM">模块化标准之前的新的js特性</a></li>
+  <li><a href="https://html.spec.whatwg.org/multipage/scripting.html#scriptingLanguages:javascript-mime-type">JavaScript MIME相关</a></li>
+  <li><a href="https://nodejs.org/api/esm.html">node.js规范相关</a></li>
+  <li><a href="https://www.cnblogs.com/tanhehe/p/4236021.html">defer和async相关</a></li>
+</ul>
+
+:ET

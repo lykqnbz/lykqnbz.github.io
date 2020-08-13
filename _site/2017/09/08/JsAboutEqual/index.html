@@ -109,31 +109,30 @@
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
+    var $body = document.body;
     var $toggle = document.querySelector('.navbar-toggle');
     var $navbar = document.querySelector('#huxblog_navbar');
     var $collapse = document.querySelector('.navbar-collapse');
 
     $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
+    function handleMagic(e) {
         if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
+            // CLOSE
             $navbar.className = " ";
             // wait until animation end.
-            setTimeout(function(){
+            setTimeout(function () {
                 // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
+                if ($navbar.className.indexOf('in') < 0) {
                     $collapse.style.height = "0px"
                 }
-            },400)
-        }else{
-        // OPEN
+            }, 400)
+        } else {
+            // OPEN
             $collapse.style.height = "auto"
             $navbar.className += " in";
         }
     }
 </script>
-
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
@@ -141,11 +140,11 @@
 
 <!-- Post Header -->
 <style type="text/css">
-    header.intro-header{
+    header.intro-header {
         background-image: url('/img/post-bg-note.jpg')
     }
 </style>
-<header class="intro-header" >
+<header class="intro-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -162,7 +161,9 @@
                     
                     <h2 class="subheading">　</h2>
                     
-                    <span class="meta">Posted by AXiang on September 8, 2017</span>
+                    <span class="meta">Posted by
+                        AXiang on
+                        September 8, 2017</span>
                 </div>
             </div>
         </div>
@@ -170,27 +171,29 @@
 </header>
 
 <!-- Post Content -->
+
+
 <article>
     <div class="container">
         <div class="row">
 
-    <!-- Post Container -->
+            <!-- Post Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<blockquote>
+                <blockquote>
   <p>“如何判断两个对象相等”</p>
 </blockquote>
 
-<p>在<code class="highlighter-rouge">JavaScript</code>中，等于操作符由两个等于号组成<strong>==</strong>，等于操作符会为了两个数的比较而对其进行强制类型转换。</p>
+<p>在<code class="language-plaintext highlighter-rouge">JavaScript</code>中，等于操作符由两个等于号组成<strong>==</strong>，等于操作符会为了两个数的比较而对其进行强制类型转换。</p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-    <span class="s2">""</span>           <span class="o">==</span>   <span class="s2">"0"</span>           <span class="c1">// false  </span>
-    <span class="mi">0</span>            <span class="o">==</span>   <span class="s2">""</span>            <span class="c1">// true  </span>
-    <span class="mi">0</span>            <span class="o">==</span>   <span class="s2">"0"</span>           <span class="c1">// true  </span>
-    <span class="kc">false</span>        <span class="o">==</span>   <span class="s2">"false"</span>       <span class="c1">// false  </span>
-    <span class="kc">false</span>        <span class="o">==</span>   <span class="s2">"0"</span>           <span class="c1">// true  </span>
+    <span class="dl">""</span>           <span class="o">==</span>   <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span>           <span class="c1">// false  </span>
+    <span class="mi">0</span>            <span class="o">==</span>   <span class="dl">""</span>            <span class="c1">// true  </span>
+    <span class="mi">0</span>            <span class="o">==</span>   <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span>           <span class="c1">// true  </span>
+    <span class="kc">false</span>        <span class="o">==</span>   <span class="dl">"</span><span class="s2">false</span><span class="dl">"</span>       <span class="c1">// false  </span>
+    <span class="kc">false</span>        <span class="o">==</span>   <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span>           <span class="c1">// true  </span>
     <span class="kc">false</span>        <span class="o">==</span>   <span class="kc">undefined</span>     <span class="c1">// false  </span>
     <span class="kc">false</span>        <span class="o">==</span>   <span class="kc">null</span>          <span class="c1">// false  </span>
     <span class="kc">null</span>         <span class="o">==</span>   <span class="kc">undefined</span>     <span class="c1">// true  </span>
@@ -198,11 +201,11 @@
 </code></pre></div></div>
 <p>等于操作符会为了比较而自行将操作数进行转换，这往往不是我们想要的结果，所以在日常中，一般推荐使用恒等于操作符，恒等于操作符由三个等于号组成<strong>===</strong>。它不像普通的等于操作符，不会进行强制类型转换，只有两边绝对的相同才会认定等式成立。这样的话上述的结果就不太相同了：</p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-    <span class="s2">""</span>           <span class="o">===</span>   <span class="s2">"0"</span>           <span class="c1">// false</span>
-    <span class="mi">0</span>            <span class="o">===</span>   <span class="s2">""</span>            <span class="c1">// false</span>
-    <span class="mi">0</span>            <span class="o">===</span>   <span class="s2">"0"</span>           <span class="c1">// false</span>
-    <span class="kc">false</span>        <span class="o">===</span>   <span class="s2">"false"</span>       <span class="c1">// false</span>
-    <span class="kc">false</span>        <span class="o">===</span>   <span class="s2">"0"</span>           <span class="c1">// false</span>
+    <span class="dl">""</span>           <span class="o">===</span>   <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span>           <span class="c1">// false</span>
+    <span class="mi">0</span>            <span class="o">===</span>   <span class="dl">""</span>            <span class="c1">// false</span>
+    <span class="mi">0</span>            <span class="o">===</span>   <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span>           <span class="c1">// false</span>
+    <span class="kc">false</span>        <span class="o">===</span>   <span class="dl">"</span><span class="s2">false</span><span class="dl">"</span>       <span class="c1">// false</span>
+    <span class="kc">false</span>        <span class="o">===</span>   <span class="dl">"</span><span class="s2">0</span><span class="dl">"</span>           <span class="c1">// false</span>
     <span class="kc">false</span>        <span class="o">===</span>   <span class="kc">undefined</span>     <span class="c1">// false</span>
     <span class="kc">false</span>        <span class="o">===</span>   <span class="kc">null</span>          <span class="c1">// false</span>
     <span class="kc">null</span>         <span class="o">===</span>   <span class="kc">undefined</span>     <span class="c1">// false</span>
@@ -210,13 +213,13 @@
 </code></pre></div></div>
 <hr />
 
-<p>这里对<strong>null</strong>与<strong>undefined</strong>再做分析，这两种类型都是<code class="highlighter-rouge">JavaScript</code>中存在的原始类型。这常常会使我们产生疑问，在什么时候为null，什么时候为undefined。      <br />
+<p>这里对<strong>null</strong>与<strong>undefined</strong>再做分析，这两种类型都是<code class="language-plaintext highlighter-rouge">JavaScript</code>中存在的原始类型。这常常会使我们产生疑问，在什么时候为null，什么时候为undefined。      <br />
 <strong>Undefined类型</strong>只有一个值，即<strong>undefined</strong>。当声明的变量还未被初始化时，变量的默认值为undefined。      <br />
 <strong>Null类型</strong>也只有一个值，即<strong>null</strong>。null用来表示尚未存在的对象，常用来表示函数企图返回一个不存在的对象。</p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>   
     <span class="nx">alert</span><span class="p">(</span><span class="nx">a</span><span class="o">==</span><span class="kc">undefined</span><span class="p">);</span>                                <span class="c1">// true</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="kc">null</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'abc'</span><span class="p">));</span>      <span class="c1">// true</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="kc">null</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">abc</span><span class="dl">'</span><span class="p">));</span>      <span class="c1">// true</span>
 
 </code></pre></div></div>
 <p>代码上部分显示为true,代表a的值即为undefined，因为我们没有初始化它。当页面上不存在id为abc的DOM节点时，下部分代码显示也为true，因为我们尝试获取一个不存在的对象。</p>
@@ -225,7 +228,7 @@
     <span class="nx">alert</span><span class="p">(</span><span class="k">typeof</span> <span class="kc">null</span><span class="p">);</span>         <span class="c1">// object</span>
 
 </code></pre></div></div>
-<p>第一行代码很容易理解，undefined的类型为Undefined；第二行代码就不那么明白了，为什么null的类型又是Object了，网上提供的资料显示这是<code class="highlighter-rouge">JavaScript</code>最初实现的一个错误，后来被ECMAScript沿用下来。在今天我们可以解释为，null即是一个不存在的对象的占位符，但是在实际编码时还是要注意这一特性。</p>
+<p>第一行代码很容易理解，undefined的类型为Undefined；第二行代码就不那么明白了，为什么null的类型又是Object了，网上提供的资料显示这是<code class="language-plaintext highlighter-rouge">JavaScript</code>最初实现的一个错误，后来被ECMAScript沿用下来。在今天我们可以解释为，null即是一个不存在的对象的占位符，但是在实际编码时还是要注意这一特性。</p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="nx">alert</span><span class="p">(</span><span class="kc">null</span> <span class="o">==</span> <span class="kc">undefined</span><span class="p">);</span>                <span class="c1">// true </span>
     <span class="nx">alert</span><span class="p">(</span><span class="kc">null</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">);</span>               <span class="c1">// false </span>
@@ -233,10 +236,10 @@
 
     <span class="o">--------------------------------------------------------------------</span>
     
-    <span class="nx">alert</span><span class="p">(</span><span class="kc">null</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'abc'</span><span class="p">));</span>        <span class="c1">// true</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="kc">null</span> <span class="o">===</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'abc'</span><span class="p">));</span>       <span class="c1">// true</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="kc">undefined</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'abc'</span><span class="p">));</span>   <span class="c1">// true</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="kc">undefined</span> <span class="o">===</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'abc'</span><span class="p">));</span>  <span class="c1">// false</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="kc">null</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">abc</span><span class="dl">'</span><span class="p">));</span>        <span class="c1">// true</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="kc">null</span> <span class="o">===</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">abc</span><span class="dl">'</span><span class="p">));</span>       <span class="c1">// true</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="kc">undefined</span> <span class="o">==</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">abc</span><span class="dl">'</span><span class="p">));</span>   <span class="c1">// true</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="kc">undefined</span> <span class="o">===</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">abc</span><span class="dl">'</span><span class="p">));</span>  <span class="c1">// false</span>
 
 </code></pre></div></div>
 <p>ECMAScript认为undefined是从null派生出来的，所以把它们通过转换后定义为相等。日常我们需要区分的时候，可以在恒等于符号情况下进行区别，null与undefined的类型是不一样的，所以输出false。  <br />
@@ -266,7 +269,7 @@
     <span class="nx">alert</span><span class="p">(</span><span class="mi">1</span><span class="o">/+</span><span class="mi">0</span> <span class="o">===</span> <span class="mi">1</span><span class="o">/-</span><span class="mi">0</span><span class="p">);</span>       <span class="c1">// false</span>
 
 </code></pre></div></div>
-<p>那么为什么会有这样麻烦的特例呢，因为<code class="highlighter-rouge">JavaScript</code>采用了<strong>IEEE_754 浮点数表示法</strong>(几乎所有现代编程语言所采用)，这是一种二进制表示法，按照这个标准，最高位是符号位(0代表正，1代表负)，剩下的用于表示大小。而对于零这个边界值1000(-0)和 0000(0)都是表示0，这才有了正负零的区别。 <br />
+<p>那么为什么会有这样麻烦的特例呢，因为<code class="language-plaintext highlighter-rouge">JavaScript</code>采用了<strong>IEEE_754 浮点数表示法</strong>(几乎所有现代编程语言所采用)，这是一种二进制表示法，按照这个标准，最高位是符号位(0代表正，1代表负)，剩下的用于表示大小。而对于零这个边界值1000(-0)和 0000(0)都是表示0，这才有了正负零的区别。 <br />
 那么我们又该如何在 === 结果为 true 的时候，区别0和-0得出正确的结果呢？我们可以这样写个比较函数：</p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="kd">function</span> <span class="nx">comPare</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">){</span>
@@ -284,7 +287,7 @@
 <p>虽然<strong>==</strong>和<strong>===</strong>操作符都是等于操作符，但是当其中有一个操作数为对象时，结果就不同了。</p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
     <span class="nx">alert</span><span class="p">(</span><span class="k">new</span> <span class="nb">Number</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="mi">1</span><span class="p">);</span>          <span class="c1">// false</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span> <span class="o">===</span> <span class="s1">'a'</span><span class="p">);</span>      <span class="c1">// false</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">new</span> <span class="nb">String</span><span class="p">(</span><span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">)</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">);</span>      <span class="c1">// false</span>
     <span class="nx">alert</span><span class="p">(</span><span class="kc">true</span> <span class="o">===</span> <span class="k">new</span> <span class="nb">Boolean</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>   <span class="c1">// false</span>
 
 </code></pre></div></div>
@@ -294,130 +297,35 @@
 <p>总结：<strong>==</strong>先转换类型再进行比较，而<strong>===</strong>则先判断类型，如果不是同一类型直接为false，否则再比较的两边数值要绝对的相同才会判定为相等。前提都为比较操作数不是对象和正负零的情况下 :D。</p>
 
 
-                <hr style="visibility: hidden;"> 
+                <hr style="visibility: hidden;">
 
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/08/30/Sass-Frist/" data-toggle="tooltip" data-placement="top" title="Sass初体验">&larr; Previous Post</a>
+                        <a href="/2017/08/30/Sass-Frist/"
+                            data-toggle="tooltip" data-placement="top" title="Sass初体验">&larr; Previous
+                            Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/09/12/Vue.js-Frist/" data-toggle="tooltip" data-placement="top" title="Vue.js-2.0使用体验">Next Post &rarr;</a>
+                        <a href="/2017/09/13/Vue.js-Frist/" data-toggle="tooltip"
+                            data-placement="top" title="Vue.js-2.0使用体验">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
 
 
             </div>
-    <!-- Side Catalog Container -->
-        
-    <!-- Sidebar Container -->
+            <!-- Side Catalog Container -->
+            
+            <!-- Sidebar Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
                 <!-- Featured Tags -->
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-        				
-                            
-                				<a href="/tags/#生活" title="生活" rel="1">
-                                    生活
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Git" title="Git" rel="1">
-                                    Git
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#笔记" title="笔记" rel="6">
-                                    笔记
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#前端" title="前端" rel="22">
-                                    前端
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#响应式设计" title="响应式设计" rel="2">
-                                    响应式设计
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Css" title="Css" rel="6">
-                                    Css
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Bootstrap" title="Bootstrap" rel="1">
-                                    Bootstrap
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Sass" title="Sass" rel="1">
-                                    Sass
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#JavaScript" title="JavaScript" rel="11">
-                                    JavaScript
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Vue.js" title="Vue.js" rel="1">
-                                    Vue.js
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#SEO" title="SEO" rel="1">
-                                    SEO
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#插件" title="插件" rel="1">
-                                    插件
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#ES6" title="ES6" rel="2">
-                                    ES6
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#小程序" title="小程序" rel="2">
-                                    小程序
-                                </a>
-                            
-        				
-                            
-                				<a href="/tags/#Html" title="Html" rel="1">
-                                    Html
-                                </a>
-                            
-        				
-        			</div>
-                </section>
                 
 
                 <!-- Friends Blog -->
@@ -426,11 +334,11 @@
                 <h5>FRIENDS</h5>
                 <ul class="list-inline">
                     
-                        <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
+                    <li><a href="http://wangxiang.vip">AXiang Blog</a></li>
                     
-                        <li><a href="http://ngabbs.com/">NGA</a></li>
+                    <li><a href="http://ngabbs.com/">NGA</a></li>
                     
-                        <li><a href="http://www.acfun.cn/">ACFUN</a></li>
+                    <li><a href="http://www.acfun.cn/">ACFUN</a></li>
                     
                 </ul>
                 
@@ -461,21 +369,21 @@
 <!-- async load function -->
 <script>
     function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
 </script>
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
-    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+    async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function () {
         anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
+            visible: 'always',
+            placement: 'right',
+            icon: '#'
         };
         anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
     })
@@ -483,15 +391,14 @@
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {
-        .anchorjs-link{
+        .anchorjs-link {
             position: absolute;
             left: -0.75em;
             font-size: 1.1em;
-            margin-top : -0.1em;
+            margin-top: -0.1em;
         }
     }
 </style>
-
 
 
     <!-- Footer -->
@@ -555,7 +462,7 @@
                     </li>
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 空的伸手摘星 <!--2019-->2048
+                    Copyright &copy; 空的伸手摘星 <!--2020-->2048
                     <br>
                     <!-- <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
@@ -673,7 +580,6 @@
                             = 'rotate(' + beta + 'deg)';
     }, false);
     } else {
-    document.querySelector('body').innerHTML = '浏览器不支持DeviceOrientationEvent';
     }
 </script>
 
