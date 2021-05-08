@@ -19,7 +19,7 @@
     "chalk": "^3.0.0",
     "del": "^5.1.0",
     "gulp-less": "^4.0.1",
-    "handlebars": "^4.7.3",
+    "handlebars": "^4.7.7",
     "supervisor": "^0.12.0",
     "yargs": "^15.3.0",
     "zlib": "^1.0.5"
